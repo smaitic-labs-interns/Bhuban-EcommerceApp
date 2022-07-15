@@ -1,7 +1,10 @@
+const db = require('../database/db.js');
+const validate_data = require('../models/dataValidator');
+
 // Creating User
-const create_user = (user_data, fileName) =>{
-    const val_res = validate_data(user_data , data_validation);
-    const users_details = read_data(fileName);
+const create_user = (user_data) =>{
+    const val_res = validate_data(user_data);
+    const users_details = db.user.read_all_user();
 
     if(val_res == true){
         for (let key in users_details){
@@ -12,8 +15,8 @@ const create_user = (user_data, fileName) =>{
         }
 
         users_details[user_data['email']] = user_data;
-        const write_res = write_data(fileName, users_details);
-
+        // const write_res = write_data(fileName, users_details);
+        const write_res = db.user.add_user(users_details);
         if(write_res === true){
             console.log("User Registerd Sucessfully");
         }else{
@@ -23,13 +26,13 @@ const create_user = (user_data, fileName) =>{
     }else{
         console.log(val_res);
     }
-
+ 
 };
 
 
 // User SignIn
 const user_signin = (sign_in_details) => {
-    const user_datas = read_data(fileName);
+    const user_datas = db.user.read_all_user();
     
     for (key in user_datas){
         if(sign_in_details['email'] === key && sign_in_details['password'] === user_datas[key]['password']){
@@ -41,6 +44,7 @@ const user_signin = (sign_in_details) => {
         }
     }
 }
+
 
 exports.user_signin = user_signin;
 exports.create_user = create_user;

@@ -1,5 +1,5 @@
 // validation rules
-const data_validation = {
+const validation_rule = {
     firstName : {
         type: 'string',
         minLength: 5,
@@ -35,3 +35,5 @@ const data_validation = {
         required: true
     }
 }
+
+module.exports = validation_rule;

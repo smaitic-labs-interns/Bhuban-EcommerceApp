@@ -1,88 +1,67 @@
-// const validate_data = require('./models/dataValidator');
-const read_data = require('./database/readData');
-// const write_data = require('./database/writeData');
-// const create_user = require('./services/registerUser');
-// const get_user_input = require('./utils/takingInput');
-// const user_signin = require('./services/signIn');
-const data_validation = require('./models/validationRule');
-const {add_product_to_cart, search_product, update_quantity} = require('./services/product');
-const update_address = require('./services/updateAddress');
-// User Input
+const product = require('./services/product');
+const user = require('./services/users');
+
+//1.signUp
 const data_to_read = ['firstName', 'middleName', 'lastName', 'address', 'email', 'password'];
-
-
-const fileName = "user_data.json";
 // const user_data = get_user_input(data_to_read) // take input through command line
-const user_data = {
-    "firstName": "Bhuban",
-    "middleName": "Prasad",
-    "lastName": "Yadav",
-    "address": "Dhapakhel-23",
-    "email": "yadav.bhuban.by@gmail.com",
-    "password": "bhubany"
-  }
-// create_user(user_data, fileName); // Creating User
+const user_data = {"firstName": "Bhuban", "middleName": "Prasad", "lastName": "Yadav", "address": "Dhapakhel-23", "email": "yadav.bhuban.by@gmail.com", "password": "bhubany"};
+// user.create_user(user_data);
 
 
-//**************FOR SIGN IN ******************/
-const sign_in_details = {
-    'email': "yadav.bhuban.by@gmail.com",
-    'password': "bhubany"
-}
-let is_user_signin =false;
-// user_signin(sign_in_details);
+//2.Sign in
+const sign_in_details = {'email': "yadav.bhuban.by@gmail.com",'password': "bhubany"};
+// user.user_signin(sign_in_details);
 
 
 
-// ********************* Search Product ************
-const products = read_data("./files/products.json");
+//3. Search Product
+let searck_keyword = "Ipad";
+// const res = product.search_product(searck_keyword);
+// console.log( res ? res : `No result found for : ${searck_keyword}`);
 
-// let searck_keyword = "Ipad";
-// const res = search_product(searck_keyword, products);
-// if(res){
-//     console.log(res);
-// }else{
-//     console.log("Not Found");
-// }
 
-// ******************ADD PRODUCT TO CART ***************
+//4. Add to cart
 
-const cart = {};
-const total_bill = 0;
+const cart = {"cart_id": 1, "products":[] , "total_bill":0};
 var item = {"item": "Ipad", "quty": 5};
 var item1 = {"item": "Radio", "quty": 5};
+// product.add_product_to_cart(item, cart);
+// product.add_product_to_cart(item1, cart);
+// console.log(cart);
 
 
 
-add_product_to_cart(item, cart, products);
-add_product_to_cart(item1, cart, products);
+// 5. modify quantity
+var item3 = {"item": "Ipad", "quty": 5, "action": "add"};
+// product.update_quantity_in_cart(cart, item3);
+// console.log(cart);
 
-console.log(cart);
-console.log(total_bill);
 
-/*********************UPDATE quantity to order*********** */
-var item = {"item": "Ipad", "quty": 5, "action": "add"};
-update_quantity(cart, item)
-console.log(cart);
+// 6. place order
 
-//******************** ADD / UPdate Address*****************/
-const shipping_addresss = {
-    "country": "Nepal",
-    "Province": 3,
-    "City"    : "abc",
-    "Ward"    : 23,
-    "Tole"     : "xyz",
-    "house_no"  : 12
+const shipping_addresss = {"country": "Nepal","Province": 3,"City": "abc","Ward": 23, "Tole": "xyz","house_no"  : 12, "to": "CustomerName"};
+const payment ={"type": "cash", "status": "on delivery"};
+// console.log(product.place_order(cart, shipping_addresss, payment));
 
-}
-modify_address = {
-    "house_no" :38
-}
-update_address(modify_address, shipping_addresss);
-console.log(shipping_addresss);
-/*********************ADD/Update Payment Method ************/
-/*********************Place Order ***********************/
-/********************* Track order **********************/
-/**********************Cancel ORDER *********************/
-/**********************Return or replace order *********************/
+//7. add/update address
+
+const modify_address = {"house_no" :18, "City": "Dhapakhel"};
+// product.update_address("CustomerName", modify_address);
+
+
+//8. add/update payment
+const modify_payment = {"type": "Online - Esewa", "status": "Payment Done"};
+// product.update_payment("CustomerName", modify_payment);
+
+
+//9. track order
+// const order_details = product.track_order("CustomerName");
+// console.log( order_details ? order_details : `No result found for : ${`CustomerName`}`);
+
+//10. Cancel Order
+const order_status = product.cancel_order("CustomerName");
+console.log( order_status ? order_status : `No result found for : ${`CustomerName`}`);
+
+//11. Return or replace order
+
 /**********************Track refund Updates *********************/

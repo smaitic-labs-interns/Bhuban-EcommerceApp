@@ -1,0 +1,62 @@
+{
+  "CustomerName": {
+    "cart_id": 1,
+    "products": [
+      {
+        "item": "Ipad",
+        "quty": 10,
+        "price": 50000
+      },
+      {
+        "item": "Radio",
+        "quty": 5,
+        "price": 5000
+      }
+    ],
+    "total_bill": 525000,
+    "shipping": {
+      "country": "Nepal",
+      "Province": 3,
+      "City": "Dhapakhel",
+      "Ward": 23,
+      "Tole": "xyz",
+      "house_no": 18,
+      "to": "CustomerName"
+    },
+    "payment": {
+      "type": "Online - Esewa",
+      "status": "Payment Done"
+    },
+    "status": "On the Way"
+  },
+  "CustomerName2": {
+    "cart_id": 1,
+    "products": [
+      {
+        "item": "Ipad",
+        "quty": 10,
+        "price": 50000
+      },
+      {
+        "item": "Radio",
+        "quty": 5,
+        "price": 5000
+      }
+    ],
+    "total_bill": 525000,
+    "shipping": {
+      "country": "Nepal",
+      "Province": 3,
+      "City": "abc",
+      "Ward": 23,
+      "Tole": "xyz",
+      "house_no": 12,
+      "to": "CustomerName"
+    },
+    "payment": {
+      "type": "cash",
+      "status": "on delivery"
+    },
+    "status": "On the Way"
+  }
+}
