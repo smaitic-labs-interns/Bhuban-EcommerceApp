@@ -24,10 +24,10 @@
       "to": "CustomerName"
     },
     "payment": {
-      "type": "Online - Esewa",
+      "type": "Online",
       "status": "Payment Done"
     },
-    "status": "On the Way"
+    "status": "Replace"
   },
   "CustomerName2": {
     "cart_id": 1,
