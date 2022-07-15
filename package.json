@@ -1,0 +1,25 @@
+{
+  "name": "tasks",
+  "version": "1.0.0",
+  "description": "First ecommerce App",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/smaitic-labs-interns/eCommerceApp.git"
+  },
+  "author": "Bhuban",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/smaitic-labs-interns/eCommerceApp/issues"
+  },
+  "homepage": "https://github.com/smaitic-labs-interns/eCommerceApp#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}

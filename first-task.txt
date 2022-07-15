@@ -1,0 +1,32 @@
+Ecom Portal
+
+Features:
+	Management:
+	Add product
+	Remove Product
+	Update product
+	Send shipment updates
+	Send return updates
+	Send payment updates
+	Prepare revenue report
+	Prepare AR Aging report
+
+Customer:
+	Sign Up
+	Sign in
+	Search products
+	Add product to cart
+	Update quantity to order
+	Add/update address
+	Add/update payment method
+	Place order
+	Track order
+	Cancel order
+	Return or replace order
+	Track refund updates
+
+Phase 1:
+	Project structure
+	Layered Architecture
+	Command line interface
+	File system as the database

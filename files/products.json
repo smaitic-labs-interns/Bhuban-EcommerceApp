@@ -1,0 +1,26 @@
+{
+    "Bluetooth earpods": {
+        "model": "Bluetooth earpods 234j",
+        "brand": "Apple",
+        "description" : "Apple earpods for android device only",
+        "price" : 500,
+        "quantity" : 30000,
+        "rating": 3.4
+    },
+    "Radio": {
+        "model": "Radio fm 32x4s",
+        "brand": "sony",
+        "description" : "sony radio for music including recording features",
+        "price" : 5000,
+        "quantity" : 300,
+        "rating": 4
+    },
+    "Ipad": {
+        "model": "Samsung ipad - sm432",
+        "brand": "samsung",
+        "description" : "ASamsung Ipad with cast and usb connection features",
+        "price" : 50000,
+        "quantity" : 30000,
+        "rating": 4.5
+    }
+}
