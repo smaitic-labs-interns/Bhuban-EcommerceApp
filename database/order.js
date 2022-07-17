@@ -1,9 +1,10 @@
 const utils = require("../utils/fileUtils.js");
 const fileName = './files/orders.json';
+const uniqueId = require('../utils/uuidGenerator');
 
-const place_order = (customer, order) => {
+const place_order = (order) => {
     const order_details = read_all_orders();
-    order_details[customer] = order;
+    order_details[uniqueId.generate()] = order;
     utils.write_data(fileName, order_details);
 }
 

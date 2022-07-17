@@ -1,49 +1,65 @@
 {
-  "CustomerName": {
+  "90ece9ea-409b-4344-9203-635c3908497e": {
     "cart_id": 1,
-    "products": [
-      {
-        "item": "Ipad",
-        "quty": 10,
-        "price": 50000
-      },
-      {
-        "item": "Radio",
-        "quty": 5,
-        "price": 5000
-      }
-    ],
-    "total_bill": 525000,
+    "products": [],
+    "total_bill": 0,
     "shipping": {
       "country": "Nepal",
       "Province": 3,
-      "City": "Dhapakhel",
+      "City": "abc",
       "Ward": 23,
       "Tole": "xyz",
-      "house_no": 18,
+      "house_no": 12,
       "to": "CustomerName"
     },
     "payment": {
-      "type": "Online",
-      "status": "Payment Done"
+      "type": "cash",
+      "status": "on delivery"
     },
-    "status": "Replace"
+    "status": "On the Way"
   },
-  "CustomerName2": {
+  "f4c431ee-f184-4c50-8ed8-572aee648201": {
     "cart_id": 1,
-    "products": [
-      {
-        "item": "Ipad",
-        "quty": 10,
-        "price": 50000
-      },
-      {
-        "item": "Radio",
-        "quty": 5,
-        "price": 5000
-      }
-    ],
-    "total_bill": 525000,
+    "products": [],
+    "total_bill": 0,
+    "shipping": {
+      "country": "Nepal",
+      "Province": 3,
+      "City": "abc",
+      "Ward": 23,
+      "Tole": "xyz",
+      "house_no": 12,
+      "to": "CustomerName"
+    },
+    "payment": {
+      "type": "cash",
+      "status": "on delivery"
+    },
+    "status": "On the Way"
+  },
+  "b8cb0892-46ec-4224-8f12-b33e359ac608": {
+    "cart_id": 1,
+    "products": [],
+    "total_bill": 0,
+    "shipping": {
+      "country": "Nepal",
+      "Province": 3,
+      "City": "abc",
+      "Ward": 23,
+      "Tole": "xyz",
+      "house_no": 12,
+      "to": "CustomerName"
+    },
+    "payment": {
+      "type": "cash",
+      "status": "on delivery"
+    },
+    "status": "On the Way"
+  },
+  "60e2ee98-9876-4b03-987c-af1647887e70": {
+    "cart_id": 1,
+    "products": [],
+    "total_bill": 0,
     "shipping": {
       "country": "Nepal",
       "Province": 3,

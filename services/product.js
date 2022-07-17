@@ -65,17 +65,17 @@ const place_order = (cart, shipping_address, payments) =>{
     order["shipping"] = shipping_address;
     order["payment"] = payments;
     order["status"] ="On the Way";
-    store.order.place_order("CustomerName2",order);
-    return {"CustomerName2":order};
+    store.order.place_order(order);
+    return order;
 
 
 }
 
 // Update Address => arguments(Customer name : Unique String, new_address: object containing new address) returns => if(sucessfully update){returns updated address} else{show error}
-const update_address = (customerName ,new_address) => {
+const update_address = (orderID ,new_address) => {
     try{  
         for (key in allOrders){
-            if(key == customerName){
+            if(key == orderID){
                 for(subKey in new_address){
                     if(new_address[subKey].length != 0){
                         allOrders[key]["shipping"][subKey] = new_address[subKey];
@@ -85,7 +85,7 @@ const update_address = (customerName ,new_address) => {
                 console.log("Address Updated Sucessfully");
                 return allOrders[key]["shipping"];
             }else{
-                throw new Error(`Could not found any order on customer: ${customerName}`);
+                throw new Error(`Could not found any order on customer: ${orderID}`);
             }
         }
     
@@ -94,11 +94,11 @@ const update_address = (customerName ,new_address) => {
     }
 }
 
-// Update Payment {Arguments => (customerName: Unique String, new_payment: Object containing payment details), returns => Sucessful message on updation}
-const update_payment = (customerName, new_payment) => {
+// Update Payment {Arguments => (orderID: Unique String, new_payment: Object containing payment details), returns => Sucessful message on updation}
+const update_payment = (orderID, new_payment) => {
     try{
         for (key in allOrders){
-            if(key === customerName){
+            if(key === orderID){
                 for(subKey in new_payment){
                     if(new_payment[subKey].length != 0){
                         allOrders[key]["payment"][subKey] = new_payment[subKey];
@@ -108,7 +108,7 @@ const update_payment = (customerName, new_payment) => {
                 console.log("Payment Updated Successfully!");
                 break;
             }else{
-                throw new Error(`Could not found any order on customer "${customerName}"`);
+                throw new Error(`Could not found any order on customer "${orderID}"`);
             }
         }
     }catch(err) {
@@ -117,15 +117,15 @@ const update_payment = (customerName, new_payment) => {
 }
 
 
-// track Order {Argument => (Customername: "Unique String"), returns => if(order found){its status }else{error message}}
-const track_order = (customerName) => {
+// track Order {Argument => (orderID: "Unique Id"), returns => if(order found){its status }else{error message}}
+const track_order = (orderID) => {
     try{
         for (key in allOrders){
-            if(key == customerName){
+            if(key == orderID){
                 console.log(`Current status of your order: ${allOrders[key]["status"]}`);
                 return allOrders[key]["status"];
             }else{
-                throw new Error(`Could not found any order for "${customerName}"`);
+                throw new Error(`Could not found any order for "${orderID}"`);
             }
         }
     }catch(err){
@@ -133,17 +133,17 @@ const track_order = (customerName) => {
     }
 }
 
-// Cancel Order  {Argument => (Customername: "Unique String"), returns => if(order cancelled sucessfully){order status }else{error message}}
-const cancel_order = (customerName) => {
+// Cancel Order  {Argument => (orderID: "Unique String"), returns => if(order cancelled sucessfully){order status }else{error message}}
+const cancel_order = (orderID) => {
     try{
         for (key in allOrders){
-            if(key == customerName){
+            if(key == orderID){
                 allOrders[key]["status"] = "cancelled";
                 store.order.place_order(key,allOrders[key]);
                 console.log("Your order has been cancelled Sucessfully");
                 return allOrders[key]["status"];
             }else{
-                throw new Error(`Could not found any order on customer "${customerName}"`);
+                throw new Error(`Could not found any order on customer "${orderID}"`);
             }
         }
     }catch(err){
@@ -151,16 +151,16 @@ const cancel_order = (customerName) => {
     }
 }
 
-const return_replace_order = (customerName, action) =>{
+const return_replace_order = (orderID, action) =>{
     try{
         for (key in allOrders){
-            if(key == customerName){
+            if(key == orderID){
                 allOrders[key]["status"] = action;
                 store.order.place_order(key,allOrders[key]);
                 console.log(`Your order has been processed for ${action} Sucessfully`);
                 return allOrders[key]["status"];
             }else{
-                throw new Error(`Could not found any order on customer "${customerName}"`);
+                throw new Error(`Could not found any order on customer "${orderID}"`);
             }
         }
     }catch(err){
@@ -168,15 +168,15 @@ const return_replace_order = (customerName, action) =>{
     }
 }
 
-// Track refund updates {arguments => (customername: "Unique String"), returns => if(order found){refund status} else{error message}}
-const refund_updates = (customerName) =>{
+// Track refund updates {arguments => (orderID: "Unique ID"), returns => if(order found){refund status} else{error message}}
+const refund_updates = (orderID) =>{
     try{
         for (key in allOrders){
-            if(key == customerName){
+            if(key == orderID){
                 console.log(`Payment type : ${allOrders[key]["payment"]["type"]}, and payment status => ${allOrders[key]["payment"]["status"]}`);
                 return allOrders[key]["payment"];
             }else{
-                throw new Error(`Could not found any order on customer "${customerName}"`);
+                throw new Error(`Could not found any order on customer "${orderID}"`);
             }         
         }
     }catch(err){
