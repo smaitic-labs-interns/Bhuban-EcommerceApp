@@ -1,4 +1,6 @@
 const store = require('../database/db.js');
+const uniqueId = require('../utils/uuidGenerator');
+
 
 // Read all Products
 const products = store.product.read_all_products();
@@ -12,6 +14,64 @@ const search_product = (searck_keyword) => {
         }
     }
 }
+
+// Management: Add Product to file{arguments => (productWithDetails: "Object with full details") returns => if(added sucessfully){show success message}else{Show Error message}}
+const add_product = (productDetails) => {
+    try{
+        products[uniqueId.generate()] = productDetails;
+        const res = store.product.add_product(products);
+        if(res){
+            console.log("Product added to Database sucessfully");
+        }else{
+            throw new Error('Error occurs while saving file to database');
+        }
+    }catch(err){
+        console.log(`${err.name} => ${err.message}`);
+    }
+}
+
+//Management:  Remove Product from file{arguments => (productName: "Name of product to remove") returns => if(removed sucessfully){show success message}else{Show Error message}}
+const remove_product = (productName) => {
+    try{
+        for(id in products){
+            if(productName === products[id]['name']){
+                if(delete products[id]){
+                    if(store.product.add_product(products)){
+                        console.log("Product removed sucessfully");
+                    }else{
+                        console.log("Error occurs while removing product");
+                    }
+                 }else{
+                    console.log('Error occurs while deleting');
+                 }
+             }
+        }
+    }catch(err){
+        console.log(`${err.name} => ${err.message}`);
+    }
+}
+
+//Management:  Update Product from file{arguments => (productWithDetails: "Object with full details") returns => if(Updated sucessfully){show success message}else{Show Error message}}
+const update_product = (productDetails) => {
+    try{
+        for(id in products){
+            if(productDetails['name'] === products[id]['name']){
+                for (key in productDetails){
+                    products[id][key] = productDetails[key];
+                }
+                if(store.product.add_product(products)){
+                    console.log("Product Updated sucessfully");
+                }else{
+                    throw new Error("Error occurs while updating product");
+                }
+            }
+        }
+    }catch(err){
+        console.log(`${err.name} => ${err.message}`);
+    }
+}
+
+// Management: Send shipment updates
 
 // Add product to cart {arguments => (cart: "Object empty at begining/containing product details", item: "Product with details"), returns => if(addedsucessfully){returns cart} else{Show Error message}}
 const add_product_to_cart = (cart, item) => {
@@ -184,4 +244,4 @@ const refund_updates = (orderID) =>{
     }
 }
 
-module.exports={add_product_to_cart, search_product, update_quantity_in_cart, place_order, update_address, update_payment, track_order, cancel_order, return_replace_order, refund_updates};
+module.exports={add_product, remove_product, update_product, add_product_to_cart, search_product, update_quantity_in_cart, place_order, update_address, update_payment, track_order, cancel_order, return_replace_order, refund_updates};

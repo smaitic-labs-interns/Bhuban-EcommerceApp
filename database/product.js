@@ -1,8 +1,15 @@
 const utils = require("../utils/fileUtils.js");
 const fileName = './files/products.json';
+const uniqueId = require('../utils/uuidGenerator');
+
 
 const add_product = (product) => {
-    utils.write_data(fileName, product);
+    try{
+        utils.write_data(fileName, product);
+        return true;
+    }catch(err){
+        return err;
+    }
 }
 
 const read_all_products = () =>{
