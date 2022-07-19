@@ -6,5 +6,37 @@
     "address": "Dhapakhel-23",
     "email": "yadav.bhuban.by@gmail.com",
     "password": "bhubany"
+  },
+  "bhuban@smaitic.com": {
+    "firstName": "Bhuban Yadav",
+    "middleName": "Prasad",
+    "lastName": "Yadav",
+    "email": "bhuban@smaitic.com",
+    "password": "bhubany",
+    "address": "Dhapakhel-23"
+  },
+  "bhuban.yadav@smaitic.com": {
+    "firstName": "Bhuban Yadav",
+    "middleName": "Prasad",
+    "lastName": "Yadav",
+    "email": "bhuban.yadav@smaitic.com",
+    "password": "bhubany",
+    "address": "Dhapakhel-23"
+  },
+  "bhubaan.yadav@smaitic.com": {
+    "firstName": "Bhuban Yadav",
+    "middleName": "Prasad",
+    "lastName": "Yadav",
+    "email": "bhubaan.yadav@smaitic.com",
+    "password": "bhubany",
+    "address": "Dhapakhel-23"
+  },
+  "bhubaan.yadavmaitic.com": {
+    "firstName": "Bhuban Yadav",
+    "middleName": "Prasad",
+    "lastName": "Yadav",
+    "email": "bhubaan.yadavmaitic.com",
+    "password": "bhubany",
+    "address": "Dhapakhel-23"
   }
 }

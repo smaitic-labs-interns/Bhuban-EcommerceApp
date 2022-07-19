@@ -1,5 +1,5 @@
 const store = require('../database/db.js');
-const uniqueId = require('../utils/uuidGenerator');
+const { v4: uuidv4 } = require('uuid');
 
 
 // Read all Products
@@ -7,18 +7,22 @@ const products = store.product.read_all_products();
 const allOrders = store.order.read_all_orders();
 
 // Search Product
-const search_product = (searck_keyword) => {
-    for (itemName in products){
-        if(searck_keyword == itemName){
-            return products[itemName];
-        }
-    }
+exports.search_product = (searck_keyword) => {
+    return (Object.keys(products).filter((item) => item == searck_keyword).map((item) => products[item]));
 }
 
-// Management: Add Product to file{arguments => (productWithDetails: "Object with full details") returns => if(added sucessfully){show success message}else{Show Error message}}
-const add_product = (productDetails) => {
+/* Management: Add Product to file
+@params
+    1) productDetails: "Products with full details", productObject
+@returns
+    @if(added sucessfully)
+        return success message
+    @else
+        return Error
+*/
+exports.add_product = (productDetails) => {
     try{
-        products[uniqueId.generate()] = productDetails;
+        products[uuidv4()] = productDetails;
         const res = store.product.add_product(products);
         if(res){
             console.log("Product added to Database sucessfully");
@@ -30,8 +34,16 @@ const add_product = (productDetails) => {
     }
 }
 
-//Management:  Remove Product from file{arguments => (productName: "Name of product to remove") returns => if(removed sucessfully){show success message}else{Show Error message}}
-const remove_product = (productName) => {
+/*Management:  Remove Product from file
+@params 
+    1)productName: "Name of product"
+@returns
+    @if(removed sucessfully)
+        return success message
+    @else
+        return Error
+*/
+exports.remove_product = (productName) => {
     try{
         for(id in products){
             if(productName === products[id]['name']){
@@ -51,8 +63,16 @@ const remove_product = (productName) => {
     }
 }
 
-//Management:  Update Product from file{arguments => (productWithDetails: "Object with full details") returns => if(Updated sucessfully){show success message}else{Show Error message}}
-const update_product = (productDetails) => {
+/*Management:  Update Product from file
+@params
+    1) productDetails: "Product with full details", productObject
+@returns
+    @if(Updated sucessfully)
+        return success message
+    @else
+        return Error
+*/
+exports.update_product = (productDetails) => {
     try{
         for(id in products){
             if(productDetails['name'] === products[id]['name']){
@@ -71,10 +91,105 @@ const update_product = (productDetails) => {
     }
 }
 
-// Management: Send shipment updates
+/* Management: Send shipment updates
+@params
+    1) orderId: "Unique order Id"
+@returns
+    @if(order found)
+        return order status 
+    @else
+        return error
+*/
+exports.send_shipment_updates = (orderId) => {
+    try{
+        for (key in allOrders){
+            if(orderId === key){
+                // console.log(allOrders[key]["status"]);
+                return allOrders[key]["status"];
+            }
+        }
+    }catch(err){
+        console.log(`${err.naem} => ${err.message}`);
+    }
+}
 
-// Add product to cart {arguments => (cart: "Object empty at begining/containing product details", item: "Product with details"), returns => if(addedsucessfully){returns cart} else{Show Error message}}
-const add_product_to_cart = (cart, item) => {
+/* Management: Send return updates
+@params
+    1) orderId: "Unique order id"
+@returns
+    @if(order found)
+        return order status
+    @else
+        return Error
+*/
+exports.send_return_updates = (orderId) => {
+    try{
+        for (key in allOrders){
+            if(orderId === key){
+                // console.log(allOrders[key]["status"]);
+                return allOrders[key]["status"];
+            }
+        }
+    }catch(err){
+        console.log(`${err.naem} => ${err.message}`);
+    }
+}
+
+/* Management: Send Payment updates
+@params
+    1) orderId: "Unique order Id"
+@returns
+    @if(order found)
+        return payment status
+    @else
+        return Error
+    */
+exports.send_payment_updates = (orderId) => {
+    try{
+        for (key in allOrders){
+            if(orderId === key){
+                // console.log(`${allOrders[key]["payment"]["type"]} => ${allOrders[key]["payment"]["status"]}`);
+                return (`${allOrders[key]["payment"]["type"]} => ${allOrders[key]["payment"]["status"]}`);
+            }
+        }
+    }catch(err){
+        console.log(`${err.naem} => ${err.message}`);
+    }
+}
+
+/* Management: Prepare revenue report
+@params 
+    
+*/
+exports.prepare_revenue_report = () => {
+    try{
+    }catch(err){
+        console.log(`${err.naem} => ${err.message}`);
+    }
+}
+
+// Management: Prepare AR Aging report
+exports.prepare_ar_aging_report = () => {
+    try{
+    }catch(err){
+        console.log(`${err.naem} => ${err.message}`);
+    }
+}
+
+/************* CUSTOMER FEATURES*****************/
+
+/* Add product to cart
+@params
+    1.cart: "Object empty at begining/containing product details", cartObject
+    2.item: "Product with details", productObject
+@returns
+    @if(added sucessfully)
+        return cart
+    @else
+        return error
+*/
+
+exports.add_product_to_cart = (cart, item) => {
     try{
         let search_res = search_product(item["item"], products);
         if(search_res){
@@ -91,8 +206,17 @@ const add_product_to_cart = (cart, item) => {
     }
 }
 
-// Update quantity in cart {arguments => (cart: "Object containing product details", item: "Product with details"), returns => if(updated sucessfully){returns cart} else{show error message}}
-const update_quantity_in_cart = (cart, item) => {
+/* Update quantity in cart
+@params
+    1.cart: "Object containing product details", cartObject
+    2.item: "Product with details", productObject
+@returns
+    @if(updated sucessfully)
+        return cart
+    @else
+        return error
+*/
+exports.update_quantity_in_cart = (cart, item) => {
     try{
         let search_res = search_product(item["item"], products);
         for (let i=0; i< cart["products"].length; i++){
@@ -119,20 +243,43 @@ const update_quantity_in_cart = (cart, item) => {
 
 }
 
-// Place order
-const place_order = (cart, shipping_address, payments) =>{
-    const order = cart;
-    order["shipping"] = shipping_address;
-    order["payment"] = payments;
-    order["status"] ="On the Way";
-    store.order.place_order(order);
-    return order;
+/* Place order
+@params
+    1) cart: "Object with products", cartObject
+    2) Shipping_address: "Address of customer", addressObject
+    3) payments: "Payments Details", paymentObject
+@returns
+    @if(placed order sucessfully)
+        return order_details
+    @else
+        return error
+*/
+exports.place_order = (cart, shipping_address, payments) =>{
+    try{
+        const order = cart;
+        order["shipping"] = shipping_address;
+        order["payment"] = payments;
+        order["status"] ="On the Way";
+        store.order.place_order(order);
+        return order;
+    }catch (err){
+        return (`${err.name} => ${err.message}`)
+    }
 
 
 }
 
-// Update Address => arguments(Customer name : Unique String, new_address: object containing new address) returns => if(sucessfully update){returns updated address} else{show error}
-const update_address = (orderID ,new_address) => {
+/* Update Address
+@params
+    1) orderId : Unique Id of order,
+    2) new_address: object containing new address, addressObject
+@returns
+    @if(sucessfully update)
+        returns updated address
+    @else
+        return error
+*/
+exports.update_address = (orderID ,new_address) => {
     try{  
         for (key in allOrders){
             if(key == orderID){
@@ -154,8 +301,17 @@ const update_address = (orderID ,new_address) => {
     }
 }
 
-// Update Payment {Arguments => (orderID: Unique String, new_payment: Object containing payment details), returns => Sucessful message on updation}
-const update_payment = (orderID, new_payment) => {
+/* Update Payment 
+@params
+    1) orderID: Unique Id,
+    2) new_payment: Object containing payment details, paymentObject
+@returns
+    @if(Sucessful updated)
+        return sucess_message
+    @else
+        return error
+*/
+exports.update_payment = (orderID, new_payment) => {
     try{
         for (key in allOrders){
             if(key === orderID){
@@ -177,8 +333,16 @@ const update_payment = (orderID, new_payment) => {
 }
 
 
-// track Order {Argument => (orderID: "Unique Id"), returns => if(order found){its status }else{error message}}
-const track_order = (orderID) => {
+/* track Order 
+@params
+    1) orderID: "Unique Id"
+@returns
+    @if(order found)
+        return status
+    @else
+        return error
+*/
+exports.track_order = (orderID) => {
     try{
         for (key in allOrders){
             if(key == orderID){
@@ -193,8 +357,16 @@ const track_order = (orderID) => {
     }
 }
 
-// Cancel Order  {Argument => (orderID: "Unique String"), returns => if(order cancelled sucessfully){order status }else{error message}}
-const cancel_order = (orderID) => {
+/* Cancel Order  
+@param
+    1) orderID: "Unique ID"
+@returns
+    @if(order cancelled sucessfully)
+        return status
+    @else
+        return error
+*/
+exports.cancel_order = (orderID) => {
     try{
         for (key in allOrders){
             if(key == orderID){
@@ -211,7 +383,17 @@ const cancel_order = (orderID) => {
     }
 }
 
-const return_replace_order = (orderID, action) =>{
+/* return replace Order  
+@param
+    1) orderID : "Unique ID"
+    2) action  : either replace or return
+@returns
+    @if(order replace/return sucessfully)
+        return status
+    @else
+        return error
+*/
+exports.return_replace_order = (orderID, action) =>{
     try{
         for (key in allOrders){
             if(key == orderID){
@@ -228,8 +410,16 @@ const return_replace_order = (orderID, action) =>{
     }
 }
 
-// Track refund updates {arguments => (orderID: "Unique ID"), returns => if(order found){refund status} else{error message}}
-const refund_updates = (orderID) =>{
+/* Track refund updates 
+@params
+    1) orderID: "Unique ID"
+@returns
+    @if(order found)
+        return refund status
+    @else
+        return error
+*/
+exports.refund_updates = (orderID) =>{
     try{
         for (key in allOrders){
             if(key == orderID){
@@ -243,5 +433,3 @@ const refund_updates = (orderID) =>{
         console.log(`${err.name} => ${err.message}`);
     }
 }
-
-module.exports={add_product, remove_product, update_product, add_product_to_cart, search_product, update_quantity_in_cart, place_order, update_address, update_payment, track_order, cancel_order, return_replace_order, refund_updates};

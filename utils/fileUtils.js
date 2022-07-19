@@ -1,6 +1,8 @@
 const fs = require('fs');
+const prompt = require('prompt-sync')();
+
 // Reading file
-const read_data = (fileName) =>{
+exports.read_data = (fileName) =>{
     try{
         return (JSON.parse(fs.readFileSync(fileName)));
     }
@@ -11,7 +13,7 @@ const read_data = (fileName) =>{
 
 
 // Writing to file
-const write_data = (fileName, data) =>{
+exports.write_data = (fileName, data) =>{
     try{
         fs.writeFileSync(fileName, JSON.stringify(data,null ,2));
         return true;
@@ -21,5 +23,16 @@ const write_data = (fileName, data) =>{
     }
 };
 
-module.exports = {read_data, write_data};
- 
+// For taking User Input through command line
+exports.get_user_input = (data_to_read) => {
+    const user_data ={};
+    for (let i =0; i< data_to_read.length; i++){
+        const value = prompt(`Enter ${data_to_read[i]} : `);
+        user_data[data_to_read[i]] = value;
+    }
+    if(Object.keys(user_data) !== 0){
+        return user_data;
+    }else{
+        console.log("Error occurs taking input");
+    }
+}

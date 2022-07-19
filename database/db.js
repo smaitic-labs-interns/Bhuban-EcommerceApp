@@ -3,6 +3,4 @@ const order = require('./order');
 const product = require('./product');
 
 
-exports.user = user;
-exports.product = product;
-exports.order = order;
+module.exports = {user, product, order};
