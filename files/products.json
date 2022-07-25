@@ -1,5 +1,5 @@
 {
-  "Bluetooth earpods": {
+  "ed874b27-3c54-4e12-b139-8f6d5006ed67": {
     "name": "earpods",
     "model": "Bluetooth earpods 234j",
     "brand": "Apple",
@@ -8,16 +8,16 @@
     "quantity": 30000,
     "rating": 3.4
   },
-  "Radio": {
+  "5c467e29-84ac-4a56-befc-de6020ce2ed1": {
     "name": "Radio",
     "model": "Radio fm 32x4s",
-    "brand": "sony",
+    "brand": "Samsung",
     "description": "sony radio for music including recording features",
     "price": 5000,
     "quantity": 300,
     "rating": 4
   },
-  "Ipad": {
+  "84401b07-7089-41cc-9abb-431792a388db": {
     "name": "ipad",
     "model": "Samsung ipad - sm432",
     "brand": "samsung",
@@ -26,13 +26,31 @@
     "quantity": 30000,
     "rating": 4.5
   },
-  "telephone": {
-    "name": "telephone",
-    "model": "Samsung ipad - sm432",
-    "brand": "samsung",
-    "description": "ASamsung Ipad with cast and usb connection features",
-    "price": 80000000,
-    "quantity": 30000,
+  "fd7c146c-debc-4a8e-801d-f9db8aa3b699": {
+    "name": "Laptop",
+    "model": "Dell inspirion -5567",
+    "brand": "dell",
+    "description": "dell laptop with cast and usb connection features",
+    "price": 80000,
+    "quantity": 300,
+    "rating": 4.5
+  },
+  "e5f4de9a-adbc-4c95-a9cc-6cda78088e7b": {
+    "name": "Laptop",
+    "model": "macbook",
+    "brand": "apple",
+    "description": "dell laptop with cast and usb connection features",
+    "price": 80000,
+    "quantity": 275,
+    "rating": 4.5
+  },
+  "79b26e64-6b2a-47d1-bed9-fb3284fb06f6": {
+    "name": "Laptop",
+    "model": "Hp xy32",
+    "brand": "Hp",
+    "description": "HP laptop with cast and usb connection features",
+    "price": 56000,
+    "quantity": 300,
     "rating": 4.5
   }
 }

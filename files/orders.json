@@ -1,27 +1,59 @@
 {
-  "90ece9ea-409b-4344-9203-635c3908497e": {
+  "1b7d2299-8a5f-4700-b45f-8865003df463": {
     "cart_id": 1,
-    "products": [],
-    "total_bill": 0,
+    "products": {
+      "84401b07-7089-41cc-9abb-431792a388db": {
+        "name": "ipad",
+        "price": 50000,
+        "quty": 5
+      },
+      "5c467e29-84ac-4a56-befc-de6020ce2ed1": {
+        "name": "Radio",
+        "price": 5000,
+        "quty": 5
+      },
+      "fd7c146c-debc-4a8e-801d-f9db8aa3b699": {
+        "name": "Laptop",
+        "price": 80000,
+        "quty": 5
+      }
+    },
+    "total_bill": 675000,
     "shipping": {
       "country": "Nepal",
-      "Province": 3,
-      "City": "abc",
+      "Province": 2,
+      "City": "Sukhipur",
       "Ward": 23,
-      "Tole": "xyz",
-      "house_no": 12,
-      "to": "CustomerName"
+      "Tole": "kadharwa",
+      "house_no": 42,
+      "to": "Bhuban"
     },
     "payment": {
-      "type": "cash",
-      "status": "on delivery"
+      "type": "refund cash",
+      "status": "Placed for refund"
     },
-    "status": "On the Way"
+    "status": "cancelled"
   },
-  "f4c431ee-f184-4c50-8ed8-572aee648201": {
+  "59383f12-4173-45d4-93dd-78a9c623ec12": {
     "cart_id": 1,
-    "products": [],
-    "total_bill": 0,
+    "products": {
+      "84401b07-7089-41cc-9abb-431792a388db": {
+        "name": "ipad",
+        "price": 50000,
+        "quty": 5
+      },
+      "5c467e29-84ac-4a56-befc-de6020ce2ed1": {
+        "name": "Radio",
+        "price": 5000,
+        "quty": 5
+      },
+      "fd7c146c-debc-4a8e-801d-f9db8aa3b699": {
+        "name": "Laptop",
+        "price": 80000,
+        "quty": 5
+      }
+    },
+    "total_bill": 675000,
     "shipping": {
       "country": "Nepal",
       "Province": 3,
@@ -32,15 +64,35 @@
       "to": "CustomerName"
     },
     "payment": {
-      "type": "cash",
-      "status": "on delivery"
+      "type": "refund",
+      "status": "Placed for refund"
     },
-    "status": "On the Way"
+    "shipment": {
+      "type": "return",
+      "status": "working on return policy"
+    },
+    "status": "replace"
   },
-  "b8cb0892-46ec-4224-8f12-b33e359ac608": {
+  "f6a92d21-1bf9-4061-bc61-3b897dd1607f": {
     "cart_id": 1,
-    "products": [],
-    "total_bill": 0,
+    "products": {
+      "84401b07-7089-41cc-9abb-431792a388db": {
+        "name": "ipad",
+        "price": 50000,
+        "quty": 5
+      },
+      "5c467e29-84ac-4a56-befc-de6020ce2ed1": {
+        "name": "Radio",
+        "price": 5000,
+        "quty": 5
+      },
+      "fd7c146c-debc-4a8e-801d-f9db8aa3b699": {
+        "name": "Laptop",
+        "price": 80000,
+        "quty": 5
+      }
+    },
+    "total_bill": 675000,
     "shipping": {
       "country": "Nepal",
       "Province": 3,
@@ -54,13 +106,21 @@
       "type": "cash",
       "status": "on delivery"
     },
-    "status": "On the Way"
+    "shipment": {
+      "type": "orderd",
+      "status": "Order Placed for checking"
+    }
   },
-  "60e2ee98-9876-4b03-987c-af1647887e70": {
-    "cart_id": 1,
-    "products": [],
-    "total_bill": 0,
-    "shipping": {
+  "b2714217-e845-40f2-985b-27fb1a28efa5": {
+    "products": {
+      "e5f4de9a-adbc-4c95-a9cc-6cda78088e7b": {
+        "name": "Laptop",
+        "price": 80000,
+        "quty": 10
+      }
+    },
+    "total_bill": 800000,
+    "address": {
       "country": "Nepal",
       "Province": 3,
       "City": "abc",
@@ -73,6 +133,36 @@
       "type": "cash",
       "status": "on delivery"
     },
-    "status": "On the Way"
+    "shipment": {
+      "type": "orderd",
+      "status": "Order Placed for validation"
+    }
+  },
+  "07e12e89-453a-477c-8e68-235adea2ff3c": {
+    "products": {
+      "e5f4de9a-adbc-4c95-a9cc-6cda78088e7b": {
+        "name": "Laptop",
+        "price": 80000,
+        "quty": 5
+      }
+    },
+    "total_bill": 400000,
+    "customer": "60eeaa21-39d9-4025-80ed-5da261dc0576",
+    "address": {
+      "country": "Nepal",
+      "Province": 2,
+      "City": "Sukhipur",
+      "Ward": 23,
+      "Tole": "kadharwa",
+      "house_no": 42
+    },
+    "payment": {
+      "type": "refund",
+      "status": "Placed for refund"
+    },
+    "shipment": {
+      "type": "replace",
+      "status": "placed for replace"
+    }
   }
 }

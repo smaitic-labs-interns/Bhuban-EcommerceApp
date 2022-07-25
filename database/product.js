@@ -1,20 +1,30 @@
 const utils = require("../utils/fileUtils.js");
 const fileName = './files/products.json';
+const { v4: uuidv4 } = require('uuid');
 
 
-exports.add_product = (product) => {
+
+
+const read_all_products = () =>{
+    return utils.read_data(fileName);
+}
+
+// const products = read_all_products();
+
+const save_product = (product) => {
     try{
         utils.write_data(fileName, product);
         return true;
     }catch(err){
-        return err;
+        console.log(`${err.name} => ${err.message}`);
+        return false;
     }
 }
 
-exports.read_all_products = () =>{
-    return utils.read_data(fileName);
-}
 
-exports.read_user_order = (user) =>{
-    return utils.read_data(fileName, user);
-}
+
+// const read_user_order = (user) =>{
+//     return utils.read_data(fileName, user);
+// }
+
+module.exports = {save_product, read_all_products}

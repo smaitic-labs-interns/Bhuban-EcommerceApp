@@ -1,13 +1,13 @@
 {
-  "yadav.bhuban.by@gmail.com": {
-    "firstName": "Bhuban",
+  "173a3e4d-f81e-4254-974a-2e59bd32b218": {
+    "firstName": "Bhuban Yadav",
     "middleName": "Prasad",
     "lastName": "Yadav",
-    "address": "Dhapakhel-23",
-    "email": "yadav.bhuban.by@gmail.com",
-    "password": "bhubany"
+    "email": "yadav.bhuban@smaitic.com",
+    "password": "bhubany",
+    "address": "Dhapakhel-23"
   },
-  "bhuban@smaitic.com": {
+  "c6adb976-3ac2-42a2-9cdf-0bcba15180eb": {
     "firstName": "Bhuban Yadav",
     "middleName": "Prasad",
     "lastName": "Yadav",
@@ -15,27 +15,11 @@
     "password": "bhubany",
     "address": "Dhapakhel-23"
   },
-  "bhuban.yadav@smaitic.com": {
+  "60eeaa21-39d9-4025-80ed-5da261dc0576": {
     "firstName": "Bhuban Yadav",
     "middleName": "Prasad",
     "lastName": "Yadav",
-    "email": "bhuban.yadav@smaitic.com",
-    "password": "bhubany",
-    "address": "Dhapakhel-23"
-  },
-  "bhubaan.yadav@smaitic.com": {
-    "firstName": "Bhuban Yadav",
-    "middleName": "Prasad",
-    "lastName": "Yadav",
-    "email": "bhubaan.yadav@smaitic.com",
-    "password": "bhubany",
-    "address": "Dhapakhel-23"
-  },
-  "bhubaan.yadavmaitic.com": {
-    "firstName": "Bhuban Yadav",
-    "middleName": "Prasad",
-    "lastName": "Yadav",
-    "email": "bhubaan.yadavmaitic.com",
+    "email": "bhubansmaitic.com",
     "password": "bhubany",
     "address": "Dhapakhel-23"
   }
