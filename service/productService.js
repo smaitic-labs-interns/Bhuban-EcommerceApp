@@ -5,12 +5,6 @@ const { v4: uuidv4 } = require('uuid');
 const allProducts = store.product.read_all_products(); // Read all Products
 const allOrders = store.order.read_all_orders();    // Read all orders
 
-// Check if Product available
-const check_product = (productId) => {
-    return (Object.keys(allProducts).filter((id) => id == productId).map((item) => allProducts[item]));
-}
-
-
 /* Management: Add Product to file
 @params
     1) productDetails: "Products with full details", productObject
@@ -33,7 +27,6 @@ const add_product = (product) => {
     }
 }
 
-
 /*Management:  Remove Product from file
 @params 
     1) productId: "Unique Id of that particular Project", uuid
@@ -45,19 +38,15 @@ const add_product = (product) => {
 */
 const remove_product = (productId) => {
     try{
-        let productNotFound = true;
         if((productId in allProducts) && delete allProducts[productId] && store.product.save_product(allProducts)){
-            productNotFound = false;
             console.log("Product removed sucessfully");
-        }
-        if(productNotFound){
+        }else{
             throw new Error(`No Product found for ID: ${productId}`);
         }
     }catch(err){
         console.log(`${err.name} => ${err.message}`);
     }
 }
-
 
 /*Management:  Update Product from file
 @params
@@ -71,7 +60,6 @@ const remove_product = (productId) => {
 */
 const update_product = (productID, productDetails) => {
     try{
-        var noProductFound = true;
         if(productID in allProducts){
             for (key in productDetails){
                 allProducts[productID][key] = productDetails[key];
@@ -81,9 +69,7 @@ const update_product = (productID, productDetails) => {
             }else{
                 throw new Error("Error occurs while updating product");
             }
-            noProductFound = false;
-        }
-        if(noProductFound){
+        }else{
             throw new Error(`No product found for ID : ${productID}`);
         }
     }catch(err){
@@ -103,16 +89,14 @@ const update_product = (productID, productDetails) => {
 */
 const send_shipment_updates = (orderId) => {
     try{
-        var noOrderFound = true;
         if(orderId in allOrders){
-            noOrderFound = false
-            return allOrders[key]["shipment"];
-        }
-        if(noOrderFound){
+            console.log(allOrders[orderId]["shipment"]);
+            return allOrders[orderId]["shipment"];
+        }else{
            throw new Error(`No order found for ID: ${orderId}`);
         }
     }catch(err){
-        return (`${err.naem} => ${err.message}`);
+        return (`${err.name} => ${err.message}`);
     }
 }
 
@@ -128,16 +112,14 @@ const send_shipment_updates = (orderId) => {
 */
 const send_return_updates = (orderId) => {
     try{
-        var noOrderFound = true;
         if((orderId in allOrders) && (allOrders[orderId]["shipment"]["type"] === "return")){
-            noOrderFound = false
-            return allOrders[key]["shipment"];
-        }
-        if(noOrderFound){
+            console.log(allOrders[orderId]["shipment"]);
+            return allOrders[orderId]["shipment"];
+        }else{
             throw new Error(`No order found for return on ID: ${orderId}`);
         }
     }catch(err){
-        return(`${err.name} => ${err.message}`);
+        console.log(`${err.name} => ${err.message}`);
     }
 }
 
@@ -153,20 +135,16 @@ const send_return_updates = (orderId) => {
     */
 const send_payment_updates = (orderId) => {
     try{
-        var noOrderFound = true;
         if(orderId in allOrders){
-            console.log(`Payment type: ${allOrders[key]["payment"]["type"]} , Status:  ${allOrders[key]["payment"]["status"]}`);
-            noOrderFound = false;
-            return (`Payment type: ${allOrders[key]["payment"]["type"]} , status : ${allOrders[key]["payment"]["status"]}`);
-        }
-        if(noOrderFound){
+            console.log(`Payment type: ${allOrders[orderId]["payment"]["type"]} , Status:  ${allOrders[orderId]["payment"]["status"]}`);
+            return (`Payment type: ${allOrders[orderId]["payment"]["type"]} , status : ${allOrders[orderId]["payment"]["status"]}`);
+        }else{
             throw new Error(`No order found for ID: ${orderId}`);
         }
     }catch(err){
-        console.log(`${err.naem} => ${err.message}`);
+        console.log(`${err.name} => ${err.message}`);
     }
 }
-
 
 /* Management: Prepare revenue report
 @params 
@@ -175,7 +153,7 @@ const send_payment_updates = (orderId) => {
 const prepare_revenue_report = () => {
     try{
     }catch(err){
-        console.log(`${err.naem} => ${err.message}`);
+        console.log(`${err.name} => ${err.message}`);
     }
 }
 
@@ -183,7 +161,7 @@ const prepare_revenue_report = () => {
 const prepare_ar_aging_report = () => {
     try{
     }catch(err){
-        console.log(`${err.naem} => ${err.message}`);
+        console.log(`${err.name} => ${err.message}`);
     }
 }
 
@@ -203,9 +181,9 @@ const search_products = (product) => {
         var noProductFound = true;
         const foundProducts = [];
         for(key in allProducts){
-            if(allProducts[key]["name"] === product){
-                foundProducts.push(allProducts[key]);
+            if(allProducts[key]["category"].toLowerCase() === product.toLowerCase()){
                 noProductFound = false
+                foundProducts.push(allProducts[key]);
             }
         }
         if(noProductFound){
@@ -218,4 +196,4 @@ const search_products = (product) => {
     }
 }
 
-module.exports = {add_product,}
+module.exports = {add_product, remove_product, update_product, send_shipment_updates, send_return_updates, send_payment_updates, prepare_revenue_report, prepare_ar_aging_report, search_products}

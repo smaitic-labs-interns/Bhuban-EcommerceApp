@@ -16,5 +16,5 @@ exports.product_schema = Joi.object({
     description: Joi.string(),
     price: Joi.number().required(),
     quantity: Joi.number().required(),
-    rating: Joi.number.required()
+    rating: Joi.number().required()
 });

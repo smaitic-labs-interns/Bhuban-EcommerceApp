@@ -24,37 +24,27 @@ const check_product = (productId) => {
 const add_product_to_cart = (cartId, product) => {
     try{
         const cart ={products:{}, total_bill:0};
-        var noCartIdFound = true;
         let search_res = check_product(product["productId"]);
         if(search_res.length>0){
-            for(key in allCarts){
-                if(key === cartId){
-                    if(product["quty"] <= search_res[0]["quantity"] && (Object.keys(allCarts[key]["products"]).indexOf(product["productId"]) === -1)){
-                        allCarts[key]["products"][product["productId"]]=({name: search_res[0]["name"] , price:search_res[0]["price"], quty: product["quty"]});
-                        allCarts[key]["total_bill"] += product["quty"]*search_res[0]["price"];
-                        if(store.cart.add_product(allCarts)){
-                            console.log("Added to cart Sucessfully");
-                        }
-                    }else if(product["quty"] <= search_res[0]["quantity"] && (Object.keys(allCarts[key]["products"]).indexOf(product["productId"]) !== -1)){
-                        allCarts[key]["products"][product["productId"]]["quty"] += product["quty"];
-                        allCarts[key]["total_bill"] += product["quty"]*search_res[0]["price"];
-                        if(store.cart.add_product(allCarts)){
-                            console.log("Added to cart Sucessfully");
-                        }
-                    }else{
-                        throw new Error("Quantity exceeds than available");
-                    } 
-                    noCartIdFound = false;
-                    break;
+            if(cartId in allCarts){
+                if(product["quty"] <= search_res[0]["quantity"] && (Object.keys(allCarts[cartId]["products"]).indexOf(product["productId"]) === -1)){
+                    allCarts[cartId]["products"][product["productId"]]=({name: search_res[0]["name"] , price:search_res[0]["price"], quty: product["quty"]});
+                    allCarts[cartId]["total_bill"] += product["quty"]*search_res[0]["price"];
+                }else if(product["quty"] <= search_res[0]["quantity"] && (Object.keys(allCarts[cartId]["products"]).indexOf(product["productId"]) !== -1)){
+                    allCarts[cartId]["products"][product["productId"]]["quty"] += product["quty"];
+                    allCarts[cartId]["total_bill"] += product["quty"]*search_res[0]["price"];
+                }else{
+                    throw new Error("Quantity exceeds than available");
                 }
-            }
-            if(noCartIdFound){
+            }else{
                 cart["products"][product["productId"]]=({name: search_res[0]["name"] , price:search_res[0]["price"], quty: product["quty"]});
                 cart["total_bill"] += product["quty"]*search_res[0]["price"];
                 allCarts[cartId] = cart;
-                if(store.cart.add_product(allCarts)){
-                    console.log("Added to cart Sucessfully");
-                }
+            }
+            if(store.cart.add_product(allCarts)){
+                console.log("Added to cart Sucessfully");
+            }else{
+                throw new Error(`Error occurs while adding product to cart`);
             }
         }
     }catch(err){
@@ -74,36 +64,32 @@ const add_product_to_cart = (cartId, product) => {
 */
 const update_quantity_in_cart = (cartId, product, action) => {
     try{
-        var noCartIdFound = true;
         let search_res = check_product(product["productId"]);
         if(search_res.length>0){
-            for(key in allCarts){
-                if(key === cartId){
-                    if(product["quty"] <= search_res[0]["quantity"] && action === "add"){
-                        allCarts[key]["products"][product["productId"]]["quty"] += product["quty"];
-                        allCarts[key]["total_bill"] += product["quty"]*search_res[0]["price"];
-                        if(store.cart.add_product(allCarts)){
-                            console.log("Product added to cart Sucessfully");
-                        }
-                    }else if((product["quty"] <= allCarts[key]["products"][product["productId"]]["quty"]) && action === "remove"){
-                        allCarts[key]["products"][product["productId"]]["quty"] -= product["quty"];
-                        allCarts[key]["total_bill"] -= product["quty"]*search_res[0]["price"];
-                        if(store.cart.add_product(allCarts)){
-                            console.log("Removed from cart Sucessfully");
-                        }
-                    }else{
-                        throw new Error("Quantity exceeds/less than available/cart");
-                    } 
-                    noCartIdFound = false;
-                    break;
+            if(cartId in allCarts){
+                if(product["quty"] <= search_res[0]["quantity"] && action === "add"){
+                    allCarts[cartId]["products"][product["productId"]]["quty"] += product["quty"];
+                    allCarts[cartId]["total_bill"] += product["quty"]*search_res[0]["price"];
+                }else if((product["quty"] <= allCarts[cartId]["products"][product["productId"]]["quty"]) && action === "remove"){
+                    allCarts[cartId]["products"][product["productId"]]["quty"] -= product["quty"];
+                    allCarts[cartId]["total_bill"] -= product["quty"]*search_res[0]["price"];
+                }else{
+                    throw new Error("Quantity exceeds/less than available/cart");
                 }
-            }
-            if(noCartIdFound){
+                if(store.cart.add_product(allCarts)){
+                    console.log(`Product ${action} to/from cart Sucessfully`);
+                }else{
+                    console.log(`Error occurs while ${action}ing products to cart`);
+                }
+            }else{
                 throw new Error(`No cart found for ID: ${cartId}`);
             }
+        }else{
+            throw new Error(`No product found for ID: ${product["productId"]}`);
         }
     }catch(err){
         console.log(`${err.name} => ${err.message}`);
     }
-
 }
+
+module.exports ={add_product_to_cart, update_quantity_in_cart};

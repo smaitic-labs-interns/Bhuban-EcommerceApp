@@ -29,7 +29,7 @@ const place_order = (cartId, shipping_address, payments) =>{
         const order = {...allCarts[cartId], customer: cartId};
         order["address"] = shipping_address;
         order["payment"] = payments;
-        order["shipment"] ={type: "orderd", status: "Order Placed for validation"};
+        order["shipment"] ={type: "active", status: "Order Placed for validation"};
         allOrders[orderId] = order;
         for (key in allCarts[cartId]["products"]){
             if(key in allProducts){
@@ -49,9 +49,9 @@ const place_order = (cartId, shipping_address, payments) =>{
 }
 
 
-const update_quantity = (orderID, product, action) =>{
+
+const update_quantity_order = (orderID, product, action) =>{
     try{
-        var noOrderFound = true;
         let search_res = check_product(product["productId"]);
         if(search_res.length>0){
             if(orderID in allOrders){
@@ -74,11 +74,11 @@ const update_quantity = (orderID, product, action) =>{
                 }else{
                     throw new Error(`Error occurs while updating`)
                 }
-                noOrderFound = false;
-            }
-            if(noOrderFound){
+            }else{
                 throw new Error(`No cart found for ID: ${cartId}`);
             }
+        }else{
+            throw new Error(`No Product found for ID: ${product["productId"]}`)
         }
     }catch(err){
         console.log(`${err.name} => ${err.message}`);
@@ -97,8 +97,7 @@ const update_quantity = (orderID, product, action) =>{
         return error
 */
 const update_address = (orderID ,new_address) => {
-    try{  
-        var noOrderFound = true;
+    try{
         if(orderID in allOrders){
             for(subKey in new_address){
                 if(new_address[subKey].length != 0){
@@ -106,20 +105,17 @@ const update_address = (orderID ,new_address) => {
                 }
             }
             if(store.order.place_order(allOrders)){
-                noOrderFound =false;
                 console.log("Address Updated Sucessfully");
             }else{
                 throw new Error(`Error occurs while updating order`);
             }
-        }
-        if(noOrderFound){
+        }else{
             throw new Error(`Could not found any order on customer: ${orderID}`);
         }         
     }catch(err){
         console.log(`${err.name} => ${err.message}`);
     }
 }
-
 
 /* Update Payment 
 @params
@@ -133,7 +129,6 @@ const update_address = (orderID ,new_address) => {
 */
 const update_payment = (orderID, new_payment) => {
     try{
-        var noOrderFound = true;
         if(orderID in allOrders){
             for(subKey in new_payment){
                 if(new_payment[subKey].length != 0){
@@ -141,13 +136,11 @@ const update_payment = (orderID, new_payment) => {
                 }
             }
             if(store.order.place_order(allOrders)){
-                noOrderFound =false
                 console.log("Payment Updated Successfully!");
             }else{
                 throw new Error(`Error occurs while updating payment`)
             }
-        }
-        if(noOrderFound){
+        }else{
             throw new Error(`Could not found any order on customer "${orderID}"`);
         }
     }catch(err) {
@@ -197,17 +190,19 @@ const cancel_order = (orderID) => {
             }
             allOrders[orderID]["shipment"]= {type: "cancelled", status: "placed for cancelling"};
             allOrders[orderID]["payment"] = {type: "refund", status: "Placed for refund"}
+            // delete allOrders[orderID];
             if(store.order.place_order(allOrders) && store.product.save_product(allProducts)){
                 console.log("Your order has been placed for cancelling");
                 return allOrders[orderID]["shipment"];
             }
         }else{
-            throw new Error(`Could not found any order on Id "${orderID}"`);
+            throw new Error(`Could not found any order to csncel on Id "${orderID}"`);
         }
     }catch(err){
         console.log(`${err.name} => ${err.message}`);
     }
 }
+
 
 /* return replace Order  
 @param
@@ -221,7 +216,6 @@ const cancel_order = (orderID) => {
 */
 const return_replace_order = (orderID, action) =>{
     try{
-        var noOrderFound = true
         if((orderID in allOrders) && !(allOrders[orderID]["shipment"]["type"] === "cancelled") && !(allOrders[orderID]["shipment"]["type"] === "return")){
             if(action === "return"){
                 for(subKey in allOrders[orderID]["products"]){
@@ -238,9 +232,7 @@ const return_replace_order = (orderID, action) =>{
             }else{
                 throw new Error(`Error occurs while ${action}. Try again later.`)
             }
-            noOrderFound = false;
-        }
-        if(noOrderFound){
+        }else{
             throw new Error(`Could not found any order for return/replace on Id: "${orderID}"`);
         }
     }catch(err){
@@ -260,15 +252,15 @@ const return_replace_order = (orderID, action) =>{
 */
 const refund_updates = (orderID) =>{
     try{
-        var noOrderFound = true;
         if((orderID in allOrders) && (allOrders[orderID]["payment"]["type"] === "refund")){
-            noOrderFound = false
-            console.log(`Payment type : ${allOrders[orderID]["payment"]["type"]} \npayment status => ${allOrders[orderID]["payment"]["status"]}`);
-        }       
-        if(noOrderFound){
+            console.log(allOrders[orderID]["payment"]);
+            return allOrders[orderID]["payment"];
+        }else{
             throw new Error(`Could not found any order on customer "${orderID}"`);
         }  
     }catch(err){
         console.log(`${err.name} => ${err.message}`);
     }
 }
+
+module.exports = {place_order, update_quantity_order, update_address, update_payment, track_order, cancel_order, return_replace_order, refund_updates}
