@@ -1,4 +1,5 @@
 const store = require('../database/db.js');
+const validate_data = require('../models/dataValidator');
 const { v4: uuidv4 } = require('uuid');
 
 
@@ -16,16 +17,22 @@ const allOrders = store.order.read_all_orders();    // Read all orders
 */
 const add_product = (product) => {
     try{
-        allProducts[uuidv4()] = product;
-        if(store.product.save_product(allProducts)){
-            console.log("Product added to Database sucessfully");
+        const val_res = validate_data.product_schema.validateAsync(product);
+        if(val_res){
+            allProducts[uuidv4()] = product;
+            if(store.product.save_product(allProducts)){
+                console.log("Product added to Database sucessfully");
+            }else{
+                throw new Error('Error occurs while saving file to database');
+            }
         }else{
-            throw new Error('Error occurs while saving file to database');
+            throw new Error(val_res);
         }
     }catch(err){
         console.log(`${err.name} => ${err.message}`);
     }
 }
+
 
 /*Management:  Remove Product from file
 @params 

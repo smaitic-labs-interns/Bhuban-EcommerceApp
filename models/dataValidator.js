@@ -10,7 +10,7 @@ exports.user_schema = Joi.object({
 });
 
 exports.product_schema = Joi.object({
-    name: Joi.string().required(),
+    category: Joi.string().required(),
     model: Joi.required(),
     brand: Joi.string().required(),
     description: Joi.string(),
@@ -18,3 +18,12 @@ exports.product_schema = Joi.object({
     quantity: Joi.number().required(),
     rating: Joi.number().required()
 });
+
+exports.address_schema = Joi.object({
+    country : Joi.string().required(),
+    Province: Joi.string().required(),
+    City: Joi.string().required(),
+    Ward: Joi.number().required(),
+    Tole: Joi.string().required(),
+    house_no: Joi.number.required()
+})

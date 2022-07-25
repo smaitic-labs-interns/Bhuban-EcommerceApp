@@ -1,9 +1,10 @@
 const store = require('../database/db.js');
 const { v4: uuidv4 } = require('uuid');
+const validate_data = require('../models/dataValidator');
 
 const allProducts = store.product.read_all_products(); // Read all Products
 const allOrders = store.order.read_all_orders();    // Read all orders
-const allCarts = store.cart.read_all();    // Read all orders
+const allCarts = store.cart.read_all();    // Read all cart
 
 // Check if Product available
 const check_product = (productId) => {
@@ -25,23 +26,28 @@ const check_product = (productId) => {
 
 const place_order = (cartId, shipping_address, payments) =>{
     try{
-        const orderId = uuidv4();
-        const order = {...allCarts[cartId], customer: cartId};
-        order["address"] = shipping_address;
-        order["payment"] = payments;
-        order["shipment"] ={type: "active", status: "Order Placed for validation"};
-        allOrders[orderId] = order;
-        for (key in allCarts[cartId]["products"]){
-            if(key in allProducts){
-                allProducts[key]["quantity"] -= allCarts[cartId]["products"][key]["quty"];
+        const val_res = validate_data.address_schema.validateAsync(shipping_address);
+        if(val_res){
+            const orderId = uuidv4();
+            const order = {...allCarts[cartId], customer: cartId};
+            order["address"] = shipping_address;
+            order["payment"] = payments;
+            order["shipment"] ={type: "active", status: "Order Placed for validation"};
+            allOrders[orderId] = order;
+            for (key in allCarts[cartId]["products"]){
+                if(key in allProducts){
+                    allProducts[key]["quantity"] -= allCarts[cartId]["products"][key]["quty"];
+                }
             }
-        }
-        delete allCarts[cartId]
-        if(store.product.save_product(allProducts) && store.order.place_order(allOrders) && store.cart.add_product(allCarts)){
-            console.log(`Order Placed Sucessfully. Your order Id is : ${orderId}`)
-        
+            delete allCarts[cartId]
+            if(store.product.save_product(allProducts) && store.order.place_order(allOrders) && store.cart.add_product(allCarts)){
+                console.log(`Order Placed Sucessfully. Your order Id is : ${orderId}`)
+            
+            }else{
+                throw new Error('Error Occurs while updating remaining Quantity. Try again later.')
+            }
         }else{
-            throw new Error('Error Occurs while updating remaining Quantity. Try again later.')
+            throw new Error(val_res)
         }
     }catch (err){
         console.log(`${err.name} => ${err.message}`)
