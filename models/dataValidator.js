@@ -25,5 +25,5 @@ exports.address_schema = Joi.object({
     City: Joi.string().required(),
     Ward: Joi.number().required(),
     Tole: Joi.string().required(),
-    house_no: Joi.number.required()
+    house_no: Joi.number().required()
 })

@@ -1,6 +1,7 @@
 const db = require('../database/db.js');
 const validate_data = require('../models/dataValidator');
 const {v4: uuidv4} = require('uuid');
+const crypto = require('crypto');
 
 const all_users = db.user.read_all_user();
 
@@ -15,6 +16,7 @@ const all_users = db.user.read_all_user();
     @else
         returns Error
 */
+
 const create_user = (user_data) =>{
     try{
         const val_res = validate_data.user_schema.validateAsync(user_data);
@@ -24,6 +26,7 @@ const create_user = (user_data) =>{
                     throw new Error("User Already Exists, Try login.");
                 }
             }
+            user_data["password"] = crypto.createHash('md5').update(user_data["password"]).digest("hex");
             all_users[uuidv4()] = user_data;
             if(db.user.add_user(all_users)){
                 console.log("User Registerd Sucessfully");
@@ -40,6 +43,7 @@ const create_user = (user_data) =>{
  
 };
 
+
 /* User SignIn
 @params
     1) sign_in_details : "username and password", signInObject
@@ -53,7 +57,8 @@ const user_signin = (sign_in_details) => {
     try{ 
         var invalidCredintals = true;
         for (key in all_users){
-            if(sign_in_details['email'] === all_users[key]["email"] && sign_in_details['password'] === all_users[key]['password']){
+            const pwd = crypto.createHash('md5').update(sign_in_details["password"]).digest("hex");
+            if(sign_in_details['email'] === all_users[key]["email"] && pwd === all_users[key]['password']){
                 invalidCredintals = false
                 return console.log("Login Successfull !");
             }
@@ -65,6 +70,5 @@ const user_signin = (sign_in_details) => {
         console.log(`${e.name} => ${e.message}`);
     }
 }
-
 
 module.exports = {create_user, user_signin};
