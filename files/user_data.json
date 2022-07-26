@@ -1,18 +1,11 @@
-{
-  "b4db2a17-321f-47b0-b572-8b860975f3f0": {
-    "firstName": "Bhuban Yadav",
+[
+  {
+    "id": "94c9bba3-0542-49f1-8b62-6b9322ff99b0",
+    "firstName": "Bhuban",
     "middleName": "Prasad",
     "lastName": "Yadav",
-    "email": "bhuban.yadav@smaitic.com",
-    "password": "fb53a87175fe0775a16929a4fe6e2f47",
-    "address": "Dhapakhel-23"
-  },
-  "7f30f23e-fa71-4c06-b720-e3d914edf4a1": {
-    "firstName": "Bhuban Yadav",
-    "middleName": "Prasad",
-    "lastName": "Yadav",
-    "email": "yadav.bhuban@smaitic.com",
-    "password": "fb53a87175fe0775a16929a4fe6e2f47",
-    "address": "Dhapakhel-23"
+    "address": "Dhapakhel-23",
+    "email": "bhuban@smaitic.com",
+    "password": "fb53a87175fe0775a16929a4fe6e2f47"
   }
-}
+]

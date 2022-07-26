@@ -1,10 +1,7 @@
 const store = require('../database/db.js');
-const validate_data = require('../models/dataValidator');
-const { v4: uuidv4 } = require('uuid');
+const Schema = require('../models/productModule');
 
 
-const allProducts = store.product.read_all_products(); // Read all Products
-const allOrders = store.order.read_all_orders();    // Read all orders
 
 /* Management: Add Product to file
 @params
@@ -15,25 +12,24 @@ const allOrders = store.order.read_all_orders();    // Read all orders
     @else
         return Error
 */
-const add_product = (product) => {
+const add_product = async(category, model, brand, description, price, quantity, rating) => {
     try{
-        const val_res = validate_data.product_schema.validateAsync(product);
-        if(val_res){
-            allProducts[uuidv4()] = product;
-            if(store.product.save_product(allProducts)){
+        const product = await Schema.Product({category, model, brand, description, price, quantity, rating});
+        if(!product.error){
+            if(store.product.save_product(product.value)){
                 console.log("Product added to Database sucessfully");
             }else{
                 throw new Error('Error occurs while saving file to database');
             }
         }else{
-            throw new Error(val_res);
+            throw new Error(product.errMessage);
         }
     }catch(err){
         console.log(`${err.name} => ${err.message}`);
     }
 }
 
-
+// add_product("Radio", "Radio fm 32x4s", "Samsung", "sony radio for music including recording features", 5000, 300, 4);
 /*Management:  Remove Product from file
 @params 
     1) productId: "Unique Id of that particular Project", uuid
@@ -45,7 +41,7 @@ const add_product = (product) => {
 */
 const remove_product = (productId) => {
     try{
-        if((productId in allProducts) && delete allProducts[productId] && store.product.save_product(allProducts)){
+        if(store.product.delete_product(productId)){
             console.log("Product removed sucessfully");
         }else{
             throw new Error(`No Product found for ID: ${productId}`);
@@ -54,6 +50,8 @@ const remove_product = (productId) => {
         console.log(`${err.name} => ${err.message}`);
     }
 }
+
+// remove_product("c2416b03-e14a-4b6d-b8cc-e994622dffa2");
 
 /*Management:  Update Product from file
 @params
@@ -65,88 +63,15 @@ const remove_product = (productId) => {
     @else
         return Error
 */
-const update_product = (productID, productDetails) => {
+const update_product = async(productID, category, model, brand, description, price, quantity, rating) => {
     try{
-        if(productID in allProducts){
-            for (key in productDetails){
-                allProducts[productID][key] = productDetails[key];
-            }
-            if(store.product.save_product(allProducts)){
-                console.log("Product Updated sucessfully");
-            }else{
-                throw new Error("Error occurs while updating product");
+        const product = await Schema.Update_Product({category, model, brand, description, price, quantity, rating});
+        if(!product.error){
+            if(store.product.update_product(productID, product.value)){
+                console.log("Product updated sucessfully");
             }
         }else{
-            throw new Error(`No product found for ID : ${productID}`);
-        }
-    }catch(err){
-        console.log(`${err.name} => ${err.message}`);
-    }
-}
-
-
-/* Management: Send shipment updates
-@params
-    1) orderId: "Unique order Id"
-@returns
-    @if(order found)
-        return order status 
-    @else
-        return error
-*/
-const send_shipment_updates = (orderId) => {
-    try{
-        if(orderId in allOrders){
-            console.log(allOrders[orderId]["shipment"]);
-            return allOrders[orderId]["shipment"];
-        }else{
-           throw new Error(`No order found for ID: ${orderId}`);
-        }
-    }catch(err){
-        return (`${err.name} => ${err.message}`);
-    }
-}
-
-
-/* Management: Send return updates
-@params
-    1) orderId: "Unique order id"
-@returns
-    @if(order found)
-        return order status
-    @else
-        return Error
-*/
-const send_return_updates = (orderId) => {
-    try{
-        if((orderId in allOrders) && (allOrders[orderId]["shipment"]["type"] === "return")){
-            console.log(allOrders[orderId]["shipment"]);
-            return allOrders[orderId]["shipment"];
-        }else{
-            throw new Error(`No order found for return on ID: ${orderId}`);
-        }
-    }catch(err){
-        console.log(`${err.name} => ${err.message}`);
-    }
-}
-
-
-/* Management: Send Payment updates
-@params
-    1) orderId: "Unique order Id"
-@returns
-    @if(order found)
-        return payment status
-    @else
-        return Error
-    */
-const send_payment_updates = (orderId) => {
-    try{
-        if(orderId in allOrders){
-            console.log(`Payment type: ${allOrders[orderId]["payment"]["type"]} , Status:  ${allOrders[orderId]["payment"]["status"]}`);
-            return (`Payment type: ${allOrders[orderId]["payment"]["type"]} , status : ${allOrders[orderId]["payment"]["status"]}`);
-        }else{
-            throw new Error(`No order found for ID: ${orderId}`);
+            throw new Error(product.errMessage);
         }
     }catch(err){
         console.log(`${err.name} => ${err.message}`);
@@ -183,24 +108,19 @@ const prepare_ar_aging_report = () => {
     @else
         return Error
 */
-const search_products = (product) => {
+const search_products = (category) => {
     try{
-        var noProductFound = true;
-        const foundProducts = [];
-        for(key in allProducts){
-            if(allProducts[key]["category"].toLowerCase() === product.toLowerCase()){
-                noProductFound = false
-                foundProducts.push(allProducts[key]);
-            }
-        }
-        if(noProductFound){
-            throw new Error(`Currently no product available for ${product}`)
+        const result = store.product.search_product(category);
+        if(result.length >0){
+            console.log(result);
         }else{
-            return foundProducts;
+            throw new Error(`No Product Found for Category: ${category}`);
         }
     }catch(e){
         console.log(`${e.name} => ${e.message}`);
     }
 }
 
-module.exports = {add_product, remove_product, update_product, send_shipment_updates, send_return_updates, send_payment_updates, prepare_revenue_report, prepare_ar_aging_report, search_products}
+// search_products("laptop");
+
+module.exports = {add_product, remove_product, update_product, prepare_revenue_report, prepare_ar_aging_report, search_products}

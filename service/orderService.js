@@ -12,6 +12,10 @@ const check_product = (productId) => {
 }
 
 
+
+
+
+
 /* Place order
 @params
     1) cart: "Object with products", cartObject
@@ -56,33 +60,37 @@ const place_order = (cartId, shipping_address, payments) =>{
 
 
 
+
+// console.log(order);
+
 const update_quantity_order = (orderID, product, action) =>{
     try{
+        const order = store.order.read_user_order("1b7d2299-8a5f-4700-b45f-8865003df463");
         let search_res = check_product(product["productId"]);
-        if(search_res.length>0){
-            if(orderID in allOrders){
+        if(search_res.length>0 && order){
+            // if(orderID in allOrders){
                 if(product["quty"] <= search_res[0]["quantity"] && action === "add"){
-                    allOrders[orderID]["products"][product["productId"]]["quty"] += product["quty"];
-                    allOrders[orderID]["total_bill"] += product["quty"]*search_res[0]["price"];
+                    order["products"][product["productId"]]["quty"] += product["quty"];
+                    order["total_bill"] += product["quty"]*search_res[0]["price"];
                     allProducts[product["productId"]]["quantity"] -= product["quty"];
 
                 }else if((product["quty"] <= allOrders[orderID]["products"][product["productId"]]["quty"]) && action === "remove"){
-                    allOrders[orderID]["products"][product["productId"]]["quty"] -= product["quty"];
-                    allOrders[orderID]["total_bill"] -= product["quty"]*search_res[0]["price"];
+                    order["products"][product["productId"]]["quty"] -= product["quty"];
+                    order["total_bill"] -= product["quty"]*search_res[0]["price"];
                     allProducts[product["productId"]]["quantity"] += product["quty"];
                
                 }else{
                     throw new Error("Quantity exceeds/less than available/cart");
                 } 
                 
-                if(store.order.place_order(allOrders) && store.product.save_product(allProducts)){
+                if(store.order.update_user_order(orderID, order) && store.product.save_product(allProducts)){
                     console.log(`Item ${action} from order sucessfully`);
                 }else{
                     throw new Error(`Error occurs while updating`)
                 }
-            }else{
-                throw new Error(`No cart found for ID: ${cartId}`);
-            }
+            // }else{
+            //     throw new Error(`No cart found for ID: ${cartId}`);
+            // }
         }else{
             throw new Error(`No Product found for ID: ${product["productId"]}`)
         }
@@ -90,6 +98,42 @@ const update_quantity_order = (orderID, product, action) =>{
         console.log(`${err.name} => ${err.message}`);
     }
 }
+update_quantity_order("1b7d2299-8a5f-4700-b45f-8865003df463", {productId: "84401b07-7089-41cc-9abb-431792a388db", "quty": 5}, "add")
+
+// const update_quantity_order = (orderID, product, action) =>{
+//     try{
+//         let search_res = check_product(product["productId"]);
+//         if(search_res.length>0){
+//             if(orderID in allOrders){
+//                 if(product["quty"] <= search_res[0]["quantity"] && action === "add"){
+//                     allOrders[orderID]["products"][product["productId"]]["quty"] += product["quty"];
+//                     allOrders[orderID]["total_bill"] += product["quty"]*search_res[0]["price"];
+//                     allProducts[product["productId"]]["quantity"] -= product["quty"];
+
+//                 }else if((product["quty"] <= allOrders[orderID]["products"][product["productId"]]["quty"]) && action === "remove"){
+//                     allOrders[orderID]["products"][product["productId"]]["quty"] -= product["quty"];
+//                     allOrders[orderID]["total_bill"] -= product["quty"]*search_res[0]["price"];
+//                     allProducts[product["productId"]]["quantity"] += product["quty"];
+               
+//                 }else{
+//                     throw new Error("Quantity exceeds/less than available/cart");
+//                 } 
+                
+//                 if(store.order.place_order(allOrders) && store.product.save_product(allProducts)){
+//                     console.log(`Item ${action} from order sucessfully`);
+//                 }else{
+//                     throw new Error(`Error occurs while updating`)
+//                 }
+//             }else{
+//                 throw new Error(`No cart found for ID: ${cartId}`);
+//             }
+//         }else{
+//             throw new Error(`No Product found for ID: ${product["productId"]}`)
+//         }
+//     }catch(err){
+//         console.log(`${err.name} => ${err.message}`);
+//     }
+// }
 
 
 /* Update Address
@@ -268,5 +312,84 @@ const refund_updates = (orderID) =>{
         console.log(`${err.name} => ${err.message}`);
     }
 }
+
+
+
+
+// update_product("eb83b188-a9a6-4035-bd61-f44689128529", "laptop",  "macbook", "apple", "", "", "", 10);
+/* Management: Send shipment updates
+@params
+    1) orderId: "Unique order Id"
+@returns
+    @if(order found)
+        return order status 
+    @else
+        return error
+*/
+const send_shipment_updates = (orderId) => {
+    try{
+        if(orderId in allOrders){
+            console.log(allOrders[orderId]["shipment"]);
+            return allOrders[orderId]["shipment"];
+        }else{
+           throw new Error(`No order found for ID: ${orderId}`);
+        }
+    }catch(err){
+        return (`${err.name} => ${err.message}`);
+    }
+}
+
+
+/* Management: Send return updates
+@params
+    1) orderId: "Unique order id"
+@returns
+    @if(order found)
+        return order status
+    @else
+        return Error
+*/
+const send_return_updates = (orderId) => {
+    try{
+        if((orderId in allOrders) && (allOrders[orderId]["shipment"]["type"] === "return")){
+            console.log(allOrders[orderId]["shipment"]);
+            return allOrders[orderId]["shipment"];
+        }else{
+            throw new Error(`No order found for return on ID: ${orderId}`);
+        }
+    }catch(err){
+        console.log(`${err.name} => ${err.message}`);
+    }
+}
+
+
+/* Management: Send Payment updates
+@params
+    1) orderId: "Unique order Id"
+@returns
+    @if(order found)
+        return payment status
+    @else
+        return Error
+    */
+const send_payment_updates = (orderId) => {
+    try{
+        if(orderId in allOrders){
+            console.log(`Payment type: ${allOrders[orderId]["payment"]["type"]} , Status:  ${allOrders[orderId]["payment"]["status"]}`);
+            return (`Payment type: ${allOrders[orderId]["payment"]["type"]} , status : ${allOrders[orderId]["payment"]["status"]}`);
+        }else{
+            throw new Error(`No order found for ID: ${orderId}`);
+        }
+    }catch(err){
+        console.log(`${err.name} => ${err.message}`);
+    }
+}
+
+
+
+
+
+
+
 
 module.exports = {place_order, update_quantity_order, update_address, update_payment, track_order, cancel_order, return_replace_order, refund_updates}

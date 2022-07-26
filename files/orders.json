@@ -5,7 +5,7 @@
       "84401b07-7089-41cc-9abb-431792a388db": {
         "name": "ipad",
         "price": 50000,
-        "quty": 5
+        "quty": 35
       },
       "5c467e29-84ac-4a56-befc-de6020ce2ed1": {
         "name": "Radio",
@@ -18,7 +18,7 @@
         "quty": 5
       }
     },
-    "total_bill": 675000,
+    "total_bill": 2175000,
     "shipping": {
       "country": "Nepal",
       "Province": 2,

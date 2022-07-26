@@ -1,14 +1,16 @@
-{
-  "ed874b27-3c54-4e12-b139-8f6d5006ed67": {
-    "category": "earpods",
-    "model": "Bluetooth earpods 234j",
-    "brand": "Apple",
-    "description": "Apple earpods for android device only",
-    "price": 500,
-    "quantity": 30000,
-    "rating": 3.4
+[
+  {
+    "id": "eb83b188-a9a6-4035-bd61-f44689128529",
+    "category": "Laptop",
+    "model": "macbook",
+    "brand": "apple",
+    "description": "sony radio for music including recording features",
+    "price": 5000,
+    "quantity": 300,
+    "rating": 10
   },
-  "5c467e29-84ac-4a56-befc-de6020ce2ed1": {
+  {
+    "id": "c2416b03-e14a-4b6d-b8cc-e994622dffa2",
     "category": "Radio",
     "model": "Radio fm 32x4s",
     "brand": "Samsung",
@@ -16,50 +18,5 @@
     "price": 5000,
     "quantity": 300,
     "rating": 4
-  },
-  "84401b07-7089-41cc-9abb-431792a388db": {
-    "category": "ipad",
-    "model": "Samsung ipad - sm432",
-    "brand": "samsung",
-    "description": "ASamsung Ipad with cast and usb connection features",
-    "price": 50000,
-    "quantity": 30000,
-    "rating": 4.5
-  },
-  "fd7c146c-debc-4a8e-801d-f9db8aa3b699": {
-    "category": "Laptop",
-    "model": "Dell inspirion -5567",
-    "brand": "dell",
-    "description": "dell laptop with cast and usb connection features",
-    "price": 80000,
-    "quantity": 300,
-    "rating": 4.5
-  },
-  "e5f4de9a-adbc-4c95-a9cc-6cda78088e7b": {
-    "category": "Laptop",
-    "model": "macbook",
-    "brand": "apple",
-    "description": "dell laptop with cast and usb connection features",
-    "price": 80000,
-    "quantity": 305,
-    "rating": 4.5
-  },
-  "79b26e64-6b2a-47d1-bed9-fb3284fb06f6": {
-    "category": "Laptop",
-    "model": "Hp xy32",
-    "brand": "Hp",
-    "description": "HP laptop with cast and usb connection features",
-    "price": 56000,
-    "quantity": 300,
-    "rating": 4.5
-  },
-  "719d451f-c922-4adc-b155-050188211463": {
-    "category": "Mobile",
-    "model": "Sm -5567",
-    "brand": "Samsung",
-    "description": "Samsung mobile with cast and usb connection features",
-    "price": 80000,
-    "quantity": 300,
-    "rating": 4.5
   }
-}
+]
