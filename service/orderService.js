@@ -1,10 +1,11 @@
-const store = require('../database/db.js');
+const Store = require('../repository/dbRepository');
 const { v4: uuidv4 } = require('uuid');
-const validate_data = require('../models/dataValidator');
+const Validate = require('../utils/validations');
+const Schema = require('../models/orderModel');
 
-const allProducts = store.product.read_all_products(); // Read all Products
-const allOrders = store.order.read_all_orders();    // Read all orders
-const allCarts = store.cart.read_all();    // Read all cart
+// const allProducts = store.product.read_all_products(); // Read all Products
+// const allOrders = store.order.read_all_orders();    // Read all orders
+// const allCarts = store.cart.read_all();    // Read all cart
 
 // Check if Product available
 const check_product = (productId) => {
@@ -30,36 +31,44 @@ const check_product = (productId) => {
 
 const place_order = (cartId, shipping_address, payments) =>{
     try{
-        const val_res = validate_data.address_schema.validateAsync(shipping_address);
-        if(val_res){
-            const orderId = uuidv4();
-            const order = {...allCarts[cartId], customer: cartId};
-            order["address"] = shipping_address;
-            order["payment"] = payments;
-            order["shipment"] ={type: "active", status: "Order Placed for validation"};
-            allOrders[orderId] = order;
-            for (key in allCarts[cartId]["products"]){
-                if(key in allProducts){
-                    allProducts[key]["quantity"] -= allCarts[cartId]["products"][key]["quty"];
-                }
-            }
-            delete allCarts[cartId]
-            if(store.product.save_product(allProducts) && store.order.place_order(allOrders) && store.cart.add_product(allCarts)){
-                console.log(`Order Placed Sucessfully. Your order Id is : ${orderId}`)
-            
-            }else{
-                throw new Error('Error Occurs while updating remaining Quantity. Try again later.')
-            }
-        }else{
-            throw new Error(val_res)
+        const {error, value} = Validate.address_validation(shipping_address);
+        if(error) throw error;
+        const cart = Store.cart.find_cart(cartId);
+        if(! cart){
+            throw new Error(`No cart found for Id: ${cartId}`);
         }
+        const shipment = {type: "active", status: "paid"};
+        const order = Schema.Order(cart, value, payments, shipment);
+
+        for (product of cart.products){
+            if(!Store.product.decrease_quantity(product.productId, product.quantity)){
+                throw new Error(`Error occurs updating remaining product`);
+            }
+        }
+        
+        if(!Store.cart.delete_cart(cartId)){
+            throw new Error(`Error Occurs Removing cart`);
+        }
+
+        if(! Store.order.place_order(order)){
+            throw new Error(`Error Occurs while Placing Order`);
+        }
+        console.log(`Your order has been placed with order Id : ${order.id}`);
     }catch (err){
         console.log(`${err.name} => ${err.message}`)
     }
 }
 
-
-
+const shipping_address = {
+    "country": "Nepal",
+    "province": "3",
+    "city": "abc",
+    "ward": 23,
+    "tole": "xyz",
+    "house_no": 12
+    }
+const payment ={"type": "cash", "status": "onDelivery"}
+// place_order("60eeaa21-39d9-4025-80ed-5da261dc0576", shipping_address, payment);
 
 // console.log(order);
 
@@ -98,7 +107,7 @@ const update_quantity_order = (orderID, product, action) =>{
         console.log(`${err.name} => ${err.message}`);
     }
 }
-update_quantity_order("1b7d2299-8a5f-4700-b45f-8865003df463", {productId: "84401b07-7089-41cc-9abb-431792a388db", "quty": 5}, "add")
+// update_quantity_order("1b7d2299-8a5f-4700-b45f-8865003df463", {productId: "84401b07-7089-41cc-9abb-431792a388db", "quty": 5}, "add")
 
 // const update_quantity_order = (orderID, product, action) =>{
 //     try{

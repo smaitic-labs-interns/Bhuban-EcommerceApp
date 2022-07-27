@@ -1,7 +1,8 @@
-const store = require('../database/db.js');
-const Schema = require('../models/productModule');
+const store = require('../repository/dbRepository');
+const Schema = require('../models/productModel');
+const Validate = require('../utils/validations');
 
-
+ 
 
 /* Management: Add Product to file
 @params
@@ -12,17 +13,15 @@ const Schema = require('../models/productModule');
     @else
         return Error
 */
-const add_product = async(category, model, brand, description, price, quantity, rating) => {
+const add_product = (category, model, brand, description, price, quantity, rating) => {
     try{
-        const product = await Schema.Product({category, model, brand, description, price, quantity, rating});
-        if(!product.error){
-            if(store.product.save_product(product.value)){
-                console.log("Product added to Database sucessfully");
-            }else{
-                throw new Error('Error occurs while saving file to database');
-            }
+        const {error, value} = Validate.product_validation({category, model, brand, description, price, quantity, rating});
+        if(error) throw error;
+        const product = Schema.Product(value);
+        if(store.product.add_product(product)){
+            console.log("Product added to Database sucessfully");
         }else{
-            throw new Error(product.errMessage);
+            throw new Error('Error occurs while saving file to database');
         }
     }catch(err){
         console.log(`${err.name} => ${err.message}`);
@@ -63,20 +62,21 @@ const remove_product = (productId) => {
     @else
         return Error
 */
-const update_product = async(productID, category, model, brand, description, price, quantity, rating) => {
+const update_product = (productID, category, model, brand, description, price, quantity, rating) => {
     try{
-        const product = await Schema.Update_Product({category, model, brand, description, price, quantity, rating});
-        if(!product.error){
-            if(store.product.update_product(productID, product.value)){
-                console.log("Product updated sucessfully");
-            }
+        const {error, value} = Validate.updating_product_validation({category, model, brand, description, price, quantity, rating});
+        if(error) throw error;
+        const product = Schema.Update_Product(value);
+        if(store.product.update_product(productID, product)){
+            console.log("Product updated sucessfully");
         }else{
-            throw new Error(product.errMessage);
+            throw new Error(`Error Occurs updating Product. Try again later`);
         }
     }catch(err){
         console.log(`${err.name} => ${err.message}`);
     }
 }
+// update_product("eb83b188-a9a6-4035-bd61-f44689128529",category="", model= "dell inspirio-5567", brand = "dell", description="", price="", quantity="", rating="");
 
 /* Management: Prepare revenue report
 @params 

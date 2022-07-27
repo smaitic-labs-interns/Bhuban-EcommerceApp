@@ -1,10 +1,17 @@
 const utils = require("../utils/fileUtils.js");
-const fileName = './files/orders.json';
+require('dotenv').config();
+const fileName = process.env.ORDER_FILE_PATH;
 
+const read_all_orders = () =>{
+    return utils.read_data(fileName);
+}
+
+const allOrders = read_all_orders();
 
 exports.place_order = (order) => {
     try{
-        utils.write_data(fileName, order);
+        allOrders.push(order);
+        utils.write_data(fileName, allOrders);
         return true;
     }catch(err){
         console.log(`${err.name} => ${err.message}`);
@@ -12,9 +19,6 @@ exports.place_order = (order) => {
     }
 }
 
-exports.read_all_orders = () =>{
-    return utils.read_data(fileName);
-}
 
 exports.read_user_order = (orderId) =>{
     try{

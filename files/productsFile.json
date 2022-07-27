@@ -2,15 +2,16 @@
   {
     "id": "eb83b188-a9a6-4035-bd61-f44689128529",
     "category": "Laptop",
-    "model": "macbook",
-    "brand": "apple",
+    "model": "dell inspirio-5567",
+    "brand": "dell",
     "description": "sony radio for music including recording features",
     "price": 5000,
-    "quantity": 300,
-    "rating": 10
+    "quantity": 290,
+    "rating": 10,
+    "key": "lenovo"
   },
   {
-    "id": "c2416b03-e14a-4b6d-b8cc-e994622dffa2",
+    "id": "585353b8-7273-4103-b99e-e7721fc45688",
     "category": "Radio",
     "model": "Radio fm 32x4s",
     "brand": "Samsung",

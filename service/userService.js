@@ -1,6 +1,7 @@
-const db = require('../repository/db.js');
+const db = require('../repository/dbRepository');
 const Schema = require('../models/userModel');
-const Validate = require('../models/validations');
+const Validate = require('../utils/validations');
+const crypto = require('crypto');
 
 
 /* Creating User 
@@ -22,22 +23,21 @@ const user_register = (firstName, middleName, lastName, address, email, password
         const {error, value} = Validate.user_validation({firstName, middleName, lastName, address, email, password});
         if(error){
             throw error;
+        }
+        const user = Schema.User(value);
+        if(!(db.user.find_user_from_email(user.email)) && db.user.add_user(user)){
+            console.log("User Registerd Sucessfully");
         }else{
-            const user = Schema.User(value);
-            if(!(db.user.find_user_from_email(user.email)) && db.user.add_user(user)){
-                console.log("User Registerd Sucessfully");
-           
-            }else{
-                throw new Error('User Already Registered. Try Login!');
-            }  
-        }                  
+            throw new Error('User Already Registered. Try Login!');
+        }   
+
     }catch(err){
         console.log(`${err.name} => ${err.message}`);
     }
  
 };
 
-user_register("Bhuban","Prasad", "Yadav", "Dhapakhel-23", "bhuban@smaitic.com", "bhubany")
+// user_register("Bhuban","Prasad", "Yadav", "Dhapakhel-23", "bhuban@smaitic.com", "bhubany")
 
 /* User SignIn
 @params
@@ -50,22 +50,22 @@ user_register("Bhuban","Prasad", "Yadav", "Dhapakhel-23", "bhuban@smaitic.com", 
 */
 const user_signin = async(email, password) => {  
     try{
-        const {error, value} = sign_in_validation.validateAsync({email, password});
-        if(value){
-            const signinDetails = {...value, password: crypto.createHash('md5').update(value.password).digest("hex")}
-            if(db.user.verify_login_details(signinDetails)){
-                return console.log("Login Successfull !");
-            }else{
-                throw new Error(`Invalid Login Credintals.`)
-            }
-        }else{
-            throw new Error(signinDetails.errMessage);
+        const {error, value} = Validate.sign_in_validation({email, password});
+        if(error){
+            throw error;
         }
+        const signinDetails = {...value, password: crypto.createHash('md5').update(value.password).digest("hex")} // use hashing here
+        if(db.user.find_user_from_credintals(signinDetails)){
+            return console.log("Login Successfull !");
+        }else{
+            throw new Error(`Invalid Login Credintals.`)
+        }
+
     }catch(e){
         console.log(`${e.name} => ${e.message}`);
     }
 }
 
-// user_signin("bhuban@smaitic.com", "bhubany");
+// user_signin("bhban@smaitic.com", "bhubany");
 
 module.exports = {user_register, user_signin};

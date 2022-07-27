@@ -1,5 +1,6 @@
 const utils = require("../utils/fileUtils.js");
-const fileName = './files/user_data.json';
+require('dotenv').config();
+const fileName = process.env.USER_FILE_PATH;
 
 const read_all_user = () =>{
     return utils.read_data(fileName);
@@ -19,27 +20,18 @@ const add_user = (user) => { //add user
 }
 
 const find_user_from_email = (email) => { //find user from email
-    if(allUser.length === 0){
-        return false;
-    }else{
-        for (var i=0; i< allUser.length ; i++){
-            if(email === allUser[i].email){
-                return allUser[i];
-            }else{
-                return false;
-            }
-        }
+    for (user of allUser){
+        if(email === user.email) return user;
     }
+    return false;
 }
 
+
 const find_user_from_credintals = (login) => { // find user from credintals
-    for (var i=0; i< allUser.length ; i++){
-        if(login.email === allUser[i].email && login.password === allUser[i].password){
-            return true;
-        }else{
-            return false
-        }
+    for (user of allUser){
+        if(login.email === user.email && login.password === user.password)  return user;
     }
+    return false;
 }
 
 module.exports = {add_user, read_all_user, find_user_from_email, find_user_from_credintals};

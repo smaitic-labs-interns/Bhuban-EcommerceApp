@@ -1,0 +1,29 @@
+[
+  {
+    "id": "08ecc7a8-ea33-4e5e-bda2-fd788b3bab8e",
+    "customerId": "60eeaa21-39d9-4025-80ed-5da261dc0576",
+    "products": [
+      {
+        "productId": "eb83b188-a9a6-4035-bd61-f44689128529",
+        "quantity": 10
+      }
+    ],
+    "total_bill": 50000,
+    "shipping_address": {
+      "country": "Nepal",
+      "province": "3",
+      "city": "abc",
+      "ward": 23,
+      "tole": "xyz",
+      "house_no": 12
+    },
+    "payment": {
+      "type": "cash",
+      "status": "on delivery"
+    },
+    "shipment": {
+      "type": "active",
+      "status": "paid"
+    }
+  }
+]
