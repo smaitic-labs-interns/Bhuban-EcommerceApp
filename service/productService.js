@@ -28,7 +28,7 @@ const add_product = (category, model, brand, description, price, quantity, ratin
     }
 }
 
-// add_product("Radio", "Radio fm 32x4s", "Samsung", "sony radio for music including recording features", 5000, 300, 4);
+// add_product("laptop", "Dell inspirion 5567", "dell", "Dell laptop ", 50000, 30, 4);
 /*Management:  Remove Product from file
 @params 
     1) productId: "Unique Id of that particular Project", uuid
@@ -50,7 +50,7 @@ const remove_product = (productId) => {
     }
 }
 
-// remove_product("c2416b03-e14a-4b6d-b8cc-e994622dffa2");
+// remove_product("cd53bdf1-9640-46fe-b48a-ec948b88efdc");
 
 /*Management:  Update Product from file
 @params
@@ -69,14 +69,15 @@ const update_product = (productID, category, model, brand, description, price, q
         const product = Schema.Update_Product(value);
         if(store.product.update_product(productID, product)){
             console.log("Product updated sucessfully");
-        }else{
-            throw new Error(`Error Occurs updating Product. Try again later`);
+            return;
         }
+        throw new Error(`Error Occurs updating Product. Try again later`);
+        
     }catch(err){
         console.log(`${err.name} => ${err.message}`);
     }
 }
-// update_product("eb83b188-a9a6-4035-bd61-f44689128529",category="", model= "dell inspirio-5567", brand = "dell", description="", price="", quantity="", rating="");
+// update_product("effc0d18-dcea-4498-9abb-30747ca23491",category="", model= "", brand = "dell", description="", price="100000", quantity="", rating="");
 
 /* Management: Prepare revenue report
 @params 

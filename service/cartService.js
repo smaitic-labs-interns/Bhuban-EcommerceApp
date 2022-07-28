@@ -5,11 +5,11 @@ const Schema = require('../models/cartModel');
 
 /* Add product to cart
 @params
-    1.cart: "Object empty at begining/containing product details", cartObject
-    2.item: "Product with details", productObject
+    1.cartId: Id of cart, unique for each customer
+    2.product: "Product with productid and quantity", productObject
 @returns
     @if(added sucessfully)
-        return cart
+        return sucess
     @else
         return error
 */
@@ -55,15 +55,16 @@ const add_product_to_cart = (cartId, product) => {
     }
 }
 
-      add_product_to_cart("60eeaa21-39d9-4025-80ed-5da261dc0576", {productId: "eb83b188-a9a6-4035-bd61-f44689128529", quantity : 5} );
+// add_product_to_cart("60eeaa21-39d9-4025-80ed-5da261dc0576", {productId: "eb83b188-a9a6-4035-bd61-f44689128529", quantity : 5} );
 
 /* Update quantity in cart
 @params
-    1.cart: "Object containing product details", cartObject
-    2.item: "Product with details", productObject
+    1.cartId: unique Id of cart
+    2.product: "Product with productId and quantity", productObject
+    3. action: "to be performed i.e add/remove"
 @returns
     @if(updated sucessfully)
-        return cart
+        return sucess
     @else
         return error
 */
@@ -119,6 +120,6 @@ const update_quantity_in_cart = (cartId, product, action) => {
     }
 }
 
-// update_quantity_in_cart("60eeaa21-39d9-4025-80ed-5da261dc0576", {productId: "eb83b188-a9a6-4035-bd61-f44689128529", quantity : 100}, "add");
+// update_quantity_in_cart("60eeaa21-39d9-4025-80ed-5da261dc0576", {productId: "eb83b188-a9a6-4035-bd61-f44689128529", quantity : 10}, "add");
 
 module.exports ={add_product_to_cart, update_quantity_in_cart};

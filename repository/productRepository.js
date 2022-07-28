@@ -34,7 +34,7 @@ const delete_product = (productId) =>{
 }
 
 const update_product = (productId, newProduct) => {
-    for(product of allProduct){
+    for(var product of allProduct){
         if(product.id === productId){
             for (key in newProduct){
                 if(newProduct[key].length !== 0){
@@ -78,4 +78,15 @@ const decrease_quantity = (productId, quantity) => {
     return false;
 }
 
-module.exports = {add_product, read_all_products, delete_product, update_product, search_product, find_product, decrease_quantity}
+const increase_quantity = (productId, quantity) => {
+    for(product of allProduct){
+        if(product.id === productId){
+            product.quantity += quantity;
+            utils.write_data(fileName, allProduct);
+            return true;
+        }
+    }
+    return false;
+}
+
+module.exports = {add_product, read_all_products, delete_product, update_product, search_product, find_product, decrease_quantity, increase_quantity}
