@@ -22,7 +22,7 @@ const add_product = (product) => {
 }
 
 const delete_product = (productId) =>{
-    for(product of allProduct){
+    for(var product of allProduct){
         if(product.id === productId){
             var remainingProduct = allProduct.filter(item => item.id !== productId)
             if(utils.write_data(fileName, remainingProduct)){
