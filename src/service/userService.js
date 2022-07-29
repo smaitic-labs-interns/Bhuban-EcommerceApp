@@ -32,7 +32,7 @@ const user_register = (firstName, middleName, lastName, address, email, password
  
 };
 
-// user_register("Bhuban","Prasad", "Yadav", "Dhapakhel-23", "yadav.bhuban@smaitic.com", "bhubany")
+user_register("Bhuban","Prasad", "Yadav", "Dhapakhel-23", "ybhuban@smaitic.com", "bhubany")
 
 /* User SignIn
 @params
@@ -52,12 +52,11 @@ const user_signin = async(email, password) => {
         if(db.user.find_user_from_credintals(signinDetails)){
             return console.log("Login Successfull !");
         }
-        throw new Error(`Invalid Login Credintals.`)
     }catch(e){
         console.log(`${e.name} => ${e.message}`);
     }
 }
 
-user_signin("bhubn@smaitic.com", "bhubany");
+// user_signin("bhubn@smaitic.com", "bhubany");
 
 module.exports = {user_register, user_signin}; 

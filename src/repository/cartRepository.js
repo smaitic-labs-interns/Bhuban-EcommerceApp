@@ -3,15 +3,18 @@ require('dotenv').config();
 const fileName = process.env.CART_FILE_PATH;
 
 const read_all_cart = () =>{
-    return utils.read_data(fileName);
+    try{
+        return utils.read_data(fileName);
+    }catch(err){
+        throw err;
+    }
 }
 const allCart = read_all_cart(); // read all products
 
 const add_cart = (cart) =>{
     try{
         allCart.push(cart);
-        utils.write_data(fileName, allCart);
-        return true;
+        return utils.write_data(fileName, allCart);
     }catch(err){
         console.log(`${err.name} => ${err.message}`);
         return false;
@@ -19,32 +22,42 @@ const add_cart = (cart) =>{
 }
 
 const find_cart = (cartId) => { // find cart from id
-    for(var cart of allCart){
-        if(cart.id === cartId) return cart;
+    try{
+        for(var cart of allCart){
+            if(cart.id === cartId) return cart;
+        }
+        throw new Error(`No cart Found for ID: ${cartId}`);
+    }catch(err){
+        throw err;
     }
-    return false;
 }
 
 const update_cart = (cartId, newCart) => {
-    for(var oldCart of allCart){
-        if(oldCart.id === cartId){
-            allCart[allCart.indexOf(oldCart)] = newCart;
-            utils.write_data(fileName, allCart);
-            return true;
+    try{
+        for(var oldCart of allCart){
+            if(oldCart.id === cartId){
+                allCart[allCart.indexOf(oldCart)] = newCart;
+                return utils.write_data(fileName, allCart);
+            }
         }
+        throw new Error(`Error occur Updating Cart`);
+    }catch(err){
+        throw err;
     }
-    return false;
 }
 
 const delete_cart = (cartId) => {
-    for (var cart of allCart){
-        if(cart.id === cartId){
-            const remainingCart = allCart.filter((item) => item.id !== cartId);
-            utils.write_data(fileName, remainingCart);
-            return true;
+    try{
+        for (var cart of allCart){
+            if(cart.id === cartId){
+                const remainingCart = allCart.filter((item) => item.id !== cartId);
+                return utils.write_data(fileName, remainingCart);
+            }
         }
+        throw new Error(`No cart found for ID: ${cartId}`);
+    }catch(err){
+        throw err;
     }
-    return false;
 }
 
 module.exports ={add_cart, read_all_cart, find_cart, update_cart, delete_cart}

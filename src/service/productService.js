@@ -18,10 +18,8 @@ const add_product = (category, model, brand, description, price, quantity, ratin
         const product = Schema.Product({category, model, brand, description, price, quantity, rating});
         if(store.product.add_product(product)){
             console.log("Product added to Database sucessfully");
-        }else{
-            throw new Error('Error occurs while saving file to database');
         }
-    }catch(err){
+    }catch(err){ 
         console.log(`${err.name} => ${err.message}`);
     }
 }
@@ -40,15 +38,13 @@ const remove_product = (productId) => {
     try{
         if(store.product.delete_product(productId)){
             console.log("Product removed sucessfully");
-        }else{
-            throw new Error(`No Product found for ID: ${productId}`);
         }
     }catch(err){
         console.log(`${err.name} => ${err.message}`);
     }
 }
 
-// remove_product("cd53bdf1-9640-46fe-b48a-ec948b88efdc");
+// remove_product("effc0d18-dcea-4498-9abb-30747ca23491");
 
 /*Management:  Update Product from file
 @params
@@ -66,15 +62,12 @@ const update_product = (productID, category, model, brand, description, price, q
         if(error) throw error;
         if(store.product.update_product(productID, value)){
             console.log("Product updated sucessfully");
-            return;
-        }
-        throw new Error(`Error Occurs updating Product. Try again later`);
-        
+        }        
     }catch(err){
         console.log(`${err.name} => ${err.message}`);
     }
 }
-// update_product("effc0d18-dcea-4498-9abb-30747ca23491",category="", model= "", brand = "dell", description="", price="100000", quantity="", rating="");
+// update_product("effc0d18-dcea-4498-9abb-30747ca23491",category="", model= "dell inspirion 5567", brand = "dell", description="", price="100000", quantity="", rating="");
 
 /* Management: Prepare revenue report
 @params 
@@ -109,16 +102,12 @@ const prepare_ar_aging_report = () => {
 const search_products = (keyword) => {
     try{
         const result = store.product.search_product(keyword);
-        if(result.length >0){
-            console.log(result);
-        }else{
-            throw new Error(`No Product Found for : ${keyword}`);
-        }
+        console.log(result);
     }catch(e){
         console.log(`${e.name} => ${e.message}`);
     }
 }
 
-search_products(500);
+// search_products("a");
 
 module.exports = {add_product, remove_product, update_product, prepare_revenue_report, prepare_ar_aging_report, search_products}

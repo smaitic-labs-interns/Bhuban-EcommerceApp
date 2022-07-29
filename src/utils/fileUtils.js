@@ -7,7 +7,7 @@ exports.read_data = (fileName) =>{
         return (JSON.parse(fs.readFileSync(fileName)));
     }
     catch (err) {
-        return err;
+        throw err;
     }
 };
 
@@ -19,7 +19,7 @@ exports.write_data = (fileName, data) =>{
         return true;
     }
     catch (err) {
-        return err;
+        throw err;
     }
 };
 

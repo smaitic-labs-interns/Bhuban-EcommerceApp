@@ -2,7 +2,7 @@
   {
     "id": "eb83b188-a9a6-4035-bd61-f44689128529",
     "category": "Laptop",
-    "model": "dell inspirio-5567",
+    "model": "dell-5567",
     "brand": "dell",
     "description": "sony radio for music including recording features",
     "price": 5000,
@@ -23,7 +23,7 @@
   {
     "id": "effc0d18-dcea-4498-9abb-30747ca23491",
     "category": "laptop",
-    "model": "Dell inspirion 5567",
+    "model": "dell inspirion 5567",
     "brand": "dell",
     "description": "Dell laptop ",
     "price": 100000,

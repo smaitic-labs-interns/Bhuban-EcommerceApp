@@ -11,31 +11,36 @@ const allOrders = read_all_orders();
 const place_order = (order) => {
     try{
         allOrders.push(order);
-        utils.write_data(fileName, allOrders);
-        return true;
+        return utils.write_data(fileName, allOrders);
     }catch(err){
-        console.log(`${err.name} => ${err.message}`);
-        return false;
+        throw err;
     }
 }
 
 
 const read_order_from_id = (orderId) =>{
-    for(order of allOrders){
-        if(order.id === orderId) return order;
+    try{
+        for(order of allOrders){
+            if(order.id === orderId) return order;
+        }
+        throw new Error(`No Order Found for ID: ${orderId}`);
+    }catch(err){
+        throw err;
     }
-    return false;
 }
  
 const update_order = (orderId, newOrder) =>{
-    for(var oldOrder of allOrders){
-        if(oldOrder.id === orderId){
-            allOrders[allOrders.indexOf(oldOrder)] = newOrder;
-            utils.write_data(fileName, allOrders);
-            return true;
+    try{
+        for(var oldOrder of allOrders){
+            if(oldOrder.id === orderId){
+                allOrders[allOrders.indexOf(oldOrder)] = newOrder;
+                return utils.write_data(fileName, allOrders);
+            }
         }
+        throw new Error(`No order Found for ID: ${orderId}`)
+    }catch(err){
+        throw err;
     }
-    return false;
 }
 
 module.exports = {read_order_from_id, update_order, place_order}

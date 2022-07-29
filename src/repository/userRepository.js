@@ -3,7 +3,11 @@ require('dotenv').config();
 const fileName = process.env.USER_FILE_PATH;
 
 const read_all_user = () =>{
-    return utils.read_data(fileName);
+    try{
+        return utils.read_data(fileName);
+    }catch(err){
+        throw err;
+    }
 }
 
 const allUser = read_all_user(); // reading all user
@@ -11,27 +15,33 @@ const allUser = read_all_user(); // reading all user
 const add_user = (user) => { //add user
     try{
         allUser.push(user);
-        utils.write_data(fileName, allUser);
-        return true;
+        return utils.write_data(fileName, allUser);
     }catch(err){
-        console.log(`Error: ${err.message}`);
-        return false;
+        throw err;
     }
 }
 
 const find_user_from_email = (email) => { //find user from email
-    for (user of allUser){
-        if(email === user.email) return user;
+    try{
+        for (user of allUser){
+            if(email === user.email) return user;
+        }
+        return false;
+    }catch(err){
+        throw err;
     }
-    return false;
 }
 
 
 const find_user_from_credintals = (login) => { // find user from credintals
-    for (user of allUser){
-        if(login.email === user.email && login.password === user.password)  return user;
+    try{
+        for (user of allUser){
+            if(login.email === user.email && login.password === user.password)  return user;
+        }
+        throw new Error(`Invalid login Credintals`);
+    }catch(err){
+        throw err;
     }
-    return false;
 }
 
 module.exports = {add_user, read_all_user, find_user_from_email, find_user_from_credintals}; 

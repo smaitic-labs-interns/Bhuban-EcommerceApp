@@ -20,26 +20,16 @@ const place_order = (cartId, shipping_address, paymentType, shipmentType) =>{
     try{
 
         const cart = Store.cart.find_cart(cartId);
-        if(! cart){
-            throw new Error(`No cart found for Id: ${cartId}`);
-        }
         const address = AddressSchema.Address(shipping_address);
         const order = Schema.Order(cart, address, paymentType, shipmentType);
 
         for (product of cart.products){
-            if(!Store.product.decrease_quantity(product.productId, product.quantity)){
-                throw new Error(`Error occurs updating remaining product`);
-            }
-        }
-        if(!Store.order.place_order(order)){
-            throw new Error(`Error Occurs while Placing Order`);
-        }
-        
-        if(!Store.cart.delete_cart(cartId)){
-            throw new Error(`Error Occurs Removing cart`);
+           Store.product.decrease_quantity(product.productId, product.quantity);
         }
 
-        console.log(`Your order has been placed with order Id : ${order.id}`);
+        if(Store.order.place_order(order) && Store.cart.delete_cart(cartId)){
+            console.log(`Your order has been placed with order Id : ${order.id}`);
+        }
     }catch (err){
         console.log(`${err.name} => ${err.message}`)
     }
@@ -59,13 +49,7 @@ const shipping_address = {
 const update_quantity_order = (orderID, product, action) =>{
     try{
         const order = Store.order.read_order_from_id(orderID);
-        if(!order){
-            throw new Error(`No Order Found For Id: ${orderID}`)
-        }
         const product_res = Store.product.find_product(product.productId);
-        if(!product_res){
-            throw new Error(`No Product found for Id: ${product.productId}`);
-        }
 
         switch (action) {
             case action = "add":
@@ -74,9 +58,7 @@ const update_quantity_order = (orderID, product, action) =>{
                         if(oldProduct.productId === product.productId){
                             oldProduct.quantity += product.quantity;
                             order.total_bill += product.quantity*product_res.price;
-                            if(!Store.product.decrease_quantity(product.productId, product.quantity)){
-                                throw new Error(`Error occurs updating remaining product`);
-                            }
+                            Store.product.decrease_quantity(product.productId, product.quantity);
                             if(Store.order.update_order(orderID, order)){
                                 console.log("Quantity in order has been added sucessfully");
                                 return;
@@ -93,9 +75,8 @@ const update_quantity_order = (orderID, product, action) =>{
                         if(oldProduct.productId === product.productId && product.quantity <= oldProduct.quantity){
                             oldProduct.quantity -= product.quantity;
                             order.total_bill -= product.quantity*product_res.price;
-                            if(!Store.product.increase_quantity(product.productId, product.quantity)){
-                                throw new Error(`Error occurs updating remaining product`);
-                            }
+                            Store.product.increase_quantity(product.productId, product.quantity);
+
                             if(Store.order.update_order(orderID, order)){
                                 console.log("Quantity from order has been decreased sucessfully");
                                 return;
@@ -103,7 +84,7 @@ const update_quantity_order = (orderID, product, action) =>{
                             throw new Error(`Error Occurs while Placing Order`);
                         }
                     }
-                    throw new Error(`No product found for ID: ${product.productId} on order  ID: ${orderID}`)        
+                    throw new Error(`Entered quantity must be lessthan or equal to orderd quantity.`)        
         }
     }catch(err){
         console.log(`${err.name} => ${err.message}`);
@@ -125,9 +106,6 @@ const update_quantity_order = (orderID, product, action) =>{
 const update_address = (orderID ,new_address) => {
     try{
         const order = Store.order.read_order_from_id(orderID);
-        if(!order){
-            throw new Error(`No Order Found For Id: ${orderID}`)
-        }
         const {error, value} = Validate.Updatable_address_validation(new_address);
         if(error) throw error;
         const address = value;
@@ -138,10 +116,8 @@ const update_address = (orderID ,new_address) => {
         }
         if(Store.order.update_order(orderID, order)){
             console.log("Address Updated Sucessfully");
-            return
-        }
-        throw new Error(`Error occurs updating address. Try again later.`);     
-
+        } 
+        
     }catch(err){
         console.log(`${err.name} => ${err.message}`);
     }
@@ -170,9 +146,6 @@ const new_address = {
 const update_payment = (orderID, new_payment) => {
     try{
         const order = Store.order.read_order_from_id(orderID);
-        if(!order){
-            throw new Error(`No Order Found For Id: ${orderID}`)
-        }
         const PAYMENT_TYPES = ['E-sewa', 'Khalti', 'CONNECT-IPS', 'CASH']
         
         if(!PAYMENT_TYPES.includes(new_payment.type)){
@@ -182,9 +155,7 @@ const update_payment = (orderID, new_payment) => {
 
         if(Store.order.update_order(orderID, order)){
             console.log("Payment Updated Sucessfully");
-            return
         }
-        throw new Error(`Error occurs updating Payment. Try again later.`);     
 
     }catch(err){
         console.log(`${err.name} => ${err.message}`);
@@ -205,9 +176,6 @@ const update_payment = (orderID, new_payment) => {
 const track_order = (orderID) => {
     try{
         const order = Store.order.read_order_from_id(orderID);
-        if(!order){
-            throw new Error(`No Order Found For Id: ${orderID}`)
-        }
         console.log(`Type: ${order.shipment.type}, Status : ${order.shipment.status}`);
         return order.shipment;
 
@@ -230,9 +198,6 @@ const track_order = (orderID) => {
 const cancel_order = (orderID) => {
     try{
         const order = Store.order.read_order_from_id(orderID);
-        if(!order){
-            throw new Error(`No Order Found For Id: ${orderID}`)
-        }
         if(order.shipment.type === "cancelled"){
             throw new Error(`Already Placed for cancelled. Id: ${orderID}`);
         }
@@ -245,9 +210,7 @@ const cancel_order = (orderID) => {
 
         if(Store.order.update_order(orderID, order)){
             console.log("Order has been placed for cancellation");
-            return;
         }
-        throw new Error(`Error Occurs while cancelling Order`);
     }catch(err){
         console.log(`${err.name} => ${err.message}`);
     }
@@ -268,9 +231,7 @@ const cancel_order = (orderID) => {
 const return_replace_order = (orderID, action) =>{
     try{
         const order = Store.order.read_order_from_id(orderID);
-        if(!order){
-            throw new Error(`No Order Found For Id: ${orderID}`)
-        }
+
         if(order.order_status === "cancelled"){
             throw new Error(`Order is already Placed for cancellation. Id: ${orderID}`);
         }
@@ -280,18 +241,14 @@ const return_replace_order = (orderID, action) =>{
 
         if(action === "return"){
             for(product of order.products){
-                if(!Store.product.increase_quantity(product.productId, product.quantity)){
-                    throw new Error(`Error Occurs updating returned Product quantity in store. Try again later`);
-                }
+                Store.product.increase_quantity(product.productId, product.quantity);
             }
         }
         
         order.order_status = action;
         if(Store.order.update_order(orderID, order)){
             console.log(`Your order has been placed for ${action} Sucessfully`);
-            return;
         }
-        throw new Error(`Error occurs while ${action}. Try again later.`)
 
     }catch(err){
         console.log(`${err.name} => ${err.message}`);
@@ -311,9 +268,6 @@ const return_replace_order = (orderID, action) =>{
 const refund_updates = (orderId) =>{
     try{
         const order = Store.order.read_order_from_id(orderId);
-        if(!order){
-            throw new Error(`No Order Found For Id: ${orderId}`)
-        }
         if(order.order_status === "refund"){
             console.log(`Type: ${order.payment.type}, Status : ${order.payment.status}`);
             return order.payment;
@@ -339,9 +293,6 @@ const refund_updates = (orderId) =>{
 const send_shipment_updates = (orderId) => {
     try{
         const order = Store.order.read_order_from_id(orderId);
-        if(!order){
-            throw new Error(`No Order Found For Id: ${orderId}`)
-        }
         console.log(`Type: ${order.shipment.type}, Status : ${order.shipment.status}`);
         return order.shipment;
 
@@ -364,9 +315,6 @@ const send_shipment_updates = (orderId) => {
 const send_return_updates = (orderId) => {
     try{
         const order = Store.order.read_order_from_id(orderId);
-        if(!order){
-            throw new Error(`No Order Found For Id: ${orderId}`)
-        }
         if(order.order_status === "return"){
             console.log(`Type: ${order.shipment.type}, Status : ${order.shipment.status}`);
             return order.shipment;
@@ -391,9 +339,6 @@ const send_return_updates = (orderId) => {
 const send_payment_updates = (orderId) => {
     try{
         const order = Store.order.read_order_from_id(orderId);
-        if(!order){
-            throw new Error(`No Order Found For Id: ${orderId}`)
-        }
         console.log(`Type: ${order.payment.type}, Status : ${order.payment.status}`);
         return order.payment;
     }catch(err){

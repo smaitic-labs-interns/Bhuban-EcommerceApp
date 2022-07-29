@@ -73,11 +73,7 @@ const update_quantity_in_cart = (cartId, product, action) => {
         const product_res = Store.product.find_product(product.productId);
         const cart_res = Store.cart.find_cart(cartId);
 
-        if(!product_res){
-            throw new Error(`Not any available product for Id: ${product.productId}`);
-        }else if(!cart_res){
-            throw new Error(`No cart found for Id: ${cartId}`);
-        }else if(product.quantity <= 0){
+       if(product.quantity <= 0){
             throw new Error(`Qyantity must be greater than 0`);
         }
         
