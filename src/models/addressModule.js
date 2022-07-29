@@ -20,4 +20,4 @@ const Address = ({country, province, city, ward, tole, house_no}) => {
 // }
 
 
-module.exports = {Address, Updatable_address}
+module.exports = {Address}

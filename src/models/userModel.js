@@ -17,7 +17,7 @@ const User = ({firstName, middleName, lastName, address, email, password}) =>{
     }
 }
  
-
+ 
 
 // const SigninDetails = async({email, password}) => {
 //     try{

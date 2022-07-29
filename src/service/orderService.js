@@ -16,16 +16,15 @@ const AddressSchema = require('../models/addressModule');
         return error
 */
 
-const place_order = (cartId, shipping_address, payments) =>{
+const place_order = (cartId, shipping_address, paymentType, shipmentType) =>{
     try{
 
         const cart = Store.cart.find_cart(cartId);
         if(! cart){
             throw new Error(`No cart found for Id: ${cartId}`);
         }
-        const shipment = {type: "active", status: "reviewing"};
-        const address = AddressSchema.Address(value);
-        const order = Schema.Order(cart, address, payments, shipment);
+        const address = AddressSchema.Address(shipping_address);
+        const order = Schema.Order(cart, address, paymentType, shipmentType);
 
         for (product of cart.products){
             if(!Store.product.decrease_quantity(product.productId, product.quantity)){
@@ -54,8 +53,8 @@ const shipping_address = {
     "tole": "xyz",
     "house_no": 12
     }
-const payment ={"type": "cash", "status": "onDelivery"}
-// place_order("60eeaa21-39d9-4025-80ed-5da261dc0576", shipping_address, payment);
+
+// place_order("60eeaa21-39d9-4025-80ed-5da261dc0576", shipping_address, "CASH", "International");
 
 const update_quantity_order = (orderID, product, action) =>{
     try{
@@ -129,7 +128,7 @@ const update_address = (orderID ,new_address) => {
         if(!order){
             throw new Error(`No Order Found For Id: ${orderID}`)
         }
-        const {error, value} = Validate.Updatable_address_validation({new_address});
+        const {error, value} = Validate.Updatable_address_validation(new_address);
         if(error) throw error;
         const address = value;
         for(key in address){
@@ -150,13 +149,13 @@ const update_address = (orderID ,new_address) => {
 
 const new_address = {
     "country": "Nepal",
-    "province": 2,
+    "province": "Bagmati",
     "city": "Lalitpur",
     "ward": "23",
     "tole": "Dhapakhel",
     "house_no": 42
     }
-// update_address("08ecc7a8-ea33-4e5e-bda2-fd788b3bab8e", new_address);
+// update_address("a4e11704-261d-406e-b94a-76acffd6b816", new_address);
 
 /* Update Payment 
 @params
@@ -174,13 +173,13 @@ const update_payment = (orderID, new_payment) => {
         if(!order){
             throw new Error(`No Order Found For Id: ${orderID}`)
         }
-        const payment = new_payment // will come from payment schema
+        const PAYMENT_TYPES = ['E-sewa', 'Khalti', 'CONNECT-IPS', 'CASH']
         
-        for(key in payment){
-            if((payment[key]).length !== 0){               
-                order.payment[key] = payment[key];
-            }
+        if(!PAYMENT_TYPES.includes(new_payment.type)){
+            throw new Error('Invalid Payment');
         }
+        order.payment =new_payment;
+
         if(Store.order.update_order(orderID, order)){
             console.log("Payment Updated Sucessfully");
             return
@@ -192,7 +191,7 @@ const update_payment = (orderID, new_payment) => {
     }
 }
 
-// update_payment("08ecc7a8-ea33-4e5e-bda2-fd788b3bab8e",{"type": "Connect-IPS", "status": "paid"})
+// update_payment("a4e11704-261d-406e-b94a-76acffd6b816",{"type": "CONNECT-IPS", "status": "paid"})
 
 /* track Order 
 @params
@@ -242,8 +241,7 @@ const cancel_order = (orderID) => {
                 throw new Error(`Error occurs adding cancelled product in store`);
             }
         }
-        order.shipment= {type: "cancelled", status: "placed for cancelling"};
-        order.payment = {type: "refund", status: "Placed for refund"}
+        order.order_status = "cancelled";
 
         if(Store.order.update_order(orderID, order)){
             console.log("Order has been placed for cancellation");
@@ -273,10 +271,10 @@ const return_replace_order = (orderID, action) =>{
         if(!order){
             throw new Error(`No Order Found For Id: ${orderID}`)
         }
-        if(order.shipment.type === "cancelled"){
+        if(order.order_status === "cancelled"){
             throw new Error(`Order is already Placed for cancellation. Id: ${orderID}`);
         }
-        if(order.shipment.type === "return"){
+        if(order.order_status === "return"){
             throw new Error(`Already Placed for return. Id: ${orderID}`);
         }
 
@@ -287,8 +285,8 @@ const return_replace_order = (orderID, action) =>{
                 }
             }
         }
-        order.shipment = {type: action, status: `placed for ${action}`};
-
+        
+        order.order_status = action;
         if(Store.order.update_order(orderID, order)){
             console.log(`Your order has been placed for ${action} Sucessfully`);
             return;
@@ -316,7 +314,7 @@ const refund_updates = (orderId) =>{
         if(!order){
             throw new Error(`No Order Found For Id: ${orderId}`)
         }
-        if(order.payment.type === "refund"){
+        if(order.order_status === "refund"){
             console.log(`Type: ${order.payment.type}, Status : ${order.payment.status}`);
             return order.payment;
         }
@@ -352,7 +350,7 @@ const send_shipment_updates = (orderId) => {
     }
 }
 
-// send_shipment_updates("08ecc7a8-ea33-4e5e-bda2-fd788b3bab8e");
+// send_shipment_updates("a4e11704-261d-406e-b94a-76acffd6b816");
 
 /* Management: Send return updates
 @params
@@ -369,7 +367,7 @@ const send_return_updates = (orderId) => {
         if(!order){
             throw new Error(`No Order Found For Id: ${orderId}`)
         }
-        if(order.shipment.type === "return"){
+        if(order.order_status === "return"){
             console.log(`Type: ${order.shipment.type}, Status : ${order.shipment.status}`);
             return order.shipment;
         }

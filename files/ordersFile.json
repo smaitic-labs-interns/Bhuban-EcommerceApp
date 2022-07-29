@@ -1,56 +1,30 @@
 [
   {
-    "id": "08ecc7a8-ea33-4e5e-bda2-fd788b3bab8e",
+    "id": "a4e11704-261d-406e-b94a-76acffd6b816",
     "customerId": "60eeaa21-39d9-4025-80ed-5da261dc0576",
     "products": [
       {
         "productId": "eb83b188-a9a6-4035-bd61-f44689128529",
-        "quantity": 20
+        "quantity": 5
       }
     ],
-    "total_bill": 100000,
+    "total_bill": 25500,
     "shipping_address": {
       "country": "Nepal",
-      "province": 2,
+      "province": "Bagmati",
       "city": "Lalitpur",
-      "ward": "23",
+      "ward": 23,
       "tole": "Dhapakhel",
       "house_no": 42
     },
     "payment": {
-      "type": "Connect-IPS",
+      "type": "CONNECT-IPS",
       "status": "paid"
     },
     "shipment": {
-      "type": "cancelled",
-      "status": "placed for cancelling"
-    }
-  },
-  {
-    "id": "07fd08ea-ee4b-47c8-9604-e3eb848e5c62",
-    "customerId": "60eeaa21-39d9-4025-80ed-5da261dc0576",
-    "products": [
-      {
-        "productId": "eb83b188-a9a6-4035-bd61-f44689128529",
-        "quantity": 20
-      }
-    ],
-    "total_bill": 100000,
-    "shipping_address": {
-      "country": "Nepal",
-      "province": "3",
-      "city": "abc",
-      "ward": 23,
-      "tole": "xyz",
-      "house_no": 12
+      "type": "International",
+      "status": "review"
     },
-    "payment": {
-      "type": "cash",
-      "status": "onDelivery"
-    },
-    "shipment": {
-      "type": "active",
-      "status": "reviewing"
-    }
+    "order_status": "requested"
   }
 ]
