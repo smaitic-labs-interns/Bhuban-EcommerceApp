@@ -1,19 +1,22 @@
 const {v4: uuidv4} = require("uuid");
 const crypto = require('crypto');
+const validation = require('../utils/validations');
  
 const User = ({firstName, middleName, lastName, address, email, password}) =>{
-
+    const {error, value} = validation.user_validation({firstName, middleName, lastName, address, email, password});
+    if(error) throw error;
+    
     return {
         id: uuidv4(),
-        firstName,
-        middleName,
-        lastName,
-        address,
-        email,
-        password: crypto.createHash('md5').update(password).digest("hex")
+        firstName: value.firstName,
+        middleName: value.middleName,
+        lastName: value.lastName,
+        address: value.address,
+        email: value.email,
+        password: crypto.createHash('md5').update(value.password).digest("hex")
     }
 }
-
+ 
 
 
 // const SigninDetails = async({email, password}) => {

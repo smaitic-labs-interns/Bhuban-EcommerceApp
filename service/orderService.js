@@ -18,8 +18,7 @@ const AddressSchema = require('../models/addressModule');
 
 const place_order = (cartId, shipping_address, payments) =>{
     try{
-        const {error, value} = Validate.address_validation(shipping_address);
-        if(error) throw error;
+
         const cart = Store.cart.find_cart(cartId);
         if(! cart){
             throw new Error(`No cart found for Id: ${cartId}`);
@@ -33,14 +32,14 @@ const place_order = (cartId, shipping_address, payments) =>{
                 throw new Error(`Error occurs updating remaining product`);
             }
         }
+        if(!Store.order.place_order(order)){
+            throw new Error(`Error Occurs while Placing Order`);
+        }
         
         if(!Store.cart.delete_cart(cartId)){
             throw new Error(`Error Occurs Removing cart`);
         }
 
-        if(!Store.order.place_order(order)){
-            throw new Error(`Error Occurs while Placing Order`);
-        }
         console.log(`Your order has been placed with order Id : ${order.id}`);
     }catch (err){
         console.log(`${err.name} => ${err.message}`)
@@ -130,8 +129,9 @@ const update_address = (orderID ,new_address) => {
         if(!order){
             throw new Error(`No Order Found For Id: ${orderID}`)
         }
-        const address = AddressSchema.Updatable_address(new_address);
-        
+        const {error, value} = Validate.Updatable_address_validation({new_address});
+        if(error) throw error;
+        const address = value;
         for(key in address){
             if((address[key]).length !== 0){               
                 order.shipping_address[key] = address[key];

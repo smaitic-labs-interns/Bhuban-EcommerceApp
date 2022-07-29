@@ -34,4 +34,4 @@ const find_user_from_credintals = (login) => { // find user from credintals
     return false;
 }
 
-module.exports = {add_user, read_all_user, find_user_from_email, find_user_from_credintals};
+module.exports = {add_user, read_all_user, find_user_from_email, find_user_from_credintals}; 

@@ -61,4 +61,18 @@ const address_validation = ({country, province, city, ward, tole, house_no}) => 
     return address_schema.validate({country, province, city, ward, tole, house_no});
 }
 
-module.exports = {user_validation, sign_in_validation, product_validation, updating_product_validation ,address_validation};
+const Updatable_address_validation = ({country, province, city, ward, tole, house_no}) => {
+    const updatable_address_schema = Joi.object({
+        country : Joi.string().allow('',null),
+        province: Joi.string().allow('',null),
+        city: Joi.string().allow('',null),
+        ward: Joi.number().allow('',null),
+        tole: Joi.string().allow('',null),
+        house_no: Joi.number().allow('',null)
+    });
+    return updatable_address_schema.validate({country, province, city, ward, tole, house_no});
+}
+
+module.exports = {user_validation, sign_in_validation, product_validation, updating_product_validation ,address_validation, Updatable_address_validation};
+
+

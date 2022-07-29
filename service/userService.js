@@ -19,11 +19,7 @@ const crypto = require('crypto');
 
 const user_register = (firstName, middleName, lastName, address, email, password) =>{
     try{
-        const {error, value} = Validate.user_validation({firstName, middleName, lastName, address, email, password});
-        if(error){
-            throw error;
-        }
-        const user = Schema.User(value);
+        const user = Schema.User({firstName, middleName, lastName, address, email, password});
         if(db.user.find_user_from_email(user.email)){
             throw new Error('User Already Registered. Try Login!'); 
         }
@@ -50,9 +46,8 @@ const user_register = (firstName, middleName, lastName, address, email, password
 const user_signin = async(email, password) => {  
     try{
         const {error, value} = Validate.sign_in_validation({email, password});
-        if(error){
-            throw error;
-        }
+        if(error) throw error;
+        
         const signinDetails = {...value, password: crypto.createHash('md5').update(value.password).digest("hex")} // use hashing here
         if(db.user.find_user_from_credintals(signinDetails)){
             return console.log("Login Successfull !");
@@ -65,4 +60,4 @@ const user_signin = async(email, password) => {
 
 user_signin("bhubn@smaitic.com", "bhubany");
 
-module.exports = {user_register, user_signin};
+module.exports = {user_register, user_signin}; 

@@ -15,9 +15,7 @@ const Validate = require('../utils/validations');
 */
 const add_product = (category, model, brand, description, price, quantity, rating) => {
     try{
-        const {error, value} = Validate.product_validation({category, model, brand, description, price, quantity, rating});
-        if(error) throw error;
-        const product = Schema.Product(value);
+        const product = Schema.Product({category, model, brand, description, price, quantity, rating});
         if(store.product.add_product(product)){
             console.log("Product added to Database sucessfully");
         }else{
@@ -66,8 +64,7 @@ const update_product = (productID, category, model, brand, description, price, q
     try{
         const {error, value} = Validate.updating_product_validation({category, model, brand, description, price, quantity, rating});
         if(error) throw error;
-        const product = Schema.Update_Product(value);
-        if(store.product.update_product(productID, product)){
+        if(store.product.update_product(productID, value)){
             console.log("Product updated sucessfully");
             return;
         }
@@ -109,19 +106,19 @@ const prepare_ar_aging_report = () => {
     @else
         return Error
 */
-const search_products = (category) => {
+const search_products = (keyword) => {
     try{
-        const result = store.product.search_product(category);
+        const result = store.product.search_product(keyword);
         if(result.length >0){
             console.log(result);
         }else{
-            throw new Error(`No Product Found for Category: ${category}`);
+            throw new Error(`No Product Found for : ${keyword}`);
         }
     }catch(e){
         console.log(`${e.name} => ${e.message}`);
     }
 }
 
-// search_products("laptop");
+search_products(500);
 
 module.exports = {add_product, remove_product, update_product, prepare_revenue_report, prepare_ar_aging_report, search_products}

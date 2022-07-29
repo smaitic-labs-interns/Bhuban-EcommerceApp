@@ -57,12 +57,22 @@ const find_product = (productId) => { // find product from id
     return false;
 }
 
-const search_product =(category) =>{
+const search_product =(keyword) =>{
     const value = [];
     for(product of allProduct){
-        if(product.category.toLowerCase() === category.toLowerCase()){
-            value.push(product);
-        } 
+        for(key in product){
+            if(typeof product[key] === "string" && typeof keyword === "string"){
+                if((product[key].toLowerCase()).indexOf(keyword.toLowerCase()) !== -1){
+                    value.push(product);
+                    break;
+                }
+             }else if(typeof product[key] === "number" && typeof keyword === "number"){
+                if(product[key] <= keyword){
+                    value.push(product);
+                    break;
+                }
+            }
+        }
     }
     return value;
 }
