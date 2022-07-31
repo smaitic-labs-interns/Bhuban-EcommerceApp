@@ -1,7 +1,6 @@
 const db = require('../repository/dbRepository');
 const Schema = require('../models/userModel');
 const Validate = require('../utils/validations');
-const crypto = require('crypto');
 
 
 /* Creating User 
@@ -32,7 +31,7 @@ const user_register = (firstName, middleName, lastName, address, email, password
  
 };
 
-user_register("Bhuban","Prasad", "Yadav", "Dhapakhel-23", "ybhuban@smaitic.com", "bhubany")
+user_register("Bhuban","Prasad", "Yadav", "Dhapakhel-23", "bhuban@smaitic.com", "bhubany")
 
 /* User SignIn
 @params
@@ -48,7 +47,7 @@ const user_signin = async(email, password) => {
         const {error, value} = Validate.sign_in_validation({email, password});
         if(error) throw error;
         
-        const signinDetails = {...value, password: crypto.createHash('md5').update(value.password).digest("hex")} // use hashing here
+        const signinDetails = {...value}
         if(db.user.find_user_from_credintals(signinDetails)){
             return console.log("Login Successfull !");
         }
@@ -57,6 +56,6 @@ const user_signin = async(email, password) => {
     }
 }
 
-// user_signin("bhubn@smaitic.com", "bhubany");
+user_signin("ybhuban@smaitic.com", "bhubany");
 
 module.exports = {user_register, user_signin}; 

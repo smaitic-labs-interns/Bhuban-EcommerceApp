@@ -1,6 +1,11 @@
 const {v4: uuidv4} = require("uuid");
-const crypto = require('crypto');
+const bcrypt = require('bcrypt');
 const validation = require('../utils/validations');
+
+// Hash Password
+const hashPassword = (password) => {
+    return bcrypt.hashSync(password, 10);
+}
  
 const User = ({firstName, middleName, lastName, address, email, password}) =>{
     const {error, value} = validation.user_validation({firstName, middleName, lastName, address, email, password});
@@ -13,7 +18,7 @@ const User = ({firstName, middleName, lastName, address, email, password}) =>{
         lastName: value.lastName,
         address: value.address,
         email: value.email,
-        password: crypto.createHash('md5').update(value.password).digest("hex")
+        password: hashPassword(value.password)
     }
 }
  

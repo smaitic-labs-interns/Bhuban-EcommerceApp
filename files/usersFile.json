@@ -1,11 +1,20 @@
 [
   {
-    "id": "140ec1a8-3c07-4e73-a764-60279cf5970c",
+    "id": "2bcee193-d742-47be-a04b-a18b223f15ea",
+    "firstName": "Bhuban",
+    "middleName": "Prasad",
+    "lastName": "Yadav",
+    "address": "Dhapakhel-23",
+    "email": "ybhuban@smaitic.com",
+    "password": "$2b$10$X9uyv/vp2siKXBB/TUAADOyVX6rxGdhmg7kBCvQAaAdxVGmwEHLHO"
+  },
+  {
+    "id": "ce401edd-1427-42b7-a151-4d70771bf87b",
     "firstName": "Bhuban",
     "middleName": "Prasad",
     "lastName": "Yadav",
     "address": "Dhapakhel-23",
     "email": "bhuban@smaitic.com",
-    "password": "fb53a87175fe0775a16929a4fe6e2f47"
+    "password": "$2b$10$gg4oDwu9ypveZXADkkwGYeQZaD6DZnV2iK9Thd9JYRsi6GoLeVfp6"
   }
 ]

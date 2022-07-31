@@ -1,1 +1,12 @@
-[]
+[
+  {
+    "id": "60eeaa21-39d9-4025-80ed-5da261dc0576",
+    "products": [
+      {
+        "productId": "eb83b188-a9a6-4035-bd61-f44689128529",
+        "quantity": 5
+      }
+    ],
+    "total_bill": 25000
+  }
+]

@@ -26,7 +26,7 @@ const find_cart = (cartId) => { // find cart from id
         for(var cart of allCart){
             if(cart.id === cartId) return cart;
         }
-        throw new Error(`No cart Found for ID: ${cartId}`);
+        return false;
     }catch(err){
         throw err;
     }

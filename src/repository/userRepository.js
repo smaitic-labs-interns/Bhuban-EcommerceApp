@@ -1,6 +1,7 @@
 const utils = require("../utils/fileUtils.js");
 require('dotenv').config();
 const fileName = process.env.USER_FILE_PATH;
+const bcrypt = require('bcrypt');
 
 const read_all_user = () =>{
     try{
@@ -32,11 +33,16 @@ const find_user_from_email = (email) => { //find user from email
     }
 }
 
+// compare password
+const comparePassword = (password, hashPassword) => {
+    return bcrypt.compareSync(password, hashPassword);
+}
+
 
 const find_user_from_credintals = (login) => { // find user from credintals
     try{
         for (user of allUser){
-            if(login.email === user.email && login.password === user.password)  return user;
+            if(login.email === user.email && comparePassword(login.password, user.password))  return user;
         }
         throw new Error(`Invalid login Credintals`);
     }catch(err){

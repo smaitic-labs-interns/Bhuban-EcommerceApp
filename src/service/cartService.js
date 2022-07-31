@@ -55,7 +55,7 @@ const add_product_to_cart = (cartId, product) => {
     }
 }
 
-// add_product_to_cart("60eeaa21-39d9-4025-80ed-5da261dc0576", {productId: "eb83b188-a9a6-4035-bd61-f44689128529", quantity : 5} );
+add_product_to_cart("60eeaa21-39d9-4025-80ed-5da261dc0576", {productId: "eb83b188-a9a6-4035-bd61-f44689128529", quantity : 5} );
 
 /* Update quantity in cart
 @params
