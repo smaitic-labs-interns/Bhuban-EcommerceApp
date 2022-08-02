@@ -2,9 +2,14 @@ const fs = require('fs');
 const prompt = require('prompt-sync')();
 
 // Reading file
-exports.read_data = (fileName) =>{
+exports.read_data = async(fileName) =>{
     try{
-        return (JSON.parse(fs.readFileSync(fileName)));
+        fs.readFile(fileName, (err, result) => {
+            if(err){
+                throw err;
+            }
+            return (JSON.parse(result));
+        })
     }
     catch (err) {
         throw err;
@@ -13,15 +18,15 @@ exports.read_data = (fileName) =>{
 
 
 // Writing to file
-exports.write_data = (fileName, data) =>{
-    try{
-        fs.writeFileSync(fileName, JSON.stringify(data,null ,2));
-        return true;
-    }
-    catch (err) {
+exports.write_data = async(fileName, data) =>{
+    fs.writeFile(fileName, JSON.stringify(data,null ,2), (err, result) => {
+    if(err){
         throw err;
     }
-};
+    return true;
+    });
+}
+
 
 // For taking User Input through command line
 exports.get_user_input = (data_to_read) => {

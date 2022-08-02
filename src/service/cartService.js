@@ -78,7 +78,7 @@ const update_quantity_in_cart = (cartId, product, action) => {
         }
         
         switch (action) {
-            case action = "add":
+            case "add":
                 if(product.quantity <= product_res.quantity){
                     for(var oldProduct of cart_res.products){
                         if(oldProduct.productId === product.productId){
@@ -94,7 +94,7 @@ const update_quantity_in_cart = (cartId, product, action) => {
                 }
                 throw new Error(`Entered number of quantity is not sufficient in store`);
 
-            case action = "remove":
+            case "remove":
                     for(var oldProduct of cart_res.products){
                         if(oldProduct.productId === product.productId && product.quantity <= oldProduct.quantity){
                             oldProduct.quantity -= product.quantity;

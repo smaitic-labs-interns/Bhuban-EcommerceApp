@@ -31,7 +31,7 @@ const user_register = (firstName, middleName, lastName, address, email, password
  
 };
 
-user_register("Bhuban","Prasad", "Yadav", "Dhapakhel-23", "bhuban@smaitic.com", "bhubany")
+user_register("Bhuban","Prasad", "Yadav", "Dhapakhel-23", "yadav.bhuban@smaitic.com", "bhubany")
 
 /* User SignIn
 @params
@@ -56,6 +56,6 @@ const user_signin = async(email, password) => {
     }
 }
 
-user_signin("ybhuban@smaitic.com", "bhubany");
+// user_signin("ybhuban@smaitic.com", "bhubany");
 
 module.exports = {user_register, user_signin}; 
