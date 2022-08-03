@@ -31,7 +31,7 @@ const user_register = (firstName, middleName, lastName, address, email, password
  
 };
 
-user_register("Bhuban","Prasad", "Yadav", "Dhapakhel-23", "yadav.bhuban@smaitic.com", "bhubany")
+// user_register("Bhuban","Prasad", "Yadav", "Dhapakhel-23", "yadav.bhuban@smaitic.com", "bhubany")
 
 /* User SignIn
 @params
@@ -42,9 +42,9 @@ user_register("Bhuban","Prasad", "Yadav", "Dhapakhel-23", "yadav.bhuban@smaitic.
     @else
         return Error
 */
-const user_signin = (email, password) => {  
+const user_signin = async(email, password) => {  
     try{
-        const {error, value} = Validate.sign_in_validation({email, password});
+        const {error, value} = await Validate.sign_in_validation({email, password});
         if(error) throw error;
         
         const signinDetails = {...value}
@@ -56,6 +56,6 @@ const user_signin = (email, password) => {
     }
 }
 
-// user_signin("yadav.bhuban@smaitic.com", "bhubany");
+user_signin("yadav.bhuban@smaitic.com", "bhbany");
 
 module.exports = {user_register, user_signin}; 

@@ -1,8 +1,7 @@
 const fs = require('fs');
-const prompt = require('prompt-sync')();
 
 // Reading file
-exports.read_data = (fileName) =>{
+exports.read_data = async(fileName) =>{
     try{
         // return JSON.parse(fs.readFileSync(fileName));
         return new Promise((resolve, reject) => {
@@ -10,25 +9,11 @@ exports.read_data = (fileName) =>{
             if (err) reject(err);
                 resolve(JSON.parse(data));
             });  
-        });
-             
+        });           
     }catch (err) {
         throw err;
     }
 };
-
-
-// function initJson(file) {
-//     return new Promise((resolve, reject) => {
-//         fs.readFile(file, 'utf8', (error, data) => {
-//             if (error) {
-//                 reject(error);
-//             }
-//             resolve(JSON.parse(data));
-//         });
-//     });
-// };
-
 
 // Writing to file
 exports.write_data = async(fileName, data) =>{

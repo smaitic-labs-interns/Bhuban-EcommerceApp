@@ -5,15 +5,16 @@ const bcrypt = require('bcrypt');
 
 const read_all_user = async() =>{
     try{
-        return  await utils.read_data(fileName);
+        return await utils.read_data(fileName).then((res)=>res);
     }catch(err){
         throw err;
     }
 }
+  
 
-
-const allUser = read_all_user().then((data) => data);
-console.log(allUser); 
+const allUser = read_all_user();
+// console.log(allUser);
+// allUser.then((res)=>console.log(res))
 
 
 const add_user = (user) => { //add user
