@@ -1,8 +1,12 @@
-const Cart = (cartId) => {
+const {v4: uuidv4} = require('uuid');
+
+const Cart = (userId) => {
     return{
-        id:cartId,
+        id:uuidv4(),
+        userId:userId,
         products:[],
-        total_bill:0
+        total_bill:0,
+        status:"active"
     }
 }
 

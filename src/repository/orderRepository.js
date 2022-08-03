@@ -8,6 +8,7 @@ const read_all_orders = () =>{
 
 const allOrders = read_all_orders();
 
+
 const place_order = (order) => {
     try{
         allOrders.push(order);

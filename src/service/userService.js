@@ -42,7 +42,7 @@ user_register("Bhuban","Prasad", "Yadav", "Dhapakhel-23", "yadav.bhuban@smaitic.
     @else
         return Error
 */
-const user_signin = async(email, password) => {  
+const user_signin = (email, password) => {  
     try{
         const {error, value} = Validate.sign_in_validation({email, password});
         if(error) throw error;
@@ -56,6 +56,6 @@ const user_signin = async(email, password) => {
     }
 }
 
-// user_signin("ybhuban@smaitic.com", "bhubany");
+// user_signin("yadav.bhuban@smaitic.com", "bhubany");
 
 module.exports = {user_register, user_signin}; 

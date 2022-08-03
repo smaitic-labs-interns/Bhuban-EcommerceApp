@@ -3,15 +3,18 @@ require('dotenv').config();
 const fileName = process.env.USER_FILE_PATH;
 const bcrypt = require('bcrypt');
 
-const read_all_user = () =>{
+const read_all_user = async() =>{
     try{
-        return utils.read_data(fileName);
+        return  await utils.read_data(fileName);
     }catch(err){
         throw err;
     }
 }
 
-const allUser = read_all_user(); // reading all user
+
+const allUser = read_all_user().then((data) => data);
+console.log(allUser); 
+
 
 const add_user = (user) => { //add user
     try{

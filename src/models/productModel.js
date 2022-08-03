@@ -17,9 +17,4 @@ const Product = ({category, model, brand, description, price, quantity, rating})
     }
 }
 
-
-// const Update_Product = ({category, model, brand, description, price, quantity, rating}) => {
-//     return {category, model, brand, description, price, quantity, rating}
-// }
-
 module.exports ={Product}

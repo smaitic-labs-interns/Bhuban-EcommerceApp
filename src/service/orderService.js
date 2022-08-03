@@ -24,7 +24,7 @@ const place_order = (cartId, shipping_address, paymentType, shipmentType) =>{
         const order = Schema.Order(cart, address, paymentType, shipmentType);
 
         for (product of cart.products){
-           Store.product.decrease_quantity(product.productId, product.quantity);
+           Store.product.update_quantity(product.productId, product.quantity, "decrease");
         }
 
         if(Store.order.place_order(order) && Store.cart.delete_cart(cartId)){
@@ -58,7 +58,7 @@ const update_quantity_order = (orderID, product, action) =>{
                         if(oldProduct.productId === product.productId){
                             oldProduct.quantity += product.quantity;
                             order.total_bill += product.quantity*product_res.price;
-                            Store.product.decrease_quantity(product.productId, product.quantity);
+                            Store.product.update_quantity(product.productId, product.quantity, "decrease");
                             if(Store.order.update_order(orderID, order)){
                                 console.log("Quantity in order has been added sucessfully");
                                 return;
@@ -75,7 +75,7 @@ const update_quantity_order = (orderID, product, action) =>{
                         if(oldProduct.productId === product.productId && product.quantity <= oldProduct.quantity){
                             oldProduct.quantity -= product.quantity;
                             order.total_bill -= product.quantity*product_res.price;
-                            Store.product.increase_quantity(product.productId, product.quantity);
+                            Store.product.update_quantity(product.productId, product.quantity, "increase");
 
                             if(Store.order.update_order(orderID, order)){
                                 console.log("Quantity from order has been decreased sucessfully");
@@ -202,7 +202,7 @@ const cancel_order = (orderID) => {
             throw new Error(`Already Placed for cancelled. Id: ${orderID}`);
         }
         for(product of order.products){
-            if(!Store.product.increase_quantity(product.productId, product.quantity)){
+            if(!Store.product.update_quantity(product.productId, product.quantity, "increase")){
                 throw new Error(`Error occurs adding cancelled product in store`);
             }
         }
@@ -241,7 +241,7 @@ const return_replace_order = (orderID, action) =>{
 
         if(action === "return"){
             for(product of order.products){
-                Store.product.increase_quantity(product.productId, product.quantity);
+                Store.product.update_quantity(product.productId, product.quantity, "increase");
             }
         }
         

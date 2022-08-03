@@ -55,7 +55,55 @@ const add_product_to_cart = (cartId, product) => {
     }
 }
 
-add_product_to_cart("60eeaa21-39d9-4025-80ed-5da261dc0576", {productId: "eb83b188-a9a6-4035-bd61-f44689128529", quantity : 5} );
+// add_product_to_cart("60eeaa21-39d9-4025-80ed-5da261dc0576", {productId: "eb83b188-a9a6-4035-bd61-f44689128529", quantity : 5} );
+
+// /*
+const add_product_to_cart2 = (cartId, userId, product) => {
+    try{
+        const product_res = Store.product.find_product(product.productId);
+        const cart_res = Store.cart.find_cart(cartId);
+
+        if(cart_res && (cart_res.status === "active") && product_res && (product.quantity <= product_res.quantity)){
+            for(var oldProduct of cart_res.products){ // if item already available in cart
+                if(oldProduct.productId === product.productId){
+                    oldProduct.quantity += product.quantity;
+                    cart_res.total_bill += product.quantity*product_res.price;
+                    if(Store.cart.update_cart(cartId, cart_res)){
+                        console.log("Product added Sucessfully");
+                        return;
+                    }
+                    throw new Error(`Error occurs try again later`);
+                }
+            }
+            // cart is present but item is new
+            cart_res.products.push({...product});
+            cart_res.total_bill += product.quantity*product_res.price;
+            if(Store.cart.update_cart(cartId , cart_res)){
+                console.log("Product added Sucessfully");
+                return;
+            }
+            throw new Error(`Error occurs try again later`);
+            // no earlier cart is present
+        }else if((!cart_res || cart_res.status !=="active") && product_res && (product.quantity <= product_res.quantity)){
+            const cart = Schema.Cart(userId);
+            cart.products.push({...product});
+            cart.total_bill += product.quantity * product_res.price;
+            if(Store.cart.add_cart(cart)){
+                console.log(`Added to cart Sucessfully`);
+                return
+            }
+            throw new Error(`Error occurs try again later`);
+        }
+        throw new Error(`Currently No Product Available`);
+    }catch(err){
+        console.log(`${err.name} => ${err.message}`);
+    }
+}
+
+
+// */
+add_product_to_cart2("e5bd186f-d3a0-44f7-88f4-cd7294f5d14e","60eeaa21-39d9-4025-80ed-5da261dc0576", {productId: "eb83b188-a9a6-4035-bd61-f44689128529", quantity : 5} );
+
 
 /* Update quantity in cart
 @params
