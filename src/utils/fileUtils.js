@@ -1,15 +1,10 @@
-const fs = require('fs');
+const fs = require('fs/promises');
 
 // Reading file
 exports.read_data = async(fileName) =>{
     try{
-        // return JSON.parse(fs.readFileSync(fileName));
-        return new Promise((resolve, reject) => {
-            fs.readFile(fileName, 'utf8' ,(err, data) => {
-            if (err) reject(err);
-                resolve(JSON.parse(data));
-            });  
-        });           
+        const data =  await fs.readFile(fileName, "utf-8");
+        return JSON.parse(data)       
     }catch (err) {
         throw err;
     }
@@ -17,10 +12,14 @@ exports.read_data = async(fileName) =>{
 
 // Writing to file
 exports.write_data = async(fileName, data) =>{
-    fs.writeFile(fileName, JSON.stringify(data,null ,2), (err, result) => {
-        if(err) throw err;
-        return true;
-    });
+    try{
+        await fs.writeFile(fileName, JSON.stringify(data,null ,2), (err) => {
+            if(err) throw err;
+            return true;
+        });
+    }catch(err){
+        throw err;
+    }
 }
 
 

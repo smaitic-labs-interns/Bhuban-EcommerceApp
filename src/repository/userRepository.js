@@ -3,22 +3,20 @@ require('dotenv').config();
 const fileName = process.env.USER_FILE_PATH;
 const bcrypt = require('bcrypt');
 
+
+
 const read_all_user = async() =>{
     try{
-        return await utils.read_data(fileName).then((res)=>res);
+        const data =  await utils.read_data(fileName);
+        return data;
     }catch(err){
         throw err;
     }
 }
-  
 
-const allUser = read_all_user();
-// console.log(allUser);
-// allUser.then((res)=>console.log(res))
-
-
-const add_user = (user) => { //add user
+const add_user = async(user) => { //add user
     try{
+        const allUser = await read_all_user();
         allUser.push(user);
         return utils.write_data(fileName, allUser);
     }catch(err){
@@ -26,8 +24,9 @@ const add_user = (user) => { //add user
     }
 }
 
-const find_user_from_email = (email) => { //find user from email
+const find_user_from_email = async(email) => { //find user from email
     try{
+        const allUser = await read_all_user();
         for (user of allUser){
             if(email === user.email) return user;
         }
@@ -37,11 +36,10 @@ const find_user_from_email = (email) => { //find user from email
     }
 }
 
-// compare password
 
-
-const find_user_from_credintals = (login) => { // find user from credintals
+const find_user_from_credintals = async(login) => { // find user from credintals
     try{
+        const allUser = await read_all_user();
         for (user of allUser){
             if(login.email === user.email && bcrypt.compareSync(login.password, user.password))  return user;
         }

@@ -34,9 +34,9 @@ const add_product = (category, model, brand, description, price, quantity, ratin
     @else
         return Error
 */
-const remove_product = (productId) => {
+const remove_product = async(productId) => {
     try{
-        if(store.product.delete_product(productId)){
+        if(await store.product.delete_product(productId)){
             console.log("Product removed sucessfully");
         }
     }catch(err){
@@ -56,18 +56,18 @@ const remove_product = (productId) => {
     @else
         return Error
 */
-const update_product = (productID, category, model, brand, description, price, quantity, rating) => {
+const update_product = async(productID, category, model, brand, description, price, quantity, rating) => {
     try{
         const {error, value} = Validate.updating_product_validation({category, model, brand, description, price, quantity, rating});
         if(error) throw error;
-        if(store.product.update_product(productID, value)){
+        if(await store.product.update_product(productID, value)){
             console.log("Product updated sucessfully");
         }        
     }catch(err){
         console.log(`${err.name} => ${err.message}`);
     }
 }
-// update_product("effc0d18-dcea-4498-9abb-30747ca23491",category="", model= "dell inspirion 5567", brand = "dell", description="", price="100000", quantity="", rating="");
+update_product("effc0d18-dcea-4498-9abb-30747ca23491",category="", model= "dell inspirion 5567", brand = "dell", description="", price="100000", quantity="", rating="");
 
 /* Management: Prepare revenue report
 @params 
@@ -99,15 +99,15 @@ const prepare_ar_aging_report = () => {
     @else
         return Error
 */
-const search_products = (keyword) => {
+const search_products = async(keyword) => {
     try{
-        const result = store.product.search_product(keyword);
+        const result = await store.product.search_product(keyword);
         console.log(result);
     }catch(e){
         console.log(`${e.name} => ${e.message}`);
     }
 }
 
-// search_products("a");
+// search_products("length");
 
 module.exports = {add_product, remove_product, update_product, prepare_revenue_report, prepare_ar_aging_report, search_products}

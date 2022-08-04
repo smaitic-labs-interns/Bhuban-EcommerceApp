@@ -25,5 +25,14 @@
     "address": "Dhapakhel-23",
     "email": "yadav.bhuban@smaitic.com",
     "password": "$2b$10$Tjp/wEKTwuHWuvYSPXRy1eaAuRypRP0Xc4AVOSYLuVm8BlsT1oefK"
+  },
+  {
+    "id": "61f9c4eb-1539-4d13-b3d7-b087fe4b1445",
+    "firstName": "Bhuban",
+    "middleName": "Prasad",
+    "lastName": "Yadav",
+    "address": "Dhapakhel-23",
+    "email": "yadav.bhuban.by@smaitic.com",
+    "password": "$2b$10$4r0eg.3rwzJ0XJ7KCXqJ.OgYxarUlY32HqZJ6pXKpf6ga591VItNy"
   }
 ]

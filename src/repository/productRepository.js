@@ -4,18 +4,19 @@ const fileName = process.env.PRODUCT_FILE_PATH;
 
 
 
-const read_all_products = () =>{
+const read_all_products = async() =>{
     try{
-        return utils.read_data(fileName);
+        return await utils.read_data(fileName);
     }catch(err){
         throw err;
     }
 }
 
-const allProduct = read_all_products();
 
-const add_product = (product) => {
+
+const add_product = async(product) => {
     try{
+        const allProduct = await read_all_products();
         allProduct.push(product);
         return utils.write_data(fileName, allProduct);
     }catch(err){
@@ -23,8 +24,9 @@ const add_product = (product) => {
     }
 }
 
-const delete_product = (productId) =>{
+const delete_product = async(productId) =>{
     try{
+        const allProduct = await read_all_products();
         for(var product of allProduct){
             if(product.id === productId){
                 var remainingProduct = allProduct.filter(item => item.id !== productId)
@@ -37,8 +39,9 @@ const delete_product = (productId) =>{
     }
 }
 
-const update_product = (productId, newProduct) => {
+const update_product = async(productId, newProduct) => {
     try{
+        const allProduct = await read_all_products();
         for(var product of allProduct){
             if(product.id === productId){
                 for (key in newProduct){
@@ -46,7 +49,7 @@ const update_product = (productId, newProduct) => {
                         product[key] = newProduct[key];
                     }
                 }
-                return utils.write_data(fileName, allProduct);
+                return await utils.write_data(fileName, allProduct);
             } 
         }
         throw new Error(`No Product Found for Id: ${productId}`);
@@ -55,8 +58,9 @@ const update_product = (productId, newProduct) => {
     }
 }
 
-const find_product = (productId) => { // find product from id
+const find_product = async(productId) => { // find product from id
     try{
+        const allProduct = await read_all_products();
         for(var product of allProduct){
             if(product.id === productId) return product;
         }
@@ -66,8 +70,9 @@ const find_product = (productId) => { // find product from id
     }
 }
 
-const search_product =(keyword) =>{
+const search_product = async(keyword) =>{
     try{
+        const allProduct = await read_all_products();
         const value = [];
         for(product of allProduct){
             for(key in product){
@@ -92,8 +97,9 @@ const search_product =(keyword) =>{
         throw err;
     }
 }
-const update_quantity = (productId, quantity, action) => {
+const update_quantity = async(productId, quantity, action) => {
     try{
+        const allProduct = await read_all_products();
         for(var product of allProduct){
             if(product.id === productId){
                 switch (action) {
@@ -115,33 +121,5 @@ const update_quantity = (productId, quantity, action) => {
     }
 
 }
-
-// const decrease_quantity = (productId, quantity) => {
-//     try{
-//         for(var product of allProduct){
-//             if(product.id === productId){
-//                 product.quantity -= quantity;
-//                 return utils.write_data(fileName, allProduct);
-//             }
-//         }
-//         throw new Error(`No Product found on ID: ${productId}`);
-//     }catch(err){
-//         throw err;
-//     }
-// }
-
-// const increase_quantity = (productId, quantity) => {
-//     try{
-//         for(product of allProduct){
-//             if(product.id === productId){
-//                 product.quantity += quantity;
-//                 return utils.write_data(fileName, allProduct);
-//             }
-//         }
-//         throw new Error(`No Product found on ID: ${productId}`);
-//     }catch(err){
-//         throw err;
-//     }
-// }
 
 module.exports = {add_product, read_all_products, delete_product, update_product, search_product, find_product, update_quantity}

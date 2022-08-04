@@ -16,10 +16,10 @@ const Validate = require('../utils/validations');
 */
 
 
-const user_register = (firstName, middleName, lastName, address, email, password) =>{
+const user_register = async(firstName, middleName, lastName, address, email, password) =>{
     try{
         const user = Schema.User({firstName, middleName, lastName, address, email, password});
-        if(db.user.find_user_from_email(user.email)){
+        if(await db.user.find_user_from_email(user.email)){
             throw new Error('User Already Registered. Try Login!'); 
         }
         if(db.user.add_user(user)){
@@ -31,7 +31,7 @@ const user_register = (firstName, middleName, lastName, address, email, password
  
 };
 
-// user_register("Bhuban","Prasad", "Yadav", "Dhapakhel-23", "yadav.bhuban@smaitic.com", "bhubany")
+user_register("Bhuban","Prasad", "Yadav", "Dhapakhel-23", "yadav.bhuban.by@smaitic.com", "bhubany")
 
 /* User SignIn
 @params
@@ -48,7 +48,7 @@ const user_signin = async(email, password) => {
         if(error) throw error;
         
         const signinDetails = {...value}
-        if(db.user.find_user_from_credintals(signinDetails)){
+        if(await db.user.find_user_from_credintals(signinDetails)){
             return console.log("Login Successfull !");
         }
     }catch(e){
@@ -56,6 +56,8 @@ const user_signin = async(email, password) => {
     }
 }
 
-user_signin("yadav.bhuban@smaitic.com", "bhbany");
+// user_signin("yadav.bhuban.by@smaitic.com", "bhubny");
+
+
 
 module.exports = {user_register, user_signin}; 
