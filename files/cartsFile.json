@@ -16,10 +16,10 @@
     "products": [
       {
         "productId": "eb83b188-a9a6-4035-bd61-f44689128529",
-        "quantity": 10
+        "quantity": 20
       }
     ],
-    "total_bill": 50000,
+    "total_bill": 100000,
     "status": "active"
   },
   {
@@ -33,5 +33,29 @@
     ],
     "total_bill": 25000,
     "status": "orderPlaced"
+  },
+  {
+    "id": "57455cbd-355e-4323-bd3e-c1443a336b18",
+    "userId": "60eeaa21-39d9-4025-80ed-5da261dc0576",
+    "products": [
+      {
+        "productId": "eb83b188-a9a6-4035-bd61-f44689128529",
+        "quantity": 5
+      }
+    ],
+    "total_bill": 25000,
+    "status": "active"
+  },
+  {
+    "id": "3365271d-b874-4369-b97a-006318b05477",
+    "userId": "60eeaa21-39d9-4025-80ed-5da261dc0576",
+    "products": [
+      {
+        "productId": "eb83b188-a9a6-4035-bd61-f44689128529",
+        "quantity": 5
+      }
+    ],
+    "total_bill": 25000,
+    "status": "active"
   }
 ]

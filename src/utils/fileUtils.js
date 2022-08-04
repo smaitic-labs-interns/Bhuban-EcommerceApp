@@ -13,10 +13,8 @@ exports.read_data = async(fileName) =>{
 // Writing to file
 exports.write_data = async(fileName, data) =>{
     try{
-        await fs.writeFile(fileName, JSON.stringify(data,null ,2), (err) => {
-            if(err) throw err;
-            return true;
-        });
+        await fs.writeFile(fileName, JSON.stringify(data,null ,2))
+        return true;
     }catch(err){
         throw err;
     }

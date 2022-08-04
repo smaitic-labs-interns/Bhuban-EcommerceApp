@@ -2,17 +2,18 @@ const utils = require("../utils/fileUtils.js");
 require('dotenv').config();
 const fileName = process.env.CART_FILE_PATH;
 
-const read_all_cart = () =>{
+const read_all_cart = async() =>{
     try{
-        return utils.read_data(fileName);
+        return await utils.read_data(fileName);
     }catch(err){
         throw err;
     }
 }
-const allCart = read_all_cart(); // read all products
 
-const add_cart = (cart) =>{
+
+const add_cart = async(cart) =>{
     try{
+        const allCart = await read_all_cart();
         allCart.push(cart);
         return utils.write_data(fileName, allCart);
     }catch(err){
@@ -21,8 +22,9 @@ const add_cart = (cart) =>{
     }
 }
 
-const find_cart = (cartId) => { // find cart from id
+const find_cart = async(cartId) => { // find cart from id
     try{
+        const allCart = await read_all_cart();
         for(var cart of allCart){
             if(cart.id === cartId) return cart;
         }
@@ -32,8 +34,9 @@ const find_cart = (cartId) => { // find cart from id
     }
 }
 
-const update_cart = (cartId, newCart) => {
+const update_cart = async(cartId, newCart) => {
     try{
+        const allCart = await read_all_cart();
         for(var oldCart of allCart){
             if(oldCart.id === cartId){
                 allCart[allCart.indexOf(oldCart)] = newCart;
@@ -46,8 +49,9 @@ const update_cart = (cartId, newCart) => {
     }
 }
 
-const delete_cart = (cartId) => {
+const delete_cart = async(cartId) => {
     try{
+        const allCart = await read_all_cart();
         for (var cart of allCart){
             if(cart.id === cartId){
                 const remainingCart = allCart.filter((item) => item.id !== cartId);

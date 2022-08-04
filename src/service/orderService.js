@@ -16,10 +16,11 @@ const AddressSchema = require('../models/addressModule');
         return error
 */
 
-const place_order = (cartId, shipping_address, paymentType, shipmentType) =>{
+const place_order = async(cartId, shipping_address, paymentType, shipmentType) =>{
     try{
 
-        const cart = Store.cart.find_cart(cartId);
+        const cart = await Store.cart.find_cart(cartId);
+        if(!cart) throw new Error(`NO Cart Found For ID: ${cartId}`);
         const address = AddressSchema.Address(shipping_address);
         const order = Schema.Order(cart, address, paymentType, shipmentType);
 
@@ -44,12 +45,12 @@ const shipping_address = {
     "house_no": 12
     }
 
-// place_order("60eeaa21-39d9-4025-80ed-5da261dc0576", shipping_address, "CASH", "International");
+// place_order("5b6126f2-6068-4623-8589-501a2e2a3607", shipping_address, "CASH", "International");
 
-const update_quantity_order = (orderID, product, action) =>{
+const update_quantity_order = async(orderID, product, action) =>{
     try{
-        const order = Store.order.read_order_from_id(orderID);
-        const product_res = Store.product.find_product(product.productId);
+        const order = await Store.order.read_order_from_id(orderID);
+        const product_res = await Store.product.find_product(product.productId);
 
         switch (action) {
             case "add":
@@ -90,7 +91,7 @@ const update_quantity_order = (orderID, product, action) =>{
         console.log(`${err.name} => ${err.message}`);
     }
 }
-// update_quantity_order("08ecc7a8-ea33-4e5e-bda2-fd788b3bab8e", {productId: "eb83b188-a9a6-4035-bd61-f44689128529", "quantity": 5}, "add")
+// update_quantity_order("a699efaa-0e54-490d-b197-10e32a76efc2", {productId: "eb83b188-a9a6-4035-bd61-f44689128529", "quantity": 5}, "add")
 
 
 /* Update Address
@@ -103,9 +104,9 @@ const update_quantity_order = (orderID, product, action) =>{
     @else
         return error
 */
-const update_address = (orderID ,new_address) => {
+const update_address = async(orderID ,new_address) => {
     try{
-        const order = Store.order.read_order_from_id(orderID);
+        const order = await Store.order.read_order_from_id(orderID);
         const {error, value} = Validate.Updatable_address_validation(new_address);
         if(error) throw error;
         const address = value;
@@ -131,7 +132,7 @@ const new_address = {
     "tole": "Dhapakhel",
     "house_no": 42
     }
-// update_address("a4e11704-261d-406e-b94a-76acffd6b816", new_address);
+// update_address("a699efaa-0e54-490d-b197-10e32a76efc2", new_address);
 
 /* Update Payment 
 @params
@@ -143,9 +144,9 @@ const new_address = {
     @else
         return error
 */
-const update_payment = (orderID, new_payment) => {
+const update_payment = async(orderID, new_payment) => {
     try{
-        const order = Store.order.read_order_from_id(orderID);
+        const order = await Store.order.read_order_from_id(orderID);
         const PAYMENT_TYPES = ['E-sewa', 'Khalti', 'CONNECT-IPS', 'CASH']
         
         if(!PAYMENT_TYPES.includes(new_payment.type)){
@@ -162,7 +163,7 @@ const update_payment = (orderID, new_payment) => {
     }
 }
 
-// update_payment("a4e11704-261d-406e-b94a-76acffd6b816",{"type": "CONNECT-IPS", "status": "paid"})
+// update_payment("a699efaa-0e54-490d-b197-10e32a76efc2",{"type": "CONNECT-IPS", "status": "paid"})
 
 /* track Order 
 @params
@@ -173,9 +174,9 @@ const update_payment = (orderID, new_payment) => {
     @else
         return error
 */
-const track_order = (orderID) => {
+const track_order = async(orderID) => {
     try{
-        const order = Store.order.read_order_from_id(orderID);
+        const order = await Store.order.read_order_from_id(orderID);
         console.log(`Type: ${order.shipment.type}, Status : ${order.shipment.status}`);
         return order.shipment;
 
@@ -184,7 +185,7 @@ const track_order = (orderID) => {
     }
 }
 
-// track_order("08ecc7a8-ea33-4e5e-bda2-fd788b3bab8e");
+// track_order("a699efaa-0e54-490d-b197-10e32a76efc2");
 /* Cancel Order  
 @param
     1) orderID: "Unique ID"
@@ -195,10 +196,10 @@ const track_order = (orderID) => {
         return error
 */
 
-const cancel_order = (orderID) => {
+const cancel_order = async(orderID) => {
     try{
-        const order = Store.order.read_order_from_id(orderID);
-        if(order.shipment.type === "cancelled"){
+        const order = await Store.order.read_order_from_id(orderID);
+        if(order.order_status === "cancelled"){
             throw new Error(`Already Placed for cancelled. Id: ${orderID}`);
         }
         for(product of order.products){
@@ -216,7 +217,7 @@ const cancel_order = (orderID) => {
     }
 }
 
-// cancel_order("08ecc7a8-ea33-4e5e-bda2-fd788b3bab8e");
+// cancel_order("a699efaa-0e54-490d-b197-10e32a76efc2");
 
 /* return replace Order  
 @param
@@ -228,9 +229,9 @@ const cancel_order = (orderID) => {
     @else
         return error
 */
-const return_replace_order = (orderID, action) =>{
+const return_replace_order = async(orderID, action) =>{
     try{
-        const order = Store.order.read_order_from_id(orderID);
+        const order = await Store.order.read_order_from_id(orderID);
 
         if(order.order_status === "cancelled"){
             throw new Error(`Order is already Placed for cancellation. Id: ${orderID}`);
@@ -255,7 +256,7 @@ const return_replace_order = (orderID, action) =>{
     }
 }
 
-// return_replace_order("08ecc7a8-ea33-4e5e-bda2-fd788b3bab8e", "return");
+// return_replace_order("a699efaa-0e54-490d-b197-10e32a76efc2", "return");
 /* Track refund updates 
 @params
     1) orderID: "Unique ID"
@@ -265,9 +266,9 @@ const return_replace_order = (orderID, action) =>{
     @else
         return error
 */
-const refund_updates = (orderId) =>{
+const refund_updates = async(orderId) =>{
     try{
-        const order = Store.order.read_order_from_id(orderId);
+        const order = await Store.order.read_order_from_id(orderId);
         if(order.order_status === "refund"){
             console.log(`Type: ${order.payment.type}, Status : ${order.payment.status}`);
             return order.payment;
@@ -279,7 +280,7 @@ const refund_updates = (orderId) =>{
     }
 }
 
-// refund_updates("a4e11704-261d-406e-b94a-76acffd6b816")
+// refund_updates("a699efaa-0e54-490d-b197-10e32a76efc2")
 
 /* Management: Send shipment updates
 @params
@@ -290,9 +291,9 @@ const refund_updates = (orderId) =>{
     @else
         return error
 */
-const send_shipment_updates = (orderId) => {
+const send_shipment_updates = async(orderId) => {
     try{
-        const order = Store.order.read_order_from_id(orderId);
+        const order = await Store.order.read_order_from_id(orderId);
         console.log(`Type: ${order.shipment.type}, Status : ${order.shipment.status}`);
         return order.shipment;
 
@@ -301,7 +302,7 @@ const send_shipment_updates = (orderId) => {
     }
 }
 
-// send_shipment_updates("a4e11704-261d-406e-b94a-76acffd6b816");
+// send_shipment_updates("a699efaa-0e54-490d-b197-10e32a76efc2");
 
 /* Management: Send return updates
 @params
@@ -312,9 +313,9 @@ const send_shipment_updates = (orderId) => {
     @else
         return Error
 */
-const send_return_updates = (orderId) => {
+const send_return_updates = async(orderId) => {
     try{
-        const order = Store.order.read_order_from_id(orderId);
+        const order = await Store.order.read_order_from_id(orderId);
         if(order.order_status === "return"){
             console.log(`Type: ${order.shipment.type}, Status : ${order.shipment.status}`);
             return order.shipment;
@@ -325,7 +326,7 @@ const send_return_updates = (orderId) => {
     }
 }
 
-// send_return_updates("08ecc7a8-ea33-4e5e-bda2-fd788b3bab8e");
+// send_return_updates("a699efaa-0e54-490d-b197-10e32a76efc2");
 
 /* Management: Send Payment updates
 @params
@@ -336,9 +337,9 @@ const send_return_updates = (orderId) => {
     @else
         return Error
     */
-const send_payment_updates = (orderId) => {
+const send_payment_updates = async(orderId) => {
     try{
-        const order = Store.order.read_order_from_id(orderId);
+        const order = await Store.order.read_order_from_id(orderId);
         console.log(`Type: ${order.payment.type}, Status : ${order.payment.status}`);
         return order.payment;
     }catch(err){
@@ -348,7 +349,7 @@ const send_payment_updates = (orderId) => {
 
 
 
-// send_payment_updates("08ecc7a8-ea33-4e5e-bda2-fd788b3bab8e");
+// send_payment_updates("a699efaa-0e54-490d-b197-10e32a76efc2");
 
 
 

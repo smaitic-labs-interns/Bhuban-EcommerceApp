@@ -49,7 +49,7 @@ const update_product = async(productId, newProduct) => {
                         product[key] = newProduct[key];
                     }
                 }
-                return await utils.write_data(fileName, allProduct);
+                return utils.write_data(fileName, allProduct);
             } 
         }
         throw new Error(`No Product Found for Id: ${productId}`);
@@ -104,7 +104,7 @@ const update_quantity = async(productId, quantity, action) => {
             if(product.id === productId){
                 switch (action) {
                     case "increase":
-                        product.quantity -= quantity;
+                        product.quantity += quantity;
                         break;
                     
                     case "decrease":

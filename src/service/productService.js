@@ -44,7 +44,7 @@ const remove_product = async(productId) => {
     }
 }
 
-// remove_product("effc0d18-dcea-4498-9abb-30747ca23491");
+// remove_product("ced6abb7-e698-480f-be85-25f3fbd70f14");
 
 /*Management:  Update Product from file
 @params
@@ -60,14 +60,14 @@ const update_product = async(productID, category, model, brand, description, pri
     try{
         const {error, value} = Validate.updating_product_validation({category, model, brand, description, price, quantity, rating});
         if(error) throw error;
-        if(await store.product.update_product(productID, value)){
+        if(store.product.update_product(productID, value)){
             console.log("Product updated sucessfully");
         }        
     }catch(err){
         console.log(`${err.name} => ${err.message}`);
     }
 }
-update_product("effc0d18-dcea-4498-9abb-30747ca23491",category="", model= "dell inspirion 5567", brand = "dell", description="", price="100000", quantity="", rating="");
+// update_product("effc0d18-dcea-4498-9abb-30747ca23491",category="", model= "dell inspirion 5567", brand = "dell", description="", price="100000", quantity="", rating="");
 
 /* Management: Prepare revenue report
 @params 

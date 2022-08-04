@@ -1,30 +1,31 @@
 [
   {
-    "id": "a4e11704-261d-406e-b94a-76acffd6b816",
+    "id": "a699efaa-0e54-490d-b197-10e32a76efc2",
+    "cartId": "5b6126f2-6068-4623-8589-501a2e2a3607",
     "customerId": "60eeaa21-39d9-4025-80ed-5da261dc0576",
     "products": [
       {
         "productId": "eb83b188-a9a6-4035-bd61-f44689128529",
-        "quantity": 5
+        "quantity": 15
       }
     ],
-    "total_bill": 25500,
+    "total_bill": 75500,
     "shipping_address": {
       "country": "Nepal",
-      "province": "Bagmati",
-      "city": "Lalitpur",
+      "province": "3",
+      "city": "abc",
       "ward": 23,
-      "tole": "Dhapakhel",
-      "house_no": 42
+      "tole": "xyz",
+      "house_no": 12
     },
     "payment": {
-      "type": "CONNECT-IPS",
-      "status": "paid"
+      "type": "CASH",
+      "status": "Unpaid"
     },
     "shipment": {
       "type": "International",
       "status": "review"
     },
-    "order_status": "requested"
+    "order_status": "cancelled"
   }
 ]

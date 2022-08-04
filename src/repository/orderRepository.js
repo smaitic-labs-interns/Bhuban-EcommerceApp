@@ -2,15 +2,14 @@ const utils = require("../utils/fileUtils.js");
 require('dotenv').config();
 const fileName = process.env.ORDER_FILE_PATH;
 
-const read_all_orders = () =>{
-    return utils.read_data(fileName);
+const read_all_orders = async() =>{
+    return await utils.read_data(fileName);
 }
 
-const allOrders = read_all_orders();
 
-
-const place_order = (order) => {
+const place_order = async(order) => {
     try{
+        const allOrders = await read_all_orders();
         allOrders.push(order);
         return utils.write_data(fileName, allOrders);
     }catch(err){
@@ -19,8 +18,9 @@ const place_order = (order) => {
 }
 
 
-const read_order_from_id = (orderId) =>{
+const read_order_from_id = async(orderId) =>{
     try{
+        const allOrders = await read_all_orders();
         for(order of allOrders){
             if(order.id === orderId) return order;
         }
@@ -30,8 +30,9 @@ const read_order_from_id = (orderId) =>{
     }
 }
  
-const update_order = (orderId, newOrder) =>{
+const update_order = async(orderId, newOrder) =>{
     try{
+        const allOrders = await read_all_orders();
         for(var oldOrder of allOrders){
             if(oldOrder.id === orderId){
                 allOrders[allOrders.indexOf(oldOrder)] = newOrder;

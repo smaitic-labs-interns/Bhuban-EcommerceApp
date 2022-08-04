@@ -6,7 +6,7 @@
     "brand": "dell",
     "description": "sony radio for music including recording features",
     "price": 5000,
-    "quantity": 320,
+    "quantity": 140,
     "rating": 10,
     "key": "lenovo"
   },
@@ -28,6 +28,16 @@
     "description": "sony radio for music including recording features",
     "price": 100000,
     "quantity": 300,
+    "rating": 4
+  },
+  {
+    "id": "7ece87f0-62b4-47da-821f-edc60b30760b",
+    "category": "laptop",
+    "model": "Dell inspirion 5567",
+    "brand": "dell",
+    "description": "Dell laptop ",
+    "price": 50000,
+    "quantity": 30,
     "rating": 4
   }
 ]
