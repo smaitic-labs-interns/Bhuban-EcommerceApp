@@ -58,7 +58,7 @@ const add_product_to_cart = async(cartId, userId, product) => {
 
 
 // */
-// add_product_to_cart("e5bd186f-d3a0-44f7-88f4-cd7294f5d14e","60eeaa21-39d9-4025-80ed-5da261dc0576", {productId: "eb83b188-a9a6-4035-bd61-f44689128529", quantity : 5} );
+// add_product_to_cart("3799a1a1-e02b-44ca-8df0-1e818593bd29","60eeaa21-39d9-4025-80ed-5da261dc0576", {productId: "68d61adb-9442-47d4-89b6-cd0098e228b1", quantity : 5} );
 
 
 /* Update quantity in cart
@@ -96,6 +96,7 @@ const update_quantity_in_cart = async(cartId, product, action) => {
                             throw new Error(`Error occurs adding to cart. Try again later`);
                         }
                     }
+                    throw new Error(`No product found in order to update for ID: ${product.productId}`)
                 }
                 throw new Error(`Entered number of quantity is not sufficient in store`);
 
@@ -110,6 +111,7 @@ const update_quantity_in_cart = async(cartId, product, action) => {
                             }
                             throw new Error(`Error occurs removing from cart. Try again later`);
                         }
+                        throw new Error(`No product found in order to update for ID: ${product.productId}`)
                     }
                     throw new Error(`Entered number of quantity is greater than quantity in cart`);
 
@@ -121,6 +123,6 @@ const update_quantity_in_cart = async(cartId, product, action) => {
     }
 }
 
-// update_quantity_in_cart("5b6126f2-6068-4623-8589-501a2e2a3607", {productId: "eb83b188-a9a6-4035-bd61-f44689128529", quantity : 10}, "add");
+// update_quantity_in_cart("3799a1a1-e02b-44ca-8df0-1e818593bd29", {productId: "68d61adb-9442-47d4-89b6-cd0098e228b1", quantity : 10}, "remove");
 
 module.exports ={add_product_to_cart, update_quantity_in_cart};

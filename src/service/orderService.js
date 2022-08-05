@@ -45,7 +45,7 @@ const shipping_address = {
     "house_no": 12
     }
 
-// place_order("5b6126f2-6068-4623-8589-501a2e2a3607", shipping_address, "CASH", "International");
+// place_order("1d9b8458-582a-479b-8b78-22a69b6a89f1", shipping_address, "CASH", "International");
 
 const update_quantity_order = async(orderID, product, action) =>{
     try{
@@ -91,7 +91,7 @@ const update_quantity_order = async(orderID, product, action) =>{
         console.log(`${err.name} => ${err.message}`);
     }
 }
-// update_quantity_order("a699efaa-0e54-490d-b197-10e32a76efc2", {productId: "eb83b188-a9a6-4035-bd61-f44689128529", "quantity": 5}, "add")
+// update_quantity_order("cb0341f6-b038-4b7d-b609-f806cb3eef3c", {productId: "68d61adb-9442-47d4-89b6-cd0098e228b1", "quantity": 5}, "remove")
 
 
 /* Update Address
@@ -132,7 +132,7 @@ const new_address = {
     "tole": "Dhapakhel",
     "house_no": 42
     }
-// update_address("a699efaa-0e54-490d-b197-10e32a76efc2", new_address);
+// update_address("cb0341f6-b038-4b7d-b609-f806cb3eef3c", new_address);
 
 /* Update Payment 
 @params
@@ -163,7 +163,7 @@ const update_payment = async(orderID, new_payment) => {
     }
 }
 
-// update_payment("a699efaa-0e54-490d-b197-10e32a76efc2",{"type": "CONNECT-IPS", "status": "paid"})
+// update_payment("cb0341f6-b038-4b7d-b609-f806cb3eef3c",{"type": "CONNECT-IPS", "status": "paid"})
 
 /* track Order 
 @params
@@ -185,7 +185,7 @@ const track_order = async(orderID) => {
     }
 }
 
-// track_order("a699efaa-0e54-490d-b197-10e32a76efc2");
+// track_order("cb0341f6-b038-4b7d-b609-f806cb3eef3c");
 /* Cancel Order  
 @param
     1) orderID: "Unique ID"
@@ -280,7 +280,7 @@ const refund_updates = async(orderId) =>{
     }
 }
 
-// refund_updates("a699efaa-0e54-490d-b197-10e32a76efc2")
+// refund_updates("cb0341f6-b038-4b7d-b609-f806cb3eef3c")
 
 /* Management: Send shipment updates
 @params
@@ -302,7 +302,7 @@ const send_shipment_updates = async(orderId) => {
     }
 }
 
-// send_shipment_updates("a699efaa-0e54-490d-b197-10e32a76efc2");
+// send_shipment_updates("cb0341f6-b038-4b7d-b609-f806cb3eef3c");
 
 /* Management: Send return updates
 @params

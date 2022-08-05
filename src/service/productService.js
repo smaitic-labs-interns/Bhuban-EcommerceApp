@@ -44,7 +44,7 @@ const remove_product = async(productId) => {
     }
 }
 
-// remove_product("ced6abb7-e698-480f-be85-25f3fbd70f14");
+// remove_product("c456966b-7d2f-4600-b1f3-c25205eb1795");
 
 /*Management:  Update Product from file
 @params
@@ -67,7 +67,7 @@ const update_product = async(productID, category, model, brand, description, pri
         console.log(`${err.name} => ${err.message}`);
     }
 }
-// update_product("effc0d18-dcea-4498-9abb-30747ca23491",category="", model= "dell inspirion 5567", brand = "dell", description="", price="100000", quantity="", rating="");
+// update_product("68d61adb-9442-47d4-89b6-cd0098e228b1",category="Radio", model= "SY-324", brand = "Sony", description="Sony Radio With Smart Features", price="10000", quantity="30", rating="4.6");
 
 /* Management: Prepare revenue report
 @params 
@@ -108,6 +108,6 @@ const search_products = async(keyword) => {
     }
 }
 
-// search_products("length");
+// search_products("a");
 
 module.exports = {add_product, remove_product, update_product, prepare_revenue_report, prepare_ar_aging_report, search_products}

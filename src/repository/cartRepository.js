@@ -1,10 +1,11 @@
-const utils = require("../utils/fileUtils.js");
-require('dotenv').config();
-const fileName = process.env.CART_FILE_PATH;
+const dbConnect = require('../config/mongoDb');
+const cartCollection = "carts";
 
 const read_all_cart = async() =>{
     try{
-        return await utils.read_data(fileName);
+        let db = await dbConnect(cartCollection);
+        const carts = await db.find().toArray();
+        return carts;
     }catch(err){
         throw err;
     }
@@ -13,9 +14,9 @@ const read_all_cart = async() =>{
 
 const add_cart = async(cart) =>{
     try{
-        const allCart = await read_all_cart();
-        allCart.push(cart);
-        return utils.write_data(fileName, allCart);
+        let db = await dbConnect(cartCollection);
+        const result = await db.insertOne(cart);
+        return result.acknowledged;
     }catch(err){
         console.log(`${err.name} => ${err.message}`);
         return false;
@@ -24,10 +25,9 @@ const add_cart = async(cart) =>{
 
 const find_cart = async(cartId) => { // find cart from id
     try{
-        const allCart = await read_all_cart();
-        for(var cart of allCart){
-            if(cart.id === cartId) return cart;
-        }
+        let db = await dbConnect(cartCollection);
+        const cart = await db.findOne({id:cartId});
+        if(cart) return cart;
         return false;
     }catch(err){
         throw err;
@@ -36,12 +36,11 @@ const find_cart = async(cartId) => { // find cart from id
 
 const update_cart = async(cartId, newCart) => {
     try{
-        const allCart = await read_all_cart();
-        for(var oldCart of allCart){
-            if(oldCart.id === cartId){
-                allCart[allCart.indexOf(oldCart)] = newCart;
-                return utils.write_data(fileName, allCart);
-            }
+        let db = await dbConnect(cartCollection);
+        const cart = await db.findOne({id:cartId});
+        if(cart){
+            const result = await db.updateOne({id:cartId},{$set:newCart});
+            return result.acknowledged;
         }
         throw new Error(`Error occur Updating Cart`);
     }catch(err){
@@ -51,12 +50,11 @@ const update_cart = async(cartId, newCart) => {
 
 const delete_cart = async(cartId) => {
     try{
-        const allCart = await read_all_cart();
-        for (var cart of allCart){
-            if(cart.id === cartId){
-                const remainingCart = allCart.filter((item) => item.id !== cartId);
-                return utils.write_data(fileName, remainingCart);
-            }
+        let db = await dbConnect(cartCollection);
+        const cart = await db.findOne({id:cartId});
+        if(cart){
+            const result = await db.deleteOne({id:cartId});
+            return result.acknowledged;
         }
         throw new Error(`No cart found for ID: ${cartId}`);
     }catch(err){
