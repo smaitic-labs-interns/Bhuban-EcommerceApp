@@ -34,8 +34,8 @@ const find_cart = async(cartId) => { // find cart from id
         // console.log(test);
         let cart = await con.awaitQuery(`SELECT * FROM carts WHERE id =?`,[cartId]);
         let product = await con.awaitQuery(`SELECT * FROM cart_products WHERE cartId =?`,[cartId]);
-        cart = resultArray = Object.values(JSON.parse(JSON.stringify(cart)))
-        product = resultArray = Object.values(JSON.parse(JSON.stringify(product)))
+        cart  = Object.values(JSON.parse(JSON.stringify(cart)))
+        product  = Object.values(JSON.parse(JSON.stringify(product)))
         for(p of product){
             delete p.id;
             delete p.cartId;

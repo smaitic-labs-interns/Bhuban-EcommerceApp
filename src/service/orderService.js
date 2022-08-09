@@ -18,16 +18,17 @@ const AddressSchema = require('../models/addressModule');
 
 const place_order = async(cartId, shipping_address, paymentType, shipmentType) =>{
     try{
-
         const cart = await Store.cart.find_cart(cartId);
         if(!cart) throw new Error(`NO Cart Found For ID: ${cartId}`);
+        if(cart.status !== "active") throw new Error(`Cart has been Placed for order`)
         const address = AddressSchema.Address(shipping_address);
         const order = Schema.Order(cart, address, paymentType, shipmentType);
 
         for (product of cart.products){
            await Store.product.update_quantity(product.productId, product.quantity, "decrease");
         }
-
+        cart.status = "deactive"; // change status of cart or delete cart
+        // Store.cart.delete_cart(cartId);
         if(Store.order.place_order(order) ){
             console.log(`Your order has been placed with order Id : ${order.id}`);
         }
@@ -45,7 +46,7 @@ const shipping_address = {
     "houseNo": 12
     }
 
-place_order("307a5463-b654-4be3-8538-496bfee01a10", shipping_address, "CASH", "International");
+// place_order("307a5463-b654-4be3-8538-496bfee01a10", shipping_address, "CASH", "International");
 
 const update_quantity_order = async(orderID, product, action) =>{
     try{
@@ -58,7 +59,7 @@ const update_quantity_order = async(orderID, product, action) =>{
                     for(var oldProduct of order.products){
                         if(oldProduct.productId === product.productId){
                             oldProduct.quantity += product.quantity;
-                            order.total_bill += product.quantity*product_res.price;
+                            order.totalBill += product.quantity*product_res.price;
                             Store.product.update_quantity(product.productId, product.quantity, "decrease");
                             if(Store.order.update_order(orderID, order)){
                                 console.log("Quantity in order has been added sucessfully");
@@ -75,7 +76,7 @@ const update_quantity_order = async(orderID, product, action) =>{
                     for(var oldProduct of order.products){
                         if(oldProduct.productId === product.productId && product.quantity <= oldProduct.quantity){
                             oldProduct.quantity -= product.quantity;
-                            order.total_bill -= product.quantity*product_res.price;
+                            order.totalBill -= product.quantity*product_res.price;
                             Store.product.update_quantity(product.productId, product.quantity, "increase");
 
                             if(Store.order.update_order(orderID, order)){
@@ -91,7 +92,7 @@ const update_quantity_order = async(orderID, product, action) =>{
         console.log(`${err.name} => ${err.message}`);
     }
 }
-// update_quantity_order("cb0341f6-b038-4b7d-b609-f806cb3eef3c", {productId: "68d61adb-9442-47d4-89b6-cd0098e228b1", "quantity": 5}, "remove")
+update_quantity_order("3486b83f-44da-4b28-96a3-858c6db79b72", {productId: "bfb17318-a9e4-41e3-b6b1-6ed9e745c4ed", "quantity": 5}, "add")
 
 
 /* Update Address
@@ -185,7 +186,7 @@ const track_order = async(orderID) => {
     }
 }
 
-// track_order("cb0341f6-b038-4b7d-b609-f806cb3eef3c");
+// track_order("3486b83f-44da-4b28-96a3-858c6db79b72");
 /* Cancel Order  
 @param
     1) orderID: "Unique ID"

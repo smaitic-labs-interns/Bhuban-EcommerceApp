@@ -17,29 +17,8 @@ const Schema = require('../models/cartModel');
 const add_product_to_cart = async(cartId, userId, product) => {
     try{
         const product_res = await Store.product.find_product(product.productId);
-        const cart_res = await Store.cart.find_cart(cartId);
-        if(cart_res && (cart_res.status === "active") && product_res && (product.quantity <= product_res.quantity)){
-            for(var oldProduct of cart_res.products){ // if item already available in cart
-                if(oldProduct.productId === product.productId){
-                    oldProduct.quantity += product.quantity;
-                    cart_res.totalBill += product.quantity*product_res.price;
-                    if(Store.cart.update_cart(cartId, cart_res)){
-                        console.log("Product added Sucessfully");
-                        return;
-                    }
-                    throw new Error(`Error occurs try again later`);
-                }
-            }
-            // cart is present but item is new
-            cart_res.products.push({...product});
-            cart_res.totalBill += product.quantity*product_res.price;
-            if(Store.cart.update_cart(cartId , cart_res)){
-                console.log("Product added Sucessfully");
-                return;
-            }
-            throw new Error(`Error occurs try again later`);
-            // no earlier cart is present
-        }else if((!cart_res || cart_res.status !=="active") && product_res && (product.quantity <= product_res.quantity)){
+        // no earlier cart is present
+        if((cartId === " " || cartId === "" ) && (product_res && product.quantity <= product_res.quantity)){
             const cart = Schema.Cart(userId);
             cart.products.push({...product});
             cart.totalBill += product.quantity * product_res.price;
@@ -48,6 +27,32 @@ const add_product_to_cart = async(cartId, userId, product) => {
                 return
             }
             throw new Error(`Error occurs try again later`);
+        
+        }else{
+            const cart_res = await Store.cart.find_cart(cartId);
+            if(!cart_res || cart_res.status !== "active") throw new Error ('No active Cart Found');
+
+            if(cart_res && product_res && (product.quantity <= product_res.quantity)){
+                for(var oldProduct of cart_res.products){ // if item already available in cart
+                    if(oldProduct.productId === product.productId){
+                        oldProduct.quantity += product.quantity;
+                        cart_res.totalBill += product.quantity*product_res.price;
+                        if(Store.cart.update_cart(cartId, cart_res)){
+                            console.log("Product added Sucessfully");
+                            return;
+                        }
+                        throw new Error(`Error occurs try again later`);
+                    }
+                }
+            // cart is present but item is new
+                cart_res.products.push({...product});
+                cart_res.totalBill += product.quantity*product_res.price;
+                if(Store.cart.update_cart(cartId , cart_res)){
+                    console.log("Product added Sucessfully");
+                    return;
+                }
+                throw new Error(`Error occurs try again later`);
+            }
         }
         throw new Error(`Currently No Product Available`);
     }catch(err){
@@ -55,7 +60,7 @@ const add_product_to_cart = async(cartId, userId, product) => {
     }
 }
 
-// add_product_to_cart("7b98f025-a971-4827-bbf6-7870a6be7169","c53f1598-f27c-4cbb-841a-18fa6eaafc38", {productId: "f0eb9af8-630e-4de8-a6d2-692968e57264", quantity : 5} );
+// add_product_to_cart("fdf88343-dc98-4abc-b2f2-b3b8525c16ba","c53f1598-f27c-4cbb-841a-18fa6eaafc38", {productId: "bfb17318-a9e4-41e3-b6b1-6ed9e745c4ed", quantity : 5} );
 
 
 /* Update quantity in cart
@@ -118,6 +123,6 @@ const update_quantity_in_cart = async(cartId, product, action) => {
     }
 }
 
-// update_quantity_in_cart("7b98f025-a971-4827-bbf6-7870a6be7169", {productId: "f0eb9af8-630e-4de8-a6d2-692968e57264", quantity : 10}, "add");
+update_quantity_in_cart("7b98f025-a971-4827-bbf6-7870a6be7169", {productId: "f0eb9af8-630e-4de8-a6d2-692968e57264", quantity : 10}, "remove");
 
 module.exports ={add_product_to_cart, update_quantity_in_cart};
