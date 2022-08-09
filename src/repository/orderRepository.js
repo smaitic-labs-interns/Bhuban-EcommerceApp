@@ -36,28 +36,19 @@ const read_order_from_id = async(orderId) =>{
         let order = await con.awaitQuery(`SELECT * FROM orders WHERE id = ?`,[orderId]);
         order = JSON.parse(JSON.stringify(order));
         if(order.length > 0) {
-            let shipAddRes = await con.awaitQuery(`SELECT * FROM shipment_address WHERE orderId = ?`,[orderId]);
-            let shipRes = await con.awaitQuery(`SELECT * FROM shipment WHERE orderId = ?`, [orderId]);
-            let paymRes = await con.awaitQuery(`SELECT * FROM payment WHERE orderId = ?`,[orderId]);
-            let cartRes = await con.awaitQuery(`SELECT * FROM carts WHERE id = ?`,[order[0].cartId]);
-            let cartProdRes = await con.awaitQuery(`SELECT * FROM cart_products WHERE cartId = ?`,[order[0].cartId]);
+            let shipAddRes = await con.awaitQuery(`SELECT country, province, city, ward, tole, houseNo FROM shipment_address WHERE orderId = ?`,[orderId]);
+            let shipRes = await con.awaitQuery(`SELECT type , status FROM shipment WHERE orderId = ?`, [orderId]);
+            let paymRes = await con.awaitQuery(`SELECT type, status FROM payment WHERE orderId = ?`,[orderId]);
+            let cartRes = await con.awaitQuery(`SELECT userId, totalBill, status FROM carts WHERE id = ?`,[order[0].cartId]);
+            let cartProdRes = await con.awaitQuery(`SELECT productId, quantity FROM cart_products WHERE cartId = ?`,[order[0].cartId]);
             shipAddRes = JSON.parse(JSON.stringify(shipAddRes));
             shipRes = JSON.parse(JSON.stringify(shipRes));
             paymRes = JSON.parse(JSON.stringify(paymRes));
             cartRes = JSON.parse(JSON.stringify(cartRes));
             cartProdRes = JSON.parse(JSON.stringify(cartProdRes));
 
-            delete shipRes[0].id;
-            delete shipRes[0].orderId;
-            delete paymRes[0].id;
-            delete paymRes[0].orderId;
-            delete shipAddRes[0].id;
-            delete shipAddRes[0].orderId;
-            for(product of cartProdRes){
-                delete product.id;
-                delete product.cartId;
-            }
             const ord = {...order[0], ...cartRes[0], products:cartProdRes, shippingAddress:shipAddRes[0], payment: paymRes[0], shipment: shipRes[0]}
+           console.log(ord);
             return ord;
         }
         throw new Error(`No Order Found for ID: ${orderId}`);

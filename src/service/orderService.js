@@ -20,16 +20,16 @@ const place_order = async(cartId, shipping_address, paymentType, shipmentType) =
     try{
         const cart = await Store.cart.find_cart(cartId);
         if(!cart) throw new Error(`NO Cart Found For ID: ${cartId}`);
-        if(cart.status !== "active") throw new Error(`Cart has been Placed for order`)
+        if(cart.status !== "active") throw new Error(`Cart has been already placed for order`)
         const address = AddressSchema.Address(shipping_address);
         const order = Schema.Order(cart, address, paymentType, shipmentType);
 
         for (product of cart.products){
            await Store.product.update_quantity(product.productId, product.quantity, "decrease");
         }
-        cart.status = "deactive"; // change status of cart or delete cart
+        const updCartSts = await Store.cart.update_cart_status(cartId ,"deactive"); // change status of cart or delete cart
         // Store.cart.delete_cart(cartId);
-        if(Store.order.place_order(order) ){
+        if(Store.order.place_order(order)  && updCartSts){
             console.log(`Your order has been placed with order Id : ${order.id}`);
         }
     }catch (err){
@@ -46,7 +46,7 @@ const shipping_address = {
     "houseNo": 12
     }
 
-// place_order("307a5463-b654-4be3-8538-496bfee01a10", shipping_address, "CASH", "International");
+place_order("1d01bd02-5fd8-4e53-baf3-a1917c58cc4f", shipping_address, "CASH", "International");
 
 const update_quantity_order = async(orderID, product, action) =>{
     try{
@@ -92,7 +92,7 @@ const update_quantity_order = async(orderID, product, action) =>{
         console.log(`${err.name} => ${err.message}`);
     }
 }
-update_quantity_order("3486b83f-44da-4b28-96a3-858c6db79b72", {productId: "bfb17318-a9e4-41e3-b6b1-6ed9e745c4ed", "quantity": 5}, "add")
+// update_quantity_order("3486b83f-44da-4b28-96a3-858c6db79b72", {productId: "bfb17318-a9e4-41e3-b6b1-6ed9e745c4ed", "quantity": 5}, "add")
 
 
 /* Update Address

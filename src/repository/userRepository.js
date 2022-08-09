@@ -11,9 +11,6 @@ const read_all_user = async() =>{
     }
 }
 
-// read_all_user().then((data)=>{
-//     console.log(data);
-// })
 const add_user = async(user) => { //add user
     try{
         const result = await con.awaitQuery("INSERT INTO users SET ? ", user);

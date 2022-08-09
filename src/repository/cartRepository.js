@@ -30,16 +30,13 @@ const add_cart = async(cart) =>{
 
 const find_cart = async(cartId) => { // find cart from id
     try{
-        // let test = await con.awaitQuery(`SELECT * FROM carts FULL OUTER JOIN cart_products ON carts.id = cart_products.cartId `, [cartId]);
+        // let test = await con.awaitQuery(`SELECT * FROM carts WHERE id = ? UNION SELECT productId, quantity FROM cart_products WHERE cartId = ? `, [cartId, cartId]);
         // console.log(test);
         let cart = await con.awaitQuery(`SELECT * FROM carts WHERE id =?`,[cartId]);
-        let product = await con.awaitQuery(`SELECT * FROM cart_products WHERE cartId =?`,[cartId]);
+        let product = await con.awaitQuery(`SELECT productId, quantity FROM cart_products WHERE cartId =?`,[cartId]);
         cart  = Object.values(JSON.parse(JSON.stringify(cart)))
         product  = Object.values(JSON.parse(JSON.stringify(product)))
-        for(p of product){
-            delete p.id;
-            delete p.cartId;
-        }
+
         let cart2={...cart[0], products:product}
         if(cart.length > 0) return cart2;
         return false;
@@ -84,4 +81,17 @@ const delete_cart = async(cartId) => {
     }
 }
 
-module.exports ={add_cart, read_all_cart, find_cart, update_cart, delete_cart}
+const update_cart_status = async(cartId, status) => {
+    try{
+        const cart = await con.awaitQuery("SELECT * FROM carts WHERE id= ?", cartId);
+        if(cart.length > 0){
+            const updCartRes = await con.awaitQuery("UPDATE carts SET status =? WHERE id= ?", [status, cartId]);
+            if(updCartRes.affectedRows > 0) return true;
+        }
+        throw new Error(`No cart found for ID: ${cartId}`);
+    }catch(err){
+        throw err;
+    }
+}
+
+module.exports ={add_cart, read_all_cart, find_cart, update_cart, delete_cart, update_cart_status}
