@@ -1,10 +1,10 @@
-const Address = ({country, province, city, ward, tole, house_no}) => {
+const Address = ({country, province, city, ward, tole, houseNo}) => {
     return { 
         country,
         province, 
         city, ward,
         tole, 
-        house_no 
+        houseNo 
     };
 }
 

@@ -5,7 +5,7 @@ const Cart = (userId) => {
         id:uuidv4(),
         userId:userId,
         products:[],
-        total_bill:0,
+        totalBill:0,
         status:"active"
     }
 }

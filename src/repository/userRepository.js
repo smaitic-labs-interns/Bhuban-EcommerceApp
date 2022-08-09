@@ -1,22 +1,24 @@
 const bcrypt = require('bcrypt');
-const dbConnect = require('../config/mongoDb');
-const userCollection = "users";
+const con = require('../config/mysqlDb');
 
 const read_all_user = async() =>{
     try{
-        let data = await dbConnect(userCollection);
-        data = await data.find().toArray();
-        return data;
+        let users = await con.awaitQuery("SELECT * FROM users ");
+        if(users.length >0 ) return users;
+        throw new Error(`No User Found`);
     }catch(err){
         throw err;
     }
 }
 
+// read_all_user().then((data)=>{
+//     console.log(data);
+// })
 const add_user = async(user) => { //add user
     try{
-        let db = await dbConnect(userCollection);
-        const result = await db.insertOne(user);
-        return result.acknowledged;
+        const result = await con.awaitQuery("INSERT INTO users SET ? ", user);
+        if(result.affectedRows > 0) return true;
+        throw new Error('Error occurs adding user. Try again Later');
     }catch(err){
         throw err;
     }
@@ -24,9 +26,8 @@ const add_user = async(user) => { //add user
 
 const find_user_from_email = async(email) => { //find user from email
     try{
-        let db = await dbConnect(userCollection);
-        let user = await db.findOne({email:email});
-        if(user) return user;
+        let user = await con.awaitQuery("SELECT * FROM users WHERE email= ?", [email]);
+        if(user.length >0 ) return user[0];
         return false;
     }catch(err){
         throw err;
@@ -36,9 +37,8 @@ const find_user_from_email = async(email) => { //find user from email
 
 const find_user_from_credintals = async(login) => { // find user from credintals
     try{
-        let db = await dbConnect(userCollection);
-        let user = await db.findOne({email:login.email});
-        if(login.email === user.email && bcrypt.compareSync(login.password, user.password))  return user;
+        let user = await con.awaitQuery("SELECT * FROM users WHERE email= ?", [login.email]);
+        if(bcrypt.compareSync(login.password, user[0].password))  return user[0];
         throw new Error(`Invalid login Credintals`);
     }catch(err){
         throw err;

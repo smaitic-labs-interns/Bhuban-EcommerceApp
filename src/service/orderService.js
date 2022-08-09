@@ -25,10 +25,10 @@ const place_order = async(cartId, shipping_address, paymentType, shipmentType) =
         const order = Schema.Order(cart, address, paymentType, shipmentType);
 
         for (product of cart.products){
-           Store.product.update_quantity(product.productId, product.quantity, "decrease");
+           await Store.product.update_quantity(product.productId, product.quantity, "decrease");
         }
 
-        if(Store.order.place_order(order) && Store.cart.delete_cart(cartId)){
+        if(Store.order.place_order(order) ){
             console.log(`Your order has been placed with order Id : ${order.id}`);
         }
     }catch (err){
@@ -42,10 +42,10 @@ const shipping_address = {
     "city": "abc",
     "ward": 23,
     "tole": "xyz",
-    "house_no": 12
+    "houseNo": 12
     }
 
-// place_order("1d9b8458-582a-479b-8b78-22a69b6a89f1", shipping_address, "CASH", "International");
+place_order("307a5463-b654-4be3-8538-496bfee01a10", shipping_address, "CASH", "International");
 
 const update_quantity_order = async(orderID, product, action) =>{
     try{

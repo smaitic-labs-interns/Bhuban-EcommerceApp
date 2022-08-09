@@ -1,11 +1,10 @@
-const dbConnect = require('../config/mongoDb');
-const cartCollection = "carts";
+const con = require('../config/mysqlDb');
 
 const read_all_cart = async() =>{
     try{
-        let db = await dbConnect(cartCollection);
-        const carts = await db.find().toArray();
-        return carts;
+        let carts = await con.awaitQuery("SELECT * FROM carts");
+        if(carts.length >0 ) return carts;
+        throw new Error(`No cart Found`);
     }catch(err){
         throw err;
     }
@@ -14,9 +13,15 @@ const read_all_cart = async() =>{
 
 const add_cart = async(cart) =>{
     try{
-        let db = await dbConnect(cartCollection);
-        const result = await db.insertOne(cart);
-        return result.acknowledged;
+        let addCartRes = await con.awaitQuery(`INSERT INTO carts (id, userId, totalBill, status) VALUES (?, ?, ?, ?)`,[cart.id, cart.userId, cart.totalBill, cart.status]);
+        if(addCartRes.affectedRows > 0){
+            for(product of cart.products){
+                let addProductRes = await con.awaitQuery(`INSERT INTO cart_products (cartId, productId, quantity) VALUES (?, ?, ?)`,[cart.id, product.productId, product.quantity]);
+                if(addProductRes.affectedRows >0) return true;
+            }
+            throw new Error(`Error occurs adding product to cart`);
+        }
+        throw new Error(`Error occurs adding Cart`)
     }catch(err){
         console.log(`${err.name} => ${err.message}`);
         return false;
@@ -25,9 +30,18 @@ const add_cart = async(cart) =>{
 
 const find_cart = async(cartId) => { // find cart from id
     try{
-        let db = await dbConnect(cartCollection);
-        const cart = await db.findOne({id:cartId});
-        if(cart) return cart;
+        // let test = await con.awaitQuery(`SELECT * FROM carts FULL OUTER JOIN cart_products ON carts.id = cart_products.cartId `, [cartId]);
+        // console.log(test);
+        let cart = await con.awaitQuery(`SELECT * FROM carts WHERE id =?`,[cartId]);
+        let product = await con.awaitQuery(`SELECT * FROM cart_products WHERE cartId =?`,[cartId]);
+        cart = resultArray = Object.values(JSON.parse(JSON.stringify(cart)))
+        product = resultArray = Object.values(JSON.parse(JSON.stringify(product)))
+        for(p of product){
+            delete p.id;
+            delete p.cartId;
+        }
+        let cart2={...cart[0], products:product}
+        if(cart.length > 0) return cart2;
         return false;
     }catch(err){
         throw err;
@@ -36,11 +50,20 @@ const find_cart = async(cartId) => { // find cart from id
 
 const update_cart = async(cartId, newCart) => {
     try{
-        let db = await dbConnect(cartCollection);
-        const cart = await db.findOne({id:cartId});
-        if(cart){
-            const result = await db.updateOne({id:cartId},{$set:newCart});
-            return result.acknowledged;
+        let updateCartRes = await con.awaitQuery(`UPDATE carts SET totalBill =? , status =? WHERE id =?`,[newCart.totalBill, newCart.status, cartId]);
+        let res = false;
+        if(updateCartRes.affectedRows > 0){
+            for(product of newCart.products){
+                let productRes = await con.awaitQuery(`SELECT * FROM cart_products WHERE cartId = ? AND productId = ? `, [cartId, product.productId]);
+                if(productRes.length > 0){
+                    let updateQuantityRes = await con.awaitQuery(`UPDATE cart_products SET quantity =? WHERE cartId =? AND productId = ? `,[product.quantity, cartId,  product.productId]);
+                    if(updateQuantityRes.affectedRows >0) res = true;
+                }else{
+                    let updateProduct = await con.awaitQuery(`INSERT INTO cart_products (cartId, productId, quantity) VALUES (?, ?, ?)`,[cartId, product.productId, product.quantity]);
+                    if(updateProduct.affectedRows >0) res = true;
+                }
+            }
+            return res;
         }
         throw new Error(`Error occur Updating Cart`);
     }catch(err){
@@ -50,11 +73,10 @@ const update_cart = async(cartId, newCart) => {
 
 const delete_cart = async(cartId) => {
     try{
-        let db = await dbConnect(cartCollection);
-        const cart = await db.findOne({id:cartId});
-        if(cart){
-            const result = await db.deleteOne({id:cartId});
-            return result.acknowledged;
+        const cart = await con.awaitQuery("SELECT * FROM carts WHERE id= ?", cartId);
+        if(cart.length > 0){
+            const delRes = await con.awaitQuery("DELETE FROM carts WHERE id= ?", cartId);
+            if(delRes.affectedRows > 0) return true;
         }
         throw new Error(`No cart found for ID: ${cartId}`);
     }catch(err){

@@ -10,13 +10,13 @@
       }
     ],
     "total_bill": 75500,
-    "shipping_address": {
+    "shippingAddress": {
       "country": "Nepal",
       "province": "3",
       "city": "abc",
       "ward": 23,
       "tole": "xyz",
-      "house_no": 12
+      "houseNo": 12
     },
     "payment": {
       "type": "CASH",
@@ -26,6 +26,6 @@
       "type": "International",
       "status": "review"
     },
-    "order_status": "cancelled"
+    "orderStatus": "cancelled"
   }
 ]

@@ -44,7 +44,7 @@ const remove_product = async(productId) => {
     }
 }
 
-// remove_product("c456966b-7d2f-4600-b1f3-c25205eb1795");
+// remove_product("aebfc225-41fe-4147-b4c5-19049dc5c72e");
 
 /*Management:  Update Product from file
 @params
@@ -67,7 +67,7 @@ const update_product = async(productID, category, model, brand, description, pri
         console.log(`${err.name} => ${err.message}`);
     }
 }
-// update_product("68d61adb-9442-47d4-89b6-cd0098e228b1",category="Radio", model= "SY-324", brand = "Sony", description="Sony Radio With Smart Features", price="10000", quantity="30", rating="4.6");
+// update_product("f0eb9af8-630e-4de8-a6d2-692968e57264",category="Radio", model= "SY-324", brand = "Sony", description="Sony Radio With Smart Features", price="10000", quantity="30", rating="4.6");
 
 /* Management: Prepare revenue report
 @params 
@@ -108,6 +108,6 @@ const search_products = async(keyword) => {
     }
 }
 
-// search_products("a");
+// search_products("F");
 
 module.exports = {add_product, remove_product, update_product, prepare_revenue_report, prepare_ar_aging_report, search_products}

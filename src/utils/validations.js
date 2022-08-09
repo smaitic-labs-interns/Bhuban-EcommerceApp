@@ -49,28 +49,28 @@ const updating_product_validation = () => {
 }
 
 
-const address_validation = ({country, province, city, ward, tole, house_no}) => {
+const address_validation = ({country, province, city, ward, tole, houseNo}) => {
     const address_schema = Joi.object({
         country : Joi.string().required(),
         province: Joi.string().required(),
         city: Joi.string().required(),
         ward: Joi.number().required(),
         tole: Joi.string().required(),
-        house_no: Joi.number().required()
+        houseNo: Joi.number().required()
     });
-    return address_schema.validate({country, province, city, ward, tole, house_no});
+    return address_schema.validate({country, province, city, ward, tole, houseNo});
 }
 
-const Updatable_address_validation = ({country, province, city, ward, tole, house_no}) => {
+const Updatable_address_validation = ({country, province, city, ward, tole, houseNo}) => {
     const updatable_address_schema = Joi.object({
         country : Joi.string().allow('',null),
         province: Joi.string().allow('',null),
         city: Joi.string().allow('',null),
         ward: Joi.number().allow('',null),
         tole: Joi.string().allow('',null),
-        house_no: Joi.number().allow('',null)
+        houseNo: Joi.number().allow('',null)
     });
-    return updatable_address_schema.validate({country, province, city, ward, tole, house_no});
+    return updatable_address_schema.validate({country, province, city, ward, tole, houseNo});
 }
 
 module.exports = {user_validation, sign_in_validation, product_validation, updating_product_validation ,address_validation, Updatable_address_validation};

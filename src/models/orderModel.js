@@ -2,7 +2,8 @@ const {v4: uuidv4} = require('uuid');
 const Validate = require('../utils/validations');
 
 
-const PAYMENT_TYPES = ['E-sewa', 'Khalti', 'CONNECT-IPS', 'CASH']
+const PAYMENT_TYPES = ['E-sewa', 'Khalti', 'CONNECT-IPS', 'CASH'];
+
 const SHIPMENT_TYPES = [
     {name: 'International', charge: 500},
     {name: 'Outside Valley', charge: 300},
@@ -12,8 +13,8 @@ const SHIPMENT_TYPES = [
 ]
 
 
-const Order = ({id,userId, products, total_bill}, shipping_address, paymentType, shipmentType) =>{
-    const {error, value} = Validate.address_validation(shipping_address);
+const Order = ({id,userId, products, totalBill}, shippingAddress, paymentType, shipmentType) =>{
+    const {error, value} = Validate.address_validation(shippingAddress);
     if(error) throw error;
     
     if(!PAYMENT_TYPES.includes(paymentType)){
@@ -21,14 +22,14 @@ const Order = ({id,userId, products, total_bill}, shipping_address, paymentType,
     }
     const paymentStatus = (paymentType === "CASH")? "Unpaid" : "paid";
     
-    let shipment_charge = 0;
+    let shipmentCharge = 0;
     for(SHIPMENT of SHIPMENT_TYPES){
         if(SHIPMENT.name === shipmentType){
-            shipment_charge = SHIPMENT.charge;
+            shipmentCharge = SHIPMENT.charge;
             break;
         }
     }
-    if(!shipment_charge){
+    if(!shipmentCharge){
         throw new Error(`Invalid Shipment`);  
     }
 
@@ -37,11 +38,11 @@ const Order = ({id,userId, products, total_bill}, shipping_address, paymentType,
         cartId:id,
         customerId: userId,
         products,
-        total_bill: (total_bill+shipment_charge),
-        shipping_address:value,
+        totalBill: (totalBill+shipmentCharge),
+        shippingAddress:value,
         payment:{type:paymentType, status: paymentStatus},
         shipment: {type: shipmentType, status: "review"},
-        order_status: "requested"
+        orderStatus: "requested"
     }
 }
 
