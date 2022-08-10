@@ -30,7 +30,7 @@ const add_cart = async(cart) =>{
 
 const find_cart = async(cartId) => { // find cart from id
     try{
-        // let test = await con.awaitQuery(`SELECT * FROM carts WHERE id = ? UNION SELECT productId, quantity FROM cart_products WHERE cartId = ? `, [cartId, cartId]);
+        // let test = await con.awaitQuery(`SELECT * FROM carts WHERE id = ? UNION ALL SELECT * FROM cart_products WHERE cartId = ? `, [cartId, cartId]);
         // console.log(test);
         let cart = await con.awaitQuery(`SELECT * FROM carts WHERE id =?`,[cartId]);
         let product = await con.awaitQuery(`SELECT productId, quantity FROM cart_products WHERE cartId =?`,[cartId]);
@@ -44,6 +44,8 @@ const find_cart = async(cartId) => { // find cart from id
         throw err;
     }
 }
+
+find_cart("307a5463-b654-4be3-8538-496bfee01a10");
 
 const update_cart = async(cartId, newCart) => {
     try{

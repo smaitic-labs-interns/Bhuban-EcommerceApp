@@ -2,7 +2,6 @@ const con = require('../config/mysqlDb');
 
 const read_all_orders = async() =>{
    try{
-    // let orders = await con.awaitQuery("SELECT * FROM orders FULL OUTER JOIN Shipment_address, payment, shipment ON orders.id = shipment_address.orderId");
     let orders = await con.awaitQuery("SELECT * FROM orders INNER JOIN shipment_address ON orders.id = shipment_address.orderId");
     if(orders.length >0 ) return orders;
     throw new Error(`No cart Found`);
@@ -16,11 +15,11 @@ const place_order = async(order) => {
         const address = order.shippingAddress;
         const shipment = order.shipment;
         const payment = order.payment;
-        let placeOrder = await con.awaitQuery(`INSERT INTO orders (id, cartId, order_status) VALUES (?, ?, ?)`,[order.id, order.cartId, order.orderStatus]);
+        let placeOrder = await con.awaitQuery(`INSERT INTO orders (id, userId, cartId, order_status) VALUES (?, ?, ?, ?)`,[order.id, order.userId, order.cartId, order.orderStatus]);
         if(placeOrder.affectedRows > 0) {
-            let shipAddRes = await con.awaitQuery(`INSERT INTO shipment_address (orderId, country, province, city, ward, tole, houseNo) VALUES (?, ?, ?, ?, ?, ?, ?)`,[order.id, address.country, address.province, address.city, address.ward, address.tole, address.houseNo]);
-            let shipRes = await con.awaitQuery(`INSERT INTO shipment (orderId, type, status) VALUES (?, ?, ?)`, [order.id, shipment.type, shipment.status]);
-            let paymRes = await con.awaitQuery(`INSERT INTO payment (orderId, type, status) VALUES (?, ?, ?)`,[order.id, payment.type, payment.status]);
+            let shipAddRes = await con.awaitQuery(`INSERT INTO shipment_address (orderId, userId, country, province, city, ward, tole, houseNo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,[order.id, order.userId, address.country, address.province, address.city, address.ward, address.tole, address.houseNo]);
+            let shipRes = await con.awaitQuery(`INSERT INTO shipment (orderId, userId, type, status) VALUES (?, ?, ?, ?)`, [order.id, order.userId, shipment.type, shipment.status]);
+            let paymRes = await con.awaitQuery(`INSERT INTO payment (orderId, userId, type, status) VALUES (?, ?, ?, ?)`,[order.id, order.userId, payment.type, payment.status]);
             if(shipAddRes.affectedRows >0 && shipRes.affectedRows >0 && paymRes.affectedRows > 0 ) return true;
         }
         return false;

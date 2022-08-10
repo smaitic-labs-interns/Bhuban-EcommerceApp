@@ -36,7 +36,7 @@ const Order = ({id,userId, products, totalBill}, shippingAddress, paymentType, s
     return{
         id:uuidv4(),
         cartId:id,
-        customerId: userId,
+        userId,
         products,
         totalBill: (totalBill+shipmentCharge),
         shippingAddress:value,
