@@ -33,7 +33,6 @@ CREATE TABLE `carts` (
   `userId` varchar(36) NOT NULL,
   `totalBill` int(30) NOT NULL,
   `status` varchar(20) NOT NULL,
-  `address` varchar(50) NOT NULL,
   PRIMARY KEY(`id`),
   CONSTRAINT Fk_carts FOREIGN KEY(`userId`)  REFERENCES users(`id`)
 );
@@ -54,7 +53,7 @@ CREATE TABLE `orders` (
   `id` varchar(36) NOT NULL,
   `userId` varchar(36) NOT NULL,
   `cartId` varchar(36) NOT NULL,
-  `order_status` varchar(30) NOT NULL,
+  `orderStatus` varchar(30) NOT NULL,
   PRIMARY KEY(`id`),
   CONSTRAINT Uc_orders_cartId UNIQUE (`cartId`),
   CONSTRAINT Fk_orders_cartId FOREIGN KEY(`cartId`) REFERENCES carts(`id`),

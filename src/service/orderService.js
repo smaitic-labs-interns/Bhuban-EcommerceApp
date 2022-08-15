@@ -46,11 +46,12 @@ const shipping_address = {
     "houseNo": 12
     }
 
-place_order("1d01bd02-5fd8-4e53-baf3-a1917c58cc4f", shipping_address, "CASH", "International");
+// place_order("da46525e-f5c5-4a01-9f0c-602a530b2fda", shipping_address, "CASH", "International");
 
 const update_quantity_order = async(orderID, product, action) =>{
     try{
         const order = await Store.order.read_order_from_id(orderID);
+        if(order.orderStatus !== 'requested') throw new Error('Cannot update quantity, order has passed from step1');
         const product_res = await Store.product.find_product(product.productId);
 
         switch (action) {
@@ -92,7 +93,7 @@ const update_quantity_order = async(orderID, product, action) =>{
         console.log(`${err.name} => ${err.message}`);
     }
 }
-// update_quantity_order("3486b83f-44da-4b28-96a3-858c6db79b72", {productId: "bfb17318-a9e4-41e3-b6b1-6ed9e745c4ed", "quantity": 5}, "add")
+// update_quantity_order("8af506bf-f605-4f6f-96c4-51ded565e67d", {productId: "c8a12d5b-b3eb-4760-8041-57798338ad7b", "quantity": 1}, "remove")
 
 
 /* Update Address
@@ -108,12 +109,13 @@ const update_quantity_order = async(orderID, product, action) =>{
 const update_address = async(orderID ,new_address) => {
     try{
         const order = await Store.order.read_order_from_id(orderID);
+        if(order.orderStatus !== 'requested') throw new Error('Cannot update quantity, order has passed from step1');
         const {error, value} = Validate.Updatable_address_validation(new_address);
         if(error) throw error;
-        const address = value;
+        const address = value;           
         for(key in address){
-            if((address[key]).length !== 0){               
-                order.shipping_address[key] = address[key];
+            if(address[key].length !==0){           
+                order.shippingAddress[key] = address[key];        
             }
         }
         if(Store.order.update_order(orderID, order)){
@@ -130,10 +132,10 @@ const new_address = {
     "province": "Bagmati",
     "city": "Lalitpur",
     "ward": "23",
-    "tole": "Dhapakhel",
-    "house_no": 42
+    "tole": "BanglaMukhi",
+    "houseNo": 42
     }
-// update_address("cb0341f6-b038-4b7d-b609-f806cb3eef3c", new_address);
+// update_address("8af506bf-f605-4f6f-96c4-51ded565e67d", new_address);
 
 /* Update Payment 
 @params
@@ -164,7 +166,7 @@ const update_payment = async(orderID, new_payment) => {
     }
 }
 
-// update_payment("cb0341f6-b038-4b7d-b609-f806cb3eef3c",{"type": "CONNECT-IPS", "status": "paid"})
+update_payment("8af506bf-f605-4f6f-96c4-51ded565e67d",{"type": "CONNECT-IPS", "status": "paid"})
 
 /* track Order 
 @params
@@ -200,7 +202,7 @@ const track_order = async(orderID) => {
 const cancel_order = async(orderID) => {
     try{
         const order = await Store.order.read_order_from_id(orderID);
-        if(order.order_status === "cancelled"){
+        if(order.orderStatus === "cancelled"){
             throw new Error(`Already Placed for cancelled. Id: ${orderID}`);
         }
         for(product of order.products){
@@ -208,7 +210,7 @@ const cancel_order = async(orderID) => {
                 throw new Error(`Error occurs adding cancelled product in store`);
             }
         }
-        order.order_status = "cancelled";
+        order.orderStatus = "cancelled";
 
         if(Store.order.update_order(orderID, order)){
             console.log("Order has been placed for cancellation");
@@ -234,10 +236,10 @@ const return_replace_order = async(orderID, action) =>{
     try{
         const order = await Store.order.read_order_from_id(orderID);
 
-        if(order.order_status === "cancelled"){
+        if(order.orderStatus === "cancelled"){
             throw new Error(`Order is already Placed for cancellation. Id: ${orderID}`);
         }
-        if(order.order_status === "return"){
+        if(order.orderStatus === "return"){
             throw new Error(`Already Placed for return. Id: ${orderID}`);
         }
 
@@ -247,7 +249,7 @@ const return_replace_order = async(orderID, action) =>{
             }
         }
         
-        order.order_status = action;
+        order.orderStatus = action;
         if(Store.order.update_order(orderID, order)){
             console.log(`Your order has been placed for ${action} Sucessfully`);
         }
@@ -270,7 +272,7 @@ const return_replace_order = async(orderID, action) =>{
 const refund_updates = async(orderId) =>{
     try{
         const order = await Store.order.read_order_from_id(orderId);
-        if(order.order_status === "refund"){
+        if(order.orderStatus === "refund"){
             console.log(`Type: ${order.payment.type}, Status : ${order.payment.status}`);
             return order.payment;
         }
@@ -317,7 +319,7 @@ const send_shipment_updates = async(orderId) => {
 const send_return_updates = async(orderId) => {
     try{
         const order = await Store.order.read_order_from_id(orderId);
-        if(order.order_status === "return"){
+        if(order.orderStatus === "return"){
             console.log(`Type: ${order.shipment.type}, Status : ${order.shipment.status}`);
             return order.shipment;
         }

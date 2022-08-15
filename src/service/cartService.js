@@ -60,7 +60,7 @@ const add_product_to_cart = async(cartId, userId, product) => {
     }
 }
 
-// add_product_to_cart("fdf88343-dc98-4abc-b2f2-b3b8525c16ba","c53f1598-f27c-4cbb-841a-18fa6eaafc38", {productId: "bfb17318-a9e4-41e3-b6b1-6ed9e745c4ed", quantity : 5} );
+// add_product_to_cart("","e8b62f59-a933-4382-98ab-fbef316847f5", {productId: "c8a12d5b-b3eb-4760-8041-57798338ad7b", quantity : 5} );
 
 
 /* Update quantity in cart
@@ -123,6 +123,6 @@ const update_quantity_in_cart = async(cartId, product, action) => {
     }
 }
 
-update_quantity_in_cart("7b98f025-a971-4827-bbf6-7870a6be7169", {productId: "f0eb9af8-630e-4de8-a6d2-692968e57264", quantity : 10}, "remove");
+// update_quantity_in_cart("30989433-6d78-472a-86b2-8948126c2b1c", {productId: "c8a12d5b-b3eb-4760-8041-57798338ad7b", quantity : 10}, "add");
 
 module.exports ={add_product_to_cart, update_quantity_in_cart};

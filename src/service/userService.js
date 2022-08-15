@@ -56,7 +56,7 @@ const user_signin = async(email, password) => {
     }
 }
 
-// user_signin("yb@smaitic.com", "bhubany");
+user_signin("by@smaitic.com", "bhubany");
 
 
 
