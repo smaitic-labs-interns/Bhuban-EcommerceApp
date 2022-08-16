@@ -14,53 +14,49 @@ const Schema = require('../models/cartModel');
         return error
 */
 
-const add_product_to_cart = async(cartId, userId, product) => {
+const add_product_to_cart = async(userId, product) => {
     try{
         const product_res = await Store.product.find_product(product.productId);
-        // no earlier cart is present
-        if((cartId === " " || cartId === "" ) && (product_res && product.quantity <= product_res.quantity)){
-            const cart = Schema.Cart(userId);
-            cart.products.push({...product});
-            cart.totalBill += product.quantity * product_res.price;
-            if(Store.cart.add_cart(cart)){
-                console.log(`Added to cart Sucessfully`);
-                return
+        if(!product_res || (product.quantity > product_res.quantity)) throw new Error(`Not sufficient product on store`);
+        //no earlier cart is present
+        const cart_res = await Store.cart.find_active_cart(userId)
+        if(cart_res){
+            for(var oldProduct of cart_res.products){ // if item already available in cart
+                if(oldProduct.productId === product.productId){
+                    oldProduct.quantity += product.quantity;
+                    cart_res.totalBill += product.quantity*product_res.price;
+                    if(Store.cart.update_cart(cart_res.id, cart_res)){
+                        console.log("Product added Sucessfully");
+                        return;
+                    }
+                    throw new Error(`Error occurs try again later`);
+                }
+            }
+        // cart is present but item is new
+            cart_res.products.push({...product});
+            cart_res.totalBill += product.quantity*product_res.price;
+            if(Store.cart.update_cart(cart_res.id , cart_res)){
+                console.log("Product added Sucessfully");
+                return;
             }
             throw new Error(`Error occurs try again later`);
-        
-        }else{
-            const cart_res = await Store.cart.find_cart(cartId);
-            if(!cart_res || cart_res.status !== "active") throw new Error ('No active Cart Found');
-
-            if(cart_res && product_res && (product.quantity <= product_res.quantity)){
-                for(var oldProduct of cart_res.products){ // if item already available in cart
-                    if(oldProduct.productId === product.productId){
-                        oldProduct.quantity += product.quantity;
-                        cart_res.totalBill += product.quantity*product_res.price;
-                        if(Store.cart.update_cart(cartId, cart_res)){
-                            console.log("Product added Sucessfully");
-                            return;
-                        }
-                        throw new Error(`Error occurs try again later`);
-                    }
-                }
-            // cart is present but item is new
-                cart_res.products.push({...product});
-                cart_res.totalBill += product.quantity*product_res.price;
-                if(Store.cart.update_cart(cartId , cart_res)){
-                    console.log("Product added Sucessfully");
-                    return;
-                }
-                throw new Error(`Error occurs try again later`);
-            }
         }
-        throw new Error(`Currently No Product Available`);
+        // creating new cart
+        const cart = Schema.Cart(userId);
+        cart.products.push({...product});
+        cart.totalBill += product.quantity * product_res.price;
+        if(Store.cart.add_cart(cart)){
+            console.log(`Added to cart Sucessfully`);
+            return
+        }
+        throw new Error(`Error occurs try again later`);
+        
     }catch(err){
         console.log(`${err.name} => ${err.message}`);
     }
 }
 
-// add_product_to_cart("","e8b62f59-a933-4382-98ab-fbef316847f5", {productId: "c8a12d5b-b3eb-4760-8041-57798338ad7b", quantity : 5} );
+// add_product_to_cart("e8b62f59-a933-4382-98ab-fbef316847f5", {productId: "d67a75b8-ec3f-428c-836c-6833b801f6b3", quantity : 5} );
 
 
 /* Update quantity in cart
@@ -76,9 +72,9 @@ const add_product_to_cart = async(cartId, userId, product) => {
 */
 const update_quantity_in_cart = async(cartId, product, action) => {
     try{
-        const product_res = await Store.product.find_product(product.productId);
         const cart_res = await Store.cart.find_cart(cartId);
-        if(!cart_res) throw new Error(`No Cart Found For Id :${cartId}`)
+        if(cart_res.status !== "active") throw new Error(`No active cart found for Id: ${cartId}`)
+        const product_res = await Store.product.find_product(product.productId);
 
        if(product.quantity <= 0){
             throw new Error(`Qyantity must be greater than 0`);
@@ -91,7 +87,7 @@ const update_quantity_in_cart = async(cartId, product, action) => {
                         if(oldProduct.productId === product.productId){
                             oldProduct.quantity += product.quantity;
                             cart_res.totalBill += product.quantity*product_res.price;
-                            if(Store.cart.update_cart(cartId, cart_res)){
+                            if(await Store.cart.update_cart(cartId, cart_res)){
                                 console.log("Product added to cart Sucessfully");
                                 return;
                             }
@@ -106,7 +102,7 @@ const update_quantity_in_cart = async(cartId, product, action) => {
                         if(oldProduct.productId === product.productId && product.quantity <= oldProduct.quantity){
                             oldProduct.quantity -= product.quantity;
                             cart_res.totalBill -= product.quantity*product_res.price;
-                            if(Store.cart.update_cart(cartId, cart_res)){
+                            if(await Store.cart.update_cart(cartId, cart_res)){
                                 console.log("Product removed from cart Sucessfully");
                                 return;
                             }
@@ -123,6 +119,6 @@ const update_quantity_in_cart = async(cartId, product, action) => {
     }
 }
 
-// update_quantity_in_cart("30989433-6d78-472a-86b2-8948126c2b1c", {productId: "c8a12d5b-b3eb-4760-8041-57798338ad7b", quantity : 10}, "add");
+// update_quantity_in_cart("7de1d4da-0c49-4d1c-a31e-30dec0419502", {productId: "d67a75b8-ec3f-428c-836c-6833b801f6b3", quantity : 5}, "remove");
 
 module.exports ={add_product_to_cart, update_quantity_in_cart};

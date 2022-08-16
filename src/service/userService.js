@@ -31,7 +31,7 @@ const user_register = async(firstName, middleName, lastName, address, email, pas
  
 };
 
-user_register("Bhuban","Prasad", "Yadav", "Dhapakhel-23", "by@smaitic.com", "bhubany")
+// user_register("Bhuban","Prasad", "Yadav", "Dhapakhel-23", "yby@smaitic.com", "bhubany")
 
 /* User SignIn
 @params
@@ -56,7 +56,7 @@ const user_signin = async(email, password) => {
     }
 }
 
-user_signin("by@smaitic.com", "bhubany");
+// user_signin("yby@smaitic.com", "bhubany");
 
 
 

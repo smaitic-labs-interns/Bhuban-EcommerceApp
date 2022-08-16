@@ -30,8 +30,6 @@ const add_cart = async(cart) =>{
 
 const find_cart = async(cartId) => { // find cart from id
     try{
-        // let test = await con.awaitQuery(`SELECT * FROM carts WHERE id = ? UNION ALL SELECT * FROM cart_products WHERE cartId = ? `, [cartId, cartId]);
-        // console.log(test);
         let cart = await con.awaitQuery(`SELECT * FROM carts WHERE id =?`,[cartId]);
         let product = await con.awaitQuery(`SELECT productId, quantity FROM cart_products WHERE cartId =?`,[cartId]);
         cart  = Object.values(JSON.parse(JSON.stringify(cart)))
@@ -96,4 +94,21 @@ const update_cart_status = async(cartId, status) => {
     }
 }
 
-module.exports ={add_cart, read_all_cart, find_cart, update_cart, delete_cart, update_cart_status}
+const find_active_cart = async(userId) => {
+    try{
+        let cart = await con.awaitQuery("SELECT * FROM carts WHERE userId= ? and status = ?", [userId, "active"]);
+        if(cart.length > 0){
+            cart = Object.values(JSON.parse(JSON.stringify(cart)))
+            let cartId = cart[0].id;
+            let product = await con.awaitQuery(`SELECT * FROM cart_products WHERE cartId =?`,[cartId]);
+            product = Object.values(JSON.parse(JSON.stringify(product)))
+            let cart2={...cart[0], products:product}
+            if(cart.length > 0) return cart2;
+        }
+        return false;
+    }catch(err){
+        throw err;
+    }
+}
+
+module.exports ={add_cart, read_all_cart, find_cart, update_cart, delete_cart, update_cart_status, find_active_cart}

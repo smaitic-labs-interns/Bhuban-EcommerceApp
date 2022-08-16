@@ -19,7 +19,6 @@ const AddressSchema = require('../models/addressModule');
 const place_order = async(cartId, shipping_address, paymentType, shipmentType) =>{
     try{
         const cart = await Store.cart.find_cart(cartId);
-        if(!cart) throw new Error(`NO Cart Found For ID: ${cartId}`);
         if(cart.status !== "active") throw new Error(`Cart has been already placed for order`)
         const address = AddressSchema.Address(shipping_address);
         const order = Schema.Order(cart, address, paymentType, shipmentType);
@@ -27,10 +26,12 @@ const place_order = async(cartId, shipping_address, paymentType, shipmentType) =
         for (product of cart.products){
            await Store.product.update_quantity(product.productId, product.quantity, "decrease");
         }
-        const updCartSts = await Store.cart.update_cart_status(cartId ,"deactive"); // change status of cart or delete cart
-        // Store.cart.delete_cart(cartId);
-        if(Store.order.place_order(order)  && updCartSts){
-            console.log(`Your order has been placed with order Id : ${order.id}`);
+        if(await Store.order.place_order(order)){
+            const updCartSts = await Store.cart.update_cart_status(cartId ,"deactive"); // change status of cart or delete cart
+            // Store.cart.delete_cart(cartId);
+            if(updCartSts){
+                console.log(`Your order has been placed`);
+            }
         }
     }catch (err){
         console.log(`${err.name} => ${err.message}`)
@@ -46,7 +47,7 @@ const shipping_address = {
     "houseNo": 12
     }
 
-// place_order("da46525e-f5c5-4a01-9f0c-602a530b2fda", shipping_address, "CASH", "International");
+// place_order("7de1d4da-0c49-4d1c-a31e-30dec0419502", shipping_address, "CASH", "International");
 
 const update_quantity_order = async(orderID, product, action) =>{
     try{
@@ -61,8 +62,8 @@ const update_quantity_order = async(orderID, product, action) =>{
                         if(oldProduct.productId === product.productId){
                             oldProduct.quantity += product.quantity;
                             order.totalBill += product.quantity*product_res.price;
-                            Store.product.update_quantity(product.productId, product.quantity, "decrease");
-                            if(Store.order.update_order(orderID, order)){
+                            let updRes = await Store.product.update_quantity(product.productId, product.quantity, "decrease");
+                            if(updRes && await Store.order.update_order(orderID, order)){
                                 console.log("Quantity in order has been added sucessfully");
                                 return;
                             }
@@ -78,9 +79,9 @@ const update_quantity_order = async(orderID, product, action) =>{
                         if(oldProduct.productId === product.productId && product.quantity <= oldProduct.quantity){
                             oldProduct.quantity -= product.quantity;
                             order.totalBill -= product.quantity*product_res.price;
-                            Store.product.update_quantity(product.productId, product.quantity, "increase");
+                          let updRes = await Store.product.update_quantity(product.productId, product.quantity, "increase");
 
-                            if(Store.order.update_order(orderID, order)){
+                            if(updRes && await Store.order.update_order(orderID, order)){
                                 console.log("Quantity from order has been decreased sucessfully");
                                 return;
                             }
@@ -93,7 +94,7 @@ const update_quantity_order = async(orderID, product, action) =>{
         console.log(`${err.name} => ${err.message}`);
     }
 }
-// update_quantity_order("8af506bf-f605-4f6f-96c4-51ded565e67d", {productId: "c8a12d5b-b3eb-4760-8041-57798338ad7b", "quantity": 1}, "remove")
+// update_quantity_order("944bf1b0-5a27-4668-a36b-6f485580769d", {productId: "d67a75b8-ec3f-428c-836c-6833b801f6b3", "quantity": 1}, "remove")
 
 
 /* Update Address
@@ -135,7 +136,7 @@ const new_address = {
     "tole": "BanglaMukhi",
     "houseNo": 42
     }
-// update_address("8af506bf-f605-4f6f-96c4-51ded565e67d", new_address);
+// update_address("944bf1b0-5a27-4668-a36b-6f485580769d", new_address);
 
 /* Update Payment 
 @params
@@ -166,7 +167,7 @@ const update_payment = async(orderID, new_payment) => {
     }
 }
 
-update_payment("8af506bf-f605-4f6f-96c4-51ded565e67d",{"type": "CONNECT-IPS", "status": "paid"})
+update_payment("944bf1b0-5a27-4668-a36b-6f485580769d",{"type": "CONNECT-IPS", "status": "paid"})
 
 /* track Order 
 @params

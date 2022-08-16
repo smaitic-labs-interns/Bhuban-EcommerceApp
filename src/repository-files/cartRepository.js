@@ -64,4 +64,33 @@ const delete_cart = async(cartId) => {
     }
 }
 
-module.exports ={add_cart, read_all_cart, find_cart, update_cart, delete_cart}
+const update_cart_status = async(cartId, status) => {
+    try{
+        const allCart = await read_all_cart();
+        for (var cart of allCart){
+            if(cart.id === cartId){
+                cart.status = status;
+                return utils.write_data(fileName, allCart);
+            }
+        }
+        throw new Error(`No cart found for ID: ${cartId}`);
+    }catch(err){
+        throw err;
+    }
+}
+
+const find_active_cart = async(userId) => {
+    try{
+        const allCart = await read_all_cart();
+        for (var cart of allCart){
+            if(cart.userId === userId && cart.status === "active"){
+                return cart;
+            }
+        }
+        return false;
+    }catch(err){
+        throw err;
+    }
+}
+
+module.exports ={add_cart, read_all_cart, find_cart, update_cart, delete_cart, update_cart_status, find_active_cart}

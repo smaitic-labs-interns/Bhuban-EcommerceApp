@@ -13,7 +13,7 @@ const SHIPMENT_TYPES = [
 ]
 
 
-const Order = ({_id,userId, products, totalBill}, shippingAddress, paymentType, shipmentType) =>{
+const Order = ({id,userId, products, totalBill}, shippingAddress, paymentType, shipmentType) =>{
     const {error, value} = Validate.address_validation(shippingAddress);
     if(error) throw error;
     
@@ -34,8 +34,8 @@ const Order = ({_id,userId, products, totalBill}, shippingAddress, paymentType, 
     }
 
     return{
-        _id:uuidv4(),
-        cartId:_id,
+        id:uuidv4(),
+        cartId:id,
         userId,
         products,
         totalBill: (totalBill+shipmentCharge),

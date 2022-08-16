@@ -8,7 +8,7 @@ const User = ({firstName, middleName, lastName, address, email, password}) =>{
     if(error) throw error;
     
     return {
-        _id: uuidv4(),
+        id: uuidv4(),
         firstName: value.firstName,
         middleName: value.middleName,
         lastName: value.lastName,

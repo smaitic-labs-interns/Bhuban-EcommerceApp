@@ -1,9 +1,6 @@
 const { Client } = require('pg')
 require('dotenv').config();
 
-// const con = async() => {
-//     await client.connect()
-// }
 
 const client = new Client({
     host: process.env.PGHOST,
