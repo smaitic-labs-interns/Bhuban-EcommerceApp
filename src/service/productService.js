@@ -44,7 +44,7 @@ const remove_product = async(productId) => {
     }
 }
 
-// remove_product("9527fd24-4917-4f55-9f24-3cca30c6a05f");
+// remove_product("61cf9c57-2191-4325-9028-0b0ea242e97e");
 
 /*Management:  Update Product from file
 @params
@@ -52,7 +52,7 @@ const remove_product = async(productId) => {
     2) productDetails: "Product with full details", productObject
 @returns
     @if(Updated sucessfully)
-        return success message
+        return success message 
     @else
         return Error
 */
@@ -67,7 +67,7 @@ const update_product = async(productID, category, model, brand, description, pri
         console.log(`${err.name} => ${err.message}`);
     }
 }
-// update_product("c278f124-6624-4123-8294-6d2d302ef6b0",category="Radio", model= "SY-324", brand = "Sony", description="Sony Radio With Smart Features", price="10000", quantity="30", rating="4.6");
+// update_product("0c4936f5-12e7-40bf-9345-2d4476d9cee4",category="Radio", model= "SY-324", brand = "Sony", description="Sony Radio With Smart Features", price="10000", quantity="30", rating="4.6");
 
 /* Management: Prepare revenue report
 @params 
@@ -108,6 +108,6 @@ const search_products = async(keyword) => {
     }
 }
 
-search_products("Z");
+// search_products("z");
 
 module.exports = {add_product, remove_product, update_product, prepare_revenue_report, prepare_ar_aging_report, search_products}

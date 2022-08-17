@@ -1,37 +1,6 @@
 [
   {
-    "id": "eb83b188-a9a6-4035-bd61-f44689128529",
-    "category": "Laptop",
-    "model": "dell-5567",
-    "brand": "dell",
-    "description": "sony radio for music including recording features",
-    "price": 5000,
-    "quantity": 140,
-    "rating": 10,
-    "key": "lenovo"
-  },
-  {
-    "id": "585353b8-7273-4103-b99e-e7721fc45688",
-    "category": "Radio",
-    "model": "Radio fm 32x4s",
-    "brand": "Samsung",
-    "description": "sony radio for music including recording features",
-    "price": 5000,
-    "quantity": 300,
-    "rating": 4
-  },
-  {
-    "id": "effc0d18-dcea-4498-9abb-30747ca23491",
-    "category": "Radio",
-    "model": "dell inspirion 5567",
-    "brand": "dell",
-    "description": "sony radio for music including recording features",
-    "price": 100000,
-    "quantity": 300,
-    "rating": 4
-  },
-  {
-    "id": "7ece87f0-62b4-47da-821f-edc60b30760b",
+    "id": "c18a4081-223d-4ba9-b364-a846cfab0c44",
     "category": "laptop",
     "model": "Dell inspirion 5567",
     "brand": "dell",
@@ -39,5 +8,15 @@
     "price": 50000,
     "quantity": 30,
     "rating": 4
+  },
+  {
+    "id": "0c4936f5-12e7-40bf-9345-2d4476d9cee4",
+    "category": "Radio",
+    "model": "SY-324",
+    "brand": "Sony",
+    "description": "Sony Radio With Smart Features",
+    "price": 10000,
+    "quantity": 20,
+    "rating": 4.6
   }
 ]

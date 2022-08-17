@@ -1,13 +1,12 @@
-const utils = require("../utils/fileUtils.js");
-require('dotenv').config();
-const fileName = process.env.USER_FILE_PATH;
 const bcrypt = require('bcrypt');
-
-
+const Db = require('../config/mongoDb');
+require('dotenv').config();
+const userCollection = process.env.MONGO_COL_USER;
 
 const read_all_user = async() =>{
     try{
-        const data =  await utils.read_data(fileName);
+        let data = await Db.db_connect(userCollection);
+        data = await data.find().toArray();
         return data;
     }catch(err){
         throw err;
@@ -16,9 +15,9 @@ const read_all_user = async() =>{
 
 const add_user = async(user) => { //add user
     try{
-        const allUser = await read_all_user();
-        allUser.push(user);
-        return utils.write_data(fileName, allUser);
+        let db = await Db.db_connect(userCollection);
+        const result = await db.insertOne(user);
+        return result.acknowledged;
     }catch(err){
         throw err;
     }
@@ -26,10 +25,9 @@ const add_user = async(user) => { //add user
 
 const find_user_from_email = async(email) => { //find user from email
     try{
-        const allUser = await read_all_user();
-        for (user of allUser){
-            if(email === user.email) return user;
-        }
+        let db = await Db.db_connect(userCollection);
+        let user = await db.findOne({email:email});
+        if(user) return user;
         return false;
     }catch(err){
         throw err;
@@ -39,8 +37,9 @@ const find_user_from_email = async(email) => { //find user from email
 
 const find_user_from_credintals = async(login) => { // find user from credintals
     try{
-        const allUser = await read_all_user();
-        for (user of allUser){
+        let db = await Db.db_connect(userCollection);
+        let user = await db.findOne({email:login.email});
+        if(user){
             if(login.email === user.email && bcrypt.compareSync(login.password, user.password))  return user;
         }
         throw new Error(`Invalid login Credintals`);

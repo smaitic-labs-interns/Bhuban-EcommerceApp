@@ -47,7 +47,7 @@ const shipping_address = {
     "houseNo": 12
     }
 
-// place_order("7de1d4da-0c49-4d1c-a31e-30dec0419502", shipping_address, "CASH", "International");
+place_order("837331ba-d342-4fce-8467-b0b447302b33", shipping_address, "CASH", "International");
 
 const update_quantity_order = async(orderID, product, action) =>{
     try{
@@ -94,7 +94,7 @@ const update_quantity_order = async(orderID, product, action) =>{
         console.log(`${err.name} => ${err.message}`);
     }
 }
-// update_quantity_order("944bf1b0-5a27-4668-a36b-6f485580769d", {productId: "d67a75b8-ec3f-428c-836c-6833b801f6b3", "quantity": 1}, "remove")
+// update_quantity_order("62fcf8ec2cdce4973b50c685", {productId: "62fcf10db40ef22504039234", "quantity": 1}, "remove")
 
 
 /* Update Address
@@ -136,7 +136,7 @@ const new_address = {
     "tole": "BanglaMukhi",
     "houseNo": 42
     }
-// update_address("944bf1b0-5a27-4668-a36b-6f485580769d", new_address);
+// update_address("62fcf8ec2cdce4973b50c685", new_address);
 
 /* Update Payment 
 @params
@@ -167,7 +167,7 @@ const update_payment = async(orderID, new_payment) => {
     }
 }
 
-update_payment("944bf1b0-5a27-4668-a36b-6f485580769d",{"type": "CONNECT-IPS", "status": "paid"})
+// update_payment("62fcf8ec2cdce4973b50c685",{"type": "CONNECT-IPS", "status": "paid"})
 
 /* track Order 
 @params
@@ -189,7 +189,7 @@ const track_order = async(orderID) => {
     }
 }
 
-// track_order("3486b83f-44da-4b28-96a3-858c6db79b72");
+// track_order("62fcf8ec2cdce4973b50c685");
 /* Cancel Order  
 @param
     1) orderID: "Unique ID"
@@ -221,7 +221,7 @@ const cancel_order = async(orderID) => {
     }
 }
 
-// cancel_order("a699efaa-0e54-490d-b197-10e32a76efc2");
+// cancel_order("62fcf8ec2cdce4973b50c685");
 
 /* return replace Order  
 @param
@@ -260,7 +260,7 @@ const return_replace_order = async(orderID, action) =>{
     }
 }
 
-// return_replace_order("a699efaa-0e54-490d-b197-10e32a76efc2", "return");
+// return_replace_order("62fcf8ec2cdce4973b50c685", "return");
 /* Track refund updates 
 @params
     1) orderID: "Unique ID"

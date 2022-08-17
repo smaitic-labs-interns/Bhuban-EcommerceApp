@@ -1,26 +1,18 @@
-const Db = require('../config/mongoDb');
+const utils = require("../utils/fileUtils.js");
 require('dotenv').config();
-const orderCollection = process.env.MONGO_COL_ORDERS;
-const cartCollection = process.env.MONGO_COL_CARTS;
+const fileName = process.env.ORDER_FILE_PATH;
 
 const read_all_orders = async() =>{
-    let db = await Db.db_connect(orderCollection);
-        const orders = await db.find().toArray();
-        return orders;
+    return await utils.read_data(fileName);
 }
 
 
 const place_order = async(order) => {
     try{
-        let db = await Db.db_connect(orderCollection);
-        let cartDb = await Db.db_connect(cartCollection);
+        const allOrders = await read_all_orders();
         delete order.products;
-        const updCartRes = await cartDb.updateOne({_id:order.cartId},{$set:{totalBill:order.totalBill}}); // with shipping charge
-        if(updCartRes.acknowledged){
-            delete order.totalBill;
-            const result = await db.insertOne(order);
-            return result.acknowledged;
-        }
+        allOrders.push(order);
+        return utils.write_data(fileName, allOrders);
     }catch(err){
         throw err;
     }
@@ -29,14 +21,9 @@ const place_order = async(order) => {
 
 const read_order_from_id = async(orderId) =>{
     try{
-        let db = await Db.db_connect(orderCollection);
-        const order = await db.findOne({_id:orderId});
-        if(order){
-            db = await Db.db_connect(cartCollection);
-            const cart = await db.findOne({_id:order.cartId});
-            order.products =cart.products;
-            order.totalBill =cart.totalBill;
-            if(order) return order;
+        const allOrders = await read_all_orders();
+        for(order of allOrders){
+            if(order.id === orderId) return order;
         }
         throw new Error(`No Order Found for ID: ${orderId}`);
     }catch(err){
@@ -46,16 +33,11 @@ const read_order_from_id = async(orderId) =>{
  
 const update_order = async(orderId, newOrder) =>{
     try{
-        let db = await Db.db_connect(orderCollection);
-        let cartDb = await Db.db_connect(cartCollection);
-        const order = await db.findOne({_id:orderId});
-        if(order){
-            const updCartRes = await cartDb.updateOne({_id:order.cartId},{$set:{products:newOrder.products, totalBill:newOrder.totalBill}});
-            if(updCartRes.acknowledged){
-                delete newOrder.products;
-                delete newOrder.totalBill;
-                const result = await db.updateOne({_id:orderId},{$set:newOrder});
-                return result.acknowledged;
+        const allOrders = await read_all_orders();
+        for(var oldOrder of allOrders){
+            if(oldOrder.id === orderId){
+                allOrders[allOrders.indexOf(oldOrder)] = newOrder;
+                return utils.write_data(fileName, allOrders);
             }
         }
         throw new Error(`No order Found for ID: ${orderId}`)

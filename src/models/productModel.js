@@ -6,7 +6,7 @@ const Product = ({category, model, brand, description, price, quantity, rating})
     const {error, value} = Validate.product_validation({category, model, brand, description, price, quantity, rating});
     if(error) throw error;
     return{
-        _id: uuidv4(),
+        id: uuidv4(),
         category: value.category,
         model: value.model,
         brand: value.brand,

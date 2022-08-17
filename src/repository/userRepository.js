@@ -1,12 +1,13 @@
-const bcrypt = require('bcrypt');
-const Db = require('../config/mongoDb');
+const utils = require("../utils/fileUtils.js");
 require('dotenv').config();
-const userCollection = process.env.MONGO_COL_USER;
+const fileName = process.env.USER_FILE_PATH;
+const bcrypt = require('bcrypt');
+
+
 
 const read_all_user = async() =>{
     try{
-        let data = await Db.db_connect(userCollection);
-        data = await data.find().toArray();
+        const data =  await utils.read_data(fileName);
         return data;
     }catch(err){
         throw err;
@@ -15,9 +16,9 @@ const read_all_user = async() =>{
 
 const add_user = async(user) => { //add user
     try{
-        let db = await Db.db_connect(userCollection);
-        const result = await db.insertOne(user);
-        return result.acknowledged;
+        const allUser = await read_all_user();
+        allUser.push(user);
+        return utils.write_data(fileName, allUser);
     }catch(err){
         throw err;
     }
@@ -25,9 +26,10 @@ const add_user = async(user) => { //add user
 
 const find_user_from_email = async(email) => { //find user from email
     try{
-        let db = await Db.db_connect(userCollection);
-        let user = await db.findOne({email:email});
-        if(user) return user;
+        const allUser = await read_all_user();
+        for (user of allUser){
+            if(email === user.email) return user;
+        }
         return false;
     }catch(err){
         throw err;
@@ -37,9 +39,8 @@ const find_user_from_email = async(email) => { //find user from email
 
 const find_user_from_credintals = async(login) => { // find user from credintals
     try{
-        let db = await Db.db_connect(userCollection);
-        let user = await db.findOne({email:login.email});
-        if(user){
+        const allUser = await read_all_user();
+        for (user of allUser){
             if(login.email === user.email && bcrypt.compareSync(login.password, user.password))  return user;
         }
         throw new Error(`Invalid login Credintals`);

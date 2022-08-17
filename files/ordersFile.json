@@ -1,15 +1,9 @@
 [
   {
-    "id": "a699efaa-0e54-490d-b197-10e32a76efc2",
-    "cartId": "5b6126f2-6068-4623-8589-501a2e2a3607",
-    "customerId": "60eeaa21-39d9-4025-80ed-5da261dc0576",
-    "products": [
-      {
-        "productId": "eb83b188-a9a6-4035-bd61-f44689128529",
-        "quantity": 15
-      }
-    ],
-    "total_bill": 75500,
+    "id": "f2b49220-016b-4049-9af6-ce1258384df6",
+    "cartId": "837331ba-d342-4fce-8467-b0b447302b33",
+    "userId": "947d2b87-2691-4d12-bc3b-d1b9b17e2f81",
+    "totalBill": 100500,
     "shippingAddress": {
       "country": "Nepal",
       "province": "3",
@@ -26,6 +20,6 @@
       "type": "International",
       "status": "review"
     },
-    "orderStatus": "cancelled"
+    "orderStatus": "requested"
   }
 ]

@@ -49,6 +49,9 @@ const find_cart = async(cartId) => { // find cart from id
 
 const update_cart = async(cartId, newCart) => {
     try{
+        // const text = '`UPDATE carts SET totalBill =$1 , status =$2 WHERE id =$3` RETURNING *'
+        // const values = [newCart.totalBill, newCart.status, cartId]
+        // let updateCartRes = await con.query(text, values);
         let updateCartRes = await con.query(`UPDATE carts SET totalBill =$1 , status =$2 WHERE id =$3`,[newCart.totalBill, newCart.status, cartId]);
         let res = false;
         if(updateCartRes.rowCount > 0){

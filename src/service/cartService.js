@@ -25,7 +25,7 @@ const add_product_to_cart = async(userId, product) => {
                 if(oldProduct.productId === product.productId){
                     oldProduct.quantity += product.quantity;
                     cart_res.totalBill += product.quantity*product_res.price;
-                    if(Store.cart.update_cart(cart_res.id, cart_res)){
+                    if(Store.cart.update_cart(cart_res)){
                         console.log("Product added Sucessfully");
                         return;
                     }
@@ -35,7 +35,7 @@ const add_product_to_cart = async(userId, product) => {
         // cart is present but item is new
             cart_res.products.push({...product});
             cart_res.totalBill += product.quantity*product_res.price;
-            if(Store.cart.update_cart(cart_res.id , cart_res)){
+            if(await Store.cart.update_cart(cart_res)){
                 console.log("Product added Sucessfully");
                 return;
             }
@@ -45,7 +45,7 @@ const add_product_to_cart = async(userId, product) => {
         const cart = Schema.Cart(userId);
         cart.products.push({...product});
         cart.totalBill += product.quantity * product_res.price;
-        if(Store.cart.add_cart(cart)){
+        if(await Store.cart.add_cart(cart)){
             console.log(`Added to cart Sucessfully`);
             return
         }
@@ -56,7 +56,7 @@ const add_product_to_cart = async(userId, product) => {
     }
 }
 
-// add_product_to_cart("e8b62f59-a933-4382-98ab-fbef316847f5", {productId: "d67a75b8-ec3f-428c-836c-6833b801f6b3", quantity : 5} );
+// add_product_to_cart("947d2b87-2691-4d12-bc3b-d1b9b17e2f81", {productId: "0c4936f5-12e7-40bf-9345-2d4476d9cee4", quantity : 5} );
 
 
 /* Update quantity in cart
@@ -87,7 +87,7 @@ const update_quantity_in_cart = async(cartId, product, action) => {
                         if(oldProduct.productId === product.productId){
                             oldProduct.quantity += product.quantity;
                             cart_res.totalBill += product.quantity*product_res.price;
-                            if(await Store.cart.update_cart(cartId, cart_res)){
+                            if(await Store.cart.update_cart(cart_res)){
                                 console.log("Product added to cart Sucessfully");
                                 return;
                             }
@@ -102,7 +102,7 @@ const update_quantity_in_cart = async(cartId, product, action) => {
                         if(oldProduct.productId === product.productId && product.quantity <= oldProduct.quantity){
                             oldProduct.quantity -= product.quantity;
                             cart_res.totalBill -= product.quantity*product_res.price;
-                            if(await Store.cart.update_cart(cartId, cart_res)){
+                            if(await Store.cart.update_cart(cart_res)){
                                 console.log("Product removed from cart Sucessfully");
                                 return;
                             }
@@ -119,6 +119,6 @@ const update_quantity_in_cart = async(cartId, product, action) => {
     }
 }
 
-// update_quantity_in_cart("7de1d4da-0c49-4d1c-a31e-30dec0419502", {productId: "d67a75b8-ec3f-428c-836c-6833b801f6b3", quantity : 5}, "remove");
+// update_quantity_in_cart("837331ba-d342-4fce-8467-b0b447302b33", {productId: "0c4936f5-12e7-40bf-9345-2d4476d9cee4", quantity : 5}, "remove");
 
 module.exports ={add_product_to_cart, update_quantity_in_cart};

@@ -1,12 +1,10 @@
-const Db = require('../config/mongoDb');
+const utils = require("../utils/fileUtils.js");
 require('dotenv').config();
-const cartCollection = process.env.MONGO_COL_CARTS;
+const fileName = process.env.CART_FILE_PATH;
 
 const read_all_cart = async() =>{
     try{
-        let db = await Db.db_connect(cartCollection);
-        const carts = await db.find().toArray();
-        return carts;
+        return await utils.read_data(fileName);
     }catch(err){
         throw err;
     }
@@ -15,9 +13,9 @@ const read_all_cart = async() =>{
 
 const add_cart = async(cart) =>{
     try{
-        let db = await Db.db_connect(cartCollection);
-        const result = await db.insertOne(cart);
-        return result.acknowledged;
+        const allCart = await read_all_cart();
+        allCart.push(cart);
+        return utils.write_data(fileName, allCart);
     }catch(err){
         console.log(`${err.name} => ${err.message}`);
         return false;
@@ -26,22 +24,24 @@ const add_cart = async(cart) =>{
 
 const find_cart = async(cartId) => { // find cart from id
     try{
-        let db = await Db.db_connect(cartCollection);
-        const cart = await db.findOne({_id:cartId});
-        if(cart) return cart;
-        throw new Error(`No Cart Found For Id :${cartId}`)
+        const allCart = await read_all_cart();
+        for(var cart of allCart){
+            if(cart.id === cartId) return cart;
+        }
+        return false;
     }catch(err){
         throw err;
     }
 }
 
-const update_cart = async(cartId, newCart) => {
+const update_cart = async(newCart) => {
     try{
-        let db = await Db.db_connect(cartCollection);
-        const cart = await db.findOne({_id:cartId});
-        if(cart){
-            const result = await db.updateOne({_id:cartId},{$set:newCart});
-            return result.acknowledged;
+        const allCart = await read_all_cart();
+        for(var oldCart of allCart){
+            if(oldCart.id === newCart.id){
+                allCart[allCart.indexOf(oldCart)] = newCart;
+                return utils.write_data(fileName, allCart);
+            }
         }
         throw new Error(`Error occur Updating Cart`);
     }catch(err){
@@ -51,11 +51,12 @@ const update_cart = async(cartId, newCart) => {
 
 const delete_cart = async(cartId) => {
     try{
-        let db = await Db.db_connect(cartCollection);
-        const cart = await db.findOne({_id:cartId});
-        if(cart){
-            const result = await db.deleteOne({_id:cartId});
-            return result.acknowledged;
+        const allCart = await read_all_cart();
+        for (var cart of allCart){
+            if(cart.id === cartId){
+                const remainingCart = allCart.filter((item) => item.id !== cartId);
+                return utils.write_data(fileName, remainingCart);
+            }
         }
         throw new Error(`No cart found for ID: ${cartId}`);
     }catch(err){
@@ -65,11 +66,12 @@ const delete_cart = async(cartId) => {
 
 const update_cart_status = async(cartId, status) => {
     try{
-        let db = await Db.db_connect(cartCollection);
-        const cart = await db.findOne({_id:cartId});
-        if(cart){
-            const result = await db.updateOne({_id:cartId}, {$set:{status:status}});
-            return result.acknowledged;
+        const allCart = await read_all_cart();
+        for (var cart of allCart){
+            if(cart.id === cartId){
+                cart.status = status;
+                return utils.write_data(fileName, allCart);
+            }
         }
         throw new Error(`No cart found for ID: ${cartId}`);
     }catch(err){
@@ -79,14 +81,16 @@ const update_cart_status = async(cartId, status) => {
 
 const find_active_cart = async(userId) => {
     try{
-        let db = await Db.db_connect(cartCollection);
-        let cart = await db.findOne({userId:userId, status:"active"});
-        if(cart) return cart;
+        const allCart = await read_all_cart();
+        for (var cart of allCart){
+            if(cart.userId === userId && cart.status === "active"){
+                return cart;
+            }
+        }
         return false;
     }catch(err){
         throw err;
     }
 }
-
 
 module.exports ={add_cart, read_all_cart, find_cart, update_cart, delete_cart, update_cart_status, find_active_cart}
