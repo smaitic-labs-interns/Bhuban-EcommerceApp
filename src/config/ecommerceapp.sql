@@ -1,6 +1,6 @@
 --------------START----------------
 --- DATABASE
-CREATE DATABASE `eCOmmerceApp`;
+CREATE DATABASE `eCommerceApp`;
 
 --- USERS
 CREATE TABLE `users` (
@@ -39,7 +39,7 @@ CREATE TABLE `carts` (
 
 ---- Cart_products
 CREATE TABLE `cart_products` (
-  `id` int(11),
+  `id` int NOT NULL AUTO_INCREMENT,
   `cartId` varchar(36) NOT NULL,
   `productId` varchar(36) NOT NULL,
   `quantity` int(11) NOT NULL,
@@ -52,17 +52,26 @@ CREATE TABLE `cart_products` (
 CREATE TABLE `orders` (
   `id` varchar(36) NOT NULL,
   `userId` varchar(36) NOT NULL,
-  `cartId` varchar(36) NOT NULL,
+  `totalBill` INTEGER(36) NOT NULL,
   `orderStatus` varchar(30) NOT NULL,
   PRIMARY KEY(`id`),
-  CONSTRAINT Uc_orders_cartId UNIQUE (`cartId`),
-  CONSTRAINT Fk_orders_cartId FOREIGN KEY(`cartId`) REFERENCES carts(`id`),
   CONSTRAINT Fk_orders_userId FOREIGN KEY(`userId`) REFERENCES users(`id`) 
+);
+
+---ORDERD PRODUCTS
+CREATE TABLE `order_products` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `orderId` varchar(36) NOT NULL,
+  `productId` varchar(36) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  PRIMARY KEY(id),
+  CONSTRAINT Fk_order_products_cartId FOREIGN KEY(`orderId`) REFERENCES orders(`id`),
+  CONSTRAINT Fk_order_products_productId FOREIGN KEY(`productId`) REFERENCES products(`id`)
 );
 
 --- PAYMENT
 CREATE TABLE `payment` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `userId` VARCHAR(36) NOT NULL,
   `orderId` varchar(36) NOT NULL,
   `type` varchar(30) NOT NULL,
@@ -75,7 +84,7 @@ CREATE TABLE `payment` (
 
 ---SHIPMENT
 CREATE TABLE `shipment` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `userId` VARCHAR(36) NOT NULL,
   `orderId` varchar(36) NOT NULL,
   `type` varchar(30) NOT NULL,
@@ -88,7 +97,7 @@ CREATE TABLE `shipment` (
 
 --- SHIPMENT ADDRESS
 CREATE TABLE `shipment_address` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `userId` VARCHAR(36) NOT NULL,
   `orderId` varchar(36) NOT NULL,
   `country` varchar(30) NOT NULL,

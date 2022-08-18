@@ -1,15 +1,10 @@
-const Db = require('../config/mongoDb');
-require('dotenv').config();
-const mongodb = require('mongodb');
-const productCollection = process.env.MONGO_COL_PRODUCTS;
-
-
+const con = require('../config/mysqlDb');
 
 const read_all_products = async() =>{
     try{
-        let db = await Db.db_connect(productCollection);
-        const products = await db.find().toArray();
-        return products;
+        let products = await con.awaitQuery("SELECT * FROM products");
+        if(products.length >0 ) return products;
+        throw new Error(`No Product Found`);
     }catch(err){
         throw err;
     }
@@ -19,9 +14,9 @@ const read_all_products = async() =>{
 
 const add_product = async(product) => {
     try{
-        let db = await Db.db_connect(productCollection);
-        const result = await db.insertOne(product);
-        return result.acknowledged;
+        const result = await con.awaitQuery("INSERT INTO products SET ? ", product);
+        if(result.affectedRows > 0) return true;
+        throw new Error('Error occurs adding product. Try again Later');
     }catch(err){
        throw err;
     }
@@ -29,11 +24,10 @@ const add_product = async(product) => {
 
 const delete_product = async(productId) =>{
     try{
-        let db = await Db.db_connect(productCollection);
-        const product = await db.findOne({_id:new mongodb.ObjectId(productId)});
-        if(product){
-            const result = await db.deleteOne({_id:new mongodb.ObjectId(productId)});
-            return result.acknowledged;
+        const result = await con.awaitQuery("SELECT * FROM products WHERE id= ?", productId);
+        if(result.length > 0){
+            const delRes = await con.awaitQuery("DELETE FROM products WHERE id= ?", productId);
+            if(delRes.affectedRows > 0) return true;
         }
         throw new Error(`No Product Found for ID: ${productId}`);
     }catch(err){
@@ -43,11 +37,10 @@ const delete_product = async(productId) =>{
 
 const update_product = async(productId, newProduct) => {
     try{
-        let db = await Db.db_connect(productCollection);
-        const product = await db.findOne({_id:new mongodb.ObjectId(productId)});
-        if(product){
-            const result = await db.updateOne({_id:new mongodb.ObjectId(productId)},{$set:newProduct});
-            return result.acknowledged;
+        const result = await con.awaitQuery("SELECT * FROM products WHERE id= ?", productId);
+        if(result.length > 0){
+            const updRes = await con.awaitQuery("UPDATE products SET ? WHERE id= ?", [newProduct , productId]);
+            if(updRes.affectedRows > 0) return true;
         }
         throw new Error(`No Product Found for Id: ${productId}`);
     }catch(err){
@@ -57,9 +50,8 @@ const update_product = async(productId, newProduct) => {
 
 const find_product = async(productId) => { // find product from id
     try{
-        let db = await Db.db_connect(productCollection);
-        const product = await db.findOne({_id:new mongodb.ObjectId(productId)});
-        if(product) return product;
+        const product = await con.awaitQuery("SELECT * FROM products WHERE id= ?", productId);
+        if(product.length > 0) return product[0];
         throw new Error(`No Product found for ID: ${productId}`);
     }catch(err){
         throw err;
@@ -68,8 +60,8 @@ const find_product = async(productId) => { // find product from id
 
 const search_product = async(keyword) =>{
     try{
-        let db = await Db.db_connect(productCollection);
-        const allProduct = await db.find().toArray();
+        let allProduct = await con.awaitQuery("SELECT * FROM products");
+        allProduct =JSON.parse(JSON.stringify(allProduct));
         const value = [];
         for(product of allProduct){
             for(key in product){
@@ -95,40 +87,21 @@ const search_product = async(keyword) =>{
     }
 }
 
-const search_product1 = async(keyword) =>{
-    try{
-        let db = await Db.db_connect(productCollection);
-        const allProduct = await db.find({
-            "$or":[
-                {"category":{$regex:keyword}},
-                {"model":{$regex:keyword}},
-                {"brand":{$regex:keyword}},
-                {"description":{$regex:keyword}},
-            ]
-        }).toArray();
-
-        if(allProduct.length > 0) return allProduct;
-        throw new Error(`No Product Found For Keyword ${keyword}`);
-    }catch(err){
-        throw err;
-    }
-}
-
-
 
 const update_quantity = async(productId, quantity, action) => {
-    try{
-        let db = await Db.db_connect(productCollection);
-        const product = await db.findOne({_id:new mongodb.ObjectId(productId)});
-        if(product){
+    try{        
+        const product = await con.awaitQuery("SELECT * FROM products WHERE id= ?", productId);
+
+        if(product.length > 0){
             switch (action) {
                 case "increase":
-                    var result = await db.updateOne({_id:new mongodb.ObjectId(productId)}, {$set:{quantity:(product.quantity+quantity)}});
-                    return result.acknowledged;
+                    var result = await con.awaitQuery("UPDATE products SET quantity =? WHERE id =? ", [product[0].quantity+quantity, productId]);
+                    if(result.affectedRows > 0) return true;
+
                 
                 case "decrease":
-                    var result = await db.updateOne({_id:new mongodb.ObjectId(productId)}, {$set:{quantity:(product.quantity-quantity)}});
-                    return result.acknowledged;
+                    var result = await con.awaitQuery("UPDATE products SET quantity =? WHERE id =? ", [product[0].quantity - quantity, productId]);
+                    if(result.affectedRows > 0) return true;
             }
         }
         throw new Error(`No Product found on ID: ${productId}`);

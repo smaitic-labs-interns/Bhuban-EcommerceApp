@@ -53,12 +53,22 @@ CREATE TABLE cart_products (
 CREATE TABLE orders (
   id varchar(36) NOT NULL,
   userId varchar(36) NOT NULL,
-  cartId varchar(36) NOT NULL,
+  totalBill BIGINT NOT NULL,
   orderStatus varchar(30) NOT NULL,
   PRIMARY KEY(id),
   CONSTRAINT Uc_orders_cartId UNIQUE (cartId),
-  CONSTRAINT Fk_orders_cartId FOREIGN KEY(cartId) REFERENCES carts(id),
   CONSTRAINT Fk_orders_userId FOREIGN KEY(userId) REFERENCES users(id) 
+);
+
+-- ORDER PRODUCTS
+CREATE TABLE order_products (
+  id SERIAL,
+  orderId varchar(36) NOT NULL,
+  productId varchar(36) NOT NULL,
+  quantity BIGINT NOT NULL,
+  PRIMARY KEY(id),
+  CONSTRAINT Fk_order_products_cartId FOREIGN KEY(orderId) REFERENCES orders(id),
+  CONSTRAINT Fk_order_products_productId FOREIGN KEY(productId) REFERENCES products(id)
 );
 
 --- PAYMENT

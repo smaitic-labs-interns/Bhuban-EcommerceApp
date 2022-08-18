@@ -16,10 +16,10 @@ const Schema = require('../models/cartModel');
 
 const add_product_to_cart = async(userId, product) => {
     try{
+        const cart_res = await Store.cart.find_active_cart(userId)
         const product_res = await Store.product.find_product(product.productId);
         if(!product_res || (product.quantity > product_res.quantity)) throw new Error(`Not sufficient product on store`);
-        //no earlier cart is present
-        const cart_res = await Store.cart.find_active_cart(userId)
+        //cart is present
         if(cart_res){
             for(var oldProduct of cart_res.products){ // if item already available in cart
                 if(oldProduct.productId === product.productId){
@@ -56,7 +56,7 @@ const add_product_to_cart = async(userId, product) => {
     }
 }
 
-// add_product_to_cart("947d2b87-2691-4d12-bc3b-d1b9b17e2f81", {productId: "0c4936f5-12e7-40bf-9345-2d4476d9cee4", quantity : 5} );
+// add_product_to_cart("b4119053-42c1-4f24-8ab3-d3a7ae03b10e", {productId: "dd0a1038-a293-4bb0-806b-29dbf5877aa7", quantity : 5} );
 
 
 /* Update quantity in cart
@@ -119,6 +119,6 @@ const update_quantity_in_cart = async(cartId, product, action) => {
     }
 }
 
-// update_quantity_in_cart("837331ba-d342-4fce-8467-b0b447302b33", {productId: "0c4936f5-12e7-40bf-9345-2d4476d9cee4", quantity : 5}, "remove");
+// update_quantity_in_cart("396f2946-7fec-48f6-b394-127fd4b5d249", {productId: "dd0a1038-a293-4bb0-806b-29dbf5877aa7", quantity : 5}, "remove");
 
 module.exports ={add_product_to_cart, update_quantity_in_cart};

@@ -1,5 +1,6 @@
+const {v4: uuidv4} = require('uuid');
 const Validate = require('../utils/validations');
-const mongodb = require('mongodb');
+
 
 const PAYMENT_TYPES = ['E-sewa', 'Khalti', 'CONNECT-IPS', 'CASH'];
 
@@ -12,7 +13,7 @@ const SHIPMENT_TYPES = [
 ]
 
 
-const Order = ({_id,userId, products, totalBill}, shippingAddress, paymentType, shipmentType) =>{
+const Order = ({id,userId, products, totalBill}, shippingAddress, paymentType, shipmentType) =>{
     const {error, value} = Validate.address_validation(shippingAddress);
     if(error) throw error;
     
@@ -33,7 +34,8 @@ const Order = ({_id,userId, products, totalBill}, shippingAddress, paymentType, 
     }
 
     return{
-        userId: new mongodb.ObjectId(userId),
+        id:uuidv4(),
+        userId,
         products,
         totalBill: (totalBill+shipmentCharge),
         shippingAddress:value,
