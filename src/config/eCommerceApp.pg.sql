@@ -56,7 +56,6 @@ CREATE TABLE orders (
   totalBill BIGINT NOT NULL,
   orderStatus varchar(30) NOT NULL,
   PRIMARY KEY(id),
-  CONSTRAINT Uc_orders_cartId UNIQUE (cartId),
   CONSTRAINT Fk_orders_userId FOREIGN KEY(userId) REFERENCES users(id) 
 );
 

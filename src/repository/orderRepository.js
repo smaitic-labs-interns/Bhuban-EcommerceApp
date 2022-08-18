@@ -1,9 +1,9 @@
-const con = require('../config/mysqlDb');
+const con = require('../config/postGres');
 
 const read_all_orders = async() =>{
    try{
-    let orders = await con.awaitQuery("SELECT * FROM orders INNER JOIN shipment_address ON orders.id = shipment_address.orderId");
-    if(orders.length >0 ) return orders;
+    let orders = await con.query("SELECT * FROM orders INNER JOIN shipment_address ON orders.id = shipment_address.orderId");
+    if(orders.rowCount >0 ) return orders.rows;
     throw new Error(`No cart Found`);
    }catch(err){
     throw err
@@ -15,19 +15,18 @@ const place_order = async(order) => {
         const address = order.shippingAddress;
         const shipment = order.shipment;
         const payment = order.payment;
-        let placeOrder = await con.awaitQuery(`INSERT INTO orders (id, userId, totalBill, orderStatus) VALUES (?, ?, ?, ?)`,[order.id, order.userId, order.totalBill, order.orderStatus]);
-        if(placeOrder.affectedRows > 0) {
+        let placeOrder = await con.query(`INSERT INTO orders (id, userId,totalBill, orderStatus) VALUES ($1, $2, $3, $4)`,[order.id, order.userId, order.totalBill, order.orderStatus]);
+        if(placeOrder.rowCount > 0) {
             for(let product of order.products){
-                let ordProdRes = await con.awaitQuery(`INSERT INTO order_products (orderId, productId, quantity) VALUES (?, ?, ?)`,[order.id, product.productId, product.quantity]);
+                let ordProdRes = await con.query(`INSERT INTO order_products (orderId, productId, quantity) VALUES ($1, $2, $3)`,[order.id, product.productId, product.quantity]);
             }
-            let shipAddRes = await con.awaitQuery(`INSERT INTO shipment_address (orderId, userId, country, province, city, ward, tole, houseNo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,[order.id, order.userId, address.country, address.province, address.city, address.ward, address.tole, address.houseNo]);
-            let shipRes = await con.awaitQuery(`INSERT INTO shipment (orderId, userId, type, status) VALUES (?, ?, ?, ?)`, [order.id, order.userId, shipment.type, shipment.status]);
-            let paymRes = await con.awaitQuery(`INSERT INTO payment (orderId, userId, type, status) VALUES (?, ?, ?, ?)`,[order.id, order.userId, payment.type, payment.status]);
-            if(shipAddRes.affectedRows >0 && shipRes.affectedRows >0 && paymRes.affectedRows > 0 ) return true;
+            let shipAddRes = await con.query(`INSERT INTO shipment_address (orderId, userId, country, province, city, ward, tole, houseNo) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,[order.id, order.userId, address.country, address.province, address.city, address.ward, address.tole, address.houseNo]);
+            let shipRes = await con.query(`INSERT INTO shipment (orderId, userId, type, status) VALUES ($1, $2, $3, $4)`, [order.id, order.userId, shipment.type, shipment.status]);
+            let paymRes = await con.query(`INSERT INTO payment (orderId, userId, type, status) VALUES ($1, $2, $3, $4)`,[order.id, order.userId, payment.type, payment.status]);
+            if(shipAddRes.rowCount >0 && shipRes.rowCount >0 && paymRes.rowCount > 0 ) return true;
         }
         return false;
     }catch(err){
-        console.log(err.message);
         throw err;
     }
 }
@@ -35,20 +34,30 @@ const place_order = async(order) => {
 
 const read_order_from_id = async(orderId) =>{
     try{
-        let order = await con.awaitQuery(`SELECT * FROM orders WHERE id = ?`,[orderId]);
-        order = JSON.parse(JSON.stringify(order));
-        if(order.length > 0) {
-            let ordProdRes = await con.awaitQuery(`SELECT productId, quantity FROM order_products WHERE orderId = ?`,[orderId]);
-            let shipAddRes = await con.awaitQuery(`SELECT country, province, city, ward, tole, houseNo FROM shipment_address WHERE orderId = ?`,[orderId]);
-            let shipRes = await con.awaitQuery(`SELECT type , status FROM shipment WHERE orderId = ?`, [orderId]);
-            let paymRes = await con.awaitQuery(`SELECT type, status FROM payment WHERE orderId = ?`,[orderId]);
+        let order = await con.query(`SELECT * FROM orders WHERE id = $1`,[orderId]);
+        if(order.rowCount > 0) {
+            order= order.rows[0];
+            let ordProdRes = await con.query(`SELECT productId, quantity FROM order_products WHERE orderId = $1`,[orderId]);
+            let shipAddRes = await con.query(`SELECT country, province, city, ward, tole, houseNo FROM shipment_address WHERE orderId = $1`,[orderId]);
+            let shipRes = await con.query(`SELECT type , status FROM shipment WHERE orderId = $1`, [orderId]);
+            let paymRes = await con.query(`SELECT type, status FROM payment WHERE orderId = $1`,[orderId]);
+            
+            ordProdRes = ordProdRes.rows;         
+            shipAddRes = shipAddRes.rows[0]
+            shipRes = shipRes.rows[0];
+            paymRes = paymRes.rows[0];
 
-            ordProdRes = JSON.parse(JSON.stringify(ordProdRes));
-            shipAddRes = JSON.parse(JSON.stringify(shipAddRes));
-            shipRes = JSON.parse(JSON.stringify(shipRes));
-            paymRes = JSON.parse(JSON.stringify(paymRes));
-
-            const ord = {...order[0], products:ordProdRes, shippingAddress:shipAddRes[0], payment: paymRes[0], shipment: shipRes[0]}
+            for(key in shipAddRes){
+                if(key === 'houseno'){
+                    shipAddRes.houseNo = shipAddRes[key];
+                    delete shipAddRes.houseno
+                }
+            }
+            const prdts = [];
+            for(item of ordProdRes){
+                prdts.push({productId:item.productid, quantity: Number(item.quantity)});
+            }
+            const ord = {id:order.id, userId: order.userid, orderStatus:order.orderstatus, totalBill: Number(order.totalbill), products:prdts, shippingAddress:shipAddRes, payment: paymRes, shipment: shipRes}
             return ord;
         }
         throw new Error(`No Order Found for ID: ${orderId}`);
@@ -56,20 +65,51 @@ const read_order_from_id = async(orderId) =>{
         throw err;
     }
 }
-
+ 
 
 const update_order = async(orderId, newOrder) =>{
     try{
-        let order = await con.awaitQuery(`SELECT * FROM orders WHERE id = ?`,[orderId]);
-        order = JSON.parse(JSON.stringify(order));
-        if(order.length > 0) {
+        let order = await con.query(`SELECT * FROM orders WHERE id = $1`,[orderId]);
+        if(order.rowCount > 0) {
+            order = order.rows[0];
+            // order = {id:order.id, userId: order.userid, products: order.products, orderStatus: order.orderstatus, totalBill:}
+            
+            const newAdd = newOrder.shippingAddress;
+            const newPaym = newOrder.payment;
             for(product of newOrder.products){
-                let updOrdProRes = await con.awaitQuery(`UPDATE order_products SET quantity = ? WHERE productId = ? AND  orderId = ?`,[product.quantity, product.productId, order[0].id]);    
+                let updOrdProRes = await con.query(`UPDATE order_products SET quantity = $1 WHERE productId = $2 AND  orderId = $3`,[product.quantity, product.productId, orderId]);    
             }
-            let updShipAddRes = await con.awaitQuery(`UPDATE shipment_address SET country =? , province =?, city =?, ward =? , tole =? , houseNo =? WHERE orderId = ?`,[newOrder.shippingAddress.country, newOrder.shippingAddress.province, newOrder.shippingAddress.city, newOrder.shippingAddress.ward, newOrder.shippingAddress.tole, newOrder.shippingAddress.houseNo, orderId]);
-            let updPaymRes = await con.awaitQuery(`UPDATE payment SET type =?, status =?  WHERE orderId = ?`,[newOrder.payment.type, newOrder.payment.status, orderId]);
-            let updOrdRes = await con.awaitQuery(`UPDATE orders SET totalBill = ?, orderStatus = ? WHERE id = ?`,[newOrder.totalBill, newOrder.orderStatus ,order[0].id]);
-            if(updShipAddRes.affectedRows > 0 && updPaymRes.affectedRows > 0 && updOrdRes.affectedRows > 0) return true;   
+
+            let updShipAddRes = await con.query(`UPDATE shipment_address SET country =$1, province =$2, city =$3, ward =$4, tole =$5, houseNo =$6 WHERE orderId = $7`,[newAdd.country, newAdd.province, newAdd.city, newAdd.ward, newAdd.tole, newAdd.houseNo, orderId]);
+            let updPaymRes = await con.query(`UPDATE payment SET type =$1, status =$2 WHERE orderId =$3`,[newPaym.type, newPaym.status, orderId]);
+            let updOrdRes = await con.query(`UPDATE orders SET totalBill = $1, orderStatus = $2 WHERE id = $3`,[newOrder.totalBill, newOrder.orderStatus ,orderId]);
+            if(updShipAddRes.rowCount > 0 && updPaymRes.rowCount > 0 && updOrdRes.rowCount > 0) return true;   
+        }
+        throw new Error(`No order Found for ID: ${orderId}`)
+    }catch(err){
+        throw err;
+    }
+}
+
+const update_order_address = async(orderId, newAddress) =>{
+    try{
+        let order = await con.query(`SELECT * FROM orders WHERE id = $1`,[orderId]);
+        if(order.rowCount > 0) {
+            let updateOrdAdd = await con.query(`UPDATE shipment_address SET country =$1, province =$2, city =$3, ward =$4, tole =$5, houseNo =$6 WHERE orderId = $7`,[newAdd.country, newAdd.province, newAdd.city, newAdd.ward, newAdd.tole, newAdd.houseNo, orderId]);
+            if(updateOrdAdd.rowCount > 0) return true;   
+        }
+        throw new Error(`No order Found for ID: ${orderId}`)
+    }catch(err){
+        throw err;
+    }
+}
+
+const update_order_payment = async(orderId, newPayment) =>{
+    try{
+        let order = await con.query(`SELECT * FROM orders WHERE id = $1`,[orderId]);
+        if(order.rowCount > 0) {
+            let updatePaymRes = await con.query(`UPDATE payment SET type =$1, status =$2 WHERE orderId =$3`,[newPaym.type, newPaym.status, orderId]);
+            if(updatePaymRes.rowCount > 0) return true;   
         }
         throw new Error(`No order Found for ID: ${orderId}`)
     }catch(err){

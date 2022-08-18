@@ -44,7 +44,7 @@ const remove_product = async(productId) => {
     }
 }
 
-// remove_product("d26b6869-bec3-4235-9cd0-fedbb2238fc5");
+// remove_product("7b0999ce-c4db-4243-8e35-4cbd3d19e04d");
 
 /*Management:  Update Product from file
 @params
@@ -67,7 +67,7 @@ const update_product = async(productID, category, model, brand, description, pri
         console.log(`${err.name} => ${err.message}`);
     }
 }
-// update_product("dd0a1038-a293-4bb0-806b-29dbf5877aa7",category="Radio", model= "SY-324", brand = "Sony", description="Sony Radio With Smart Features", price="10000", quantity="30", rating="4.6");
+// update_product("fed0f0e2-3a16-488a-bb23-a0fa7b2840f9",category="Radio", model= "SY-324", brand = "Sony", description="Sony Radio With Smart Features", price="10000", quantity="30", rating="4.6");
 
 /* Management: Prepare revenue report
 @params 
@@ -102,7 +102,6 @@ const prepare_ar_aging_report = () => {
 const search_products = async(keyword) => {
     try{
         keyword = keyword.replace(/\s+/g, ' ').trim()
-        console.log(keyword);
         if(keyword === "")throw new Error(`Please provide valid keyword`);
         const result = await store.product.search_product(keyword);
         console.log(result);
@@ -111,6 +110,6 @@ const search_products = async(keyword) => {
     }
 }
 
-search_products("a");
+// search_products("a");
 
 module.exports = {add_product, remove_product, update_product, prepare_revenue_report, prepare_ar_aging_report, search_products}

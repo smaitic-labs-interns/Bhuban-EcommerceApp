@@ -47,7 +47,7 @@ const shipping_address = {
     "houseNo": 12
     }
 
-// place_order("396f2946-7fec-48f6-b394-127fd4b5d249", shipping_address, "CASH", "International");
+// place_order("1e56f926-c6f3-41d0-8b0a-197519ca2da6", shipping_address, "CASH", "International");
 
 const update_quantity_order = async(orderID, product, action) =>{
     try{
@@ -94,7 +94,7 @@ const update_quantity_order = async(orderID, product, action) =>{
         console.log(`${err.name} => ${err.message}`);
     }
 }
-// update_quantity_order("9c897ff3-2515-41ad-9ba1-de922679d999", {productId: "dd0a1038-a293-4bb0-806b-29dbf5877aa7", "quantity": 5}, "remove")
+// update_quantity_order("a596e5e0-4007-4092-b6a1-e3f035dd7732", {productId: "fed0f0e2-3a16-488a-bb23-a0fa7b2840f9", "quantity": 5}, "add")
 
 
 /* Update Address
@@ -136,7 +136,7 @@ const new_address = {
     "tole": "BanglaMukhi",
     "houseNo": 42
     }
-// update_address("9c897ff3-2515-41ad-9ba1-de922679d999", new_address);
+// update_address("a596e5e0-4007-4092-b6a1-e3f035dd7732", new_address);
 
 /* Update Payment 
 @params
@@ -167,7 +167,7 @@ const update_payment = async(orderID, new_payment) => {
     }
 }
 
-// update_payment("9c897ff3-2515-41ad-9ba1-de922679d999",{"type": "CONNECT-IPS", "status": "paid"})
+// update_payment("a596e5e0-4007-4092-b6a1-e3f035dd7732",{"type": "CONNECT-IPS", "status": "paid"})
 
 /* track Order 
 @params
@@ -221,7 +221,7 @@ const cancel_order = async(orderID) => {
     }
 }
 
-// cancel_order("9c897ff3-2515-41ad-9ba1-de922679d999");
+// cancel_order("a596e5e0-4007-4092-b6a1-e3f035dd7732");
 
 /* return replace Order  
 @param

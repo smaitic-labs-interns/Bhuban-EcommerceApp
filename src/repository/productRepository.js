@@ -1,21 +1,19 @@
-const con = require('../config/mysqlDb');
+const con = require('../config/postGres');
 
 const read_all_products = async() =>{
     try{
-        let products = await con.awaitQuery("SELECT * FROM products");
-        if(products.length >0 ) return products;
-        throw new Error(`No Product Found`);
+        let products = await con.query("SELECT * FROM products");
+        if(products.rowCount !== 0 ) return products.rows;
+        throw new Error(`No product Found`);
     }catch(err){
         throw err;
     }
 }
 
-
-
 const add_product = async(product) => {
     try{
-        const result = await con.awaitQuery("INSERT INTO products SET ? ", product);
-        if(result.affectedRows > 0) return true;
+        const result = await con.query("INSERT INTO products (id, category, model, brand, description, price, quantity, rating) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)", [product.id, product.category, product.model, product.brand, product.description, product.price, product.quantity, product.rating]);
+        if(result.rowCount > 0) return true;
         throw new Error('Error occurs adding product. Try again Later');
     }catch(err){
        throw err;
@@ -24,10 +22,10 @@ const add_product = async(product) => {
 
 const delete_product = async(productId) =>{
     try{
-        const result = await con.awaitQuery("SELECT * FROM products WHERE id= ?", productId);
-        if(result.length > 0){
-            const delRes = await con.awaitQuery("DELETE FROM products WHERE id= ?", productId);
-            if(delRes.affectedRows > 0) return true;
+        const result = await con.query("SELECT * FROM products WHERE id= $1", [productId]);
+        if(result.rowCount > 0){
+            const delRes = await con.query("DELETE FROM products WHERE id= $1", [productId]);
+            if(delRes.rowCount > 0) return true;
         }
         throw new Error(`No Product Found for ID: ${productId}`);
     }catch(err){
@@ -37,10 +35,10 @@ const delete_product = async(productId) =>{
 
 const update_product = async(productId, newProduct) => {
     try{
-        const result = await con.awaitQuery("SELECT * FROM products WHERE id= ?", productId);
-        if(result.length > 0){
-            const updRes = await con.awaitQuery("UPDATE products SET ? WHERE id= ?", [newProduct , productId]);
-            if(updRes.affectedRows > 0) return true;
+        const result = await con.query("SELECT * FROM products WHERE id= $1", [productId]);
+        if(result.rowCount > 0){
+            const updRes = await con.query("UPDATE products SET category =$1, model =$2, brand =$3, description =$4, price =$5, quantity =$6, rating =$7 WHERE id= $8", [newProduct.category, newProduct.model, newProduct.brand, newProduct.description, newProduct.price, newProduct.quantity, newProduct.rating, productId]);
+            if(updRes.rowCount > 0) return true;
         }
         throw new Error(`No Product Found for Id: ${productId}`);
     }catch(err){
@@ -50,8 +48,8 @@ const update_product = async(productId, newProduct) => {
 
 const find_product = async(productId) => { // find product from id
     try{
-        const product = await con.awaitQuery("SELECT * FROM products WHERE id= ?", productId);
-        if(product.length > 0) return product[0];
+        const product = await con.query("SELECT * FROM products WHERE id= $1", [productId]);
+        if(product.rowCount > 0) return product.rows[0];
         throw new Error(`No Product found for ID: ${productId}`);
     }catch(err){
         throw err;
@@ -60,10 +58,9 @@ const find_product = async(productId) => { // find product from id
 
 const search_product = async(keyword) =>{
     try{
-        let allProduct = await con.awaitQuery("SELECT * FROM products");
-        allProduct =JSON.parse(JSON.stringify(allProduct));
+        const allProduct = await con.query("SELECT * FROM products");
         const value = [];
-        for(product of allProduct){
+        for(product of allProduct.rows){
             for(key in product){
                 if(key === "id"){
                     continue;
@@ -90,18 +87,17 @@ const search_product = async(keyword) =>{
 
 const update_quantity = async(productId, quantity, action) => {
     try{        
-        const product = await con.awaitQuery("SELECT * FROM products WHERE id= ?", productId);
-
-        if(product.length > 0){
+        const product = await con.query("SELECT * FROM products WHERE id= $1", [productId]);
+        if(product.rowCount > 0){
             switch (action) {
                 case "increase":
-                    var result = await con.awaitQuery("UPDATE products SET quantity =? WHERE id =? ", [product[0].quantity+quantity, productId]);
-                    if(result.affectedRows > 0) return true;
+                    var result = await con.query("UPDATE products SET quantity =$1 WHERE id =$2 ", [product.rows[0].quantity+quantity, productId]);
+                    if(result.rowCount > 0) return true;
 
                 
                 case "decrease":
-                    var result = await con.awaitQuery("UPDATE products SET quantity =? WHERE id =? ", [product[0].quantity - quantity, productId]);
-                    if(result.affectedRows > 0) return true;
+                    var result = await con.query("UPDATE products SET quantity =$1 WHERE id =$2 ", [product.rows[0].quantity - quantity, productId]);
+                    if(result.rowCount > 0) return true;
             }
         }
         throw new Error(`No Product found on ID: ${productId}`);
