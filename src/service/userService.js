@@ -31,7 +31,7 @@ const user_register = async(firstName, middleName, lastName, address, email, pas
  
 };
 
-// user_register("Bhuban","Prasad", "Yadav", "Dhapakhel-23", "abc@smaitic.com", "bhubany")
+// user_register("Bhuban","Prasad", "Yadav", "Dhapakhel-23", "abcd@smaitic.com", "bhubany")
 
 /* User SignIn
 @params
