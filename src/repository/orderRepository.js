@@ -1,18 +1,20 @@
-const utils = require("../utils/fileUtils.js");
+const Db = require('../config/mongoDb');
 require('dotenv').config();
-const fileName = process.env.ORDER_FILE_PATH;
+const mongodb = require('mongodb');
+const orderCollection = process.env.MONGO_COL_ORDERS;
 
 const read_all_orders = async() =>{
-    return await utils.read_data(fileName);
+    let db = await Db.db_connect(orderCollection);
+        const orders = await db.find().toArray();
+        return orders;
 }
 
 
 const place_order = async(order) => {
     try{
-        const allOrders = await read_all_orders();
-        delete order.products;
-        allOrders.push(order);
-        return utils.write_data(fileName, allOrders);
+        let db = await Db.db_connect(orderCollection);
+        const result = await db.insertOne(order);
+        return result.acknowledged;
     }catch(err){
         throw err;
     }
@@ -21,9 +23,10 @@ const place_order = async(order) => {
 
 const read_order_from_id = async(orderId) =>{
     try{
-        const allOrders = await read_all_orders();
-        for(order of allOrders){
-            if(order.id === orderId) return order;
+        let db = await Db.db_connect(orderCollection);
+        const order = await db.findOne({_id:new mongodb.ObjectId(orderId)});
+        if(order){
+            if(order) return order;
         }
         throw new Error(`No Order Found for ID: ${orderId}`);
     }catch(err){
@@ -33,12 +36,11 @@ const read_order_from_id = async(orderId) =>{
  
 const update_order = async(orderId, newOrder) =>{
     try{
-        const allOrders = await read_all_orders();
-        for(var oldOrder of allOrders){
-            if(oldOrder.id === orderId){
-                allOrders[allOrders.indexOf(oldOrder)] = newOrder;
-                return utils.write_data(fileName, allOrders);
-            }
+        let db = await Db.db_connect(orderCollection);
+        const order = await db.findOne({_id:new mongodb.ObjectId(orderId)});
+        if(order){
+            const result = await db.updateOne({_id:new mongodb.ObjectId(orderId)},{$set:newOrder});
+            return result.acknowledged;
         }
         throw new Error(`No order Found for ID: ${orderId}`)
     }catch(err){
@@ -46,4 +48,4 @@ const update_order = async(orderId, newOrder) =>{
     }
 }
 
-module.exports = {read_order_from_id, update_order, place_order}
+module.exports = {read_all_orders, read_order_from_id, update_order, place_order}

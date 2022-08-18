@@ -1,10 +1,13 @@
-const utils = require("../utils/fileUtils.js");
+const Db = require('../config/mongoDb');
 require('dotenv').config();
-const fileName = process.env.CART_FILE_PATH;
+const mongodb = require('mongodb');
+const cartCollection = process.env.MONGO_COL_CARTS;
 
 const read_all_cart = async() =>{
     try{
-        return await utils.read_data(fileName);
+        let db = await Db.db_connect(cartCollection);
+        const carts = await db.find().toArray();
+        return carts;
     }catch(err){
         throw err;
     }
@@ -13,9 +16,9 @@ const read_all_cart = async() =>{
 
 const add_cart = async(cart) =>{
     try{
-        const allCart = await read_all_cart();
-        allCart.push(cart);
-        return utils.write_data(fileName, allCart);
+        let db = await Db.db_connect(cartCollection);
+        const result = await db.insertOne(cart);
+        return result.acknowledged;
     }catch(err){
         console.log(`${err.name} => ${err.message}`);
         return false;
@@ -24,11 +27,10 @@ const add_cart = async(cart) =>{
 
 const find_cart = async(cartId) => { // find cart from id
     try{
-        const allCart = await read_all_cart();
-        for(var cart of allCart){
-            if(cart.id === cartId) return cart;
-        }
-        return false;
+        let db = await Db.db_connect(cartCollection);
+        const cart = await db.findOne({_id:new mongodb.ObjectId(cartId)});
+        if(cart) return cart;
+        throw new Error(`No Cart Found For Id :${cartId}`)
     }catch(err){
         throw err;
     }
@@ -36,12 +38,11 @@ const find_cart = async(cartId) => { // find cart from id
 
 const update_cart = async(newCart) => {
     try{
-        const allCart = await read_all_cart();
-        for(var oldCart of allCart){
-            if(oldCart.id === newCart.id){
-                allCart[allCart.indexOf(oldCart)] = newCart;
-                return utils.write_data(fileName, allCart);
-            }
+        let db = await Db.db_connect(cartCollection);
+        const cart = await db.findOne({_id:new mongodb.ObjectId(newCart._id)});
+        if(cart){
+            const result = await db.updateOne({_id:new mongodb.ObjectId(newCart._id)},{$set:newCart});
+            return result.acknowledged;
         }
         throw new Error(`Error occur Updating Cart`);
     }catch(err){
@@ -51,12 +52,11 @@ const update_cart = async(newCart) => {
 
 const delete_cart = async(cartId) => {
     try{
-        const allCart = await read_all_cart();
-        for (var cart of allCart){
-            if(cart.id === cartId){
-                const remainingCart = allCart.filter((item) => item.id !== cartId);
-                return utils.write_data(fileName, remainingCart);
-            }
+        let db = await Db.db_connect(cartCollection);
+        const cart = await db.findOne({_id:new mongodb.ObjectId(cartId)});
+        if(cart){
+            const result = await db.deleteOne({_id:new mongodb.ObjectId(cartId)});
+            return result.acknowledged;
         }
         throw new Error(`No cart found for ID: ${cartId}`);
     }catch(err){
@@ -66,12 +66,11 @@ const delete_cart = async(cartId) => {
 
 const update_cart_status = async(cartId, status) => {
     try{
-        const allCart = await read_all_cart();
-        for (var cart of allCart){
-            if(cart.id === cartId){
-                cart.status = status;
-                return utils.write_data(fileName, allCart);
-            }
+        let db = await Db.db_connect(cartCollection);
+        const cart = await db.findOne({_id:new mongodb.ObjectId(cartId)});
+        if(cart){
+            const result = await db.updateOne({_id:new mongodb.ObjectId(cartId)}, {$set:{status:status}});
+            return result.acknowledged;
         }
         throw new Error(`No cart found for ID: ${cartId}`);
     }catch(err){
@@ -81,16 +80,14 @@ const update_cart_status = async(cartId, status) => {
 
 const find_active_cart = async(userId) => {
     try{
-        const allCart = await read_all_cart();
-        for (var cart of allCart){
-            if(cart.userId === userId && cart.status === "active"){
-                return cart;
-            }
-        }
+        let db = await Db.db_connect(cartCollection);
+        let cart = await db.findOne({userId:new mongodb.ObjectId(userId), status:"active"});
+        if(cart) return cart;
         return false;
     }catch(err){
         throw err;
     }
 }
+
 
 module.exports ={add_cart, read_all_cart, find_cart, update_cart, delete_cart, update_cart_status, find_active_cart}

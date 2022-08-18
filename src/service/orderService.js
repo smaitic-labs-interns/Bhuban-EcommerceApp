@@ -47,7 +47,7 @@ const shipping_address = {
     "houseNo": 12
     }
 
-place_order("837331ba-d342-4fce-8467-b0b447302b33", shipping_address, "CASH", "International");
+place_order("62fcf4e5b3a17ac9b48ce582", shipping_address, "CASH", "International");
 
 const update_quantity_order = async(orderID, product, action) =>{
     try{
@@ -94,7 +94,7 @@ const update_quantity_order = async(orderID, product, action) =>{
         console.log(`${err.name} => ${err.message}`);
     }
 }
-// update_quantity_order("62fcf8ec2cdce4973b50c685", {productId: "62fcf10db40ef22504039234", "quantity": 1}, "remove")
+// update_quantity_order("62fe0a7f68440362aa378758", {productId: "62fcf10db40ef22504039234", "quantity": 1}, "remove")
 
 
 /* Update Address

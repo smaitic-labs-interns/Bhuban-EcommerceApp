@@ -1,7 +1,9 @@
-const mongodb = require('mongodb');
+const {v4: uuidv4} = require('uuid');
+
 const Cart = (userId) => {
     return{
-        userId: new mongodb.ObjectId(userId),
+        id:uuidv4(),
+        userId:userId,
         products:[],
         totalBill:0,
         status:"active"

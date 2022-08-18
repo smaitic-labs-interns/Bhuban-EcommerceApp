@@ -1,9 +1,14 @@
 [
   {
-    "id": "f2b49220-016b-4049-9af6-ce1258384df6",
-    "cartId": "837331ba-d342-4fce-8467-b0b447302b33",
+    "id": "424fa2e1-8ab7-4909-ac79-e087259ba5a6",
     "userId": "947d2b87-2691-4d12-bc3b-d1b9b17e2f81",
-    "totalBill": 100500,
+    "products": [
+      {
+        "productId": "0c4936f5-12e7-40bf-9345-2d4476d9cee4",
+        "quantity": 8
+      }
+    ],
+    "totalBill": 80500,
     "shippingAddress": {
       "country": "Nepal",
       "province": "3",
