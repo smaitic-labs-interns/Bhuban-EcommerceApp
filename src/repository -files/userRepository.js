@@ -49,4 +49,17 @@ const find_user_from_credintals = async(login) => { // find user from credintals
     }
 }
 
-module.exports = {add_user, read_all_user, find_user_from_email, find_user_from_credintals}; 
+const find_user_from_id = async(userId) => {
+    try{
+        const allUser = await read_all_user();
+        for (user of allUser){
+            if(user.id === userId)  return user;
+        }
+        return false;
+    }catch(err){
+        throw err;
+    }
+
+}
+
+module.exports = {add_user, read_all_user, find_user_from_email, find_user_from_credintals, find_user_from_id}; 

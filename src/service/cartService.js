@@ -16,6 +16,8 @@ const Schema = require('../models/cartModel');
 
 const add_product_to_cart = async(userId, product) => {
     try{
+        const user_res = await Store.user.find_user_from_id(userId);
+        if(!user_res) throw new Error(`No user Found for ID: ${userId}`);
         const cart_res = await Store.cart.find_active_cart(userId)
         const product_res = await Store.product.find_product(product.productId);
         if(!product_res || (product.quantity > product_res.quantity)) throw new Error(`Not sufficient product on store`);

@@ -16,19 +16,19 @@ const AddressSchema = require('../models/addressModule');
         return error
 */
 
-const place_order = async(cartId, shipping_address, paymentType, shipmentType) =>{
+const place_order = async(userId, shipping_address, paymentType, shipmentType) =>{
     try{
-        const cart = await Store.cart.find_cart(cartId);
-        if(cart.status !== "active") throw new Error(`Cart has been already placed for order`)
+        const cart = await Store.cart.find_active_cart(userId);
+        if(!cart) throw new Error(`No active cart Found for User Id: ${userId}`);
         const address = AddressSchema.Address(shipping_address);
         const order = Schema.Order(cart, address, paymentType, shipmentType);
 
         if(await Store.order.place_order(order)){
-            const updCartSts = await Store.cart.update_cart_status(cartId ,"deactive"); // change status of cart or delete cart
+            const updCartSts = await Store.cart.update_cart_status(cart.id ,"deactive"); // change status of cart or delete cart
             for (product of cart.products){
-               await Store.product.update_quantity(product.productId, product.quantity, "decrease");
+                await Store.product.update_quantity(product.productId, product.quantity, "decrease");
             }
-            // Store.cart.delete_cart(cartId);
+            // Store.cart.delete_cart(cart.id);
             if(updCartSts){
                 console.log(`Your order has been placed`);
             }
@@ -47,7 +47,7 @@ const shipping_address = {
     "houseNo": 12
     }
 
-// place_order("1e56f926-c6f3-41d0-8b0a-197519ca2da6", shipping_address, "CASH", "International");
+place_order("027dc63e-a824-418d-9f52-a956b8a2b8be", shipping_address, "CASH", "International");
 
 const update_quantity_order = async(orderID, product, action) =>{
     try{

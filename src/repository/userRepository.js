@@ -44,4 +44,15 @@ const find_user_from_credintals = async(login) => { // find user from credintals
     }
 }
 
-module.exports = {add_user, read_all_user, find_user_from_email, find_user_from_credintals}; 
+const find_user_from_id = async(userId) => {
+    try{
+        let user = await con.query("SELECT * FROM users WHERE id= $1", [userId]);
+        if(user.rowCount > 0) return user.rows[0];
+        return false;
+    }catch(err){
+        throw err;
+    }
+
+}
+
+module.exports = {add_user, read_all_user, find_user_from_email, find_user_from_credintals, find_user_from_id}; 

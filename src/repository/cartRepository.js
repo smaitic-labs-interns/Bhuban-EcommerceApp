@@ -77,8 +77,12 @@ const delete_cart = async(cartId) => {
     try{
         const cart = await con.query("SELECT * FROM carts WHERE id= $1", [cartId]);
         if(cart.rowCount > 0){
-            const delRes = await con.query("DELETE FROM carts WHERE id= $2", [cartId]);
-            if(delRes.rowCount > 0) return true;
+            const delcartProdRes = await con.query("DELETE FROM cart_products WHERE cartId= $1", [cartId]);
+            if(delcartProdRes.rowCount > 0){
+                const delCartRes = await con.query("DELETE FROM carts WHERE id= $2", [cartId]);
+                if(delCartRes.rowCount > 0) return true;
+            }
+            throw new Error(`Error occur removing cart products`);
         }
         throw new Error(`No cart found for ID: ${cartId}`);
     }catch(err){

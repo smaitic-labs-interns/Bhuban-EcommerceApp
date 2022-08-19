@@ -48,4 +48,16 @@ const find_user_from_credintals = async(login) => { // find user from credintals
     }
 }
 
-module.exports = {add_user, read_all_user, find_user_from_email, find_user_from_credintals}; 
+const find_user_from_id = async(userId) => {
+    try{
+        let db = await Db.db_connect(userCollection);
+        let user = await db.findOne({id:userId});
+        if(user) return user;
+        return false;
+    }catch(err){
+        throw err;
+    }
+
+}
+
+module.exports = {add_user, read_all_user, find_user_from_email, find_user_from_credintals, find_user_from_id}; 
