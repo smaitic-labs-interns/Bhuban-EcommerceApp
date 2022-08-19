@@ -23,11 +23,11 @@ const place_order = async(cartId, shipping_address, paymentType, shipmentType) =
         const address = AddressSchema.Address(shipping_address);
         const order = Schema.Order(cart, address, paymentType, shipmentType);
 
-        for (product of cart.products){
-           await Store.product.update_quantity(product.productId, product.quantity, "decrease");
-        }
         if(await Store.order.place_order(order)){
             const updCartSts = await Store.cart.update_cart_status(cartId ,"deactive"); // change status of cart or delete cart
+            for (product of cart.products){
+               await Store.product.update_quantity(product.productId, product.quantity, "decrease");
+            }
             // Store.cart.delete_cart(cartId);
             if(updCartSts){
                 console.log(`Your order has been placed`);
