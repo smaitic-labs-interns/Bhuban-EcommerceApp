@@ -31,10 +31,10 @@ const product_validation = ({category, model, brand, description, price, quantit
         quantity: Joi.number().required(),
         rating: Joi.number().required()
     });
-    return product_rule.validate({category, model, brand, description, price, price, quantity, rating});
+    return product_rule.validate({category, model, brand, description, price, quantity, rating});
 }
 
-const updating_product_validation = () => {
+const updating_product_validation = ({category, model, brand, description, price, quantity, rating}) => {
     const update_product_rule = Joi.object({
         category: Joi.string().allow('',null),
         model: Joi.string().allow('',null),
@@ -44,7 +44,7 @@ const updating_product_validation = () => {
         quantity: Joi.number().allow('',null),
         rating: Joi.number().allow('',null)
     });
-    return update_product_rule.validate({category, model, brand, description, price, price, quantity, rating});
+    return update_product_rule.validate({category, model, brand, description, price, quantity, rating});
 
 }
 

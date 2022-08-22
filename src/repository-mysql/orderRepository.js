@@ -68,9 +68,10 @@ const update_order = async(orderId, newOrder) =>{
             }
             let updShipAddRes = await con.awaitQuery(`UPDATE shipment_address SET country =? , province =?, city =?, ward =? , tole =? , houseNo =? WHERE orderId = ?`,[newOrder.shippingAddress.country, newOrder.shippingAddress.province, newOrder.shippingAddress.city, newOrder.shippingAddress.ward, newOrder.shippingAddress.tole, newOrder.shippingAddress.houseNo, orderId]);
             let updPaymRes = await con.awaitQuery(`UPDATE payment SET type =?, status =?  WHERE orderId = ?`,[newOrder.payment.type, newOrder.payment.status, orderId]);
+            let updShipmRes = await con.awaitQuery(`UPDATE shipment SET type =?, status =?  WHERE orderId = ?`,[newOrder.shipment.type, newOrder.shipment.status, orderId]);
             let updOrdRes = await con.awaitQuery(`UPDATE orders SET totalBill = ?, orderStatus = ? WHERE id = ?`,[newOrder.totalBill, newOrder.orderStatus ,order[0].id]);
             
-            if(updShipAddRes.affectedRows > 0 && updPaymRes.affectedRows > 0 && updOrdRes.affectedRows > 0) return true;   
+            if(updShipAddRes.affectedRows > 0 && updPaymRes.affectedRows > 0 && updOrdRes.affectedRows > 0 && updShipmRes.affectedRows > 0) return true;   
         }
         throw new Error(`No order Found for ID: ${orderId}`)
     }catch(err){

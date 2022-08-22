@@ -1,26 +1,14 @@
 [
   {
-    "id": "837331ba-d342-4fce-8467-b0b447302b33",
+    "id": "e3664909-6291-46a4-bae8-d264a001418c",
     "userId": "947d2b87-2691-4d12-bc3b-d1b9b17e2f81",
     "products": [
       {
-        "productId": "0c4936f5-12e7-40bf-9345-2d4476d9cee4",
-        "quantity": 10
+        "productId": "0e572324-0c19-45dd-b55c-859adc7f5be1",
+        "quantity": 5
       }
     ],
-    "totalBill": 100000,
+    "totalBill": 25000,
     "status": "deactive"
-  },
-  {
-    "id": "1c73d28f-7efc-4ba9-b850-617f4260a584",
-    "userId": "947d2b87-2691-4d12-bc3b-d1b9b17e2f81",
-    "products": [
-      {
-        "productId": "0c4936f5-12e7-40bf-9345-2d4476d9cee4",
-        "quantity": 15
-      }
-    ],
-    "totalBill": 150000,
-    "status": "active"
   }
 ]

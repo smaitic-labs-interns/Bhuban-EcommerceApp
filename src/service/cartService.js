@@ -29,7 +29,7 @@ const add_product_to_cart = async(userId, product) => {
                     cart_res.totalBill += product.quantity*product_res.price;
                     if(Store.cart.update_cart(cart_res)){
                         console.log("Product added Sucessfully");
-                        return;
+                        return ("Product added Sucessfully");
                     }
                     throw new Error(`Error occurs try again later`);
                 }
@@ -39,7 +39,7 @@ const add_product_to_cart = async(userId, product) => {
             cart_res.totalBill += product.quantity*product_res.price;
             if(await Store.cart.update_cart(cart_res)){
                 console.log("Product added Sucessfully");
-                return;
+                return ("Product added Sucessfully");
             }
             throw new Error(`Error occurs try again later`);
         }
@@ -49,12 +49,13 @@ const add_product_to_cart = async(userId, product) => {
         cart.totalBill += product.quantity * product_res.price;
         if(await Store.cart.add_cart(cart)){
             console.log(`Added to cart Sucessfully`);
-            return
+            return (`Added to cart Sucessfully`);
         }
         throw new Error(`Error occurs try again later`);
         
     }catch(err){
         console.log(`${err.name} => ${err.message}`);
+        return err.message;
     }
 }
 
@@ -91,7 +92,7 @@ const update_quantity_in_cart = async(userId, product, action) => {
                             cart_res.totalBill += product.quantity*product_res.price;
                             if(await Store.cart.update_cart(cart_res)){
                                 console.log("Product added to cart Sucessfully");
-                                return;
+                                return ("Product added to cart Sucessfully");
                             }
                         }
                     }
@@ -106,7 +107,7 @@ const update_quantity_in_cart = async(userId, product, action) => {
                             cart_res.totalBill -= product.quantity*product_res.price;
                             if(await Store.cart.update_cart(cart_res)){
                                 console.log("Product removed from cart Sucessfully");
-                                return;
+                                return ("Product removed from cart Sucessfully");
                             }
                             throw new Error(`Error occurs removing from cart. Try again later`);
                         }
@@ -118,6 +119,7 @@ const update_quantity_in_cart = async(userId, product, action) => {
         }
     }catch(err){
         console.log(`${err.name} => ${err.message}`);
+        return err.message;
     }
 }
 

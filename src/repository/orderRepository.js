@@ -76,14 +76,16 @@ const update_order = async(orderId, newOrder) =>{
             
             const newAdd = newOrder.shippingAddress;
             const newPaym = newOrder.payment;
+            const newShipm = newOrder.shipment;
             for(product of newOrder.products){
                 let updOrdProRes = await con.query(`UPDATE order_products SET quantity = $1 WHERE productId = $2 AND  orderId = $3`,[product.quantity, product.productId, orderId]);    
             }
 
             let updShipAddRes = await con.query(`UPDATE shipment_address SET country =$1, province =$2, city =$3, ward =$4, tole =$5, houseNo =$6 WHERE orderId = $7`,[newAdd.country, newAdd.province, newAdd.city, newAdd.ward, newAdd.tole, newAdd.houseNo, orderId]);
             let updPaymRes = await con.query(`UPDATE payment SET type =$1, status =$2 WHERE orderId =$3`,[newPaym.type, newPaym.status, orderId]);
+            let updShipmRes = await con.query(`UPDATE shipment SET type =$1, status =$2 WHERE orderId =$3`,[newShipm.type, newShipm.status, orderId]);
             let updOrdRes = await con.query(`UPDATE orders SET totalBill = $1, orderStatus = $2 WHERE id = $3`,[newOrder.totalBill, newOrder.orderStatus ,orderId]);
-            if(updShipAddRes.rowCount > 0 && updPaymRes.rowCount > 0 && updOrdRes.rowCount > 0) return true;   
+            if(updShipAddRes.rowCount > 0 && updPaymRes.rowCount > 0 && updOrdRes.rowCount > 0 && updShipmRes.rowCount > 0) return true;   
         }
         throw new Error(`No order Found for ID: ${orderId}`)
     }catch(err){

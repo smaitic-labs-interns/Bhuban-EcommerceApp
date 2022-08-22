@@ -23,10 +23,12 @@ const user_register = async(firstName, middleName, lastName, address, email, pas
             throw new Error('User Already Registered. Try Login!'); 
         }
         if(db.user.add_user(user)){
-            console.log("User Registerd Sucessfully");
+            // console.log("User Registerd Sucessfully");
+            return("User Registerd Sucessfully");
         }  
     }catch(err){
-        console.log(`${err.name} => ${err.message}`);
+        // console.log(`${err.name} => ${err.message}`);
+        return err.message;
     }
  
 };
@@ -49,10 +51,12 @@ const user_signin = async(email, password) => {
         
         const signinDetails = {...value}
         if(await db.user.find_user_from_credintals(signinDetails)){
-            return console.log("Login Successfull !");
+            // console.log("Login Successfull !")
+            return ("Login Successfull !");
         }
     }catch(e){
         console.log(`${e.name} => ${e.message}`);
+        return e.message;
     }
 }
 

@@ -18,9 +18,11 @@ const add_product = (category, model, brand, description, price, quantity, ratin
         const product = Schema.Product({category, model, brand, description, price, quantity, rating});
         if(store.product.add_product(product)){
             console.log("Product added to Database sucessfully");
+            return("Product added to Database sucessfully");
         }
     }catch(err){ 
         console.log(`${err.name} => ${err.message}`);
+        return err.message;
     }
 }
 
@@ -38,9 +40,11 @@ const remove_product = async(productId) => {
     try{
         if(await store.product.delete_product(productId)){
             console.log("Product removed sucessfully");
+            return("Product removed sucessfully");
         }
     }catch(err){
         console.log(`${err.name} => ${err.message}`);
+        return err.message;
     }
 }
 
@@ -59,12 +63,15 @@ const remove_product = async(productId) => {
 const update_product = async(productID, category, model, brand, description, price, quantity, rating) => {
     try{
         const {error, value} = Validate.updating_product_validation({category, model, brand, description, price, quantity, rating});
+        console.log(value);
         if(error) throw error;
         if(await store.product.update_product(productID, value)){
             console.log("Product updated sucessfully");
+            return("Product updated sucessfully");
         }
     }catch(err){
         console.log(`${err.name} => ${err.message}`);
+        return err.message;
     }
 }
 // update_product("fed0f0e2-3a16-488a-bb23-a0fa7b2840f9",category="Radio", model= "SY-324", brand = "Sony", description="Sony Radio With Smart Features", price="10000", quantity="30", rating="4.6");
@@ -77,6 +84,7 @@ const prepare_revenue_report = () => {
     try{
     }catch(err){
         console.log(`${err.name} => ${err.message}`);
+        return err.message;
     }
 }
 
@@ -85,6 +93,7 @@ const prepare_ar_aging_report = () => {
     try{
     }catch(err){
         console.log(`${err.name} => ${err.message}`);
+        return err.message;
     }
 }
 
@@ -105,8 +114,10 @@ const search_products = async(keyword) => {
         if(keyword === "")throw new Error(`Please provide valid keyword`);
         const result = await store.product.search_product(keyword);
         console.log(result);
+        return result;
     }catch(e){
         console.log(`${e.name} => ${e.message}`);
+        return e.message;
     }
 }
 

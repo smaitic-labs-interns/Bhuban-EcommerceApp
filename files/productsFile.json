@@ -1,6 +1,6 @@
 [
   {
-    "id": "c18a4081-223d-4ba9-b364-a846cfab0c44",
+    "id": "b2977b8b-73b1-47b4-b5c5-fbeaa848acc7",
     "category": "laptop",
     "model": "Dell inspirion 5567",
     "brand": "dell",
@@ -10,13 +10,13 @@
     "rating": 4
   },
   {
-    "id": "0c4936f5-12e7-40bf-9345-2d4476d9cee4",
+    "id": "0e572324-0c19-45dd-b55c-859adc7f5be1",
     "category": "Radio",
-    "model": "SY-324",
-    "brand": "Sony",
-    "description": "Sony Radio With Smart Features",
-    "price": 10000,
-    "quantity": 12,
-    "rating": 4.6
+    "model": "Sony inspirion 5567",
+    "brand": "sony",
+    "description": "sony Radio ",
+    "price": 5000,
+    "quantity": 30,
+    "rating": 4
   }
 ]
