@@ -23,12 +23,10 @@ const user_register = async(firstName, middleName, lastName, address, email, pas
             throw new Error('User Already Registered. Try Login!'); 
         }
         if(db.user.add_user(user)){
-            // console.log("User Registerd Sucessfully");
             return("User Registerd Sucessfully");
         }  
     }catch(err){
-        // console.log(`${err.name} => ${err.message}`);
-        return err.message;
+        throw err;
     }
  
 };
@@ -54,9 +52,8 @@ const user_signin = async(email, password) => {
             // console.log("Login Successfull !")
             return ("Login Successfull !");
         }
-    }catch(e){
-        console.log(`${e.name} => ${e.message}`);
-        return e.message;
+    }catch(err){
+        throw err;
     }
 }
 

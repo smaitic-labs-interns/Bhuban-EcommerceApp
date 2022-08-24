@@ -22,7 +22,7 @@ const add_product = (category, model, brand, description, price, quantity, ratin
         }
     }catch(err){ 
         console.log(`${err.name} => ${err.message}`);
-        return err.message;
+        throw err;
     }
 }
 
@@ -44,7 +44,7 @@ const remove_product = async(productId) => {
         }
     }catch(err){
         console.log(`${err.name} => ${err.message}`);
-        return err.message;
+        throw err;
     }
 }
 
@@ -71,7 +71,7 @@ const update_product = async(productID, category, model, brand, description, pri
         }
     }catch(err){
         console.log(`${err.name} => ${err.message}`);
-        return err.message;
+        throw err;
     }
 }
 // update_product("fed0f0e2-3a16-488a-bb23-a0fa7b2840f9",category="Radio", model= "SY-324", brand = "Sony", description="Sony Radio With Smart Features", price="10000", quantity="30", rating="4.6");
@@ -84,7 +84,7 @@ const prepare_revenue_report = () => {
     try{
     }catch(err){
         console.log(`${err.name} => ${err.message}`);
-        return err.message;
+        throw err;
     }
 }
 
@@ -93,7 +93,7 @@ const prepare_ar_aging_report = () => {
     try{
     }catch(err){
         console.log(`${err.name} => ${err.message}`);
-        return err.message;
+        throw err;
     }
 }
 
@@ -115,9 +115,9 @@ const search_products = async(keyword) => {
         const result = await store.product.search_product(keyword);
         console.log(result);
         return result;
-    }catch(e){
+    }catch(err){
         console.log(`${e.name} => ${e.message}`);
-        return e.message;
+        throw err;
     }
 }
 

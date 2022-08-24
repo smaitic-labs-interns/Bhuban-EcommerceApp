@@ -55,7 +55,7 @@ const add_product_to_cart = async(userId, product) => {
         
     }catch(err){
         console.log(`${err.name} => ${err.message}`);
-        return err.message;
+        throw err;
     }
 }
 
@@ -119,7 +119,7 @@ const update_quantity_in_cart = async(userId, product, action) => {
         }
     }catch(err){
         console.log(`${err.name} => ${err.message}`);
-        return err.message;
+        throw err;
     }
 }
 

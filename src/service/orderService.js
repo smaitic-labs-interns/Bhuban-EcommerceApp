@@ -36,7 +36,7 @@ const place_order = async(userId, shippingAddress, paymentType, shipmentType) =>
         }
     }catch (err){
         console.log(`${err.name} => ${err.message}`)
-        return err.message;
+        throw err;
     }
 }
 
@@ -94,7 +94,7 @@ const update_quantity_order = async(orderId, product, action) =>{
         }
     }catch(err){
         console.log(`${err.name} => ${err.message}`);
-        return err.message;
+        throw err;
     }
 }
 // update_quantity_order("a596e5e0-4007-4092-b6a1-e3f035dd7732", {productId: "fed0f0e2-3a16-488a-bb23-a0fa7b2840f9", "quantity": 5}, "add")
@@ -129,7 +129,7 @@ const update_address = async(orderId ,newAddress) => {
         
     }catch(err){
         console.log(`${err.name} => ${err.message}`);
-        return err.message;
+        throw err;
     }
 }
 
@@ -170,7 +170,7 @@ const update_payment = async(orderId, newPayment) => {
 
     }catch(err){
         console.log(`${err.name} => ${err.message}`);
-        return err.message;
+        throw err;
     }
 }
 
@@ -231,7 +231,7 @@ const update_order_status = async(orderId, status) => {
         }
     }catch(err){
         console.log(`${err.name} => ${err.message}`);
-        return err.message;
+        throw err;
     }
 }
 
@@ -252,7 +252,7 @@ const track_order = async(orderId) => {
 
     }catch(err){
         console.log(`${err.name} => ${err.message}`);
-        return err.message;
+        throw err;
     }
 }
 
@@ -286,7 +286,7 @@ const cancel_order = async(orderId) => {
         }
     }catch(err){
         console.log(`${err.name} => ${err.message}`);
-        return err.message;
+        throw err;
     }
 }
 
@@ -327,7 +327,7 @@ const return_replace_order = async(orderId, action) =>{
 
     }catch(err){
         console.log(`${err.name} => ${err.message}`);
-        return err.message;
+        throw err;
     }
 }
 
@@ -352,7 +352,7 @@ const refund_updates = async(orderId) =>{
 
     }catch(err){
         console.log(`${err.name} => ${err.message}`);
-        return err.message;
+        throw err;
     }
 }
 
@@ -375,7 +375,7 @@ const send_shipment_updates = async(orderId) => {
 
     }catch(err){
         console.log(`${err.name} => ${err.message}`);
-        return err.message;
+        throw err;
     }
 }
 
@@ -400,7 +400,7 @@ const send_return_updates = async(orderId) => {
         throw new Error(`No return order found for ID:  "${orderId}"`);
     }catch(err){
         console.log(`${err.name} => ${err.message}`);
-        return err.message;
+        throw err;
     }
 }
 
@@ -422,7 +422,7 @@ const send_payment_updates = async(orderId) => {
         return order.payment;
     }catch(err){
         console.log(`${err.name} => ${err.message}`);
-        return err.message;
+        throw err;
     }
 }
 
