@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const Db = require('../config/mongoDb');
+const mongodb = require('mongodb');
 require('dotenv').config();
 const userCollection = process.env.MONGO_COL_USER;
 
@@ -51,7 +52,7 @@ const find_user_from_credintals = async(login) => { // find user from credintals
 const find_user_from_id = async(userId) => {
     try{
         let db = await Db.db_connect(userCollection);
-        let user = await db.findOne({id:userId});
+        let user = await db.findOne({_id: mongodb.ObjectId(userId)});
         if(user) return user;
         return false;
     }catch(err){

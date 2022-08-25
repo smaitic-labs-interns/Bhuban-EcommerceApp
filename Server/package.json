@@ -21,6 +21,7 @@
   "homepage": "https://github.com/smaitic-labs-interns/eCommerceApp#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "create-react-app": "^5.0.1",
     "crypto": "^1.0.1",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
@@ -29,6 +30,7 @@
     "mysql": "^2.18.1",
     "mysql-await": "^2.2.2",
     "pg": "^8.7.3",
+    "react": "^18.2.0",
     "sync-sql": "^1.0.2",
     "uuid": "^8.3.2"
   }
