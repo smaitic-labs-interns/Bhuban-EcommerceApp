@@ -60,9 +60,9 @@ const search_products =async(req, resp) => {
     try{
         const keyword = req.params.keyword;
         const res = await Service.product.search_products(keyword);
-        resp.send(res);
+        resp.status(200).send(res);
     }catch(err){
-        resp.send(err.message);
+        resp.status(400).send(err.message);
     }
 }
 

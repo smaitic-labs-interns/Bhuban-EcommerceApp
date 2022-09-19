@@ -12,11 +12,11 @@ router.post("/user/userLogin", api.user.user_login);
 
 // for product
 router.post("/product/addProduct", api.product.add_product);
-router.delete("/product/removeProduct", api.product.remove_product);
+router.delete("/product/removeProduct/:id", api.product.remove_product);
 router.put("/product/updateProduct/:id", api.product.update_product);
 router.get("/product/revenueReport", api.product.revenue_report);
 router.get("/product/arAgingReport", api.product.ar_aging_report);
-router.get("/product/searchproducts/:keyword", api.product.search_products);
+router.get("/product/searchProducts/:keyword", api.product.search_products);
 
 // for cart
 router.post("/addProductToCart/:id", api.cart.add_product_to_cart);

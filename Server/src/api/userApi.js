@@ -8,9 +8,9 @@ const user_register = async(req, resp) => {
     try{
         const data = req.body
         const res = await Service.user.user_register(data.firstName, data.middleName, data.lastName, data.address, data.email, data.password);
-        resp.send(res);
+        resp.status(200).send(res);
     }catch(err){
-        resp.send(err.message);
+        resp.status(400).send(err.message);
     }
 }
 
@@ -18,9 +18,9 @@ const user_login = async(req, resp) => {
     try{
         const data = req.body
         const res = await Service.user.user_signin(data.email, data.password);
-        resp.send(res);
+        resp.status(200).send(res);
     }catch(err){
-        resp.send(err.message);
+        resp.status(400).send(err.message);
     }
 }
 

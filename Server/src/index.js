@@ -6,10 +6,6 @@ const router = require('./router/router');
 
 app.use(express.json());
 app.use("/api", router);
-// app.use("/api/user", router.user);
-// app.use("/api/product", router.product);
-// app.use("/api/cart", router.cart);
-// app.use("/api/order", router.order);
 
 
 app.get("/", async(req, resp) => {

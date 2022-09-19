@@ -3,7 +3,7 @@ const Joi = require('joi');
 const user_validation = ({firstName, middleName, lastName, address, email, password}) => {
     const user_rule = Joi.object({
             firstName: Joi.string().min(3).max(30).required(),
-            middleName: Joi.string().min(3).max(30),
+            middleName: Joi.string().allow('',null).min(3).max(30),
             lastName: Joi.string().min(3).max(30).required(),
             address : Joi.string().max(100).required(),
             password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),

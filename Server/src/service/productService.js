@@ -13,10 +13,10 @@ const Validate = require('../utils/validations');
     @else
         return Error
 */
-const add_product = (category, model, brand, description, price, quantity, rating) => {
+const add_product = async(category, model, brand, description, price, quantity, rating) => {
     try{
         const product = Schema.Product({category, model, brand, description, price, quantity, rating});
-        if(store.product.add_product(product)){
+        if(await store.product.add_product(product)){
             console.log("Product added to Database sucessfully");
             return("Product added to Database sucessfully");
         }
@@ -113,10 +113,8 @@ const search_products = async(keyword) => {
         keyword = keyword.replace(/\s+/g, ' ').trim()
         if(keyword === "")throw new Error(`Please provide valid keyword`);
         const result = await store.product.search_product(keyword);
-        console.log(result);
         return result;
     }catch(err){
-        console.log(`${e.name} => ${e.message}`);
         throw err;
     }
 }
