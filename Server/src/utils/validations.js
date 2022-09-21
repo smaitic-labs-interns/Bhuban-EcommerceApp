@@ -41,7 +41,7 @@ const updating_product_validation = ({category, model, brand, description, price
         brand: Joi.string().allow('',null),
         description: Joi.string().allow('',null),
         price: Joi.number().allow('',null),
-        quantity: Joi.number().allow('',null),
+        quantity: Joi.number().allow(0,'',null),
         rating: Joi.number().allow('',null)
     });
     return update_product_rule.validate({category, model, brand, description, price, quantity, rating});

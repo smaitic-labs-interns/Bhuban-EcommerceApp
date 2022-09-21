@@ -63,7 +63,6 @@ const remove_product = async(productId) => {
 const update_product = async(productID, category, model, brand, description, price, quantity, rating) => {
     try{
         const {error, value} = Validate.updating_product_validation({category, model, brand, description, price, quantity, rating});
-        console.log(value);
         if(error) throw error;
         if(await store.product.update_product(productID, value)){
             console.log("Product updated sucessfully");

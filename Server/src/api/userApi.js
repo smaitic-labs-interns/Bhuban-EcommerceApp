@@ -17,6 +17,7 @@ const user_register = async(req, resp) => {
 const user_login = async(req, resp) => {
     try{
         const data = req.body
+        console.log(req.headers);
         const res = await Service.user.user_signin(data.email, data.password);
         resp.status(200).send(res);
     }catch(err){

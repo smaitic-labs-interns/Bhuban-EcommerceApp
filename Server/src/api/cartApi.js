@@ -6,9 +6,9 @@ const Service = require('../service/allService');
 
 const add_product_to_cart = async(req, resp) => {
     try{
-        const userId = req.params.id;
+        const userId = req.query.id;
         const product = req.body;
-        const res = await Service.cart.add_product_to_cart(userId, product);
+        const res = await Service.cart.add_product_to_cart(userId, {productId:product.productId, quantity:product.quantity});
         resp.send(res);
     }catch(err){
         resp.send(err.message);
@@ -17,9 +17,9 @@ const add_product_to_cart = async(req, resp) => {
 
 const update_quantity_in_cart = async(req, resp) => {
     try{
-        const userId = req.params.id;
-        const data = req.body;
-        const res = await Service.cart.update_quantity_in_cart(userId, {productId: data.productId, quantity: data.quantity}, data.action);
+        const userId = req.query.id;
+        const product = req.body;
+        const res = await Service.cart.update_quantity_in_cart(userId, {productId: product.productId, quantity: product.quantity}, product.action);
         resp.send(res);
     }catch(err){
         resp.send(err.message);

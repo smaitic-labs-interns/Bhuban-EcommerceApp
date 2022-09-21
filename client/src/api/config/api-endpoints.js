@@ -19,21 +19,79 @@ const product = {
     url: "/product/removeProduct/",
   },
   update: {
-    method: "POST",
+    method: "PUT",
     url: "/product/updateProduct/",
   },
   revenue: {
     method: "GET",
     url: "/product/revenueReport/",
   },
-  arAging:{
+  arAging: {
     method: "GET",
     url: "/product/arAgingReport/",
   },
-  search:{
+  search: {
     method: "GET",
-    url: "/product/searchProducts/",
-  }
+    url: "/product/searchProducts/:keyword",
+  },
 };
 
-module.exports = { user, product };
+const cart = {
+  addTo: {
+    method: "POST",
+    url: "/cart/addProductToCart/",
+  },
+  update: {
+    method: "PUT",
+    url: "/cart/updateQuantityInCart/",
+  },
+};
+
+const order = {
+  place: {
+    method: "POST",
+    url: "/order/placeOrder/",
+  },
+  updateQuantity: {
+    method: "PUT",
+    url: "order/updateQuantityInOrder/",
+  },
+  updateAddress: {
+    method: "PUT",
+    url: "/order/updateAddress/",
+  },
+  updatePayment: {
+    method: "PUT",
+    url: "order/updatePayment/",
+  },
+  track: {
+    method: "GET",
+    url: "/order/trackOrder/",
+  },
+  cancel: {
+    method: "PUT",
+    url: "order/cancelOrder/",
+  },
+  returnReplace: {
+    method: "PUT",
+    url: "/order/returnReplaceOrder/",
+  },
+  refund: {
+    method: "GET",
+    url: "order/refundUpdates/",
+  },
+  shipmentUpdates: {
+    method: "GET",
+    url: "order/shipmentUpdates/",
+  },
+  returnUpdates: {
+    method: "GET",
+    url: "/order/returnUpdates/",
+  },
+  paymentupdates: {
+    method: "GET",
+    url: "order/paymentupdates/",
+  },
+};
+
+module.exports = { user, product, cart, order };

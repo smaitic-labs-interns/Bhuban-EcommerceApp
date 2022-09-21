@@ -5,7 +5,7 @@ const Service = require('../service/allService');
 
 const place_order = async(req, resp) => {
     try{
-        const userId = req.params.id;
+        const userId = req.query.id;
         const data = req.body;
         const res = await Service.order.place_order(userId, data.shippingAddress, data.paymentType, data.shipmentType);
         resp.send(res);
@@ -16,7 +16,7 @@ const place_order = async(req, resp) => {
 
 const update_quantity_order = async(req, resp) => {
     try{
-        const orderId = req.params.id;
+        const orderId = req.query.id;
         const data = req.body;
         const res = await Service.order.update_quantity_order(orderId, {productId: data.productId, quantity: data.quantity}, data.action);
         resp.send(res);
@@ -28,7 +28,7 @@ const update_quantity_order = async(req, resp) => {
 
 const update_address = async(req, resp) => {
     try{
-        const orderId = req.params.id;
+        const orderId = req.query.id;
         const newAddress = req.body;
         const res = await Service.order.update_address(orderId, newAddress);
         resp.send(res);
@@ -40,7 +40,7 @@ const update_address = async(req, resp) => {
 
 const update_payment = async(req, resp) => {
     try{
-        const orderId = req.params.id;
+        const orderId = req.query.id;
         const payment = req.body;
         const res = await Service.order.update_payment(orderId, payment);
         resp.send(res);
@@ -52,7 +52,7 @@ const update_payment = async(req, resp) => {
 
 const track_order = async(req, resp) => {
     try{
-        const orderId = req.params.id;
+        const orderId = req.query.id;
         const res = await Service.order.track_order(orderId);
         resp.send(res);
     }catch(err){
@@ -63,7 +63,7 @@ const track_order = async(req, resp) => {
 
 const cancel_order = async(req, resp) => {
     try{
-        const orderId = req.params.id;
+        const orderId = req.query.id;
         const res = await Service.order.cancel_order(orderId);
         resp.send(res);
     }catch(err){
@@ -74,7 +74,7 @@ const cancel_order = async(req, resp) => {
 
 const return_replace_order = async(req, resp) => {
     try{
-        const orderId = req.params.id;
+        const orderId = req.query.id;
         const data = req.body;
         const res = await Service.order.return_replace_order(orderId, data.action);
         resp.send(res);
@@ -85,7 +85,7 @@ const return_replace_order = async(req, resp) => {
 
 const refund_updates = async(req, resp) => {
     try{
-        const orderId = req.params.id;
+        const orderId = req.query.id;
         const res = await Service.order.refund_updates(orderId);
         resp.send(res);
     }catch(err){
@@ -96,7 +96,7 @@ const refund_updates = async(req, resp) => {
 
 const send_shipment_updates = async(req, resp) => {
     try{
-        const orderId = req.params.id;
+        const orderId = req.query.id;
         const res = await Service.order.send_shipment_updates(orderId);
         resp.send(res);
     }catch(err){
@@ -107,7 +107,7 @@ const send_shipment_updates = async(req, resp) => {
 
 const send_return_updates = async(req, resp) => {
     try{
-        const orderId = req.params.id;
+        const orderId = req.query.id;
         const res = await Service.order.send_return_updates(orderId);
         resp.send(res);
     }catch(err){
@@ -118,7 +118,7 @@ const send_return_updates = async(req, resp) => {
 
 const send_payment_updates = async(req, resp) => {
     try{
-        const orderId = req.params.id;
+        const orderId = req.query.id;
         const res = await Service.order.send_payment_updates(orderId);
         resp.send(res);
     }catch(err){
