@@ -1,4 +1,4 @@
-const user = {
+export const user = {
   login: {
     method: "POST",
     url: "/user/userLogin/",
@@ -9,7 +9,7 @@ const user = {
   },
 };
 
-const product = {
+export const product = {
   add: {
     method: "POST",
     url: "/product/addProduct/",
@@ -36,7 +36,7 @@ const product = {
   },
 };
 
-const cart = {
+export const cart = {
   addTo: {
     method: "POST",
     url: "/cart/addProductToCart/",
@@ -47,7 +47,7 @@ const cart = {
   },
 };
 
-const order = {
+export const order = {
   place: {
     method: "POST",
     url: "/order/placeOrder/",
@@ -93,5 +93,3 @@ const order = {
     url: "order/paymentupdates/",
   },
 };
-
-module.exports = { user, product, cart, order };
