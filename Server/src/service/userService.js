@@ -23,7 +23,7 @@ const user_register = async(firstName, middleName, lastName, address, email, pas
             throw new Error('User Already Registered. Try Login!'); 
         }
         if(db.user.add_user(user)){
-            return("User Registerd Sucessfully");
+            return("User Registerd Sucessfully. Try Login");
         }  
     }catch(err){
         throw err;
@@ -48,10 +48,9 @@ const user_signin = async(email, password) => {
         if(error) throw error;
         
         const signinDetails = {...value}
-        if(await db.user.find_user_from_credintals(signinDetails)){
-            // console.log("Login Successfull !")
-            return ("Login Successfull !");
-        }
+        const response = await db.user.find_user_from_credintals(signinDetails);
+        console.log(response);
+        if(response) return {...response, password:''};
     }catch(err){
         throw err;
     }

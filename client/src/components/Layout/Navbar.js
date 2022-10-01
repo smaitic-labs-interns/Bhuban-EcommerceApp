@@ -92,7 +92,7 @@ export default function Navbar() {
             >
               {pages.map((page) => (
                 <MenuItem key={page.name} onClick={handleCloseNavMenu}>
-                  <Link underline="none">
+                  <Link underline="none" href={page.href}>
                     <Typography textAlign="center">{page.name}</Typography>
                   </Link>
                 </MenuItem>
@@ -131,7 +131,7 @@ export default function Navbar() {
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
+          {/* <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
@@ -159,7 +159,7 @@ export default function Navbar() {
                 </MenuItem>
               ))}
             </Menu>
-          </Box>
+          </Box> */}
         </Toolbar>
       </Container>
     </AppBar>

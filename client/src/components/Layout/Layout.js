@@ -13,12 +13,12 @@ export default function Layout({ children }) {
         </Box>
         <Box
           sx={{
-            padding: "20px",
+            padding: "15px 5px",
             border: "solid #1976D2 15px",
             borderTop: "none",
             borderBottom: "none",
             position: "relative",
-            height: "72.5vh",
+            height: "74vh",
             overflow: "scroll",
             // whiteSpace: "nowrap",
             scrollbarWidth: "none", //Firefox

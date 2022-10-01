@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -7,10 +7,11 @@ import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { useState } from "react";
 
-export default function Register(props) {
-  // console.log("Home", props)
+import { user_register } from "../../../redux/actions/userActions";
+import { useDispatch, useSelector } from "react-redux";
+
+export default function Register() {
   
   const [firstName, setFirstName] = useState(null);
   const [middleName, setMiddleName] = useState(null);
@@ -21,10 +22,10 @@ export default function Register(props) {
   const [confPassword, setConfPassword] = useState(null);
   const [tnc, setTnc] = useState(false);
   
-  const [loginBlock, setLoginBlock] = useState({});
-  const [regBlock, setregBlock] = useState({ display: "none" });
+const register = useSelector((state) => state.register);
+const dispatch = useDispatch();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async(event) => {
     event.preventDefault();
     const payload={firstName, middleName, lastName, address, email, password};
     if(!tnc){
@@ -44,14 +45,10 @@ export default function Register(props) {
     }else if(confPassword === null){
       alert("conform password  is required");
     }else{
-      props.user_register_handler({...payload})
-    }
+      dispatch(user_register(payload));
+      console.log("REgister", register)
+    };
   };
-
-  function handleRegPage() {
-    setregBlock({ display: "block" });
-    setLoginBlock({ display: "none" });
-  }
 
   return (
     <>

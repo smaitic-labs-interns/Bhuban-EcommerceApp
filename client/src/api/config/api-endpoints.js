@@ -1,26 +1,34 @@
 export const user = {
   login: {
     method: "POST",
-    url: "/user/userLogin/",
+    url: "/user/login/",
   },
   register: {
     method: "POST",
-    url: "/user/userRegister/",
+    url: "/user/register/",
   },
 };
 
 export const product = {
+  all: {
+    method: "GET",
+    url: "/product/getAll/",
+  },
+  one: {
+    method: "GET",
+    url: "/product/getOne/:productId",
+  },
   add: {
     method: "POST",
-    url: "/product/addProduct/",
+    url: "/product/add/",
   },
   remove: {
     method: "delete",
-    url: "/product/removeProduct/",
+    url: "/product/remove/",
   },
   update: {
     method: "PUT",
-    url: "/product/updateProduct/",
+    url: "/product/update/",
   },
   revenue: {
     method: "GET",
@@ -32,7 +40,7 @@ export const product = {
   },
   search: {
     method: "GET",
-    url: "/product/searchProducts/:keyword",
+    url: "/product/search/:keyword",
   },
 };
 

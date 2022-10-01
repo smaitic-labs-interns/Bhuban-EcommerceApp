@@ -5,30 +5,49 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { Link } from "@mui/material";
+import {Link} from "react-router-dom";
+import emptyImage from "../../../public/images/img.png";
+import { Box } from "@mui/system";
 
-export default function ProductCard() {
+export default function ProductCard({ product }) {
+  console.log(product);
+  const { id, category, model, brand, description, price, quantity, rating } =
+    product;
   return (
-    <Card sx={{ maxWidth: 345 }}>
-      <Link>
+    <Card sx={{ width: 345, margin: "5px" }} key={id}>
+      <Link to={`/product/${id}`}>
         <CardMedia
           component="img"
           height="140"
-          image="/static/images/cards/contemplative-reptile.jpg"
-          alt="green iguana"
+          image={emptyImage}
+          alt="Product Image"
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            Lizard
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
-          </Typography>
+          <Box sx={{ textAlign: "left" }}>
+            <Typography
+              sx={{
+                fontSize: "36px",
+                lineHeight: "40px",
+                fontWeight: 600,
+                color: "black",
+              }}
+            >
+              {category}
+            </Typography>
+          </Box>
+          <Box sx={{ textAlign: "left", marginTop: "10px" }}>
+            <Typography variant="body2" color="text.secondary">
+              {description}
+            </Typography>
+          </Box>
         </CardContent>
-        <CardActions>
-          <Button size="small">Share</Button>
-          <Button size="small">Learn More</Button>
+        <CardActions sx={{display:"flex", justifyContent:"space-between", margin:"0 20px", textDecoration:"none !important"}}>
+          <Box>
+            <Typography>RS. {price}</Typography>
+          </Box>
+          <Box>
+            <Typography>Rating: {rating}</Typography>
+          </Box>
         </CardActions>
       </Link>
     </Card>

@@ -7,16 +7,18 @@ router.get("/", async(req, resp) => {
 
 
 // for user
-router.post("/user/userRegister", api.user.user_register);
-router.post("/user/userLogin", api.user.user_login);
+router.post("/user/register", api.user.user_register);
+router.post("/user/login", api.user.user_login);
 
 // for product
-router.post("/product/addProduct", api.product.add_product);
-router.delete("/product/removeProduct", api.product.remove_product);
-router.put("/product/updateProduct", api.product.update_product);
+router.get("/product/getAll", api.product.get_all_product);
+router.get("/product/getone/:productId", api.product.get_product_by_id);
+router.post("/product/add", api.product.add_product);
+router.delete("/product/remove", api.product.remove_product);
+router.put("/product/update", api.product.update_product);
 router.get("/product/revenueReport", api.product.revenue_report);
 router.get("/product/arAgingReport", api.product.ar_aging_report);
-router.get("/product/searchProducts/:keyword", api.product.search_products);
+router.get("/product/search/:keyword", api.product.search_products);
 
 // for cart
 router.post("/cart/addProductToCart", api.cart.add_product_to_cart);

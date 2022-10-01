@@ -1,6 +1,6 @@
 const con = require('../config/postGres');
 
-const read_all_products = async() =>{
+const get_all_product = async() =>{
     try{
         let products = await con.query("SELECT * FROM products");
         if(products.rowCount !== 0 ) return products.rows;
@@ -108,4 +108,4 @@ const update_quantity = async(productId, quantity, action) => {
 
 }
 
-module.exports = {add_product, read_all_products, delete_product, update_product, search_product, find_product, update_quantity}
+module.exports = {add_product, get_all_product, delete_product, update_product, search_product, find_product, update_quantity}
