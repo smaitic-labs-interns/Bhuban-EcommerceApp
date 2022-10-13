@@ -1,14 +1,15 @@
-import logo from "./logo.svg";
 import "./App.css";
 
 // For routing
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
-import User from "./pages/User";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import ProductDetailContainer from "./containers/ProductDetailContainer";
 import UserProfileContainer from "./containers/UserProfileContainer";
+import NotFoundContainer from "./containers/NotFoundContainer";
+import CartContainer from "./containers/CartContainer";
+import User from "./pages/User";
 
 function App() {
   return (
@@ -20,6 +21,9 @@ function App() {
         <Route path="/register" element={<RegisterPage />}></Route>
         <Route path="/product/:productId" element={<ProductDetailContainer />}></Route>
         <Route path="/profile" element={<UserProfileContainer />}></Route>        
+        <Route path="/cart" element={<CartContainer />}></Route>        
+        <Route path="/test" element={<User />}></Route>        
+        <Route path="*" element={<NotFoundContainer />}></Route>        
       </Routes>
     </BrowserRouter>
     </div>

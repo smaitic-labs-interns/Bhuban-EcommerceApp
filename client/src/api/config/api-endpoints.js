@@ -45,6 +45,10 @@ export const product = {
 };
 
 export const cart = {
+  getCart:{
+    method: "GET",
+    url: "/cart/getCart/"
+  },
   addTo: {
     method: "POST",
     url: "/cart/addProductToCart/",

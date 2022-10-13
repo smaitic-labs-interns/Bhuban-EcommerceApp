@@ -1,48 +1,138 @@
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import emptyImage from "../../../public/images/img.png";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useParams } from "react-router-dom";
+import {
+  fetch_user_Cart,
+  add_to_cart,
+} from "../../../redux/actions/cartActions";
 
 export default function ProductDetail({ product }) {
+  // const cart = useSelector((state) => state.addToCart);
+  const userCart = useSelector((state) => state.userCart);
+  const dispatch = useDispatch();
   const { id, category, model, brand, description, price, quantity, rating } =
     product;
 
-    const [quty, setQuty] = useState(0);
+  const [quty, setQuty] = useState(1);
+  const [submitMsg, setSubmitMsg] = useState({});
+  const [submitMsgStyle, setSubmitMsgStyle] = useState({ display: "none" });
 
-const handleIncrease = () =>{
-    setQuty(quty+1);
-}
+  const { productId } = useParams();
+  const handleIncrease = () => {
+    setQuty(quty + 1);
+  };
 
-const handleDecrease = () => {
-    quty !== 0 ?setQuty(quty-1):alert("Quantity cannot be negative")
-}
+  const handleDecrease = () => {
+    quty !== 0 ? setQuty(quty - 1) : alert("Quantity cannot be negative");
+  };
 
+  const userId = "358807ca-3d51-4b6a-8dbd-7fab6f42945d";
 
-const handleAddToCart = () => {
-    if(quty === 0){
-        alert("Quantity cannot be negative")
-    }else{
-
+  const handleAddToCart = () => {
+    if (quty <= 0) {
+      alert("Quantity cannot be less than 1");
+    } else {
+      dispatch(
+        add_to_cart({ userId: userId, productId: productId, quantity: quty })
+      );
     }
-}
-
-const handleBuyNow = () => {
-    if(quty === 0){
-        alert("Quantity cannot be negative")
-    }else{
-        
+    if (userCart.message && userCart.message.type.length !== 0) {
+      setSubmitMsg(userCart.message);
+      if (submitMsg.type === "success") {
+        setSubmitMsgStyle({
+          border: "solid green 1px",
+          background: "#a5cca5",
+          color: "white",
+          padding: "20px 30px",
+          borderRadius: "10px",
+          position: "absolute",
+        });
+      } else {
+        setSubmitMsgStyle({
+          border: "solid red 1px",
+          background: "#f1b4b3",
+          color: "white",
+          padding: "20px 30px",
+          borderRadius: "10px",
+          position: "absolute",
+        });
+      }
+      const timer = setTimeout(() => {
+        setSubmitMsgStyle({ display: "none" });
+      }, 2000);
+      return () => clearTimeout(timer);
     }
-}
+  };
 
+  const handleBuyNow = () => {
+    if (quty === 0) {
+      alert("Quantity cannot be negative");
+    } else {
+    }
+  };
+
+  useEffect(() => {
+    if (userId && userId !== " ") dispatch(fetch_user_Cart({ userId }));
+  }, [userId]);
 
   return (
     <Box>
+      <Box
+        sx={{
+          top: "0",
+          marginTop: "-10px",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <Box sx={submitMsgStyle}>
+          <Typography>{submitMsg.msg}</Typography>
+        </Box>
+      </Box>
+      <Box>
+        <Link to={"/cart"} style={{ textDecoration: "none" }}>
+          <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+            <Box
+              sx={{
+                background: "red",
+                padding: "4px 7px",
+                borderRadius: "50%",
+                color: "white",
+                position: "absolute",
+                top: "0",
+              }}
+            >
+              {userCart.noOfProducts}
+            </Box>
+            <Box
+              sx={{
+                background: "Blue",
+                color: "white",
+                padding: "5px 10px",
+                marginTop: "3px",
+                borderRadius: "20%",
+              }}
+            >
+              Cart
+            </Box>
+          </Box>
+        </Link>
+      </Box>
       <Grid container key={id}>
         <Grid item xl={4} lg={4} md={4} sm={12} xs={12}>
-          <Box  sx={{}}>
-            <img src={emptyImage} alt="Product Image" />
-            <Box sx={{display:"flex", justifyContent:"space-around", margin:"20px 0"}}>
-                <Button variant="contained" > {`<<`} </Button>
-                <Button variant="contained"> {`>> `}</Button>
+          <Box sx={{}}>
+            <img src={emptyImage} alt="Product" />
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-around",
+                margin: "20px 0",
+              }}
+            >
+              <Button variant="contained"> {`<<`} </Button>
+              <Button variant="contained"> {`>> `}</Button>
             </Box>
           </Box>
         </Grid>
@@ -66,35 +156,67 @@ const handleBuyNow = () => {
             </Grid>
             <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
               <Box>
-                <Box sx={{border:"solid blue 2px", margin:"10px 0 20px 0", boxShadow: "5px 10px #888888"}}>
-                    <Box sx={{margin:"5px 0"}}>
-                  <Typography variant="h4">
-                    Select required number of quantities
-                  </Typography>
+                <Box
+                  sx={{
+                    border: "solid blue 2px",
+                    margin: "10px 0 20px 0",
+                    boxShadow: "5px 10px #888888",
+                  }}
+                >
+                  <Box sx={{ margin: "5px 0" }}>
+                    <Typography variant="h4">
+                      Select required number of quantities
+                    </Typography>
                   </Box>
                   <Box>
-                    <Box sx={{textAlign:"center"}}>
+                    <Box sx={{ textAlign: "center" }}>
                       <TextField
                         id="quantity"
                         label="My Quantity"
-                        defaultValue={quty}
+                        // defaultValue={quty}
                         InputProps={{
                           readOnly: true,
                         }}
                         value={quty}
                       />
                     </Box>
-                    <Box sx={{display:"flex", justifyContent: "space-around", margin:"10px 0"}}>
-                        <Button variant="outlined" color="error" onClick={handleDecrease}>Decrease</Button>
-                        <Button variant="outlined" color="success" onClick={handleIncrease}>Increase</Button>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        justifyContent: "space-around",
+                        margin: "10px 0",
+                      }}
+                    >
+                      <Button
+                        variant="outlined"
+                        color="error"
+                        onClick={handleDecrease}
+                      >
+                        Decrease
+                      </Button>
+                      <Button
+                        variant="outlined"
+                        color="success"
+                        onClick={handleIncrease}
+                      >
+                        Increase
+                      </Button>
                     </Box>
                   </Box>
                 </Box>
                 <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                  <Button variant="contained" color="success" onClick={handleBuyNow}>
+                  <Button
+                    variant="contained"
+                    color="success"
+                    onClick={handleBuyNow}
+                  >
                     Buy Now
                   </Button>
-                  <Button variant="contained" color="primary" onClick={handleAddToCart}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleAddToCart}
+                  >
                     ADD to Cart
                   </Button>
                 </Box>
@@ -102,8 +224,8 @@ const handleBuyNow = () => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid xl={4} lg={4} md={4} sm={12} xs={12}>
-          <Box item>
+        <Grid item xl={4} lg={4} md={4} sm={12} xs={12}>
+          <Box>
             <Typography>Extra details</Typography>
           </Box>
         </Grid>
