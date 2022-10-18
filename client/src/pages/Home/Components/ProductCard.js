@@ -3,9 +3,8 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import watchImage from "../../../public/images/watch.png";
 import { Box } from "@mui/system";
 
@@ -16,12 +15,15 @@ export default function ProductCard({ product }) {
   return (
     <Card sx={{ width: 345, margin: "5px" }} key={id}>
       <Link to={`/product/${id}`}>
-        <CardMedia
-          component="img"
-          height="140"
-          image={watchImage}
-          alt="Product Image"
-        />
+        <Box sx={{padding:"20px 0", objectFit:"contain"}}>
+          <CardMedia
+            component="img"
+            height="140"
+            image={watchImage}
+            alt="Product Image"
+            sx={{objectFit: "contain"}}
+          />
+        </Box>
         <CardContent>
           <Box sx={{ textAlign: "left" }}>
             <Typography
@@ -41,7 +43,14 @@ export default function ProductCard({ product }) {
             </Typography>
           </Box>
         </CardContent>
-        <CardActions sx={{display:"flex", justifyContent:"space-between", margin:"0 20px", textDecoration:"none !important"}}>
+        <CardActions
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            margin: "0 20px",
+            textDecoration: "none !important",
+          }}
+        >
           <Box>
             <Typography>RS. {price}</Typography>
           </Box>

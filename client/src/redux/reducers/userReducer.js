@@ -23,6 +23,7 @@ const initialStateLogin = {
   address: "",
   email: "",
   isLogined: false,
+  message:"",
 };
 
 export const registerReducer = (state = initialStateRegister, action) => {

@@ -7,15 +7,18 @@ import reportWebVitals from "./reportWebVitals";
 // *** my changes
 import Layout from "./components/Layout/Layout";
 import { Provider } from "react-redux";
-import store from "./redux/store";
+import store, { persistor } from "./redux/store";
+import { PersistGate } from "redux-persist/integration/react";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Layout>
-        <App />
-      </Layout>
+      <PersistGate persistor={persistor}>
+        <Layout>
+          <App />
+        </Layout>
+      </PersistGate>
     </Provider>
   </React.StrictMode>
 );

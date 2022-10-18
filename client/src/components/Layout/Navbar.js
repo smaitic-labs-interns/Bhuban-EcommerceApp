@@ -7,15 +7,13 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { Link } from "@mui/material";
 
 const pages = [
-  {name:"Products", href:"/products"},
+  {name:"Search", href:"/search/"},
   {name:"Login", href:"/login"},{name:"Register", href:"/register"},{name:"Track my order", href:"/order"},
 ];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -58,7 +56,7 @@ export default function Navbar() {
               textDecoration: "none",
             }}
           >
-            LOGO
+            MySHOP
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -116,7 +114,7 @@ export default function Navbar() {
               textDecoration: "none",
             }}
           >
-            LOGO
+            MY SHOP
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (

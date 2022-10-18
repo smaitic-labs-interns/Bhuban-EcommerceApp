@@ -36,6 +36,7 @@ export const user_login = (value) => async (dispatch) => {
     data: payload,
   });
   if (response.status === 200) {
+    console.log("Succesfull")
     dispatch({
       type: USER_LOGIN,
       payload: {...response.data},

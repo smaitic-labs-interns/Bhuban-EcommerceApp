@@ -1,6 +1,6 @@
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import emptyImage from "../../../public/images/img.png";
+import watchImage from "../../../public/images/watch.png";
 import cart from "../../../public/images/cart.png";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
@@ -122,8 +122,8 @@ export default function ProductDetail({ product }) {
       </Box>
       <Grid container key={id}>
         <Grid item xl={4} lg={4} md={4} sm={12} xs={12}>
-          <Box sx={{}}>
-            <img src={emptyImage} alt="Product" />
+          <Box sx={{padding:"10px"}}>
+            <img src={watchImage} alt="Product" />
             <Box
               sx={{
                 display: "flex",
@@ -132,6 +132,9 @@ export default function ProductDetail({ product }) {
               }}
             >
               <Button variant="contained"> {`<<`} </Button>
+              <Box>
+                <Typography>1 of 10</Typography>
+              </Box>
               <Button variant="contained"> {`>> `}</Button>
             </Box>
           </Box>
