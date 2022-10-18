@@ -48,14 +48,13 @@ export const registerReducer = (state = initialStateRegister, action) => {
 export const loginReducer = (state = initialStateLogin, action) => {
   switch (action.type) {
     case USER_LOGIN:
-      console.log(action.payload)
       return {
         ...state,
         isLogined: true,
         userId: action.payload.id,
-        firstName: action.payload?.firstname,
-        middleName: action.payload?.middlename,
-        lastName: action.payload?.lastname,
+        firstName: action.payload.firstname,
+        middleName: action.payload.middlename,
+        lastName: action.payload.lastname,
         address: action.payload.address,
         email: action.payload.email,
       };

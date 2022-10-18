@@ -1,4 +1,3 @@
-import { combineReducers } from "redux";
 import { registerReducer, loginReducer } from "./userReducer";
 import { productReducer, selectedProductReducer } from "./productReducer";
 import {
@@ -25,7 +24,7 @@ const persistedReducer = persistCombineReducers(persistConfig, {
     },
     loginReducer
   ),
-  // login: loginReducer,
+  // login: loginReducer,z
   allProducts: productReducer,
   product: selectedProductReducer,
   userCart: cartReducer,
