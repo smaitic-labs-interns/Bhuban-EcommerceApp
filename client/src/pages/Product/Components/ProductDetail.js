@@ -11,6 +11,7 @@ import {
 
 export default function ProductDetail({ product }) {
   // const cart = useSelector((state) => state.addToCart);
+  const login = useSelector((state) => state.login);
   const userCart = useSelector((state) => state.userCart);
   const dispatch = useDispatch();
   const { id, category, model, brand, description, price, quantity, rating } =
@@ -29,7 +30,8 @@ export default function ProductDetail({ product }) {
     quty !== 1 ? setQuty(quty - 1) : alert("Quantity cannot be less than 1");
   };
 
-  const userId = "358807ca-3d51-4b6a-8dbd-7fab6f42945d";
+  const userId = login.isLogined?login.userId:null;
+  console.log(userId);
 
   const handleAddToCart = () => {
     if (quty <= 0) {

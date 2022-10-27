@@ -12,7 +12,7 @@ import persistReducer from "redux-persist/es/persistReducer";
 const persistConfig = {
   key: "persist-store",
   storage,
-  blacklist: ['login'],
+  blacklist: ["login"],
 };
 const persistedReducer = persistCombineReducers(persistConfig, {
   register: registerReducer,
@@ -20,7 +20,7 @@ const persistedReducer = persistCombineReducers(persistConfig, {
     {
       key: "login",
       storage: storage,
-      blacklist: ['address'],
+      blacklist: ["address", "loading", "message"],
     },
     loginReducer
   ),

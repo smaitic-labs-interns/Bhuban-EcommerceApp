@@ -2,6 +2,9 @@ import {
   USER_REGISTER,
   USER_LOGIN,
   INVALID_LOGIN,
+  USER_LOGIN_FAIL,
+  USER_LOGIN_REQUEST,
+  USER_LOGIN_SUCCESS,
   USER_LOGOUT,
 } from "../constants/userConstants";
 
@@ -23,7 +26,8 @@ const initialStateLogin = {
   address: "",
   email: "",
   isLogined: false,
-  message:"",
+  message: "",
+  loading: true,
 };
 
 export const registerReducer = (state = initialStateRegister, action) => {
@@ -46,10 +50,50 @@ export const registerReducer = (state = initialStateRegister, action) => {
 };
 
 export const loginReducer = (state = initialStateLogin, action) => {
+  // switch (action.type) {
+  //   case USER_LOGIN:
+  //     return {
+  //       ...state,
+  //       isLogined: true,
+  //       userId: action.payload.id,
+  //       firstName: action.payload.firstname,
+  //       middleName: action.payload.middlename,
+  //       lastName: action.payload.lastname,
+  //       address: action.payload.address,
+  //       email: action.payload.email,
+  //       message: "login success",
+  //     };
+  //   case INVALID_LOGIN:
+  //     return {
+  //       ...state,
+  //       isLogined: false,
+  //       message: action.payload.data,
+  //     };
+  //   case USER_LOGOUT:
+  //     return {
+  //       ...(state = initialStateLogin),
+  //     };
+  //   default:
+  //     return state;
+  // }
+  // new changes
   switch (action.type) {
-    case USER_LOGIN:
+    case USER_LOGIN_REQUEST:
       return {
         ...state,
+        loading: true,
+      };
+    case USER_LOGIN_FAIL:
+      return {
+        ...state,
+        loading: false,
+        isLogined: false,
+        message: action.payload.data,
+      };
+    case USER_LOGIN_SUCCESS:
+      return {
+        ...state,
+        loading: false,
         isLogined: true,
         userId: action.payload.id,
         firstName: action.payload.firstname,
@@ -57,18 +101,7 @@ export const loginReducer = (state = initialStateLogin, action) => {
         lastName: action.payload.lastname,
         address: action.payload.address,
         email: action.payload.email,
-      };
-    case INVALID_LOGIN:
-      return {
-        ...state,
-        isLogined: false,
-        message: action.payload.data,
-      };
-    case USER_LOGOUT:
-      return {
-        ...state,
-        isLogined: false,
-        email: "",
+        message: "login success",
       };
     default:
       return state;

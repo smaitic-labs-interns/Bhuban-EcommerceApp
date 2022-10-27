@@ -13,8 +13,11 @@ import AdbIcon from "@mui/icons-material/Adb";
 import { Link } from "@mui/material";
 
 const pages = [
-  {name:"Search", href:"/search/"},
-  {name:"Login", href:"/login"},{name:"Register", href:"/register"},{name:"Track my order", href:"/order"},
+  { name: "Search", href: "/search/" },
+  { name: "Login", href: "/login" },
+  { name: "Register", href: "/register" },
+  { name: "Track my order", href: "/order" },
+  { name: "Logout", href: "/logout" },
 ];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 export default function Navbar() {
@@ -37,7 +40,7 @@ export default function Navbar() {
   };
 
   return (
-    <AppBar position="static" sx={{padding:"10px 0"}}>
+    <AppBar position="static" sx={{ padding: "10px 0" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />

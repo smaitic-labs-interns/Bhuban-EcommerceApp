@@ -14,7 +14,7 @@ export default function ProductList() {
     dispatch(fetchProducts());
   }, []);
 
-  console.log(products);
+  // console.log(products);
   return (
     <Box sx={{ margin: "30px 0" }}>
       <Box

@@ -1,54 +1,44 @@
 import React, { useState, useEffect } from "react";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-
-import { user_register } from "../../../redux/actions/userActions";
+import { FormHelperText } from "@mui/material";
+import {
+  Link,
+  Grid,
+  Box,
+  Typography,
+  Checkbox,
+  FormControlLabel,
+  TextField,
+  Button,
+} from "@mui/material";
+import { useFormik } from "formik";
+import { registerSchema } from "../../schemas";
+import { user_register } from "../../redux/actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
+// import {toast} from "react-toastify"
 
 export default function Register() {
-  
-  const [firstName, setFirstName] = useState(null);
-  const [middleName, setMiddleName] = useState(null);
-  const [lastName, setLastName] = useState(null);
-  const [address, setAddress] = useState(null);
-  const [email, setEmail] = useState(null);
-  const [password, setPassword] = useState(null);
-  const [confPassword, setConfPassword] = useState(null);
-  const [tnc, setTnc] = useState(false);
-  
-const register = useSelector((state) => state.register);
-const dispatch = useDispatch();
-
-  const handleSubmit = async(event) => {
-    event.preventDefault();
-    const payload={firstName, middleName, lastName, address, email, password};
-    if(!tnc){
-      alert("Please Accept our terms and conditions")
-    }else if(password !== confPassword){
-      alert("Password and Conform Password must be same");
-    }else if(firstName === null){
-      alert("First name is required");
-    }else if(lastName === null){
-      alert("last name is required");
-    }else if(address === null){
-      alert("address  is required");
-    }else if(email === null){
-      alert("email  is required");
-    }else if(password === null){
-      alert("password  is required");
-    }else if(confPassword === null){
-      alert("conform password  is required");
-    }else{
-      dispatch(user_register(payload));
-      console.log("REgister", register)
-    };
+  const register = useSelector((state) => state.register);
+  const dispatch = useDispatch();
+  const initialValues = {
+    firstName: "",
+    middleName: "",
+    lastName: "",
+    address: "",
+    email: "",
+    password: "",
+    confPassword: "",
+    // tnc: false,
   };
+
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues: initialValues,
+      validationSchema: registerSchema,
+      onSubmit: (values) => {
+        console.log(values);
+        dispatch(user_register(values));
+      },
+    });
 
   return (
     <>
@@ -62,8 +52,7 @@ const dispatch = useDispatch();
             component="form"
             noValidate
             onSubmit={handleSubmit}
-            sx={{ mt: 3 }}
-          >
+            sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={4}>
                 <TextField
@@ -74,8 +63,15 @@ const dispatch = useDispatch();
                   id="firstName"
                   label="First Name"
                   autoFocus
-                onChange={(e) => setFirstName(e.target.value)}
+                  value={values.firstName}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  // error={errors.firstName && Boolean(errors.firstName)}
+                  // FormHelperText={touched.firstName}
                 />
+                {errors.firstName && touched.firstName ? (
+                  <p>{errors.firstName}</p>
+                ) : null}
               </Grid>
               <Grid item xs={12} sm={4}>
                 <TextField
@@ -85,8 +81,15 @@ const dispatch = useDispatch();
                   id="middleName"
                   label="Middle Name"
                   autoFocus
-                  onChange={(e) => setMiddleName(e.target.value)}
+                  value={values.middleName}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  // error={errors.middleName}
+                  // helperText={touched.middleName}
                 />
+                {touched.middleName && errors.middleName ? (
+                  <p className="form-error">{errors.middleName}</p>
+                ) : null}
               </Grid>
               <Grid item xs={12} sm={4}>
                 <TextField
@@ -96,7 +99,11 @@ const dispatch = useDispatch();
                   label="Last Name"
                   name="lastName"
                   autoComplete="family-name"
-                  onChange={(e) => setLastName(e.target.value)}
+                  value={values.lastName}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  // error={errors.lastName}
+                  // helperText={touched.lastName}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -107,7 +114,11 @@ const dispatch = useDispatch();
                   label="Full Address"
                   name="address"
                   autoComplete="address"
-                  onChange={(e) => setAddress(e.target.value)}
+                  value={values.address}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  // error={errors.address}
+                  // helperText={touched.address}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -118,7 +129,11 @@ const dispatch = useDispatch();
                   label="Email Address"
                   name="email"
                   autoComplete="email"
-                  onChange={(e) => setEmail(e.target.value)}
+                  value={values.email}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  // error={errors.email}
+                  // helperText={touched.email}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -129,8 +144,12 @@ const dispatch = useDispatch();
                   label="Password"
                   type="password"
                   id="password"
-                  autoComplete="new-password"
-                  onChange={(e) => setPassword(e.target.value)}
+                  autoComplete={"off"}
+                  value={values.password}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  // error={errors.password}
+                  // helperText={touched.password}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -141,8 +160,12 @@ const dispatch = useDispatch();
                   label="Conform Password"
                   type="password"
                   id="conformPassword"
-                  autoComplete="Conform-password"
-                  onChange={(e) => setConfPassword(e.target.value)}
+                  autoComplete={"off"}
+                  value={values.confPassword}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  // error={errors.confPassword}
+                  // helperText={touched.confPassword}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -151,7 +174,11 @@ const dispatch = useDispatch();
                     <Checkbox value="allowExtraEmails" color="primary" />
                   }
                   label="Agreed to all the terms and condition"
-                  onChange={(e) => setTnc(e.target.checked)}
+                  // value={values.tnc}
+                  // onChange={handleChange}
+                  // onBlur={handleBlur}
+                  // error={errors.tnc}
+                  // helperText={touched.tnc}
                 />
               </Grid>
             </Grid>
@@ -159,8 +186,7 @@ const dispatch = useDispatch();
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
+              sx={{ mt: 3, mb: 2 }}>
               Sign Up
             </Button>
             <Grid container justifyContent="flex-end">

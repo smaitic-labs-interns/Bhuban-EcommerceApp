@@ -8,9 +8,12 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { useDispatch, useSelector } from "react-redux";
-import { user_login } from "../../../redux/actions/userActions";
-import Register from "./Register";
+import { user_login } from "../../redux/actions/userActions";
 import { Route, useNavigate } from "react-router-dom";
+import { loginSchema } from "../../schemas";
+import { useFormik } from "formik";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Login() {
   const [email, setEmail] = useState(null);
@@ -19,37 +22,42 @@ export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const navigateProfile = () => {
-    navigate('/profile');
-
+  const navigateToProfile = () => {
+    navigate("/profile");
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const payload = {
-      email: email,
-      password: password,
-    };
-    dispatch(user_login(payload));
-   
-    console.log("Loading");
+  const initialValues = {
+    email: "",
+    password: "",
   };
+
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues: initialValues,
+      validationSchema: loginSchema,
+      onSubmit: (values) => {
+        // console.log(values);
+        toast.info(values);
+        dispatch(user_login(values));
+      },
+    });
 
   useEffect(() => {
-    if(login.isLogined){
-      console.log("Loaded");
-      navigateProfile();
-    } //thunk is required
-  }, [login.isLogined]);
-
-  // useNavigate
+    console.log("Login Status ", login.isLogined, "loading: ", login.loading);
+    if (login.isLogined && login.loading === false) {
+      toast.success("login success");
+      navigateToProfile();
+    } else if (login.isLogined === false && login.loading === false) {
+      toast.error("Invalid login Details");
+      // alert("Invalid login Details");
+    }
+  }, [login.isLogined, login.loading]);
   return (
     <>
       <Box component={"div"}>
         <Box
           component={"div"}
-          sx={{ display: "flex", justifyContent: "center" }}
-        >
+          sx={{ display: "flex", justifyContent: "center" }}>
           <Box sx={{ maxWidth: "40%", marginTop: "50px" }}>
             <Box sx={{}}>
               <Typography component="h1" variant="h5">
@@ -65,9 +73,10 @@ export default function Login() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
-                // value={email}
-                autoFocus
-                onChange={(e) => setEmail(e.target.value)}
+                value={values.email}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={errors.email && Boolean(errors.email)}
               />
               <TextField
                 margin="normal"
@@ -78,8 +87,10 @@ export default function Login() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
-                // value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={values.password}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={errors.password && Boolean(errors.password)}
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
@@ -89,12 +100,11 @@ export default function Login() {
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-              >
+                sx={{ mt: 3, mb: 2 }}>
                 Sign In
               </Button>
               <Grid container>
-                <Grid item >
+                <Grid item>
                   <Link href="#" variant="body2">
                     Forgot password?
                   </Link>
@@ -109,6 +119,7 @@ export default function Login() {
           </Box>
         </Box>
       </Box>
+      <ToastContainer position="top-center" />
     </>
   );
 }

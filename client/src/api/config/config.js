@@ -7,30 +7,29 @@ export const axios_instance = async ({
   data = {},
   headers = {},
 }) => {
-  Object.entries(path).map((data) => {
-    endpoints.url = endpoints.url.replace(`:${data[0]}`, data[1]);
-  });
+  try {
+    Object.entries(path).map((data) => {
+      endpoints.url = endpoints.url.replace(`:${data[0]}`, data[1]);
+    });
 
-  const config = {
-    method: endpoints.method,
-    url: endpoints.url,
-    params: query,
-    data: data,
-  };
+    const config = {
+      method: endpoints.method,
+      url: endpoints.url,
+      params: query,
+      data: data,
+    };
 
-  const instance = axios.create({
-    baseURL: "http://localhost:5000/api/",
-    headers: {
-      "Content-Type": "application/json",
-      ...headers,
-    },
-    timeout: 0,
-  });
-  const res = await instance(config);
-  console.log(res);
-  if (res.status === 200) {
+    const instance = axios.create({
+      baseURL: "http://localhost:5000/api/",
+      headers: {
+        "Content-Type": "application/json",
+        ...headers,
+      },
+      timeout: 0,
+    });
+    const res = await instance(config);
     return res;
-  } else if (res.status === 400) {
-    return "Error occurs";
+  } catch (err) {
+    throw err;
   }
 };

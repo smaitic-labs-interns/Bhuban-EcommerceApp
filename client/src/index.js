@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import App from "./App";
+import App, { AdminApp } from "./App";
 import reportWebVitals from "./reportWebVitals";
 
 // *** my changes
@@ -18,6 +18,7 @@ root.render(
         <Layout>
           <App />
         </Layout>
+        <AdminApp />
       </PersistGate>
     </Provider>
   </React.StrictMode>
