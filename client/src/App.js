@@ -11,7 +11,8 @@ import Profile from "./pages/Profile";
 // import UserProfileContainer from "./containers/UserProfileContainer";
 // import NotFoundContainer from "./containers/NotFoundContainer";
 import NotFound from "./pages/NotFound/NotFound";
-import CartContainer from "./containers/CartContainer";
+// import CartContainer from "./containers/CartContainer";
+import Cart from "./pages/Cart/index";
 import Admin from "./pages/Admin/Admin";
 // import User from "./pages/UserTest";
 // import Admin from "./pages/Admin/Admin";
@@ -50,7 +51,7 @@ function App() {
             path="/product/:productId"
             element={<ProductDetailContainer />}></Route>
           <Route path="/profile" element={<Profile />}></Route>
-          <Route path="/cart" element={<CartContainer />}></Route>
+          <Route path="/cart" element={<Cart />}></Route>
           {/* <Route path="/test" element={<User />}></Route> */}
           <Route path="*" element={<NotFound />}></Route>
         </Routes>

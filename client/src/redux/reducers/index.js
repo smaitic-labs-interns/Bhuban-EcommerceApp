@@ -20,7 +20,7 @@ const persistedReducer = persistCombineReducers(persistConfig, {
     {
       key: "login",
       storage: storage,
-      blacklist: ["address", "loading", "message"],
+      blacklist: ["loading", "message"],
     },
     loginReducer
   ),

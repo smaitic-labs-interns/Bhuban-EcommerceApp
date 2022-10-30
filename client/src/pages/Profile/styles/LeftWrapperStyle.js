@@ -6,7 +6,7 @@ export const ProfilLeftWrapper = styled(Box)(() => ({
   display: "flex",
   flexDirection: "column",
   alignItems: "flex-start",
-  justifyContent: "center",
+  justifyContent: "flex-start",
 }));
 
 export const ProfilUserWrapper = styled(Box)(() => ({

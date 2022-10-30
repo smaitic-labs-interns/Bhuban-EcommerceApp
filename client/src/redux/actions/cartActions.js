@@ -1,7 +1,7 @@
 import {
   SET_CART,
   ADD_TO_CART,
-  CART_PRODUCT_DETAILS
+  CART_PRODUCT_DETAILS,
   //   REMOVE_SELECTED_PRODUCT,
 } from "../constants/cartConstants";
 
@@ -11,15 +11,19 @@ import { cart } from "../../api/config/api-endpoints";
 export const fetch_user_Cart =
   ({ userId }) =>
   async (dispatch) => {
-    const response = await axios_instance({
-      endpoints: cart.getCart,
-      query: { id: userId },
-    });
+    try {
+      const response = await axios_instance({
+        endpoints: cart.getCart,
+        query: { id: userId },
+      });
 
-    dispatch({
-      type: SET_CART,
-      payload: response.data,
-    });
+      dispatch({
+        type: SET_CART,
+        payload: response.data,
+      });
+    } catch (err) {
+      // will dispatch passing err
+    }
   };
 
 export const add_to_cart =
@@ -77,3 +81,24 @@ export const fetchCartProductsDetail = (id) => async (dispatch) => {
 //     type: REMOVE_SELECTED_PRODUCT,
 //   };
 // };
+
+// try {
+//   const payload = {
+//     email: value.email,
+//     password: value.password,
+//   };
+//   dispatch({type: USER_LOGIN_REQUEST})
+//   const response = await axios_instance({
+//     endpoints: user.login,
+//     data: payload,
+//   });
+//   dispatch({
+//     type: USER_LOGIN_SUCCESS,
+//     payload: { ...response.data, password: "" },
+//   });
+// } catch (err) {
+//   dispatch({
+//     type: USER_LOGIN_FAIL,
+//     payload: err.response,
+//   });
+// }

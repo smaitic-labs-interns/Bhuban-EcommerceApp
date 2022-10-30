@@ -1,96 +1,147 @@
 import React from "react";
 import {
   ProfilRightWrapper,
-  ProfilLeftWrapper,
-  ProfilUserWrapper,
-  ProfilTypeWrapper,
-  ManageAccountWrapper,
-  ManageAccountContentWrapper,
-  OrderWrapper,
-  OrderContentWrapper,
-  ReviewWrapper,
-  WishlistWrapper,
-  SellOnDarazWrapper,
+  RightTitleWrapper,
+  CardWrapper,
+  LeftCardWrapper,
+  LeftCardContentWrapper,
+  LeftCardContentUpperWrapper,
+  RightCardWrapper,
+  RightCardLeftContentWrapper,
+  RightCardRightContentWrapper,
+  LowerWrapper,
 } from "../styles/RightWrapperStyle";
 import { Box, Link, Typography } from "@mui/material";
 import { Check } from "@mui/icons-material";
+import RightTable from "./RightTable";
 
-export default function RightWrapper() {
+export default function RightWrapper({ userDetails }) {
+  const {
+    userId,
+    firstName,
+    middleName,
+    lastName,
+    address,
+    email,
+    isLogined,
+    loading,
+    message,
+  } = userDetails;
+  const fullName = firstName + " " + middleName + " " + lastName;
   return (
     <>
       <ProfilRightWrapper>
-        <ProfilUserWrapper>
-          <Typography sx={{ fontSize: "12px", lineHeight: "22px" }}>
-            Hello, Bhuban Yadav
-          </Typography>
-          <ProfilTypeWrapper>
-            <Typography
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                fontSize: "12px",
-                lineHeight: "22px",
-              }}>
-              <Check
-                sx={{
-                  color: "white",
-                  padding: "0 !important",
-                  marginRight: "4px",
-                  fontSize: "12px",
-                }}
-              />
-              Verified Account
-            </Typography>
-          </ProfilTypeWrapper>
-        </ProfilUserWrapper>
-        <ManageAccountWrapper>
-          <Typography sx={{ fontSize: "16px", lineHeight: "24px" }}>
+        <RightTitleWrapper>
+          <Typography
+            sx={{ fontSize: "22px", lineHeight: "60px" }}
+            fontWeight={400}>
             Manage My Account
           </Typography>
-        </ManageAccountWrapper>
-        <ManageAccountContentWrapper>
-          <Link underline="none">
-            <Typography>My Profile</Typography>
-          </Link>
-          <Link underline="none">
-            <Typography>Address Book</Typography>
-          </Link>
-          <Link underline="none">
-            <Typography>My Payment Options</Typography>
-          </Link>
-          <Link underline="none">
-            <Typography>Vouchers</Typography>
-          </Link>
-        </ManageAccountContentWrapper>
-        <OrderWrapper>
-          <Typography sx={{ fontSize: "16px", lineHeight: "24px" }}>
-            My Orders
-          </Typography>
-        </OrderWrapper>
-        <OrderContentWrapper>
-          <Link underline="none">
-            <Typography>My Returns</Typography>
-          </Link>
-          <Link underline="none">
-            <Typography>My Cancellations</Typography>
-          </Link>
-        </OrderContentWrapper>
-        <ReviewWrapper>
-          <Typography sx={{ fontSize: "16px", lineHeight: "24px" }}>
-            My Reviews
-          </Typography>
-        </ReviewWrapper>
-        <WishlistWrapper>
-          <Typography sx={{ fontSize: "16px", lineHeight: "24px" }}>
-            My Wishlist & Followed Stores
-          </Typography>
-        </WishlistWrapper>
-        <SellOnDarazWrapper>
-          <Typography sx={{ fontSize: "16px", lineHeight: "24px" }}>
-            Sell On Daraz
-          </Typography>
-        </SellOnDarazWrapper>
+        </RightTitleWrapper>
+
+        <CardWrapper>
+          <LeftCardWrapper>
+            <LeftCardContentWrapper>
+              <LeftCardContentUpperWrapper>
+                <Box>
+                  <Typography>Personal Profile | </Typography>
+                </Box>
+                <Box>
+                  <Link underline="none">
+                    <Typography>&nbsp; Edit</Typography>
+                  </Link>
+                </Box>
+              </LeftCardContentUpperWrapper>
+              <Box>
+                <Typography>{fullName}</Typography>
+              </Box>
+              <Box>
+                <Typography>{email}</Typography>
+              </Box>
+              <Box sx={{ marginTop: "20px" }}>
+                <Link underline="none" sx={{ fontSize: "14px" }}>
+                  <Typography>Subscribe to our Newsletter</Typography>
+                </Link>
+              </Box>
+            </LeftCardContentWrapper>
+          </LeftCardWrapper>
+          <RightCardWrapper>
+            <RightCardLeftContentWrapper>
+              <Box sx={{ display: "flex" }}>
+                <Typography>Address Book | </Typography>
+                <Link underline="none">
+                  <Typography>&nbsp;EDIT</Typography>
+                </Link>
+              </Box>
+
+              <Box>
+                <Typography sx={{ fontSize: "12px", color: "#757575" }}>
+                  DEFAULT SHIPPING ADDRESS
+                </Typography>
+              </Box>
+              <Box>
+                <Typography sx={{ fontSize: "14px", fontWeight: "700" }}>
+                  {fullName}
+                </Typography>
+              </Box>
+              <Box>
+                <Typography sx={{ fontSize: "12px" }}>{address}</Typography>
+              </Box>
+              <Box>
+                <Typography sx={{ fontSize: "12px" }}>
+                  Bagmati Province - Lalitpur Outside Ring Road - Lalitpur
+                </Typography>
+              </Box>
+              <Box>
+                <Typography sx={{ fontSize: "12px" }}>
+                  - Dhapakhel Area
+                </Typography>
+              </Box>
+              <Box>
+                <Typography sx={{ fontSize: "12px" }}>
+                  (+977) 9808888909
+                </Typography>
+              </Box>
+            </RightCardLeftContentWrapper>
+            <RightCardRightContentWrapper>
+              <Box>
+                <Typography sx={{ fontSize: "12px", color: "#757575" }}>
+                  DEFAULT BILLING ADDRESS
+                </Typography>
+              </Box>
+              <Box>
+                <Typography sx={{ fontSize: "14px", fontWeight: "700" }}>
+                  {fullName}
+                </Typography>
+              </Box>
+              <Box>
+                <Typography sx={{ fontSize: "12px" }}>
+                  BANGLAMUKHI TOLE ,HOUSE no:-38
+                </Typography>
+              </Box>
+              <Box>
+                <Typography sx={{ fontSize: "12px" }}>
+                  Bagmati Province - Lalitpur Outside Ring Road - Lalitpur -
+                  Dhapakhel Area
+                </Typography>
+              </Box>
+              <Box>
+                <Typography sx={{ fontSize: "12px" }}>
+                  - Dhapakhel Area
+                </Typography>
+              </Box>
+              <Box>
+                <Typography sx={{ fontSize: "12px" }}>
+                  (+977) 9808888909
+                </Typography>
+              </Box>
+            </RightCardRightContentWrapper>
+          </RightCardWrapper>
+        </CardWrapper>
+
+        <LowerWrapper>
+          <RightTable />
+        </LowerWrapper>
       </ProfilRightWrapper>
     </>
   );

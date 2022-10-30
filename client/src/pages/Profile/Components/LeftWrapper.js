@@ -14,13 +14,13 @@ import {
 import { Box, Link, Typography } from "@mui/material";
 import { Check } from "@mui/icons-material";
 
-export default function LeftWrapper() {
+export default function LeftWrapper({ name }) {
   return (
     <>
       <ProfilLeftWrapper>
         <ProfilUserWrapper>
           <Typography sx={{ fontSize: "12px", lineHeight: "22px" }}>
-            Hello, Bhuban Yadav
+            Hello, {name}
           </Typography>
           <ProfilTypeWrapper>
             <Typography

@@ -50,33 +50,6 @@ export const registerReducer = (state = initialStateRegister, action) => {
 };
 
 export const loginReducer = (state = initialStateLogin, action) => {
-  // switch (action.type) {
-  //   case USER_LOGIN:
-  //     return {
-  //       ...state,
-  //       isLogined: true,
-  //       userId: action.payload.id,
-  //       firstName: action.payload.firstname,
-  //       middleName: action.payload.middlename,
-  //       lastName: action.payload.lastname,
-  //       address: action.payload.address,
-  //       email: action.payload.email,
-  //       message: "login success",
-  //     };
-  //   case INVALID_LOGIN:
-  //     return {
-  //       ...state,
-  //       isLogined: false,
-  //       message: action.payload.data,
-  //     };
-  //   case USER_LOGOUT:
-  //     return {
-  //       ...(state = initialStateLogin),
-  //     };
-  //   default:
-  //     return state;
-  // }
-  // new changes
   switch (action.type) {
     case USER_LOGIN_REQUEST:
       return {

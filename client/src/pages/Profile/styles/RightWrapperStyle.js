@@ -3,25 +3,70 @@ import theme from "../../../utils/theme";
 
 export const ProfilRightWrapper = styled(Box)(() => ({
   width: "987px",
-  border: "solid green 1px",
 }));
 
-export const ProfilUserWrapper = styled(Box)(() => ({
+export const RightTitleWrapper = styled(Box)(() => ({}));
+
+export const CardWrapper = styled(Box)(() => ({
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "space-between",
+}));
+export const LeftCardWrapper = styled(Box)(() => ({
+  width: "240px",
+  minHeight: "182px",
+  backgroundColor: " #fff",
+  padding: "16px",
+}));
+
+export const LeftCardContentWrapper = styled(Box)(() => ({
+  displya: "flex",
+  flexDirection: "column",
+  alignItems: "flex-start",
+  gap: "10px",
+}));
+
+export const LeftCardContentUpperWrapper = styled(Box)(() => ({
+  display: "flex",
+  flexDirection: "row",
+  alignItems: "center",
+  width: "inherit",
+  "& >  div ": {
+    fontSize: "16px",
+    lineHeight: "20px",
+  },
+}));
+
+export const RightCardWrapper = styled(Box)(() => ({
+  width: "656px",
+  minHeight: "182px",
+  backgroundColor: " #fff",
+  padding: "16px",
+  display: "flex",
+}));
+
+export const RightCardLeftContentWrapper = styled(Box)(() => ({
+  borderRight: "solid #eff0f5 2px",
+  paddingRight: "16px",
+  gap: "10px",
   display: "flex",
   flexDirection: "column",
-  justifyContent: "center",
-  padding: "1rem",
-  gap: "1rem",
 }));
 
-export const ProfilTypeWrapper = styled(Box)(() => ({
-  background: "green",
-  color: "white",
-  borderRadius: "20px",
+export const RightCardRightContentWrapper = styled(Box)(() => ({
+  paddingLeft: "16px",
   display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  padding: "3px 8px",
+  flexDirection: "column",
+  gap: "10px",
+  paddingTop: "32px",
+  // width: "656px",
+  // minHeight: "182px",
+  // backgroundColor: " #fff",
+  // padding: "16px",
+}));
+
+export const LowerWrapper = styled(Box)(() => ({
+  marginTop: "20px",
 }));
 
 export const ManageAccountWrapper = styled(Box)(() => ({

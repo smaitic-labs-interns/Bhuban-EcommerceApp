@@ -30,7 +30,7 @@ export default function ProductDetail({ product }) {
     quty !== 1 ? setQuty(quty - 1) : alert("Quantity cannot be less than 1");
   };
 
-  const userId = login.isLogined?login.userId:null;
+  const userId = login.isLogined ? login.userId : null;
   console.log(userId);
 
   const handleAddToCart = () => {
@@ -85,18 +85,23 @@ export default function ProductDetail({ product }) {
       <Box
         sx={{
           top: "0",
-          marginTop: "-10px",
+          marginTop: "10px",
           display: "flex",
           justifyContent: "center",
-        }}
-      >
+        }}>
         <Box sx={submitMsgStyle}>
           <Typography>{submitMsg.msg}</Typography>
         </Box>
       </Box>
       <Box>
         <Link to={"/cart"} style={{ textDecoration: "none" }}>
-          <Box sx={{position:"absolute", right:"10px", top: "10px", boxShadow:"0px 1px 16px 2px #1976d2" }}>
+          <Box
+            sx={{
+              position: "absolute",
+              right: "10px",
+              top: "10px",
+              boxShadow: "0px 1px 16px 2px #1976d2",
+            }}>
             <Box
               sx={{
                 background: "red",
@@ -105,18 +110,16 @@ export default function ProductDetail({ product }) {
                 color: "white",
                 position: "absolute",
                 top: 0,
-                right:"5px",
-              }}
-            >
+                right: "5px",
+              }}>
               {userCart.noOfProducts}
             </Box>
             <Box
               sx={{
                 color: "white",
                 marginTop: "3px",
-                boxShadow:"",
-              }}
-            >
+                boxShadow: "",
+              }}>
               <img src={cart} alt={"cart"} width={"60px"} height={"60px"}></img>
             </Box>
           </Box>
@@ -124,15 +127,14 @@ export default function ProductDetail({ product }) {
       </Box>
       <Grid container key={id}>
         <Grid item xl={4} lg={4} md={4} sm={12} xs={12}>
-          <Box sx={{padding:"10px"}}>
+          <Box sx={{ padding: "10px" }}>
             <img src={watchImage} alt="Product" />
             <Box
               sx={{
                 display: "flex",
                 justifyContent: "space-around",
                 margin: "20px 0",
-              }}
-            >
+              }}>
               <Button variant="contained"> {`<<`} </Button>
               <Box>
                 <Typography>1 of 10</Typography>
@@ -166,8 +168,7 @@ export default function ProductDetail({ product }) {
                     border: "solid blue 2px",
                     margin: "10px 0 20px 0",
                     boxShadow: "5px 10px #888888",
-                  }}
-                >
+                  }}>
                   <Box sx={{ margin: "5px 0" }}>
                     <Typography variant="h4">
                       Select required number of quantities
@@ -190,20 +191,17 @@ export default function ProductDetail({ product }) {
                         display: "flex",
                         justifyContent: "space-around",
                         margin: "10px 0",
-                      }}
-                    >
+                      }}>
                       <Button
                         variant="outlined"
                         color="error"
-                        onClick={handleDecrease}
-                      >
+                        onClick={handleDecrease}>
                         Decrease
                       </Button>
                       <Button
                         variant="outlined"
                         color="success"
-                        onClick={handleIncrease}
-                      >
+                        onClick={handleIncrease}>
                         Increase
                       </Button>
                     </Box>
@@ -213,15 +211,13 @@ export default function ProductDetail({ product }) {
                   <Button
                     variant="contained"
                     color="success"
-                    onClick={handleBuyNow}
-                  >
+                    onClick={handleBuyNow}>
                     Buy Now
                   </Button>
                   <Button
                     variant="contained"
                     color="primary"
-                    onClick={handleAddToCart}
-                  >
+                    onClick={handleAddToCart}>
                     ADD to Cart
                   </Button>
                 </Box>

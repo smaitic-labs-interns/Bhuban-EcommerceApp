@@ -13,12 +13,12 @@ export default function Layout({ children }) {
         </Box>
         <Box
           sx={{
-            padding: "15px 5px",
+            padding: "0",
             border: "solid #1976D2 15px",
             borderTop: "none",
             borderBottom: "none",
             position: "relative",
-            height: "74vh",
+            height: "77.7vh",
             overflow: "scroll",
             // whiteSpace: "nowrap",
             scrollbarWidth: "none", //Firefox
@@ -26,16 +26,14 @@ export default function Layout({ children }) {
               display: "none", //Chrome, Safari and Opera
               MsOverflowStyle: "none", // IE, Edge
             },
-          }}
-        >
+          }}>
           {children}
         </Box>
         <Box
           sx={{
             border: "solid #1976D2 15px",
             position: "sticky",
-          }}
-        >
+          }}>
           <Footer></Footer>
         </Box>
       </Box>

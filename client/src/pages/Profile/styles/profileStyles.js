@@ -3,6 +3,8 @@ import { Box, styled } from "@mui/material";
 
 export const ProfileWrapper = styled(Box)(() => ({
   display: "flex",
-  margin: "0 165px",
+  minHeight: "100%",
+  background: "#eff0f4",
+  padding: "2rem 165px",
   justifyContent: "space-between",
 }));

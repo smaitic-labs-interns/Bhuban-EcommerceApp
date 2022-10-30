@@ -36,22 +36,17 @@ export default function Login() {
       initialValues: initialValues,
       validationSchema: loginSchema,
       onSubmit: (values) => {
-        // console.log(values);
-        toast.info(values);
         dispatch(user_login(values));
       },
     });
 
   useEffect(() => {
-    console.log("Login Status ", login.isLogined, "loading: ", login.loading);
     if (login.isLogined && login.loading === false) {
-      toast.success("login success");
       navigateToProfile();
     } else if (login.isLogined === false && login.loading === false) {
       toast.error("Invalid login Details");
-      // alert("Invalid login Details");
     }
-  }, [login.isLogined, login.loading]);
+  }, [login]);
   return (
     <>
       <Box component={"div"}>
