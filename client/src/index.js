@@ -9,6 +9,7 @@ import Layout from "./Layout/Layout";
 import { Provider } from "react-redux";
 import store, { persistor } from "./redux/store";
 import { PersistGate } from "redux-persist/integration/react";
+
 const adminPath = window.location.pathname.includes("/admin") ? true : false;
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

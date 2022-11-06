@@ -14,7 +14,7 @@ export default function index() {
   const [password, setPassword] = useState(null);
 
   const navigateTologin = () => {
-    navigate("/login");
+    // navigate("/login");
   };
 
   const initialValues = {
