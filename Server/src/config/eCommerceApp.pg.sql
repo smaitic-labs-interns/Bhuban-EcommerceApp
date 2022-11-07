@@ -14,6 +14,16 @@ CREATE TABLE users (
   PRIMARY KEY(id)
 );
 
+--Product Images
+CREATE TABLE product_images (
+  id SERIAL,
+  productId varchar(36) NOT NULL,
+  imageUrl text NOT NULL,
+  altText text,
+  PRIMARY KEY(id),
+  CONSTRAINT Fk_product_images_productId FOREIGN KEY(productId) REFERENCES products(id)
+);
+
 -- PRODUCTS
 CREATE TABLE products (
   id varchar(36) NOT NULL,

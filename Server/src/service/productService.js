@@ -11,6 +11,7 @@ const Validate = require("../utils/validations");
     @else
         return Error
 */
+
 const add_product = async (
   category,
   model,
@@ -18,8 +19,9 @@ const add_product = async (
   description,
   price,
   quantity,
-  rating
+  images
 ) => {
+  console.log(images);
   try {
     const product = Schema.Product({
       category,
@@ -28,11 +30,12 @@ const add_product = async (
       description,
       price,
       quantity,
-      rating,
+      images,
     });
     if (await store.product.add_product(product)) {
+      upload.array("photos", 12);
       console.log("Product added to Database sucessfully");
-      return "Product added to Database sucessfully";
+      // return "Product added to Database sucessfully";
     }
   } catch (err) {
     console.log(`${err.name} => ${err.message}`);

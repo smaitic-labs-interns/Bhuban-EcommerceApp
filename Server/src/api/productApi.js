@@ -25,6 +25,8 @@ const get_all_product = async (req, resp) => {
 const add_product = async (req, resp) => {
   try {
     const data = req.body;
+    // const data = req.form;
+    console.log(data);
     const res = await Service.product.add_product(
       data.category,
       data.model,
@@ -32,9 +34,9 @@ const add_product = async (req, resp) => {
       data.description,
       data.price,
       data.quantity,
-      data.rating
+      data.images
     );
-    resp.status(200).send(res);
+    resp.status(200).send(data);
   } catch (err) {
     resp.status(400).send(err.message);
   }
