@@ -1,8 +1,8 @@
 import React from "react";
-import Header from "./Header";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import { Box, Grid } from "@mui/material";
+import { Outlet } from "react-router-dom";
 
 export default function Layout({ children }) {
   return (
@@ -27,7 +27,7 @@ export default function Layout({ children }) {
               MsOverflowStyle: "none", // IE, Edge
             },
           }}>
-          {children}
+          <Outlet />
         </Box>
         <Box
           sx={{

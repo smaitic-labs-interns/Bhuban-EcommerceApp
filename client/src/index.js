@@ -16,13 +16,7 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate persistor={persistor}>
-        {!adminPath ? (
-          <Layout>
-            <App />
-          </Layout>
-        ) : (
-          <AdminApp />
-        )}
+        <App />
       </PersistGate>
     </Provider>
   </React.StrictMode>

@@ -14,8 +14,17 @@ export default function ProductDetail({ product }) {
   const login = useSelector((state) => state.login);
   const userCart = useSelector((state) => state.userCart);
   const dispatch = useDispatch();
-  const { id, category, model, brand, description, price, quantity, rating } =
-    product;
+  const {
+    id,
+    category,
+    model,
+    brand,
+    description,
+    price,
+    quantity,
+    rating,
+    images,
+  } = product;
 
   const [quty, setQuty] = useState(1);
   const [submitMsg, setSubmitMsg] = useState({});
@@ -31,7 +40,6 @@ export default function ProductDetail({ product }) {
   };
 
   const userId = login.isLogined ? login.userId : null;
-  console.log(userId);
 
   const handleAddToCart = () => {
     if (quty <= 0) {
@@ -80,6 +88,30 @@ export default function ProductDetail({ product }) {
     if (userId && userId !== " ") dispatch(fetch_user_Cart({ userId }));
   }, [userId]);
 
+  // for displaying Images
+  const [target, setTarget] = useState(1);
+  let index = 0;
+  const handleNext = () => {
+    if (target < index) {
+      setTarget(target + 1);
+    }
+  };
+
+  const handlePrevious = () => {
+    if (target > 1) {
+      setTarget(target - 1);
+    }
+  };
+
+  const imageStyle = {
+    display: "flex",
+    justifyContent: "center",
+    "& > img": {
+      width: "200px",
+      height: "300px",
+    },
+  };
+
   return (
     <Box>
       <Box
@@ -127,19 +159,40 @@ export default function ProductDetail({ product }) {
       </Box>
       <Grid container key={id}>
         <Grid item xl={4} lg={4} md={4} sm={12} xs={12}>
-          <Box sx={{ padding: "10px" }}>
-            <img src={watchImage} alt="Product" />
+          <Box
+            sx={{
+              margin: "10px",
+              border: "solid blue 2px",
+              borderRadius: "1rem",
+            }}>
+            {images.map((item) => {
+              index++;
+              return (
+                <Box
+                  key={item.id}
+                  sx={target === index ? imageStyle : { display: "none" }}>
+                  <img
+                    src={`${process.env.REACT_APP_BACKEND_ENDPOINT}${item.imageurl}`}
+                    alt={item.alttext}
+                  />
+                </Box>
+              );
+            })}
             <Box
               sx={{
                 display: "flex",
                 justifyContent: "space-around",
                 margin: "20px 0",
               }}>
-              <Button variant="contained"> {`<<`} </Button>
+              <Button variant="contained" onClick={handlePrevious}>
+                {" << "}
+              </Button>
               <Box>
-                <Typography>1 of 10</Typography>
+                <Typography>{`${target} of ${index}`}</Typography>
               </Box>
-              <Button variant="contained"> {`>> `}</Button>
+              <Button variant="contained" onClick={handleNext}>
+                {" >> "}
+              </Button>
             </Box>
           </Box>
         </Grid>
@@ -153,12 +206,14 @@ export default function ProductDetail({ product }) {
                 <Typography>Category: {category} </Typography>
                 <Typography>Model : {model}</Typography>
                 <Typography>Brand: {brand}</Typography>
-                <Typography>Price: Rs. {price}</Typography>
+                <Typography>Price: Rs. {price / 100}</Typography>
                 <Typography>Rating: {rating}</Typography>
                 <Typography>Available Quantity: {quantity}</Typography>
               </Box>
               <Box sx={{ textAlign: "left" }}>
-                <Typography variant="p">{description}</Typography>
+                <Typography variant="p">
+                  <div dangerouslySetInnerHTML={{ __html: description }}></div>
+                </Typography>
               </Box>
             </Grid>
             <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>

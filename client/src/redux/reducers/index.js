@@ -1,5 +1,9 @@
 import { registerReducer, loginReducer } from "./userReducer";
-import { productReducer, selectedProductReducer } from "./productReducer";
+import {
+  productReducer,
+  selectedProductReducer,
+  addProductReducer,
+} from "./productReducer";
 import {
   cartReducer,
   addToCartReducer,
@@ -27,6 +31,7 @@ const persistedReducer = persistCombineReducers(persistConfig, {
   // login: loginReducer,z
   allProducts: productReducer,
   product: selectedProductReducer,
+  addProduct: addProductReducer,
   userCart: cartReducer,
   cartProductsDetail: cartProductsDetailReducer,
   addToCart: addToCartReducer,

@@ -1,27 +1,38 @@
-import * as React from "react";
+import React, { useState } from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
-import watchImage from "../../../public/images/watch.png";
 import { Box } from "@mui/system";
 
 export default function ProductCard({ product }) {
-  console.log(product);
-  const { id, category, model, brand, description, price, quantity, rating } =
-    product;
+  const {
+    id,
+    category,
+    model,
+    brand,
+    description,
+    price,
+    quantity,
+    rating,
+    images,
+  } = product;
   return (
     <Card sx={{ width: 345, margin: "5px" }} key={id}>
       <Link to={`/product/${id}`}>
-        <Box sx={{padding:"20px 0", objectFit:"contain"}}>
+        <Box sx={{ padding: "20px 0", objectFit: "contain" }}>
           <CardMedia
             component="img"
             height="140"
-            image={watchImage}
+            image={
+              images[0].imageurl
+                ? `${process.env.REACT_APP_BACKEND_ENDPOINT}${images[0].imageurl}`
+                : null
+            }
             alt="Product Image"
-            sx={{objectFit: "contain"}}
+            sx={{ objectFit: "contain" }}
           />
         </Box>
         <CardContent>
@@ -32,8 +43,7 @@ export default function ProductCard({ product }) {
                 lineHeight: "40px",
                 fontWeight: 600,
                 color: "black",
-              }}
-            >
+              }}>
               {category}
             </Typography>
           </Box>
@@ -49,8 +59,7 @@ export default function ProductCard({ product }) {
             justifyContent: "space-between",
             margin: "0 20px",
             textDecoration: "none !important",
-          }}
-        >
+          }}>
           <Box>
             <Typography>RS. {price}</Typography>
           </Box>

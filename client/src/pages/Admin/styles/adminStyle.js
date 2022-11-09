@@ -27,6 +27,8 @@ export const RightWrapper = styled(Box)(() => ({
   padding: "20px 0",
   border: "solid #313A46 20px",
   overflowY: "scroll",
+  display: "flex",
+  justifyContent: "center",
   scrollbarWidth: "none", //Firefox
   "&::-webkit-scrollbar": {
     display: "none", //Chrome, Safari and Opera
@@ -35,5 +37,5 @@ export const RightWrapper = styled(Box)(() => ({
 }));
 
 export const RightContentContainer = styled(Box)(() => ({
-  width: "inherit",
+  width: "90%",
 }));

@@ -17,6 +17,7 @@ import PublicRoute from "./routes/PublicRoute";
 import PrivateRoute from "./routes/PrivateRoute";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import AdminRoute from "./routes/AdminRoute";
+import Layout from "./Layout/Layout";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -30,42 +31,52 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route
-            path="/profile"
-            element={
-              <PrivateRoute isAuthenticated={isAuthenticated}>
-                <Profile />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/login"
-            element={
-              <ProtectedRoute
-                children={<Login />}
-                isAuthenticated={isAuthenticated}
-              />
-            }
-          />
-          <Route
-            path="/register"
-            element={
-              <ProtectedRoute
-                children={<Register />}
-                isAuthenticated={isAuthenticated}
-              />
-            }
-          />
-          <Route path="/logout" element={<Logout />}></Route>
-          <Route
-            path="/product/:productId"
-            element={<ProductDetailContainer />}></Route>
-          <Route path="/cart" element={<Cart />}></Route>
+          <Route path="/" element={<Layout />}>
+            {/* <Routes> */}
+            <Route index element={<Home />} />
+            <Route
+              path="profile"
+              element={
+                <PrivateRoute isAuthenticated={isAuthenticated}>
+                  <Profile />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="login"
+              element={
+                <ProtectedRoute
+                  children={<Login />}
+                  isAuthenticated={isAuthenticated}
+                />
+              }
+            />
+            <Route
+              path="register"
+              element={
+                <ProtectedRoute
+                  children={<Register />}
+                  isAuthenticated={isAuthenticated}
+                />
+              }
+            />
+            <Route path="logout" element={<Logout />}></Route>
+            <Route
+              path="product/:productId"
+              element={<ProductDetailContainer />}></Route>
+            <Route path="cart" element={<Cart />}></Route>
+          </Route>
+          <Route path="/admin">
+            <Route
+              index
+              element={
+                <AdminRoute
+                  children={<Admin />}
+                  isAuthenticated={isAuthenticated}
+                />
+              }></Route>
+          </Route>
           <Route path="*" element={<NotFound />}></Route>
-
-          {/* << FOR ADMIN ACCESS >> */}
-          <Route path="/admin" element={<Admin />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
