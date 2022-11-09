@@ -2,6 +2,10 @@ const express = require("express");
 const router = express.Router();
 router.use(express.json());
 const Service = require("../service/allService");
+// const upload = require("../utils/fileUpload");
+const fs = require("fs/promises");
+const multer = require("multer");
+// const upload = multer({ dest: "public/" });
 
 const get_product_by_id = async (req, resp) => {
   try {
@@ -25,8 +29,32 @@ const get_all_product = async (req, resp) => {
 const add_product = async (req, resp) => {
   try {
     const data = req.body;
-    // const data = req.form;
     console.log(data);
+    const file = req.files;
+
+    // for (let index in file) {
+    //   let f1 = req.files[index];
+    //   if (index === "image1") {
+    //     // await fs.writeFile(f1.name, image.data);
+    //     f1.mv(`./public/${f1.name}`, (err) => {
+    //       if (err) {
+    //         console.log(err);
+    //       }
+    //     });
+    //   } else {
+    //     for (let image of f1) {
+    //       image.mv(
+    //         `./public/images/products/${"productId"}/${image.name}`,
+    //         (err) => {
+    //           if (err) {
+    //             console.log(err);
+    //           }
+    //         }
+    //       );
+    //     }
+    //   }
+    // }
+
     const res = await Service.product.add_product(
       data.category,
       data.model,
@@ -34,7 +62,7 @@ const add_product = async (req, resp) => {
       data.description,
       data.price,
       data.quantity,
-      data.images
+      file
     );
     resp.status(200).send(data);
   } catch (err) {

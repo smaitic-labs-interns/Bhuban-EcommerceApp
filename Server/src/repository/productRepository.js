@@ -1,9 +1,25 @@
 const con = require("../config/postGres");
+const { upload_product_images } = require("../utils/fileUpload");
 
 const get_all_product = async () => {
   try {
     let products = await con.query("SELECT * FROM products");
-    if (products.rowCount !== 0) return products.rows;
+    if (products.rowCount !== 0) {
+      for (let product of products.rows) {
+        let image = await con.query(
+          "SELECT * FROM product_images WHERE productId = $1",
+          [product.id]
+        );
+        if (image.rowCount !== 0) {
+          product.images = image.rows;
+        } else {
+          product.images = [
+            { imageurl: "/images/noImageFound.png", altText: "No Image Found" },
+          ];
+        }
+      }
+      return products.rows;
+    }
     throw new Error(`No product Found`);
   } catch (err) {
     throw err;
@@ -25,13 +41,19 @@ const add_product = async (product) => {
         product.rating,
       ]
     );
+    const path = await upload_product_images({
+      productId: product.id,
+      images: product.images,
+    });
     if (result.rowCount > 0) {
-      // const imgRes = await con.query(
-      //   "INSERT INTO product_images (productId, imageUrl, altText) VALUES ($1, $2, $3)",
-      //   [product.id, product.image, "Alternative text"]
-      // );
-      // if (imgRes.rowCount > 0) return true;
-      if (result.rowCount > 0) return true;
+      let imgRes = null;
+      for (url of path) {
+        imgRes = await con.query(
+          "INSERT INTO product_images (productId, imageUrl, altText) VALUES ($1, $2, $3)",
+          [product.id, url, "Alternative text"]
+        );
+      }
+      if (imgRes.rowCount > 0) return true;
     }
     throw new Error("Error occurs adding product. Try again Later");
   } catch (err) {
@@ -89,7 +111,24 @@ const find_product = async (productId) => {
     const product = await con.query("SELECT * FROM products WHERE id= $1", [
       productId,
     ]);
-    if (product.rowCount > 0) return product.rows[0];
+    if (product.rowCount > 0) {
+      let image = await con.query(
+        "SELECT * FROM product_images WHERE productId = $1",
+        [productId]
+      );
+      if (image.rowCount !== 0) {
+        product.rows[0]["images"] = image.rows;
+      } else {
+        product.rows[0]["images"] = [
+          {
+            id: productId,
+            imageurl: "/images/noImageFound.png",
+            altText: "No Image Found",
+          },
+        ];
+      }
+      return product.rows[0];
+    }
     throw new Error(`No Product found for ID: ${productId}`);
   } catch (err) {
     throw err;

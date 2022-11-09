@@ -21,7 +21,6 @@ const add_product = async (
   quantity,
   images
 ) => {
-  console.log(images);
   try {
     const product = Schema.Product({
       category,
@@ -33,7 +32,7 @@ const add_product = async (
       images,
     });
     if (await store.product.add_product(product)) {
-      upload.array("photos", 12);
+      // upload.array("photos", 12);
       console.log("Product added to Database sucessfully");
       // return "Product added to Database sucessfully";
     }

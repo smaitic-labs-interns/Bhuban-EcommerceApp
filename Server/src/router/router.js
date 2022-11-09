@@ -1,6 +1,5 @@
 const router = require("express").Router();
 const api = require("../api/api");
-const upload = require("../utils/fileUpload");
 
 router.get("/", async (req, resp) => {
   resp.send("Hello!, This is from cart API.");
@@ -22,12 +21,7 @@ router.get("/product/search/:keyword", api.product.search_products);
 
 // for cart
 router.get("/cart/getCart/", api.cart.get_user_cart);
-// router.post("/cart/addProductToCart", api.cart.add_product_to_cart);
-router.post(
-  "/cart/addProductToCart",
-  upload.single("testImage"),
-  api.cart.add_product_to_cart
-);
+router.post("/cart/addProductToCart", api.cart.add_product_to_cart);
 router.put("/cart/updateQuantityInCart", api.cart.update_quantity_in_cart);
 
 // for order
