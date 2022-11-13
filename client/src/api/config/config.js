@@ -11,7 +11,7 @@ export const axios_instance = async ({
     Object.entries(path).map((data) => {
       endpoints.url = endpoints.url.replace(`:${data[0]}`, data[1]);
     });
-
+    console.log("URL: ", endpoints);
     const config = {
       method: endpoints.method,
       url: endpoints.url,

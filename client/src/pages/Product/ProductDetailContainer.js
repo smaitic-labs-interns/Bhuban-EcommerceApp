@@ -15,18 +15,26 @@ export default function ProductDetailContainer() {
   const product = useSelector((state) => state.product);
   const { productId } = useParams();
   const dispatch = useDispatch();
+
   useEffect(() => {
+    console.log("PRODUCT ID: ", productId);
     if (productId && productId !== "") dispatch(fetchProduct(productId));
-    return () => {
-      dispatch(removeSelectedProduct());
-    };
+
+    // return () => {
+    //   dispatch(removeSelectedProduct());
+    // };
   }, [productId]);
+
+  useEffect(() => {}, [product]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setNoProductImg(noProduct);
     }, 2000);
-    return () => clearTimeout(timer);
+    return () => {
+      // dispatch(removeSelectedProduct());
+      clearTimeout(timer);
+    };
   }, []);
   return (
     <>

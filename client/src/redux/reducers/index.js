@@ -6,7 +6,7 @@ import {
 } from "./productReducer";
 import {
   cartReducer,
-  addToCartReducer,
+  add_to_cart_reducer,
   cartProductsDetailReducer,
 } from "./cartReducer";
 import storage from "redux-persist/lib/storage";
@@ -16,7 +16,7 @@ import persistReducer from "redux-persist/es/persistReducer";
 const persistConfig = {
   key: "persist-store",
   storage,
-  blacklist: ["login"],
+  blacklist: ["login", "addToCart"],
 };
 const persistedReducer = persistCombineReducers(persistConfig, {
   register: registerReducer,
@@ -34,7 +34,14 @@ const persistedReducer = persistCombineReducers(persistConfig, {
   addProduct: addProductReducer,
   userCart: cartReducer,
   cartProductsDetail: cartProductsDetailReducer,
-  addToCart: addToCartReducer,
+  addToCart: persistReducer(
+    {
+      key: "addToCart",
+      storage: storage,
+      blacklist: ["message", "status"],
+    },
+    add_to_cart_reducer
+  ),
 });
 
 export default persistedReducer;
