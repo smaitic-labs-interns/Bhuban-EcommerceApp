@@ -1,10 +1,16 @@
-import { Box, Grid, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProductCard from "./ProductCard";
 import { fetchProducts } from "../../../redux/actions/productActions";
 import truck from "../../../public/images/loading-truck.gif";
 import loading from "../../../public/images/loading.gif";
+
+import {
+  ProductCardsWrapper,
+  ProductsCardContainer,
+  HomeBannerWrapper,
+} from "../Styles/productListStyle";
+import Banner from "./Banner";
 
 export default function ProductList() {
   const products = useSelector((state) => state.allProducts.products);
@@ -16,18 +22,13 @@ export default function ProductList() {
   }, []);
 
   return (
-    <Box sx={{ margin: "30px 0" }}>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          flexWrap: "wrap",
-          gap: "10px",
-        }}>
+    <ProductCardsWrapper>
+      <HomeBannerWrapper>
+        <Banner />
+      </HomeBannerWrapper>
+      <ProductsCardContainer>
         {products.length === 0 ? (
-          <Box sx={{}}>
-            <img src={truck || loading} alt="Loading Truck" />
-          </Box>
+          <img src={truck || loading} alt="Loading Truck" />
         ) : (
           products.map((product) => {
             return (
@@ -35,7 +36,7 @@ export default function ProductList() {
             );
           })
         )}
-      </Box>
-    </Box>
+      </ProductsCardContainer>
+    </ProductCardsWrapper>
   );
 }

@@ -10,6 +10,7 @@ import {
 import { Home, Inventory, People } from "@mui/icons-material";
 import RightContent from "./Components/RightContent";
 import AddProduct from "./Components/AddProduct";
+import Product from "./Components/Product";
 
 export default function Admin() {
   const [target, setTarget] = useState(1);
@@ -52,7 +53,7 @@ export default function Admin() {
         <RightWrapper>
           <RightContentContainer>
             <RightContent sx={target === 1 ? showContent : null}>
-              For Admin Home
+              <Product />
             </RightContent>
             <RightContent sx={target === 2 ? showContent : null}>
               <AddProduct />
