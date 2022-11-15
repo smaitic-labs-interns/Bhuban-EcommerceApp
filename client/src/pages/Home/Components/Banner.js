@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
 import {
   BannerWrapper,
   BannerContainer,
@@ -26,20 +26,22 @@ export default function Banner() {
     { id: 12, url: "img11.jpg" },
     { id: 13, url: "img12.jpg" },
   ];
-  //   let imageIndex = 0;
-  //   var circleIndex = 0;
 
   const handleClick = (index) => {
     setTarget(index);
   };
 
-  setInterval(function () {
-    if (target <= imgList.length) {
-      setTarget(target + 1);
-    } else {
-      setTarget(0);
-    }
-  }, 20000);
+  useEffect(()=>{
+ const var2= setInterval(() => {
+    setTarget(target => (target <= imgList.length -1)? target +1: 1 )
+  }, 100);
+  return () => clearInterval(var2);
+},[])
+
+  useEffect(()=>{
+
+    console.log(target);
+  },[target])
   return (
     <BannerWrapper>
       <BannerContainer>

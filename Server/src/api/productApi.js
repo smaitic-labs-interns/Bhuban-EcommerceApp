@@ -3,7 +3,7 @@ const router = express.Router();
 router.use(express.json());
 const Service = require("../service/allService");
 // const upload = require("../utils/fileUpload");
-const fs = require("fs/promises");
+// const fs = require("fs/promises");
 const multer = require("multer");
 // const upload = multer({ dest: "public/" });
 
