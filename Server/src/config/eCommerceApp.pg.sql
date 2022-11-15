@@ -10,7 +10,25 @@ CREATE TABLE users (
   lastName varchar(20) NOT NULL,
   address varchar(50) NOT NULL,
   email varchar(50) NOT NULL,
+  imageUrl text,
+  imgageAltText text,
   password text NOT NULL,
+  createdAt TIMESTAMP DEFAULT NOW(),
+  PRIMARY KEY(id)
+);
+
+-- PRODUCTS
+CREATE TABLE products (
+  id varchar(36) NOT NULL,
+  category varchar(50) NOT NULL,
+  model varchar(20) NOT NULL,
+  brand varchar(20) NOT NULL,
+  name text ,
+  description text NOT NULL,
+  price INT NOT NULL,
+  quantity INT NOT NULL,
+  rating decimal(3,0) DEFAULT 0,
+  createdAt TIMESTAMP DEFAULT NOW(),
   PRIMARY KEY(id)
 );
 
@@ -24,26 +42,13 @@ CREATE TABLE product_images (
   CONSTRAINT Fk_product_images_productId FOREIGN KEY(productId) REFERENCES products(id)
 );
 
--- PRODUCTS
-CREATE TABLE products (
-  id varchar(36) NOT NULL,
-  category varchar(50) NOT NULL,
-  model varchar(20) NOT NULL,
-  brand varchar(20) NOT NULL,
-  description text NOT NULL,
-  price INT NOT NULL,
-  quantity INT NOT NULL,
-  rating decimal(3,0) NOT NULL,
-  PRIMARY KEY(id)
-);
-
- 
  --CARTS
  CREATE TABLE carts (
   id varchar(36),
   userId varchar(36) NOT NULL,
   totalBill BIGINT NOT NULL,
   status varchar(20) NOT NULL,
+  createdAt TIMESTAMP DEFAULT NOW(),
   PRIMARY KEY(id),
   CONSTRAINT Fk_carts FOREIGN KEY(userId)  REFERENCES users(id)
 );
@@ -65,6 +70,7 @@ CREATE TABLE orders (
   userId varchar(36) NOT NULL,
   totalBill BIGINT NOT NULL,
   orderStatus varchar(30) NOT NULL,
+  createdAt TIMESTAMP DEFAULT NOW(),
   PRIMARY KEY(id),
   CONSTRAINT Fk_orders_userId FOREIGN KEY(userId) REFERENCES users(id) 
 );
