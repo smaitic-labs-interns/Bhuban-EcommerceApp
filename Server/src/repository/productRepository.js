@@ -29,12 +29,13 @@ const get_all_product = async () => {
 const add_product = async (product) => {
   try {
     const result = await con.query(
-      "INSERT INTO products (id, category, model, brand, description, price, quantity, rating) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)",
+      "INSERT INTO products (id, category, model, brand, name, description, price, quantity, rating) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)",
       [
         product.id,
         product.category,
         product.model,
         product.brand,
+        product.name,
         product.description,
         product.price,
         product.quantity,
@@ -85,11 +86,12 @@ const update_product = async (productId, newProduct) => {
     ]);
     if (result.rowCount > 0) {
       const updRes = await con.query(
-        "UPDATE products SET category =$1, model =$2, brand =$3, description =$4, price =$5, quantity =$6, rating =$7 WHERE id= $8",
+        "UPDATE products SET category =$1, model =$2, brand =$3, name= $4, description =$4, price =$5, quantity =$6, rating =$7 WHERE id= $8",
         [
           newProduct.category,
           newProduct.model,
           newProduct.brand,
+          newProduct.name,
           newProduct.description,
           newProduct.price,
           newProduct.quantity,

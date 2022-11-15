@@ -16,6 +16,7 @@ const add_product = async (
   category,
   model,
   brand,
+  name,
   description,
   price,
   quantity,
@@ -26,15 +27,15 @@ const add_product = async (
       category,
       model,
       brand,
+      name,
       description,
       price,
       quantity,
       images,
     });
     if (await store.product.add_product(product)) {
-      // upload.array("photos", 12);
       console.log("Product added to Database sucessfully");
-      // return "Product added to Database sucessfully";
+      return "Product added to Database sucessfully";
     }
   } catch (err) {
     console.log(`${err.name} => ${err.message}`);
@@ -101,6 +102,7 @@ const update_product = async (
   category,
   model,
   brand,
+  name,
   description,
   price,
   quantity,
@@ -111,6 +113,7 @@ const update_product = async (
       category,
       model,
       brand,
+      name,
       description,
       price,
       quantity,
