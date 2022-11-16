@@ -60,7 +60,7 @@ export const removeSelectedProduct = () => {
 
 export const add_product = (value) => async (dispatch) => {
   try {
-    const payload = value; //since formData is received as argument so passing directly
+    const payload = value; //since whole formData is received as argument so passing directly
     dispatch({ type: ADD_PRODUCT_REQUEST });
     const response = await axios_instance({
       endpoints: product.add,

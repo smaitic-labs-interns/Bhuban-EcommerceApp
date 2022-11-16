@@ -26,6 +26,7 @@ const addProductInitialState = {
   brand: "",
   category: "",
   model: "",
+  name: "",
   price: "",
   quantity: "",
   description: "",

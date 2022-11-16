@@ -27,6 +27,7 @@ export default function AddProduct() {
     brand: "",
     category: "",
     model: "",
+    name: "",
     price: "",
     quantity: "",
     description: "some value",
@@ -55,6 +56,7 @@ export default function AddProduct() {
       formData.append("brand", values.brand);
       formData.append("category", values.category);
       formData.append("model", values.model);
+      formData.append("name", values.name);
       formData.append("price", values.price);
       formData.append("quantity", values.quantity);
       formData.append("description", values.description);
@@ -130,6 +132,21 @@ export default function AddProduct() {
                 name="brand"
                 autoComplete="brand"
                 value={values.brand}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                //   error={errors.email && Boolean(errors.email)}
+              />
+            </AddProductFormInputWrapper>
+            <AddProductFormInputWrapper>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="name"
+                label="Product Name"
+                name="name"
+                autoComplete="name"
+                value={values.name}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 //   error={errors.email && Boolean(errors.email)}

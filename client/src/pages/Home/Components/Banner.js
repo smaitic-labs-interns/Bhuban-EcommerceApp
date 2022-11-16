@@ -34,7 +34,7 @@ export default function Banner() {
   useEffect(()=>{
  const var2= setInterval(() => {
     setTarget(target => (target <= imgList.length -1)? target +1: 1 )
-  }, 100);
+  }, 10000);
   return () => clearInterval(var2);
 },[])
 

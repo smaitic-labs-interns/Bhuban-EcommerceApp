@@ -18,7 +18,7 @@ export default function Layout({ children }) {
             borderTop: "none",
             borderBottom: "none",
             position: "relative",
-            height: "77.7vh",
+            height: "82vh",
             overflow: "scroll",
             // whiteSpace: "nowrap",
             scrollbarWidth: "none", //Firefox
