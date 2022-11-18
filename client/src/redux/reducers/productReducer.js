@@ -31,6 +31,7 @@ const addProductInitialState = {
   quantity: "",
   description: "",
   images: [],
+  status: null,
   message: "",
 };
 export const productReducer = (state = initialState, action) => {
@@ -64,11 +65,11 @@ export const addProductReducer = (
 ) => {
   switch (type) {
     case ADD_PRODUCT_REQUEST:
-      return { ...state, ...payload };
+      return { ...state, status: null };
     case ADD_PRODUCT_SUCCESS:
-      return { ...state, products: payload };
+      return { ...state, message: payload, status: "success" };
     case ADD_PRODUCT_FAILED:
-      return {};
+      return { ...state, message: payload, status: "failed" };
     default:
       return state;
   }

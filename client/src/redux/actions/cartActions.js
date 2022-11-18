@@ -30,7 +30,7 @@ export const fetch_user_Cart =
         payload: response.data,
       });
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       dispatch({
         type: USER_CART_FAILED,
         payload: err.response,

@@ -38,17 +38,13 @@ export default function Banner() {
   return () => clearInterval(var2);
 },[])
 
-  useEffect(()=>{
 
-    console.log(target);
-  },[target])
   return (
     <BannerWrapper>
       <BannerContainer>
         {imgList
           ? imgList.map((image) => {
               return (
-                <>
                   <ImageWrapper
                     key={image.id}
                     onClick={() => handleClick(image.id)}
@@ -64,7 +60,6 @@ export default function Banner() {
                       alt="Banner Image"
                     />
                   </ImageWrapper>
-                </>
               );
             })
           : ""}
@@ -74,7 +69,7 @@ export default function Banner() {
               ? imgList.map((image) => {
                   return (
                     <Box
-                      key={image.id}
+                      key={image.id + imgList.length}
                       onClick={() => {
                         handleClick(image.id);
                       }}>

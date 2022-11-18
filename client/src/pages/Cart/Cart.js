@@ -7,10 +7,10 @@ import {
   CartLeftCardWrapper,
   CartRightWrapper,
   CartRightCardWrapper,
-} from "./styles/indexStyle";
+} from "./styles/cartStyle";
 import { useDispatch, useSelector } from "react-redux";
 import { fetch_user_Cart } from "../../redux/actions/cartActions";
-import ShippingForm from "./Components/ShippingForm";
+import Checkout from "./Components/Checkout";
 
 export default function Cart() {
   const userCart = useSelector((state) => state.userCart);
@@ -20,14 +20,14 @@ export default function Cart() {
 
   const [cartDetails, setCartDetails] = useState({});
 
-  console.log(userId);
   useEffect(() => {
-    if (userId && userId !== " ") dispatch(fetch_user_Cart(userId));
+    if (userId && userId !== "") {
+      dispatch(fetch_user_Cart({ userId: userId }));
+    }
   }, [userId]);
 
   useEffect(() => {
     setCartDetails(userCart);
-    console.log(userCart);
   }, [userCart]);
 
   return (
@@ -35,12 +35,12 @@ export default function Cart() {
       <CartWrapper>
         <CartLeftWrapper>
           <CartLeftCardWrapper>
-            <CartTable data={cartDetails} />
+            <CartTable cart={cartDetails} />
           </CartLeftCardWrapper>
         </CartLeftWrapper>
         <CartRightWrapper>
           <CartRightCardWrapper>
-            <ShippingForm />
+            <Checkout />
           </CartRightCardWrapper>
         </CartRightWrapper>
       </CartWrapper>

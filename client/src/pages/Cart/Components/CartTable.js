@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
@@ -6,12 +6,19 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Link, Typography } from "@mui/material";
+import { Link, Typography, Box } from "@mui/material";
 import { DataCell } from "../styles/cartTableStyle";
-import { Box } from "@mui/material";
+import { fetch_product } from "../../../redux/actions/productActions";
 
-export default function CartTable({ data }) {
-  const { message, noOfProducts, products, totalBill } = data;
+export default function CartTable({ cart }) {
+  const { message, noOfProducts, products, totalBill } = cart;
+  const [productDetails, setProductDetails] = useState([]);
+
+  // useEffect(() => {
+  //   for (var product of products) {
+  //     var product = setProductDetails(productDetails.push[product]);
+  //   }
+  // }, [products]);
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -22,20 +29,21 @@ export default function CartTable({ data }) {
           <TableRow sx={{ background: "#fafafa" }}>
             <TableCell sx={{ borderColor: "#eff0f5" }}>Product #</TableCell>
             <TableCell sx={{ borderColor: "#eff0f5" }} align="right">
-              Quantity
+              <Typography fontWeight={600}>Quantity</Typography>
             </TableCell>
             <TableCell sx={{ borderColor: "#eff0f5" }} align="right">
-              Price
+              <Typography fontWeight={600}>Price</Typography>
             </TableCell>
             <TableCell sx={{ borderColor: "#eff0f5" }} align="right">
-              Total
+              <Typography fontWeight={600}>Total</Typography>
             </TableCell>
             <TableCell sx={{ borderColor: "#eff0f5" }} align="right">
-              Action
+              <Typography fontWeight={600}>Action</Typography>
             </TableCell>
             <TableCell
               sx={{ borderColor: "#eff0f5" }}
-              align="right"></TableCell>
+              align="right"
+            ></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -55,7 +63,8 @@ export default function CartTable({ data }) {
                         color: "#1a9cb7",
                         fontSize: "14px",
                         lineHeight: 1.28571,
-                      }}>
+                      }}
+                    >
                       Edit
                     </Typography>
                   </Link>
@@ -68,23 +77,22 @@ export default function CartTable({ data }) {
             </Box>
           )}
           <TableRow>
-            <DataCell align="right" colSpan={2}>
-              Sub Total
+            <DataCell align="right" colSpan={4}>
+              <Typography fontWeight={600}>Sub Total</Typography>
             </DataCell>
-            <DataCell colSpan={3}>Rs. 140000</DataCell>
+            <DataCell>Rs. {totalBill}</DataCell>
           </TableRow>
           <TableRow>
-            <DataCell align="right" colSpan={2}>
-              Tax
+            <DataCell align="right" colSpan={4}>
+              <Typography fontWeight={600}>Tax (13%)</Typography>
             </DataCell>
-            <DataCell colSpan={2}>13 %</DataCell>
-            <DataCell colSpan={2}>Rs. 140</DataCell>
+            <DataCell>Rs. {(totalBill * 0.13) / 100}</DataCell>
           </TableRow>
           <TableRow>
-            <DataCell align="right" colSpan={2}>
-              Total
+            <DataCell align="right" colSpan={4}>
+              <Typography fontWeight={600}>Total</Typography>
             </DataCell>
-            <DataCell colSpan={3}>Rs. 140000</DataCell>
+            <DataCell>Rs. {(totalBill + totalBill * 0.13) / 100}</DataCell>
           </TableRow>
         </TableBody>
       </Table>

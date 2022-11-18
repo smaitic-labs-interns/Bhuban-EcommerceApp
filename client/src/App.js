@@ -8,6 +8,7 @@ import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound/NotFound";
 import Cart from "./pages/Cart/Cart";
 import Admin from "./pages/Admin/Admin";
+import Order from "./pages/Order/Order";
 import { useSelector } from "react-redux";
 
 // For routing
@@ -62,9 +63,22 @@ function App() {
             <Route path="logout" element={<Logout />}></Route>
             <Route
               path="product/:productId"
-              element={<ProductDetailContainer />}></Route>
+              element={<ProductDetailContainer />}
+            ></Route>
             <Route path="cart" element={<Cart />}></Route>
+            <Route path="placeOrder" element={<Order />}></Route>
+
+            {/* <Route
+              path="placeOrder"
+              element={
+                <PrivateRoute
+                  children={<Order />}
+                  isAuthenticated={isAuthenticated}
+                />
+              }
+            ></Route> */}
           </Route>
+
           <Route path="/admin">
             <Route
               index
@@ -73,7 +87,8 @@ function App() {
                   children={<Admin />}
                   isAuthenticated={isAuthenticated}
                 />
-              }></Route>
+              }
+            ></Route>
           </Route>
           <Route path="*" element={<NotFound />}></Route>
         </Routes>

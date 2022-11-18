@@ -21,6 +21,7 @@ const initialState = {
 const cartProductsDetail = {
   products: [],
 };
+
 export const cartReducer = (state = initialState, action) => {
   switch (action.type) {
     case USER_CART_REQUEST:

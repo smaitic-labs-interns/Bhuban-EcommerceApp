@@ -18,7 +18,6 @@ export default function ProductList() {
 
   useEffect(() => {
     dispatch(fetchProducts());
-    console.log(products);
   }, []);
 
   return (

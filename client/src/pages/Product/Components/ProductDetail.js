@@ -8,6 +8,8 @@ import {
   add_to_cart,
 } from "../../../redux/actions/cartActions";
 
+import Swal from "sweetalert2";
+
 import {
   ProductDetailWrapper,
   ProductDetailContainer,
@@ -69,14 +71,26 @@ export default function ProductDetail({ product }) {
   };
 
   const handleDecrease = () => {
-    quty !== 1 ? setQuty(quty - 1) : alert("Quantity cannot be less than 1");
+    quty !== 1
+      ? setQuty(quty - 1)
+      : Swal.fire({
+          title: "Error!",
+          text: `Quantity cannot be less than 1`,
+          icon: "error",
+          confirmButtonText: "Ok",
+        });
   };
 
   const userId = login.isLogined ? login.userId : null;
 
   const handleAddToCart = () => {
     if (quty <= 0) {
-      alert("Quantity cannot be less than 1");
+      Swal.fire({
+        title: "Error!",
+        text: `Quantity cannot be less than 1`,
+        icon: "error",
+        confirmButtonText: "Ok",
+      });
     } else if (login.isLogined) {
       dispatch(
         add_to_cart({
@@ -87,13 +101,24 @@ export default function ProductDetail({ product }) {
         })
       );
     } else {
-      alert("Try Login First");
+      Swal.fire({
+        title: "Error!",
+        text: `Try Login Firsts`,
+        icon: "error",
+        confirmButtonText: "none",
+        footer: "<a href = '/login' > LOGIN </a>",
+      });
     }
   };
 
   const handleBuyNow = () => {
     if (quty === 0) {
-      alert("Quantity cannot be negative");
+      Swal.fire({
+        title: "Error!",
+        text: `Quantity cannot be negative`,
+        icon: "error",
+        confirmButtonText: "Ok",
+      });
     } else {
     }
   };
@@ -101,11 +126,15 @@ export default function ProductDetail({ product }) {
   useEffect(() => {
     if (userId && userId !== " ") dispatch(fetch_user_Cart({ userId }));
   }, [userId]);
-  console.log(userCart);
+
   useEffect(() => {
     if (addToCart.status === "success") {
       dispatch(fetch_user_Cart({ userId }));
-      alert(`Success: ${addToCart.message}`);
+      Swal.fire({
+        title: "Success!",
+        text: `${addToCart.message}`,
+        icon: "success",
+      });
       dispatch(
         add_to_cart({
           userId: "",
@@ -115,7 +144,12 @@ export default function ProductDetail({ product }) {
         })
       );
     } else if (addToCart.status === "failed") {
-      alert(`FAILED: ${addToCart.message}`);
+      Swal.fire({
+        title: "Failed!",
+        text: `${addToCart.message}`,
+        icon: "error",
+        confirmButtonText: "Ok",
+      });
       dispatch(
         add_to_cart({
           userId: "",
@@ -163,7 +197,8 @@ export default function ProductDetail({ product }) {
                   return (
                     <Box
                       key={item.id}
-                      sx={target === index ? imageStyle : { display: "none" }}>
+                      sx={target === index ? imageStyle : { display: "none" }}
+                    >
                       <img
                         src={`${process.env.REACT_APP_BACKEND_ENDPOINT}${item.imageurl}`}
                         alt={item.alttext}
@@ -234,7 +269,8 @@ export default function ProductDetail({ product }) {
               <Button
                 variant="outlined"
                 color="success"
-                onClick={handleIncrease}>
+                onClick={handleIncrease}
+              >
                 <Add />
               </Button>
             </ContentQuantityActionWrapper>
@@ -245,14 +281,16 @@ export default function ProductDetail({ product }) {
               <Button
                 variant="contained"
                 color="success"
-                onClick={handleBuyNow}>
+                onClick={handleBuyNow}
+              >
                 <ShoppingCartCheckout />
                 {" Buy Now"}
               </Button>
               <Button
                 variant="contained"
                 color="primary"
-                onClick={handleAddToCart}>
+                onClick={handleAddToCart}
+              >
                 <ShoppingCart />
                 {" ADD to Cart"}
               </Button>
@@ -267,7 +305,8 @@ export default function ProductDetail({ product }) {
                 right: "10px",
                 top: "10px",
                 boxShadow: "0px 1px 16px 2px #1976d2",
-              }}>
+              }}
+            >
               <Box
                 sx={{
                   background: "red",
@@ -277,7 +316,8 @@ export default function ProductDetail({ product }) {
                   position: "absolute",
                   top: 0,
                   right: "5px",
-                }}>
+                }}
+              >
                 {userCart.noOfProducts}
               </Box>
               <Box
@@ -285,12 +325,14 @@ export default function ProductDetail({ product }) {
                   color: "white",
                   marginTop: "3px",
                   boxShadow: "",
-                }}>
+                }}
+              >
                 <img
                   src={cart}
                   alt={"cart"}
                   width={"60px"}
-                  height={"60px"}></img>
+                  height={"60px"}
+                ></img>
               </Box>
             </Box>
           </Link>

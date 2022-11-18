@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   AddProductContainer,
   AddProductFormWrapper,
@@ -15,10 +15,10 @@ import { TextField, Box, Button, TextareaAutosize } from "@mui/material";
 import addProduct from "../../../public/images/addProduct.png";
 import { add_product } from "../../../redux/actions/productActions";
 import { useSelector, useDispatch } from "react-redux";
-// import {FileReader} from ""
+import Swal from "sweetalert2";
 
 export default function AddProduct() {
-  const login = useSelector((state) => state.addProduct);
+  const addProduct = useSelector((state) => state.addProduct);
   const dispatch = useDispatch();
   const [image, setImage] = useState([]);
   const [category, setCategory] = useState("");
@@ -60,7 +60,7 @@ export default function AddProduct() {
       formData.append("price", values.price);
       formData.append("quantity", values.quantity);
       formData.append("description", values.description);
-      dispatch(add_product(formData));
+      dispatch(add_product(formData, "add"));
     },
   });
 
@@ -72,6 +72,23 @@ export default function AddProduct() {
   //   }
   // }, [login]);
   let index = 0;
+
+  useEffect(() => {
+    if (addProduct.status === "success") {
+      Swal.fire({
+        title: "Success!",
+        text: `${addProduct.message}`,
+        icon: "success",
+      });
+      dispatch(add_product(initialValues, "clean"));
+    } else if (addProduct.status === "failed") {
+      Swal.fire({
+        title: "Error!",
+        text: `${addProduct.message}`,
+        icon: "error",
+      });
+    }
+  }, [addProduct]);
 
   return (
     <AddProductWrapper>
@@ -231,7 +248,8 @@ export default function AddProduct() {
               <Button
                 type="submit"
                 variant="contained"
-                sx={{ mt: 3, mb: 2, background: "green" }}>
+                sx={{ mt: 3, mb: 2, background: "green" }}
+              >
                 Add Product
               </Button>
             </AddProductButtonWrapper>

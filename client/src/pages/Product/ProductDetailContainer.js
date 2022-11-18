@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect, useState } from "react";
 import {
-  fetchProduct,
+  fetch_product,
   removeSelectedProduct,
 } from "../../redux/actions/productActions";
 import { Box } from "@mui/material";
@@ -18,7 +18,7 @@ export default function ProductDetailContainer() {
 
   useEffect(() => {
     console.log("PRODUCT ID: ", productId);
-    if (productId && productId !== "") dispatch(fetchProduct(productId));
+    if (productId && productId !== "") dispatch(fetch_product(productId));
 
     // return () => {
     //   dispatch(removeSelectedProduct());

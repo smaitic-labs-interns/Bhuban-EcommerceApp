@@ -26,13 +26,12 @@ export const fetchProducts = () => async (dispatch) => {
 };
 
 // for single product
-export const fetchProduct = (id) => async (dispatch) => {
+export const fetch_product = (id) => async (dispatch) => {
   try {
     dispatch({
       type: FETCH_PRODUCT_REQUEST,
     });
-    // console.log(id);
-    console.log("ENDPOINTS: ", product.one);
+
     let e = { ...product.one };
     let response = await axios_instance({
       endpoints: e,
@@ -58,8 +57,11 @@ export const removeSelectedProduct = () => {
   };
 };
 
-export const add_product = (value) => async (dispatch) => {
+export const add_product = (value, action) => async (dispatch) => {
   try {
+    if (action === "clean") {
+      return dispatch({ type: ADD_PRODUCT_REQUEST });
+    }
     const payload = value; //since whole formData is received as argument so passing directly
     dispatch({ type: ADD_PRODUCT_REQUEST });
     const response = await axios_instance({
