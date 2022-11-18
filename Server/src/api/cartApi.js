@@ -8,9 +8,9 @@ const get_user_cart = async (req, resp) => {
   try {
     const userId = req.query.id;
     const res = await Service.cart.get_user_cart(userId);
-    resp.send(res);
+    resp.status(200).send(res);
   } catch (err) {
-    resp.send(err.message);
+    resp.status(400).send(err.message);
   }
 };
 
@@ -22,9 +22,9 @@ const add_product_to_cart = async (req, resp) => {
       productId: product.productId,
       quantity: product.quantity,
     });
-    resp.send(res);
+    resp.status(200).send(res);
   } catch (err) {
-    resp.send(err.message);
+    resp.status(400).send(err.message);
   }
 };
 
@@ -37,9 +37,9 @@ const update_quantity_in_cart = async (req, resp) => {
       { productId: product.productId, quantity: product.quantity },
       product.action
     );
-    resp.send(res);
+    resp.status(200).send(res);
   } catch (err) {
-    resp.send(err.message);
+    resp.status(400).send(err.message);
   }
 };
 
