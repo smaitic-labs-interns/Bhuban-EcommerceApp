@@ -129,3 +129,39 @@ CREATE TABLE shipment_address (
   CONSTRAINT Fk_shipment_address_userId FOREIGN KEY (userId) REFERENCES users(id),
   CONSTRAINT Fk_shipment_address_orderId FOREIGN KEY (orderId) REFERENCES orders(id)
 );
+
+
+
+---**** FOR COUNTRIES DATABASES-----
+
+---For World Countries
+CREATE TABLE world_countries (
+  id SERIAL,
+  country VARCHAR(100) NOT NULL,
+  capital VARCHAR(100) NOT NULL,
+  cc_iso2 VARCHAR(2) NOT NULL,
+  cc_iso3 VARCHAR(3) NOT NULL,
+  latitude VARCHAR(10) NOT NULL,
+  longitude varchar(10) NOT NULL,
+  PRIMARY KEY(id)users
+);
+
+---For world State/province
+
+CREATE TABLE world_states (
+  id SERIAL,
+  stateName VARCHAR(100) NOT NULL,
+  countryId SERIAL,
+  PRIMARY KEY(id),
+  CONSTRAINT Fk_world_states_countryId FOREIGN KEY (countryId) REFERENCES world_countries(id)
+);
+
+-- FOR WORLD Districts 
+
+CREATE TABLE world_districts (
+  id SERIAL,
+  district VARCHAR(100) NOT NULL,
+  stateId SERIAL,
+  PRIMARY KEY(id),
+  CONSTRAINT Fk_world_districts_stateId FOREIGN KEY (stateId) REFERENCES world_states(id)
+);

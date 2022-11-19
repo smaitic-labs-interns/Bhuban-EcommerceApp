@@ -37,4 +37,11 @@ router.get("/order/shipmentUpdates", api.order.send_payment_updates);
 router.get("/order/returnUpdates", api.order.send_return_updates);
 router.get("/order/paymentupdates", api.order.send_payment_updates);
 
+// for countries, states, districts
+router.get("/countries/getAll", api.extra.read_all_countries);
+router.get("/states/getAll", api.extra.read_all_states);
+router.get("/districts/getAll", api.extra.read_all_districts);
+router.get("/country/states/getAll", api.extra.read_states_by_country_id);
+router.get("/state/districts/getAll", api.extra.read_districts_by_state_id);
+
 module.exports = router;

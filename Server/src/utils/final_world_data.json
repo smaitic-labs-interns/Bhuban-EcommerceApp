@@ -1,0 +1,2587 @@
+[
+  {
+    "id": 1,
+    "country": "Afghanistan",
+    "capital": "Kabul",
+    "cc_iso2": "AF",
+    "cc_iso3": "AFG",
+    "state": []
+  },
+  {
+    "id": 2,
+    "country": "Albania",
+    "capital": "Tirana",
+    "cc_iso2": "AL",
+    "cc_iso3": "ALB",
+    "state": []
+  },
+  {
+    "id": 3,
+    "country": "Algeria",
+    "capital": "Algiers",
+    "cc_iso2": "DZ",
+    "cc_iso3": "DZA",
+    "state": []
+  },
+  {
+    "id": 4,
+    "country": "American Samoa",
+    "capital": "Pago Pago",
+    "cc_iso2": "AS",
+    "cc_iso3": "ASM",
+    "state": []
+  },
+  {
+    "id": 5,
+    "country": "Andorra",
+    "capital": "Andorra la Vella",
+    "cc_iso2": "AD",
+    "cc_iso3": "AND",
+    "state": []
+  },
+  {
+    "id": 6,
+    "country": "Angola",
+    "capital": "Luanda",
+    "cc_iso2": "AO",
+    "cc_iso3": "AGO",
+    "state": []
+  },
+  {
+    "id": 7,
+    "country": "Anguilla",
+    "capital": "The Valley",
+    "cc_iso2": "AI",
+    "cc_iso3": "AIA",
+    "state": []
+  },
+  {
+    "id": 8,
+    "country": "Antigua And Barbuda",
+    "capital": "Saint John's",
+    "cc_iso2": "AG",
+    "cc_iso3": "ATG",
+    "state": []
+  },
+  {
+    "id": 9,
+    "country": "Argentina",
+    "capital": "Buenos Aires",
+    "cc_iso2": "AR",
+    "cc_iso3": "ARG",
+    "state": []
+  },
+  {
+    "id": 10,
+    "country": "Armenia",
+    "capital": "Yerevan",
+    "cc_iso2": "AM",
+    "cc_iso3": "ARM",
+    "state": []
+  },
+  {
+    "id": 11,
+    "country": "Aruba",
+    "capital": "Oranjestad",
+    "cc_iso2": "AW",
+    "cc_iso3": "ABW",
+    "state": []
+  },
+  {
+    "id": 12,
+    "country": "Australia",
+    "capital": "Sydney",
+    "cc_iso2": "AU",
+    "cc_iso3": "AUS",
+    "state": []
+  },
+  {
+    "id": 13,
+    "country": "Austria",
+    "capital": "Vienna",
+    "cc_iso2": "AT",
+    "cc_iso3": "AUT",
+    "state": []
+  },
+  {
+    "id": 14,
+    "country": "Azerbaijan",
+    "capital": "Baku",
+    "cc_iso2": "AZ",
+    "cc_iso3": "AZE",
+    "state": []
+  },
+  {
+    "id": 15,
+    "country": "Bahrain",
+    "capital": "Manama",
+    "cc_iso2": "BH",
+    "cc_iso3": "BHR",
+    "state": []
+  },
+  {
+    "id": 16,
+    "country": "Bangladesh",
+    "capital": "Dhaka",
+    "cc_iso2": "BD",
+    "cc_iso3": "BGD",
+    "state": []
+  },
+  {
+    "id": 17,
+    "country": "Barbados",
+    "capital": "Bridgetown",
+    "cc_iso2": "BB",
+    "cc_iso3": "BRB",
+    "state": []
+  },
+  {
+    "id": 18,
+    "country": "Belarus",
+    "capital": "Minsk",
+    "cc_iso2": "BY",
+    "cc_iso3": "BLR",
+    "state": []
+  },
+  {
+    "id": 19,
+    "country": "Belgium",
+    "capital": "Brussels",
+    "cc_iso2": "BE",
+    "cc_iso3": "BEL",
+    "state": []
+  },
+  {
+    "id": 20,
+    "country": "Belize",
+    "capital": "Belmopan",
+    "cc_iso2": "BZ",
+    "cc_iso3": "BLZ",
+    "state": []
+  },
+  {
+    "id": 21,
+    "country": "Benin",
+    "capital": "Cotonou",
+    "cc_iso2": "BJ",
+    "cc_iso3": "BEN",
+    "state": []
+  },
+  {
+    "id": 22,
+    "country": "Bermuda",
+    "capital": "Hamilton",
+    "cc_iso2": "BM",
+    "cc_iso3": "BMU",
+    "state": []
+  },
+  {
+    "id": 23,
+    "country": "Bhutan",
+    "capital": "Thimphu",
+    "cc_iso2": "BT",
+    "cc_iso3": "BTN",
+    "state": []
+  },
+  {
+    "id": 24,
+    "country": "Bolivia",
+    "capital": "Santa Cruz",
+    "cc_iso2": "BO",
+    "cc_iso3": "BOL",
+    "state": []
+  },
+  {
+    "id": 25,
+    "country": "Bosnia And Herzegovina",
+    "capital": "Sarajevo",
+    "cc_iso2": "BA",
+    "cc_iso3": "BIH",
+    "state": []
+  },
+  {
+    "id": 26,
+    "country": "Botswana",
+    "capital": "Gaborone",
+    "cc_iso2": "BW",
+    "cc_iso3": "BWA",
+    "state": []
+  },
+  {
+    "id": 27,
+    "country": "Brazil",
+    "capital": "Sao Paulo",
+    "cc_iso2": "BR",
+    "cc_iso3": "BRA",
+    "state": []
+  },
+  {
+    "id": 28,
+    "country": "British Virgin Islands",
+    "capital": "Road Town",
+    "cc_iso2": "VG",
+    "cc_iso3": "VGB",
+    "state": []
+  },
+  {
+    "id": 29,
+    "country": "Brunei",
+    "capital": "Bandar Seri Begawan",
+    "cc_iso2": "BN",
+    "cc_iso3": "BRN",
+    "state": []
+  },
+  {
+    "id": 30,
+    "country": "Bulgaria",
+    "capital": "Sofia",
+    "cc_iso2": "BG",
+    "cc_iso3": "BGR",
+    "state": []
+  },
+  {
+    "id": 31,
+    "country": "Burkina Faso",
+    "capital": "Ouagadougou",
+    "cc_iso2": "BF",
+    "cc_iso3": "BFA",
+    "state": []
+  },
+  {
+    "id": 32,
+    "country": "Burundi",
+    "capital": "Bujumbura",
+    "cc_iso2": "BI",
+    "cc_iso3": "BDI",
+    "state": []
+  },
+  {
+    "id": 33,
+    "country": "Cabo Verde",
+    "capital": "Praia",
+    "cc_iso2": "CV",
+    "cc_iso3": "CPV",
+    "state": []
+  },
+  {
+    "id": 34,
+    "country": "Cambodia",
+    "capital": "Phnom Penh",
+    "cc_iso2": "KH",
+    "cc_iso3": "KHM",
+    "state": []
+  },
+  {
+    "id": 35,
+    "country": "Cameroon",
+    "capital": "Yaounde",
+    "cc_iso2": "CM",
+    "cc_iso3": "CMR",
+    "state": []
+  },
+  {
+    "id": 36,
+    "country": "Canada",
+    "capital": "Toronto",
+    "cc_iso2": "CA",
+    "cc_iso3": "CAN",
+    "state": []
+  },
+  {
+    "id": 37,
+    "country": "Cayman Islands",
+    "capital": "George Town",
+    "cc_iso2": "KY",
+    "cc_iso3": "CYM",
+    "state": []
+  },
+  {
+    "id": 38,
+    "country": "Central African Republic",
+    "capital": "Bangui",
+    "cc_iso2": "CF",
+    "cc_iso3": "CAF",
+    "state": []
+  },
+  {
+    "id": 39,
+    "country": "Chad",
+    "capital": "N'Djamena",
+    "cc_iso2": "TD",
+    "cc_iso3": "TCD",
+    "state": []
+  },
+  {
+    "id": 40,
+    "country": "Chile",
+    "capital": "Santiago",
+    "cc_iso2": "CL",
+    "cc_iso3": "CHL",
+    "state": []
+  },
+  {
+    "id": 41,
+    "country": "China",
+    "capital": "Shanghai",
+    "cc_iso2": "CN",
+    "cc_iso3": "CHN",
+    "state": []
+  },
+  {
+    "id": 42,
+    "country": "Christmas Island",
+    "capital": "Flying Fish Cove",
+    "cc_iso2": "CX",
+    "cc_iso3": "CXR",
+    "state": []
+  },
+  {
+    "id": 43,
+    "country": "Colombia",
+    "capital": "Bogota",
+    "cc_iso2": "CO",
+    "cc_iso3": "COL",
+    "state": []
+  },
+  {
+    "id": 44,
+    "country": "Comoros",
+    "capital": "Moroni",
+    "cc_iso2": "KM",
+    "cc_iso3": "COM",
+    "state": []
+  },
+  {
+    "id": 45,
+    "country": "Congo (Brazzaville)",
+    "capital": "Brazzaville",
+    "cc_iso2": "CG",
+    "cc_iso3": "COG",
+    "state": []
+  },
+  {
+    "id": 46,
+    "country": "Congo (Kinshasa)",
+    "capital": "Kinshasa",
+    "cc_iso2": "CD",
+    "cc_iso3": "COD",
+    "state": []
+  },
+  {
+    "id": 47,
+    "country": "Cook Islands",
+    "capital": "Avarua",
+    "cc_iso2": "CK",
+    "cc_iso3": "COK",
+    "state": []
+  },
+  {
+    "id": 48,
+    "country": "Costa Rica",
+    "capital": "San Jose",
+    "cc_iso2": "CR",
+    "cc_iso3": "CRI",
+    "state": []
+  },
+  {
+    "id": 49,
+    "country": "Croatia",
+    "capital": "Zagreb",
+    "cc_iso2": "HR",
+    "cc_iso3": "HRV",
+    "state": []
+  },
+  {
+    "id": 50,
+    "country": "Cuba",
+    "capital": "Havana",
+    "cc_iso2": "CU",
+    "cc_iso3": "CUB",
+    "state": []
+  },
+  {
+    "id": 51,
+    "country": "Curaçao",
+    "capital": "Willemstad",
+    "cc_iso2": "CW",
+    "cc_iso3": "CUW",
+    "state": []
+  },
+  {
+    "id": 52,
+    "country": "Cyprus",
+    "capital": "Nicosia",
+    "cc_iso2": "CY",
+    "cc_iso3": "CYP",
+    "state": []
+  },
+  {
+    "id": 53,
+    "country": "Czechia",
+    "capital": "Prague",
+    "cc_iso2": "CZ",
+    "cc_iso3": "CZE",
+    "state": []
+  },
+  {
+    "id": 54,
+    "country": "Côte d'Ivoire",
+    "capital": "Abidjan",
+    "cc_iso2": "CI",
+    "cc_iso3": "CIV",
+    "state": []
+  },
+  {
+    "id": 55,
+    "country": "Denmark",
+    "capital": "Copenhagen",
+    "cc_iso2": "DK",
+    "cc_iso3": "DNK",
+    "state": []
+  },
+  {
+    "id": 56,
+    "country": "Djibouti",
+    "capital": "Djibouti",
+    "cc_iso2": "DJ",
+    "cc_iso3": "DJI",
+    "state": []
+  },
+  {
+    "id": 57,
+    "country": "Dominica",
+    "capital": "Roseau",
+    "cc_iso2": "DM",
+    "cc_iso3": "DMA",
+    "state": []
+  },
+  {
+    "id": 58,
+    "country": "Dominican Republic",
+    "capital": "Santo Domingo",
+    "cc_iso2": "DO",
+    "cc_iso3": "DOM",
+    "state": []
+  },
+  {
+    "id": 59,
+    "country": "Ecuador",
+    "capital": "Guayaquil",
+    "cc_iso2": "EC",
+    "cc_iso3": "ECU",
+    "state": []
+  },
+  {
+    "id": 60,
+    "country": "Egypt",
+    "capital": "Cairo",
+    "cc_iso2": "EG",
+    "cc_iso3": "EGY",
+    "state": []
+  },
+  {
+    "id": 61,
+    "country": "El Salvador",
+    "capital": "San Salvador",
+    "cc_iso2": "SV",
+    "cc_iso3": "SLV",
+    "state": []
+  },
+  {
+    "id": 62,
+    "country": "Equatorial Guinea",
+    "capital": "Malabo",
+    "cc_iso2": "GQ",
+    "cc_iso3": "GNQ",
+    "state": []
+  },
+  {
+    "id": 63,
+    "country": "Eritrea",
+    "capital": "Asmara",
+    "cc_iso2": "ER",
+    "cc_iso3": "ERI",
+    "state": []
+  },
+  {
+    "id": 64,
+    "country": "Estonia",
+    "capital": "Tallinn",
+    "cc_iso2": "EE",
+    "cc_iso3": "EST",
+    "state": []
+  },
+  {
+    "id": 65,
+    "country": "Ethiopia",
+    "capital": "Addis Ababa",
+    "cc_iso2": "ET",
+    "cc_iso3": "ETH",
+    "state": []
+  },
+  {
+    "id": 66,
+    "country": "Falkland Islands (Islas Malvinas)",
+    "capital": "Stanley",
+    "cc_iso2": "FK",
+    "cc_iso3": "FLK",
+    "state": []
+  },
+  {
+    "id": 67,
+    "country": "Faroe Islands",
+    "capital": "Torshavn",
+    "cc_iso2": "FO",
+    "cc_iso3": "FRO",
+    "state": []
+  },
+  {
+    "id": 68,
+    "country": "Federated States of Micronesia",
+    "capital": "Palikir",
+    "cc_iso2": "FM",
+    "cc_iso3": "FSM",
+    "state": []
+  },
+  {
+    "id": 69,
+    "country": "Fiji",
+    "capital": "Suva",
+    "cc_iso2": "FJ",
+    "cc_iso3": "FJI",
+    "state": []
+  },
+  {
+    "id": 70,
+    "country": "Finland",
+    "capital": "Helsinki",
+    "cc_iso2": "FI",
+    "cc_iso3": "FIN",
+    "state": []
+  },
+  {
+    "id": 71,
+    "country": "France",
+    "capital": "Paris",
+    "cc_iso2": "FR",
+    "cc_iso3": "FRA",
+    "state": []
+  },
+  {
+    "id": 72,
+    "country": "French Guiana",
+    "capital": "Cayenne",
+    "cc_iso2": "GF",
+    "cc_iso3": "GUF",
+    "state": []
+  },
+  {
+    "id": 73,
+    "country": "French Polynesia",
+    "capital": "Papeete",
+    "cc_iso2": "PF",
+    "cc_iso3": "PYF",
+    "state": []
+  },
+  {
+    "id": 74,
+    "country": "Gabon",
+    "capital": "Libreville",
+    "cc_iso2": "GA",
+    "cc_iso3": "GAB",
+    "state": []
+  },
+  {
+    "id": 75,
+    "country": "Gaza Strip",
+    "capital": "Gaza",
+    "cc_iso2": "XG",
+    "cc_iso3": "XGZ",
+    "state": []
+  },
+  {
+    "id": 76,
+    "country": "Georgia",
+    "capital": "Tbilisi",
+    "cc_iso2": "GE",
+    "cc_iso3": "GEO",
+    "state": []
+  },
+  {
+    "id": 77,
+    "country": "Germany",
+    "capital": "Berlin",
+    "cc_iso2": "DE",
+    "cc_iso3": "DEU",
+    "state": []
+  },
+  {
+    "id": 78,
+    "country": "Ghana",
+    "capital": "Accra",
+    "cc_iso2": "GH",
+    "cc_iso3": "GHA",
+    "state": []
+  },
+  {
+    "id": 79,
+    "country": "Gibraltar",
+    "capital": "Gibraltar",
+    "cc_iso2": "GI",
+    "cc_iso3": "GIB",
+    "state": []
+  },
+  {
+    "id": 80,
+    "country": "Greece",
+    "capital": "Athens",
+    "cc_iso2": "GR",
+    "cc_iso3": "GRC",
+    "state": []
+  },
+  {
+    "id": 81,
+    "country": "Greenland",
+    "capital": "Nuuk",
+    "cc_iso2": "GL",
+    "cc_iso3": "GRL",
+    "state": []
+  },
+  {
+    "id": 82,
+    "country": "Grenada",
+    "capital": "Saint George's",
+    "cc_iso2": "GD",
+    "cc_iso3": "GRD",
+    "state": []
+  },
+  {
+    "id": 83,
+    "country": "Guadeloupe",
+    "capital": "Basse-Terre",
+    "cc_iso2": "GP",
+    "cc_iso3": "GLP",
+    "state": []
+  },
+  {
+    "id": 84,
+    "country": "Guam",
+    "capital": "Hagta",
+    "cc_iso2": "GU",
+    "cc_iso3": "GUM",
+    "state": []
+  },
+  {
+    "id": 85,
+    "country": "Guatemala",
+    "capital": "Guatemala City",
+    "cc_iso2": "GT",
+    "cc_iso3": "GTM",
+    "state": []
+  },
+  {
+    "id": 86,
+    "country": "Guinea",
+    "capital": "Conakry",
+    "cc_iso2": "GN",
+    "cc_iso3": "GIN",
+    "state": []
+  },
+  {
+    "id": 87,
+    "country": "Guinea-Bissau",
+    "capital": "Bissau",
+    "cc_iso2": "GW",
+    "cc_iso3": "GNB",
+    "state": []
+  },
+  {
+    "id": 88,
+    "country": "Guyana",
+    "capital": "Georgetown",
+    "cc_iso2": "GY",
+    "cc_iso3": "GUY",
+    "state": []
+  },
+  {
+    "id": 89,
+    "country": "Haiti",
+    "capital": "Port-au-Prince",
+    "cc_iso2": "HT",
+    "cc_iso3": "HTI",
+    "state": []
+  },
+  {
+    "id": 90,
+    "country": "Honduras",
+    "capital": "Comayaguela",
+    "cc_iso2": "HN",
+    "cc_iso3": "HND",
+    "state": []
+  },
+  {
+    "id": 91,
+    "country": "Hong Kong",
+    "capital": "Hong Kong",
+    "cc_iso2": "HK",
+    "cc_iso3": "HKG",
+    "state": []
+  },
+  {
+    "id": 92,
+    "country": "Hungary",
+    "capital": "Budapest",
+    "cc_iso2": "HU",
+    "cc_iso3": "HUN",
+    "state": []
+  },
+  {
+    "id": 93,
+    "country": "Iceland",
+    "capital": "Reykjavik",
+    "cc_iso2": "IS",
+    "cc_iso3": "ISL",
+    "state": []
+  },
+  {
+    "id": 94,
+    "country": "India",
+    "capital": "Delhi",
+    "cc_iso2": "IN",
+    "cc_iso3": "IND",
+    "state": []
+  },
+  {
+    "id": 95,
+    "country": "Indonesia",
+    "capital": "Jakarta",
+    "cc_iso2": "ID",
+    "cc_iso3": "IDN",
+    "state": []
+  },
+  {
+    "id": 96,
+    "country": "Iran",
+    "capital": "Tehran",
+    "cc_iso2": "IR",
+    "cc_iso3": "IRN",
+    "state": []
+  },
+  {
+    "id": 97,
+    "country": "Iraq",
+    "capital": "Baghdad",
+    "cc_iso2": "IQ",
+    "cc_iso3": "IRQ",
+    "state": []
+  },
+  {
+    "id": 98,
+    "country": "Ireland",
+    "capital": "Dublin",
+    "cc_iso2": "IE",
+    "cc_iso3": "IRL",
+    "state": []
+  },
+  {
+    "id": 99,
+    "country": "Isle Of Man",
+    "capital": "Douglas",
+    "cc_iso2": "IM",
+    "cc_iso3": "IMN",
+    "state": []
+  },
+  {
+    "id": 100,
+    "country": "Israel",
+    "capital": "Jerusalem",
+    "cc_iso2": "IL",
+    "cc_iso3": "ISR",
+    "state": []
+  },
+  {
+    "id": 101,
+    "country": "Italy",
+    "capital": "Rome",
+    "cc_iso2": "IT",
+    "cc_iso3": "ITA",
+    "state": []
+  },
+  {
+    "id": 102,
+    "country": "Jamaica",
+    "capital": "Kingston",
+    "cc_iso2": "JM",
+    "cc_iso3": "JAM",
+    "state": []
+  },
+  {
+    "id": 103,
+    "country": "Japan",
+    "capital": "Tokyo",
+    "cc_iso2": "JP",
+    "cc_iso3": "JPN",
+    "state": []
+  },
+  {
+    "id": 104,
+    "country": "Jersey",
+    "capital": "Saint Helier",
+    "cc_iso2": "JE",
+    "cc_iso3": "JEY",
+    "state": []
+  },
+  {
+    "id": 105,
+    "country": "Jordan",
+    "capital": "Amman",
+    "cc_iso2": "JO",
+    "cc_iso3": "JOR",
+    "state": []
+  },
+  {
+    "id": 106,
+    "country": "Kazakhstan",
+    "capital": "Almaty",
+    "cc_iso2": "KZ",
+    "cc_iso3": "KAZ",
+    "state": []
+  },
+  {
+    "id": 107,
+    "country": "Kenya",
+    "capital": "Nairobi",
+    "cc_iso2": "KE",
+    "cc_iso3": "KEN",
+    "state": []
+  },
+  {
+    "id": 108,
+    "country": "Kiribati",
+    "capital": "Tarawa",
+    "cc_iso2": "KI",
+    "cc_iso3": "KIR",
+    "state": []
+  },
+  {
+    "id": 109,
+    "country": "Kosovo",
+    "capital": "Pristina",
+    "cc_iso2": "XK",
+    "cc_iso3": "XKS",
+    "state": []
+  },
+  {
+    "id": 110,
+    "country": "Kuwait",
+    "capital": "Kuwait City",
+    "cc_iso2": "KW",
+    "cc_iso3": "KWT",
+    "state": []
+  },
+  {
+    "id": 111,
+    "country": "Kyrgyzstan",
+    "capital": "Bishkek",
+    "cc_iso2": "KG",
+    "cc_iso3": "KGZ",
+    "state": []
+  },
+  {
+    "id": 112,
+    "country": "Laos",
+    "capital": "Vientiane",
+    "cc_iso2": "LA",
+    "cc_iso3": "LAO",
+    "state": []
+  },
+  {
+    "id": 113,
+    "country": "Latvia",
+    "capital": "Riga",
+    "cc_iso2": "LV",
+    "cc_iso3": "LVA",
+    "state": []
+  },
+  {
+    "id": 114,
+    "country": "Lebanon",
+    "capital": "Beirut",
+    "cc_iso2": "LB",
+    "cc_iso3": "LBN",
+    "state": []
+  },
+  {
+    "id": 115,
+    "country": "Lesotho",
+    "capital": "Maseru",
+    "cc_iso2": "LS",
+    "cc_iso3": "LSO",
+    "state": []
+  },
+  {
+    "id": 116,
+    "country": "Liberia",
+    "capital": "Monrovia",
+    "cc_iso2": "LR",
+    "cc_iso3": "LBR",
+    "state": []
+  },
+  {
+    "id": 117,
+    "country": "Libya",
+    "capital": "Tripoli",
+    "cc_iso2": "LY",
+    "cc_iso3": "LBY",
+    "state": []
+  },
+  {
+    "id": 118,
+    "country": "Liechtenstein",
+    "capital": "Vaduz",
+    "cc_iso2": "LI",
+    "cc_iso3": "LIE",
+    "state": []
+  },
+  {
+    "id": 119,
+    "country": "Lithuania",
+    "capital": "Vilnius",
+    "cc_iso2": "LT",
+    "cc_iso3": "LTU",
+    "state": []
+  },
+  {
+    "id": 120,
+    "country": "Luxembourg",
+    "capital": "Luxembourg",
+    "cc_iso2": "LU",
+    "cc_iso3": "LUX",
+    "state": []
+  },
+  {
+    "id": 121,
+    "country": "Macau",
+    "capital": "Macau",
+    "cc_iso2": "MO",
+    "cc_iso3": "MAC",
+    "state": []
+  },
+  {
+    "id": 122,
+    "country": "Macedonia",
+    "capital": "Skopje",
+    "cc_iso2": "MK",
+    "cc_iso3": "MKD",
+    "state": []
+  },
+  {
+    "id": 123,
+    "country": "Madagascar",
+    "capital": "Antananarivo",
+    "cc_iso2": "MG",
+    "cc_iso3": "MDG",
+    "state": []
+  },
+  {
+    "id": 124,
+    "country": "Malawi",
+    "capital": "Blantyre",
+    "cc_iso2": "MW",
+    "cc_iso3": "MWI",
+    "state": []
+  },
+  {
+    "id": 125,
+    "country": "Malaysia",
+    "capital": "Kuala Lumpur",
+    "cc_iso2": "MY",
+    "cc_iso3": "MYS",
+    "state": []
+  },
+  {
+    "id": 126,
+    "country": "Maldives",
+    "capital": "Male",
+    "cc_iso2": "MV",
+    "cc_iso3": "MDV",
+    "state": []
+  },
+  {
+    "id": 127,
+    "country": "Mali",
+    "capital": "Bamako",
+    "cc_iso2": "ML",
+    "cc_iso3": "MLI",
+    "state": []
+  },
+  {
+    "id": 128,
+    "country": "Malta",
+    "capital": "Valletta",
+    "cc_iso2": "MT",
+    "cc_iso3": "MLT",
+    "state": []
+  },
+  {
+    "id": 129,
+    "country": "Marshall Islands",
+    "capital": "Majuro",
+    "cc_iso2": "MH",
+    "cc_iso3": "MHL",
+    "state": []
+  },
+  {
+    "id": 130,
+    "country": "Martinique",
+    "capital": "Fort-de-France",
+    "cc_iso2": "MQ",
+    "cc_iso3": "MTQ",
+    "state": []
+  },
+  {
+    "id": 131,
+    "country": "Mauritania",
+    "capital": "Nouakchott",
+    "cc_iso2": "MR",
+    "cc_iso3": "MRT",
+    "state": []
+  },
+  {
+    "id": 132,
+    "country": "Mauritius",
+    "capital": "Port Louis",
+    "cc_iso2": "MU",
+    "cc_iso3": "MUS",
+    "state": []
+  },
+  {
+    "id": 133,
+    "country": "Mayotte",
+    "capital": "Mamoudzou",
+    "cc_iso2": "YT",
+    "cc_iso3": "MYT",
+    "state": []
+  },
+  {
+    "id": 134,
+    "country": "Mexico",
+    "capital": "Mexico City",
+    "cc_iso2": "MX",
+    "cc_iso3": "MEX",
+    "state": []
+  },
+  {
+    "id": 135,
+    "country": "Moldova",
+    "capital": "Chisinau",
+    "cc_iso2": "MD",
+    "cc_iso3": "MDA",
+    "state": []
+  },
+  {
+    "id": 136,
+    "country": "Monaco",
+    "capital": "Monaco",
+    "cc_iso2": "MC",
+    "cc_iso3": "MCO",
+    "state": []
+  },
+  {
+    "id": 137,
+    "country": "Mongolia",
+    "capital": "Ulaanbaatar",
+    "cc_iso2": "MN",
+    "cc_iso3": "MNG",
+    "state": []
+  },
+  {
+    "id": 138,
+    "country": "Montenegro",
+    "capital": "Podgorica",
+    "cc_iso2": "ME",
+    "cc_iso3": "MNE",
+    "state": []
+  },
+  {
+    "id": 139,
+    "country": "Montserrat",
+    "capital": "Brades",
+    "cc_iso2": "MS",
+    "cc_iso3": "MSR",
+    "state": []
+  },
+  {
+    "id": 140,
+    "country": "Morocco",
+    "capital": "Casablanca",
+    "cc_iso2": "MA",
+    "cc_iso3": "MAR",
+    "state": []
+  },
+  {
+    "id": 141,
+    "country": "Mozambique",
+    "capital": "Maputo",
+    "cc_iso2": "MZ",
+    "cc_iso3": "MOZ",
+    "state": []
+  },
+  {
+    "id": 142,
+    "country": "Myanmar",
+    "capital": "Rangoon",
+    "cc_iso2": "MM",
+    "cc_iso3": "MMR",
+    "state": []
+  },
+  {
+    "id": 143,
+    "country": "Namibia",
+    "capital": "Windhoek",
+    "cc_iso2": "NA",
+    "cc_iso3": "NAM",
+    "state": []
+  },
+  {
+    "id": 144,
+    "country": "Nauru",
+    "capital": "Yaren",
+    "cc_iso2": "NR",
+    "cc_iso3": "NRU",
+    "state": []
+  },
+  {
+    "id": 145,
+    "country": "Nepal",
+    "capital": "Kathmandu",
+    "cc_iso2": "NP",
+    "cc_iso3": "NPL",
+    "state": [
+      {
+        "id": 1,
+        "province_en": "Province No 1",
+        "province_native_lan": "प्रदेश नम्बर १",
+        "capital_en": "Biratnagar",
+        "capital_native_lan": "विराटनगर",
+        "area": 25905,
+        "districts": [
+          {
+            "id": 1,
+            "district_en": "Bhojpur",
+            "district_native_lan": "भोजपुर",
+            "headquater_en": "Bhojpur",
+            "headquater_native_lan": "भोजपुर"
+          },
+          {
+            "id": 2,
+            "district_en": "Dhankuta",
+            "district_native_lan": "धनकुटा",
+            "headquater_en": "Dhankuta",
+            "headquater_native_lan": "धनकुटा"
+          },
+          {
+            "id": 3,
+            "district_en": "Ilam",
+            "district_native_lan": "इलाम",
+            "headquater_en": "Ilam",
+            "headquater_native_lan": "इलाम"
+          },
+          {
+            "id": 4,
+            "district_en": "Jhapa",
+            "district_native_lan": "झापा",
+            "headquater_en": "Bhadrapur",
+            "headquater_native_lan": "भद्रपुर"
+          },
+          {
+            "id": 5,
+            "district_en": "Khotang",
+            "district_native_lan": "खोटाङ",
+            "headquater_en": "Diktel",
+            "headquater_native_lan": "डिक्टेल"
+          },
+          {
+            "id": 6,
+            "district_en": "Morang",
+            "district_native_lan": "मोरङ",
+            "headquater_en": "Biratnagar",
+            "headquater_native_lan": "विराटनगर"
+          },
+          {
+            "id": 7,
+            "district_en": "Okhaldhunga",
+            "district_native_lan": "ओखलढुंगा",
+            "headquater_en": "Siddhicharan",
+            "headquater_native_lan": "सिद्धिचरण"
+          },
+          {
+            "id": 8,
+            "district_en": "Panchthar",
+            "district_native_lan": "पाँचथर",
+            "headquater_en": "Phidim",
+            "headquater_native_lan": "फिदिम"
+          },
+          {
+            "id": 9,
+            "district_en": "Sankhuwasabha",
+            "district_native_lan": "संखुवासभा",
+            "headquater_en": "Khandbari",
+            "headquater_native_lan": "खाँदबारी"
+          },
+          {
+            "id": 10,
+            "district_en": "Solukhumbu",
+            "district_native_lan": "सोलुखुम्बु",
+            "headquater_en": "Salleri",
+            "headquater_native_lan": "सल्लेरी"
+          },
+          {
+            "id": 11,
+            "district_en": "Sunsari",
+            "district_native_lan": "सुनसरी",
+            "headquater_en": "Inaruwa",
+            "headquater_native_lan": "इनरुवा"
+          },
+          {
+            "id": 12,
+            "district_en": "Taplejung",
+            "district_native_lan": "ताप्लेजुङ",
+            "headquater_en": "Taplejung",
+            "headquater_native_lan": "ताप्लेजुङ"
+          },
+          {
+            "id": 13,
+            "district_en": "Terhathum",
+            "district_native_lan": "तेह्रथुम",
+            "headquater_en": "Myanglung",
+            "headquater_native_lan": "म्याङलुङ"
+          },
+          {
+            "id": 14,
+            "district_en": "Udayapur",
+            "district_native_lan": "उदयपुर",
+            "headquater_en": "Gaighat",
+            "headquater_native_lan": "गाईघाट"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "province_en": "Madhesh Pradesh",
+        "province_native_lan": "मधेस प्रदेश",
+        "capital_en": "Janakpur",
+        "capital_native_lan": "जनकपुर",
+        "area": 9661,
+        "districts": [
+          {
+            "id": 1,
+            "district_en": "Parsa",
+            "district_native_lan": "पर्सा",
+            "headquater_en": "Birganj",
+            "headquater_native_lan": "वीरगन्ज",
+            "area": 1353
+          },
+          {
+            "id": 2,
+            "district_en": "Bara",
+            "district_native_lan": "बारा",
+            "headquater_en": "Kataiya",
+            "headquater_native_lan": "कटैया",
+            "area": 1190
+          },
+          {
+            "id": 3,
+            "district_en": "Rautahat",
+            "district_native_lan": "रौतहट",
+            "headquater_en": "Gaur",
+            "headquater_native_lan": "गौर",
+            "area": 1126
+          },
+          {
+            "id": 4,
+            "district_en": "Sarlahi",
+            "district_native_lan": "सर्लाही",
+            "headquater_en": "Malangwa",
+            "headquater_native_lan": "मलङ्गवा",
+            "area": 1259
+          },
+          {
+            "id": 5,
+            "district_en": "Dhanusha",
+            "district_native_lan": "धनुषा",
+            "headquater_en": "Janakpur",
+            "headquater_native_lan": "जनकपुर",
+            "area": 1180
+          },
+          {
+            "id": 6,
+            "district_en": "Siraha",
+            "district_native_lan": "सिरहा",
+            "headquater_en": "Siraha",
+            "headquater_native_lan": "सिरहा",
+            "area": 1188
+          },
+          {
+            "id": 7,
+            "district_en": "Mahottari",
+            "district_native_lan": "महोत्तरी",
+            "headquater_en": "Jaleshwar",
+            "headquater_native_lan": "जलेश्वर",
+            "area": 1002
+          },
+          {
+            "id": 8,
+            "district_en": "Saptari",
+            "district_native_lan": "सप्तरी",
+            "headquater_en": "Rajbiraj",
+            "headquater_native_lan": "राजविराज",
+            "area": 1363
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "province_en": "Bagmati Pradesh",
+        "province_native_lan": "बागमती प्रदेश",
+        "capital_en": "Kathmandu",
+        "capital_native_lan": "काठमाडौं",
+        "area": 20300,
+        "districts": [
+          {
+            "id": 1,
+            "district_en": "Sindhuli",
+            "district_native_lan": "सिन्धुली",
+            "headquater_en": "Kamalamai",
+            "headquater_native_lan": "कमलामाई",
+            "area": 2491
+          },
+          {
+            "id": 2,
+            "district_en": "Ramechhap",
+            "district_native_lan": "रामेछाप",
+            "headquater_en": "Manthali",
+            "headquater_native_lan": "मन्थली",
+            "area": 1546
+          },
+          {
+            "id": 3,
+            "district_en": "Dolakha",
+            "district_native_lan": "दोलखा",
+            "headquater_en": "Bhimeshwar",
+            "headquater_native_lan": "भीमेश्वर",
+            "area": 2191
+          },
+          {
+            "id": 4,
+            "district_en": "Bhaktapur",
+            "district_native_lan": "भक्तपुर",
+            "headquater_en": "Bhaktapur",
+            "headquater_native_lan": "भक्तपुर",
+            "area": 1359
+          },
+          {
+            "id": 5,
+            "district_en": "Dhading",
+            "district_native_lan": "धादिङ",
+            "headquater_en": "Nilkantha",
+            "headquater_native_lan": "नीलकण्ठ",
+            "area": 1926
+          },
+          {
+            "id": 6,
+            "district_en": "Kathmandu",
+            "district_native_lan": "काठमाडौं ।",
+            "headquater_en": "Kathmandu",
+            "headquater_native_lan": "काठमाडौं ।",
+            "area": 395
+          },
+          {
+            "id": 7,
+            "district_en": "Kavrepalanchok",
+            "district_native_lan": "काभ्रेपलाञ्चोक",
+            "headquater_en": "Dhulikhel",
+            "headquater_native_lan": "धुलिखेल",
+            "area": 1003
+          },
+          {
+            "id": 8,
+            "district_en": "Lalitpur",
+            "district_native_lan": "ललितपुर",
+            "headquater_en": "Lalitpur",
+            "headquater_native_lan": "ललितपुर",
+            "area": 385
+          },
+          {
+            "id": 9,
+            "district_en": "Nuwakot",
+            "district_native_lan": "नुवाकोट",
+            "headquater_en": "Bidur",
+            "headquater_native_lan": "बिदुर",
+            "area": 1121
+          },
+          {
+            "id": 10,
+            "district_en": "Rasuwa",
+            "district_native_lan": "रसुवा",
+            "headquater_en": "Dhunche",
+            "headquater_native_lan": "धुन्चे",
+            "area": 1544
+          },
+          {
+            "id": 11,
+            "district_en": "Sindhupalchok",
+            "district_native_lan": "सिन्धुपाल्चोक",
+            "headquater_en": "Chautara",
+            "headquater_native_lan": "चौतारा",
+            "area": 2542
+          },
+          {
+            "id": 12,
+            "district_en": "Chitwan",
+            "district_native_lan": "चितवन",
+            "headquater_en": "Bharatpur",
+            "headquater_native_lan": "भरतपुर",
+            "area": 2218
+          },
+          {
+            "id": 13,
+            "district_en": "Makawanpur",
+            "district_native_lan": "मकवानपुर",
+            "headquater_en": "Hetauda",
+            "headquater_native_lan": "हेटौंडा",
+            "area": 2426
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "province_en": "Gandaki Pradesh",
+        "province_native_lan": "गण्डकी प्रदेश",
+        "capital_en": "Pokhara",
+        "capital_native_lan": "पोखरा",
+        "area": 21504,
+        "districts": [
+          {
+            "id": 1,
+            "district_en": "Baglung",
+            "district_native_lan": "बाग्लुङ",
+            "headquater_en": "Baglung",
+            "headquater_native_lan": "बाग्लुङ",
+            "area": 1784
+          },
+          {
+            "id": 2,
+            "district_en": "Gorkha",
+            "district_native_lan": "गोरखा",
+            "headquater_en": "Gorkha",
+            "headquater_native_lan": "गोरखा",
+            "area": 3610
+          },
+          {
+            "id": 3,
+            "district_en": "Kaski",
+            "district_native_lan": "कास्की",
+            "headquater_en": "Pokhara",
+            "headquater_native_lan": "पोखरा",
+            "area": 2017
+          },
+          {
+            "id": 4,
+            "district_en": "Lamjung",
+            "district_native_lan": "लमजुङ",
+            "headquater_en": "Besisahar",
+            "headquater_native_lan": "बेसीशहर",
+            "area": 1692
+          },
+          {
+            "id": 5,
+            "district_en": "Manang",
+            "district_native_lan": "मनाङ",
+            "headquater_en": "Chame",
+            "headquater_native_lan": "चामे",
+            "area": 2246
+          },
+          {
+            "id": 6,
+            "district_en": "Mustang",
+            "district_native_lan": "मुस्ताङ",
+            "headquater_en": "Jomsom",
+            "headquater_native_lan": "जोमसोम",
+            "area": 3573
+          },
+          {
+            "id": 7,
+            "district_en": "Myagdi",
+            "district_native_lan": "म्याग्दी",
+            "headquater_en": "Beni",
+            "headquater_native_lan": "बेनी",
+            "area": 2297
+          },
+          {
+            "id": 8,
+            "district_en": "Nawalpur",
+            "district_native_lan": "नवलपुर",
+            "headquater_en": "Kawasoti",
+            "headquater_native_lan": "कावासोती",
+            "area": 1043
+          },
+          {
+            "id": 9,
+            "district_en": "Parbat",
+            "district_native_lan": "पर्वत",
+            "headquater_en": "Kusma",
+            "headquater_native_lan": "कुस्मा",
+            "area": 494
+          },
+          {
+            "id": 10,
+            "district_en": "Syangja",
+            "district_native_lan": "स्याङ्जा",
+            "headquater_en": "Putalibazar",
+            "headquater_native_lan": "पुतलीबजार",
+            "area": 1164
+          },
+          {
+            "id": 11,
+            "district_en": "Tanahu",
+            "district_native_lan": "तनहुँ",
+            "headquater_en": "Damauli",
+            "headquater_native_lan": "दमौली",
+            "area": 1546
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "province_en": "Lumbini Pradesh",
+        "province_native_lan": "लुम्बिनी प्रदेश",
+        "capital_en": "Deukhuri",
+        "capital_native_lan": "देउखुरी",
+        "area": 22288,
+        "districts": [
+          {
+            "id": 1,
+            "district_en": "Kapilvastu",
+            "district_native_lan": "कपिलवस्तु",
+            "headquater_en": "Taulihawa",
+            "headquater_native_lan": "तौलिहवा",
+            "area": 1738
+          },
+          {
+            "id": 2,
+            "district_en": "Parasi",
+            "district_native_lan": "परासी",
+            "headquater_en": "Ramgram",
+            "headquater_native_lan": "रामग्राम",
+            "area": 635
+          },
+          {
+            "id": 3,
+            "district_en": "Rupandehi",
+            "district_native_lan": "रुपन्देही",
+            "headquater_en": "Siddarthanagar",
+            "headquater_native_lan": "सिद्धार्थनगर",
+            "area": 1360
+          },
+          {
+            "id": 4,
+            "district_en": "Arghakhanchi",
+            "district_native_lan": "अर्घाखाँची",
+            "headquater_en": "Sandhikharka",
+            "headquater_native_lan": "सन्धिखर्क",
+            "area": 1193
+          },
+          {
+            "id": 5,
+            "district_en": "Gulmi",
+            "district_native_lan": "गुल्मी",
+            "headquater_en": "Tamghas",
+            "headquater_native_lan": "तम्घास",
+            "area": 1149
+          },
+          {
+            "id": 6,
+            "district_en": "Palpa",
+            "district_native_lan": "पाल्पा",
+            "headquater_en": "Tansen",
+            "headquater_native_lan": "तानसेन",
+            "area": 1373
+          },
+          {
+            "id": 7,
+            "district_en": "Dang",
+            "district_native_lan": "दाङ",
+            "headquater_en": "Ghorahi",
+            "headquater_native_lan": "घोराही",
+            "area": 2955
+          },
+          {
+            "id": 8,
+            "district_en": "Pyuthan",
+            "district_native_lan": "प्युठान",
+            "headquater_en": "Pyuthan",
+            "headquater_native_lan": "प्युठान",
+            "area": 1309
+          },
+          {
+            "id": 9,
+            "district_en": "Rolpa",
+            "district_native_lan": "रोल्पा",
+            "headquater_en": "Liwang",
+            "headquater_native_lan": "लिवाङ",
+            "area": 1879
+          },
+          {
+            "id": 10,
+            "district_en": "Eastern Rukum",
+            "district_native_lan": "पूर्वी रुकुम",
+            "headquater_en": "Rumukot",
+            "headquater_native_lan": "रुमुकोट",
+            "area": 1161
+          },
+          {
+            "id": 11,
+            "district_en": "Banke",
+            "district_native_lan": "बाँके",
+            "headquater_en": "Nepalgunj",
+            "headquater_native_lan": "नेपालगन्ज",
+            "area": 2337
+          },
+          {
+            "id": 12,
+            "district_en": "Bardiya",
+            "district_native_lan": "बर्दिया",
+            "headquater_en": "Gulariya",
+            "headquater_native_lan": "गुलरिया",
+            "area": 2337
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "province_en": "Karnali Pradesh",
+        "province_native_lan": "कर्णाली प्रदेश",
+        "capital_en": "Birendranagar",
+        "capital_native_lan": "वीरेन्द्रनगर",
+        "area": 27984,
+        "districts": [
+          {
+            "id": 1,
+            "district_en": "Western Rukum",
+            "district_native_lan": "रुकुम पश्चिम",
+            "headquater_en": "Musikot",
+            "headquater_native_lan": "मुसिकोट",
+            "area": 1213
+          },
+          {
+            "id": 2,
+            "district_en": "Salyan",
+            "district_native_lan": "सल्यान",
+            "headquater_en": "Salyan",
+            "headquater_native_lan": "सल्यान",
+            "area": 1462
+          },
+          {
+            "id": 3,
+            "district_en": "Dolpa",
+            "district_native_lan": "डोल्पा",
+            "headquater_en": "Dunai",
+            "headquater_native_lan": "दुनै",
+            "area": 7889
+          },
+          {
+            "id": 4,
+            "district_en": "Humla",
+            "district_native_lan": "हुम्ला",
+            "headquater_en": "Simikot",
+            "headquater_native_lan": "सिमिकोट",
+            "area": 5655
+          },
+          {
+            "id": 5,
+            "district_en": "Jumla",
+            "district_native_lan": "जुम्ला",
+            "headquater_en": "Chandannath",
+            "headquater_native_lan": "चन्दननाथ",
+            "area": 2531
+          },
+          {
+            "id": 6,
+            "district_en": "Kalikot",
+            "district_native_lan": "कालिकोट",
+            "headquater_en": "Manma",
+            "headquater_native_lan": "मन्मा",
+            "area": 1741
+          },
+          {
+            "id": 7,
+            "district_en": "Mugu",
+            "district_native_lan": "मुगु",
+            "headquater_en": "Gamgadhi",
+            "headquater_native_lan": "गमगढी",
+            "area": 3535
+          },
+          {
+            "id": 8,
+            "district_en": "Surkhet",
+            "district_native_lan": "सुर्खेत",
+            "headquater_en": "Birendranagar",
+            "headquater_native_lan": "वीरेन्द्रनगर",
+            "area": 2461
+          },
+          {
+            "id": 9,
+            "district_en": "Dailekh",
+            "district_native_lan": "दैलेख",
+            "headquater_en": "Narayan",
+            "headquater_native_lan": "नारायण",
+            "area": 1502
+          },
+          {
+            "id": 10,
+            "district_en": "Jajarkot",
+            "district_native_lan": "जाजरकोट",
+            "headquater_en": "Khalanga",
+            "headquater_native_lan": "खलंगा",
+            "area": 2230
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "province_en": "Sudur Pashchim Pradesh",
+        "province_native_lan": "सुदूरपश्चिम प्रदेश",
+        "capital_en": "Dhangadhi",
+        "capital_native_lan": "धनगढी",
+        "area": 19915,
+        "districts": [
+          {
+            "id": 1,
+            "district_en": "Kailali",
+            "district_native_lan": "कैलाली",
+            "headquater_en": "Dhangadi",
+            "headquater_native_lan": "धनगढी",
+            "area": 3235
+          },
+          {
+            "id": 2,
+            "district_en": "Achham",
+            "district_native_lan": "अछाम",
+            "headquater_en": "Mangalsen",
+            "headquater_native_lan": "मंगलसेन",
+            "area": 1680
+          },
+          {
+            "id": 3,
+            "district_en": "Doti",
+            "district_native_lan": "डोटी",
+            "headquater_en": "Dipayal Silgadhi",
+            "headquater_native_lan": "दिपायल सिलगढी",
+            "area": 2025
+          },
+          {
+            "id": 4,
+            "district_en": "Bajhang",
+            "district_native_lan": "बझाङ",
+            "headquater_en": "Jayaprithvi",
+            "headquater_native_lan": "जयपृथ्वी",
+            "area": 3422
+          },
+          {
+            "id": 5,
+            "district_en": "Bajura",
+            "district_native_lan": "बाजुरा",
+            "headquater_en": "Martadi",
+            "headquater_native_lan": "मार्तडी",
+            "area": 2188
+          },
+          {
+            "id": 6,
+            "district_en": "Kanchanpur",
+            "district_native_lan": "कञ्चनपुर",
+            "headquater_en": "Bhimdatta",
+            "headquater_native_lan": "भीमदत्त",
+            "area": 1610
+          },
+          {
+            "id": 7,
+            "district_en": "Dadeldhura",
+            "district_native_lan": "डडेल्धुरा",
+            "headquater_en": "Amargadhi",
+            "headquater_native_lan": "अमरगढी",
+            "area": 1538
+          },
+          {
+            "id": 8,
+            "district_en": "Baitadi",
+            "district_native_lan": "बैतडी",
+            "headquater_en": "Dasharathchand",
+            "headquater_native_lan": "दशरथचन्द",
+            "area": 1519
+          },
+          {
+            "id": 9,
+            "district_en": "Darchula",
+            "district_native_lan": "दार्चुला",
+            "headquater_en": "Darchula",
+            "headquater_native_lan": "दार्चुला",
+            "area": 2322
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 146,
+    "country": "Netherlands",
+    "capital": "Amsterdam",
+    "cc_iso2": "NL",
+    "cc_iso3": "NLD",
+    "state": []
+  },
+  {
+    "id": 147,
+    "country": "New Caledonia",
+    "capital": "Noumea",
+    "cc_iso2": "NC",
+    "cc_iso3": "NCL",
+    "state": []
+  },
+  {
+    "id": 148,
+    "country": "New Zealand",
+    "capital": "Auckland",
+    "cc_iso2": "NZ",
+    "cc_iso3": "NZL",
+    "state": []
+  },
+  {
+    "id": 149,
+    "country": "Nicaragua",
+    "capital": "Managua",
+    "cc_iso2": "NI",
+    "cc_iso3": "NIC",
+    "state": []
+  },
+  {
+    "id": 150,
+    "country": "Niger",
+    "capital": "Niamey",
+    "cc_iso2": "NE",
+    "cc_iso3": "NER",
+    "state": []
+  },
+  {
+    "id": 151,
+    "country": "Nigeria",
+    "capital": "Lagos",
+    "cc_iso2": "NG",
+    "cc_iso3": "NGA",
+    "state": []
+  },
+  {
+    "id": 152,
+    "country": "Niue",
+    "capital": "Alofi",
+    "cc_iso2": "NU",
+    "cc_iso3": "NIU",
+    "state": []
+  },
+  {
+    "id": 153,
+    "country": "Norfolk Island",
+    "capital": "Kingston",
+    "cc_iso2": "NF",
+    "cc_iso3": "NFK",
+    "state": []
+  },
+  {
+    "id": 154,
+    "country": "North Korea",
+    "capital": "Pyongyang",
+    "cc_iso2": "KP",
+    "cc_iso3": "PRK",
+    "state": []
+  },
+  {
+    "id": 155,
+    "country": "Northern Mariana Islands",
+    "capital": "Capitol Hill",
+    "cc_iso2": "MP",
+    "cc_iso3": "MNP",
+    "state": []
+  },
+  {
+    "id": 156,
+    "country": "Norway",
+    "capital": "Oslo",
+    "cc_iso2": "NO",
+    "cc_iso3": "NOR",
+    "state": []
+  },
+  {
+    "id": 157,
+    "country": "Oman",
+    "capital": "Muscat",
+    "cc_iso2": "OM",
+    "cc_iso3": "OMN",
+    "state": []
+  },
+  {
+    "id": 158,
+    "country": "Pakistan",
+    "capital": "Karachi",
+    "cc_iso2": "PK",
+    "cc_iso3": "PAK",
+    "state": []
+  },
+  {
+    "id": 159,
+    "country": "Palau",
+    "capital": "Ngerulmud",
+    "cc_iso2": "PW",
+    "cc_iso3": "PLW",
+    "state": []
+  },
+  {
+    "id": 160,
+    "country": "Panama",
+    "capital": "Panama City",
+    "cc_iso2": "PA",
+    "cc_iso3": "PAN",
+    "state": []
+  },
+  {
+    "id": 161,
+    "country": "Papua New Guinea",
+    "capital": "Port Moresby",
+    "cc_iso2": "PG",
+    "cc_iso3": "PNG",
+    "state": []
+  },
+  {
+    "id": 162,
+    "country": "Paraguay",
+    "capital": "Asuncion",
+    "cc_iso2": "PY",
+    "cc_iso3": "PRY",
+    "state": []
+  },
+  {
+    "id": 163,
+    "country": "Peru",
+    "capital": "Lima",
+    "cc_iso2": "PE",
+    "cc_iso3": "PER",
+    "state": []
+  },
+  {
+    "id": 164,
+    "country": "Philippines",
+    "capital": "Manila",
+    "cc_iso2": "PH",
+    "cc_iso3": "PHL",
+    "state": []
+  },
+  {
+    "id": 165,
+    "country": "Pitcairn Islands",
+    "capital": "Adamstown",
+    "cc_iso2": "PN",
+    "cc_iso3": "PCN",
+    "state": []
+  },
+  {
+    "id": 166,
+    "country": "Poland",
+    "capital": "Warsaw",
+    "cc_iso2": "PL",
+    "cc_iso3": "POL",
+    "state": []
+  },
+  {
+    "id": 167,
+    "country": "Portugal",
+    "capital": "Lisbon",
+    "cc_iso2": "PT",
+    "cc_iso3": "PRT",
+    "state": []
+  },
+  {
+    "id": 168,
+    "country": "Puerto Rico",
+    "capital": "San Juan",
+    "cc_iso2": "PR",
+    "cc_iso3": "PRI",
+    "state": []
+  },
+  {
+    "id": 169,
+    "country": "Qatar",
+    "capital": "Doha",
+    "cc_iso2": "QA",
+    "cc_iso3": "QAT",
+    "state": []
+  },
+  {
+    "id": 170,
+    "country": "Reunion",
+    "capital": "Saint-Denis",
+    "cc_iso2": "RE",
+    "cc_iso3": "REU",
+    "state": []
+  },
+  {
+    "id": 171,
+    "country": "Romania",
+    "capital": "Bucharest",
+    "cc_iso2": "RO",
+    "cc_iso3": "ROU",
+    "state": []
+  },
+  {
+    "id": 172,
+    "country": "Russia",
+    "capital": "Moscow",
+    "cc_iso2": "RU",
+    "cc_iso3": "RUS",
+    "state": []
+  },
+  {
+    "id": 173,
+    "country": "Rwanda",
+    "capital": "Kigali",
+    "cc_iso2": "RW",
+    "cc_iso3": "RWA",
+    "state": []
+  },
+  {
+    "id": 174,
+    "country": "Saint Barthelemy",
+    "capital": "Gustavia",
+    "cc_iso2": "BL",
+    "cc_iso3": "BLM",
+    "state": []
+  },
+  {
+    "id": 175,
+    "country": "Saint Helena, Ascension, And Tristan Da Cunha",
+    "capital": "Jamestown",
+    "cc_iso2": "SH",
+    "cc_iso3": "SHN",
+    "state": []
+  },
+  {
+    "id": 176,
+    "country": "Saint Kitts And Nevis",
+    "capital": "Basseterre",
+    "cc_iso2": "KN",
+    "cc_iso3": "KNA",
+    "state": []
+  },
+  {
+    "id": 177,
+    "country": "Saint Lucia",
+    "capital": "Castries",
+    "cc_iso2": "LC",
+    "cc_iso3": "LCA",
+    "state": []
+  },
+  {
+    "id": 178,
+    "country": "Saint Martin",
+    "capital": "Marigot",
+    "cc_iso2": "MF",
+    "cc_iso3": "MAF",
+    "state": []
+  },
+  {
+    "id": 179,
+    "country": "Saint Pierre And Miquelon",
+    "capital": "Saint-Pierre",
+    "cc_iso2": "PM",
+    "cc_iso3": "SPM",
+    "state": []
+  },
+  {
+    "id": 180,
+    "country": "Saint Vincent And The Grenadines",
+    "capital": "Kingstown",
+    "cc_iso2": "VC",
+    "cc_iso3": "VCT",
+    "state": []
+  },
+  {
+    "id": 181,
+    "country": "Samoa",
+    "capital": "Apia",
+    "cc_iso2": "WS",
+    "cc_iso3": "WSM",
+    "state": []
+  },
+  {
+    "id": 182,
+    "country": "San Marino",
+    "capital": "San Marino",
+    "cc_iso2": "SM",
+    "cc_iso3": "SMR",
+    "state": []
+  },
+  {
+    "id": 183,
+    "country": "Sao Tome And Principe",
+    "capital": "Sao Tome",
+    "cc_iso2": "ST",
+    "cc_iso3": "STP",
+    "state": []
+  },
+  {
+    "id": 184,
+    "country": "Saudi Arabia",
+    "capital": "Riyadh",
+    "cc_iso2": "SA",
+    "cc_iso3": "SAU",
+    "state": []
+  },
+  {
+    "id": 185,
+    "country": "Senegal",
+    "capital": "Pikine",
+    "cc_iso2": "SN",
+    "cc_iso3": "SEN",
+    "state": []
+  },
+  {
+    "id": 186,
+    "country": "Serbia",
+    "capital": "Belgrade",
+    "cc_iso2": "RS",
+    "cc_iso3": "SRB",
+    "state": []
+  },
+  {
+    "id": 187,
+    "country": "Seychelles",
+    "capital": "Victoria",
+    "cc_iso2": "SC",
+    "cc_iso3": "SYC",
+    "state": []
+  },
+  {
+    "id": 188,
+    "country": "Sierra Leone",
+    "capital": "Freetown",
+    "cc_iso2": "SL",
+    "cc_iso3": "SLE",
+    "state": []
+  },
+  {
+    "id": 189,
+    "country": "Singapore",
+    "capital": "Singapore",
+    "cc_iso2": "SG",
+    "cc_iso3": "SGP",
+    "state": []
+  },
+  {
+    "id": 190,
+    "country": "Sint Maarten",
+    "capital": "Philipsburg",
+    "cc_iso2": "SX",
+    "cc_iso3": "SXM",
+    "state": []
+  },
+  {
+    "id": 191,
+    "country": "Slovakia",
+    "capital": "Bratislava",
+    "cc_iso2": "SK",
+    "cc_iso3": "SVK",
+    "state": []
+  },
+  {
+    "id": 192,
+    "country": "Slovenia",
+    "capital": "Ljubljana",
+    "cc_iso2": "SI",
+    "cc_iso3": "SVN",
+    "state": []
+  },
+  {
+    "id": 193,
+    "country": "Solomon Islands",
+    "capital": "Honiara",
+    "cc_iso2": "SB",
+    "cc_iso3": "SLB",
+    "state": []
+  },
+  {
+    "id": 194,
+    "country": "Somalia",
+    "capital": "Mogadishu",
+    "cc_iso2": "SO",
+    "cc_iso3": "SOM",
+    "state": []
+  },
+  {
+    "id": 195,
+    "country": "South Africa",
+    "capital": "Johannesburg",
+    "cc_iso2": "ZA",
+    "cc_iso3": "ZAF",
+    "state": []
+  },
+  {
+    "id": 196,
+    "country": "South Georgia And South Sandwich Islands",
+    "capital": "King Edward Point",
+    "cc_iso2": "GS",
+    "cc_iso3": "SGS",
+    "state": []
+  },
+  {
+    "id": 197,
+    "country": "South Korea",
+    "capital": "Seoul",
+    "cc_iso2": "KR",
+    "cc_iso3": "KOR",
+    "state": []
+  },
+  {
+    "id": 198,
+    "country": "South Sudan",
+    "capital": "Juba",
+    "cc_iso2": "SS",
+    "cc_iso3": "SSD",
+    "state": []
+  },
+  {
+    "id": 199,
+    "country": "Spain",
+    "capital": "Madrid",
+    "cc_iso2": "ES",
+    "cc_iso3": "ESP",
+    "state": []
+  },
+  {
+    "id": 200,
+    "country": "Sri Lanka",
+    "capital": "Colombo",
+    "cc_iso2": "LK",
+    "cc_iso3": "LKA",
+    "state": []
+  },
+  {
+    "id": 201,
+    "country": "Sudan",
+    "capital": "Khartoum",
+    "cc_iso2": "SD",
+    "cc_iso3": "SDN",
+    "state": []
+  },
+  {
+    "id": 202,
+    "country": "Suriname",
+    "capital": "Paramaribo",
+    "cc_iso2": "SR",
+    "cc_iso3": "SUR",
+    "state": []
+  },
+  {
+    "id": 203,
+    "country": "Svalbard",
+    "capital": "Longyearbyen",
+    "cc_iso2": "XR",
+    "cc_iso3": "XSV",
+    "state": []
+  },
+  {
+    "id": 204,
+    "country": "Swaziland",
+    "capital": "Mbabane",
+    "cc_iso2": "SZ",
+    "cc_iso3": "SWZ",
+    "state": []
+  },
+  {
+    "id": 205,
+    "country": "Sweden",
+    "capital": "Stockholm",
+    "cc_iso2": "SE",
+    "cc_iso3": "SWE",
+    "state": []
+  },
+  {
+    "id": 206,
+    "country": "Switzerland",
+    "capital": "Bern",
+    "cc_iso2": "CH",
+    "cc_iso3": "CHE",
+    "state": []
+  },
+  {
+    "id": 207,
+    "country": "Syria",
+    "capital": "Aleppo",
+    "cc_iso2": "SY",
+    "cc_iso3": "SYR",
+    "state": []
+  },
+  {
+    "id": 208,
+    "country": "Taiwan",
+    "capital": "Taichung",
+    "cc_iso2": "TW",
+    "cc_iso3": "TWN",
+    "state": []
+  },
+  {
+    "id": 209,
+    "country": "Tajikistan",
+    "capital": "Dushanbe",
+    "cc_iso2": "TJ",
+    "cc_iso3": "TJK",
+    "state": []
+  },
+  {
+    "id": 210,
+    "country": "Tanzania",
+    "capital": "Dar es Salaam",
+    "cc_iso2": "TZ",
+    "cc_iso3": "TZA",
+    "state": []
+  },
+  {
+    "id": 211,
+    "country": "Thailand",
+    "capital": "Bangkok",
+    "cc_iso2": "TH",
+    "cc_iso3": "THA",
+    "state": []
+  },
+  {
+    "id": 212,
+    "country": "The Bahamas",
+    "capital": "Nassau",
+    "cc_iso2": "BS",
+    "cc_iso3": "BHS",
+    "state": []
+  },
+  {
+    "id": 213,
+    "country": "The Gambia",
+    "capital": "Banjul",
+    "cc_iso2": "GM",
+    "cc_iso3": "GMB",
+    "state": []
+  },
+  {
+    "id": 214,
+    "country": "Timor-Leste",
+    "capital": "Dili",
+    "cc_iso2": "TL",
+    "cc_iso3": "TLS",
+    "state": []
+  },
+  {
+    "id": 215,
+    "country": "Togo",
+    "capital": "Lome",
+    "cc_iso2": "TG",
+    "cc_iso3": "TGO",
+    "state": []
+  },
+  {
+    "id": 216,
+    "country": "Tonga",
+    "capital": "Nuku`alofa",
+    "cc_iso2": "TO",
+    "cc_iso3": "TON",
+    "state": []
+  },
+  {
+    "id": 217,
+    "country": "Trinidad And Tobago",
+    "capital": "Port of Spain",
+    "cc_iso2": "TT",
+    "cc_iso3": "TTO",
+    "state": []
+  },
+  {
+    "id": 218,
+    "country": "Tunisia",
+    "capital": "Tunis",
+    "cc_iso2": "TN",
+    "cc_iso3": "TUN",
+    "state": []
+  },
+  {
+    "id": 219,
+    "country": "Turkey",
+    "capital": "Istanbul",
+    "cc_iso2": "TR",
+    "cc_iso3": "TUR",
+    "state": []
+  },
+  {
+    "id": 220,
+    "country": "Turkmenistan",
+    "capital": "Ashgabat",
+    "cc_iso2": "TM",
+    "cc_iso3": "TKM",
+    "state": []
+  },
+  {
+    "id": 221,
+    "country": "Turks And Caicos Islands",
+    "capital": "Grand Turk",
+    "cc_iso2": "TC",
+    "cc_iso3": "TCA",
+    "state": []
+  },
+  {
+    "id": 222,
+    "country": "Tuvalu",
+    "capital": "Funafuti",
+    "cc_iso2": "TV",
+    "cc_iso3": "TUV",
+    "state": []
+  },
+  {
+    "id": 223,
+    "country": "U.S. Virgin Islands",
+    "capital": "Charlotte Amalie",
+    "cc_iso2": "VI",
+    "cc_iso3": "VIR",
+    "state": []
+  },
+  {
+    "id": 224,
+    "country": "Uganda",
+    "capital": "Kampala",
+    "cc_iso2": "UG",
+    "cc_iso3": "UGA",
+    "state": []
+  },
+  {
+    "id": 225,
+    "country": "Ukraine",
+    "capital": "Kyiv",
+    "cc_iso2": "UA",
+    "cc_iso3": "UKR",
+    "state": []
+  },
+  {
+    "id": 226,
+    "country": "United Arab Emirates",
+    "capital": "Dubai",
+    "cc_iso2": "AE",
+    "cc_iso3": "ARE",
+    "state": []
+  },
+  {
+    "id": 227,
+    "country": "United Kingdom",
+    "capital": "London",
+    "cc_iso2": "GB",
+    "cc_iso3": "GBR",
+    "state": []
+  },
+  {
+    "id": 228,
+    "country": "United States",
+    "capital": "New York",
+    "cc_iso2": "US",
+    "cc_iso3": "USA",
+    "state": []
+  },
+  {
+    "id": 229,
+    "country": "Uruguay",
+    "capital": "Montevideo",
+    "cc_iso2": "UY",
+    "cc_iso3": "URY",
+    "state": []
+  },
+  {
+    "id": 230,
+    "country": "Uzbekistan",
+    "capital": "Tashkent",
+    "cc_iso2": "UZ",
+    "cc_iso3": "UZB",
+    "state": []
+  },
+  {
+    "id": 231,
+    "country": "Vanuatu",
+    "capital": "Port-Vila",
+    "cc_iso2": "VU",
+    "cc_iso3": "VUT",
+    "state": []
+  },
+  {
+    "id": 232,
+    "country": "Vatican City",
+    "capital": "Vatican City",
+    "cc_iso2": "VA",
+    "cc_iso3": "VAT",
+    "state": []
+  },
+  {
+    "id": 233,
+    "country": "Venezuela",
+    "capital": "Caracas",
+    "cc_iso2": "VE",
+    "cc_iso3": "VEN",
+    "state": []
+  },
+  {
+    "id": 234,
+    "country": "Vietnam",
+    "capital": "Ho Chi Minh City",
+    "cc_iso2": "VN",
+    "cc_iso3": "VNM",
+    "state": []
+  },
+  {
+    "id": 235,
+    "country": "Wallis And Futuna",
+    "capital": "Mata-Utu",
+    "cc_iso2": "WF",
+    "cc_iso3": "WLF",
+    "state": []
+  },
+  {
+    "id": 236,
+    "country": "West Bank",
+    "capital": "Al Quds",
+    "cc_iso2": "XW",
+    "cc_iso3": "XWB",
+    "state": []
+  },
+  {
+    "id": 237,
+    "country": "Yemen",
+    "capital": "Sanaa",
+    "cc_iso2": "YE",
+    "cc_iso3": "YEM",
+    "state": []
+  },
+  {
+    "id": 238,
+    "country": "Zambia",
+    "capital": "Lusaka",
+    "cc_iso2": "ZM",
+    "cc_iso3": "ZMB",
+    "state": []
+  },
+  {
+    "id": 239,
+    "country": "Zimbabwe",
+    "capital": "Harare",
+    "cc_iso2": "ZW",
+    "cc_iso3": "ZWE",
+    "state": []
+  }
+]

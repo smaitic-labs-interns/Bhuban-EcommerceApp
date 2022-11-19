@@ -1,0 +1,674 @@
+[
+  {
+    "id": 1,
+    "province_en": "Province No 1",
+    "province_native_lan": "प्रदेश नम्बर १",
+    "capital_en": "Biratnagar",
+    "capital_native_lan": "विराटनगर",
+    "area": 25905,
+    "districts": [
+      {
+        "id": 1,
+        "district_en": "Bhojpur",
+        "district_native_lan": "भोजपुर",
+        "headquater_en": "Bhojpur",
+        "headquater_native_lan": "भोजपुर"
+      },
+      {
+        "id": 2,
+        "district_en": "Dhankuta",
+        "district_native_lan": "धनकुटा",
+        "headquater_en": "Dhankuta",
+        "headquater_native_lan": "धनकुटा"
+      },
+      {
+        "id": 3,
+        "district_en": "Ilam",
+        "district_native_lan": "इलाम",
+        "headquater_en": "Ilam",
+        "headquater_native_lan": "इलाम"
+      },
+      {
+        "id": 4,
+        "district_en": "Jhapa",
+        "district_native_lan": "झापा",
+        "headquater_en": "Bhadrapur",
+        "headquater_native_lan": "भद्रपुर"
+      },
+      {
+        "id": 5,
+        "district_en": "Khotang",
+        "district_native_lan": "खोटाङ",
+        "headquater_en": "Diktel",
+        "headquater_native_lan": "डिक्टेल"
+      },
+      {
+        "id": 6,
+        "district_en": "Morang",
+        "district_native_lan": "मोरङ",
+        "headquater_en": "Biratnagar",
+        "headquater_native_lan": "विराटनगर"
+      },
+      {
+        "id": 7,
+        "district_en": "Okhaldhunga",
+        "district_native_lan": "ओखलढुंगा",
+        "headquater_en": "Siddhicharan",
+        "headquater_native_lan": "सिद्धिचरण"
+      },
+      {
+        "id": 8,
+        "district_en": "Panchthar",
+        "district_native_lan": "पाँचथर",
+        "headquater_en": "Phidim",
+        "headquater_native_lan": "फिदिम"
+      },
+      {
+        "id": 9,
+        "district_en": "Sankhuwasabha",
+        "district_native_lan": "संखुवासभा",
+        "headquater_en": "Khandbari",
+        "headquater_native_lan": "खाँदबारी"
+      },
+      {
+        "id": 10,
+        "district_en": "Solukhumbu",
+        "district_native_lan": "सोलुखुम्बु",
+        "headquater_en": "Salleri",
+        "headquater_native_lan": "सल्लेरी"
+      },
+      {
+        "id": 11,
+        "district_en": "Sunsari",
+        "district_native_lan": "सुनसरी",
+        "headquater_en": "Inaruwa",
+        "headquater_native_lan": "इनरुवा"
+      },
+      {
+        "id": 12,
+        "district_en": "Taplejung",
+        "district_native_lan": "ताप्लेजुङ",
+        "headquater_en": "Taplejung",
+        "headquater_native_lan": "ताप्लेजुङ"
+      },
+      {
+        "id": 13,
+        "district_en": "Terhathum",
+        "district_native_lan": "तेह्रथुम",
+        "headquater_en": "Myanglung",
+        "headquater_native_lan": "म्याङलुङ"
+      },
+      {
+        "id": 14,
+        "district_en": "Udayapur",
+        "district_native_lan": "उदयपुर",
+        "headquater_en": "Gaighat",
+        "headquater_native_lan": "गाईघाट"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "province_en": "Madhesh Pradesh",
+    "province_native_lan": "मधेस प्रदेश",
+    "capital_en": "Janakpur",
+    "capital_native_lan": "जनकपुर",
+    "area": 9661,
+    "districts": [
+      {
+        "id": 1,
+        "district_en": "Parsa",
+        "district_native_lan": "पर्सा",
+        "headquater_en": "Birganj",
+        "headquater_native_lan": "वीरगन्ज",
+        "area": 1353
+      },
+      {
+        "id": 2,
+        "district_en": "Bara",
+        "district_native_lan": "बारा",
+        "headquater_en": "Kataiya",
+        "headquater_native_lan": "कटैया",
+        "area": 1190
+      },
+      {
+        "id": 3,
+        "district_en": "Rautahat",
+        "district_native_lan": "रौतहट",
+        "headquater_en": "Gaur",
+        "headquater_native_lan": "गौर",
+        "area": 1126
+      },
+      {
+        "id": 4,
+        "district_en": "Sarlahi",
+        "district_native_lan": "सर्लाही",
+        "headquater_en": "Malangwa",
+        "headquater_native_lan": "मलङ्गवा",
+        "area": 1259
+      },
+      {
+        "id": 5,
+        "district_en": "Dhanusha",
+        "district_native_lan": "धनुषा",
+        "headquater_en": "Janakpur",
+        "headquater_native_lan": "जनकपुर",
+        "area": 1180
+      },
+      {
+        "id": 6,
+        "district_en": "Siraha",
+        "district_native_lan": "सिरहा",
+        "headquater_en": "Siraha",
+        "headquater_native_lan": "सिरहा",
+        "area": 1188
+      },
+      {
+        "id": 7,
+        "district_en": "Mahottari",
+        "district_native_lan": "महोत्तरी",
+        "headquater_en": "Jaleshwar",
+        "headquater_native_lan": "जलेश्वर",
+        "area": 1002
+      },
+      {
+        "id": 8,
+        "district_en": "Saptari",
+        "district_native_lan": "सप्तरी",
+        "headquater_en": "Rajbiraj",
+        "headquater_native_lan": "राजविराज",
+        "area": 1363
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "province_en": "Bagmati Pradesh",
+    "province_native_lan": "बागमती प्रदेश",
+    "capital_en": "Kathmandu",
+    "capital_native_lan": "काठमाडौं",
+    "area": 20300,
+    "districts": [
+      {
+        "id": 1,
+        "district_en": "Sindhuli",
+        "district_native_lan": "सिन्धुली",
+        "headquater_en": "Kamalamai",
+        "headquater_native_lan": "कमलामाई",
+        "area": 2491
+      },
+      {
+        "id": 2,
+        "district_en": "Ramechhap",
+        "district_native_lan": "रामेछाप",
+        "headquater_en": "Manthali",
+        "headquater_native_lan": "मन्थली",
+        "area": 1546
+      },
+      {
+        "id": 3,
+        "district_en": "Dolakha",
+        "district_native_lan": "दोलखा",
+        "headquater_en": "Bhimeshwar",
+        "headquater_native_lan": "भीमेश्वर",
+        "area": 2191
+      },
+      {
+        "id": 4,
+        "district_en": "Bhaktapur",
+        "district_native_lan": "भक्तपुर",
+        "headquater_en": "Bhaktapur",
+        "headquater_native_lan": "भक्तपुर",
+        "area": 1359
+      },
+      {
+        "id": 5,
+        "district_en": "Dhading",
+        "district_native_lan": "धादिङ",
+        "headquater_en": "Nilkantha",
+        "headquater_native_lan": "नीलकण्ठ",
+        "area": 1926
+      },
+      {
+        "id": 6,
+        "district_en": "Kathmandu",
+        "district_native_lan": "काठमाडौं ।",
+        "headquater_en": "Kathmandu",
+        "headquater_native_lan": "काठमाडौं ।",
+        "area": 395
+      },
+      {
+        "id": 7,
+        "district_en": "Kavrepalanchok",
+        "district_native_lan": "काभ्रेपलाञ्चोक",
+        "headquater_en": "Dhulikhel",
+        "headquater_native_lan": "धुलिखेल",
+        "area": 1003
+      },
+      {
+        "id": 8,
+        "district_en": "Lalitpur",
+        "district_native_lan": "ललितपुर",
+        "headquater_en": "Lalitpur",
+        "headquater_native_lan": "ललितपुर",
+        "area": 385
+      },
+      {
+        "id": 9,
+        "district_en": "Nuwakot",
+        "district_native_lan": "नुवाकोट",
+        "headquater_en": "Bidur",
+        "headquater_native_lan": "बिदुर",
+        "area": 1121
+      },
+      {
+        "id": 10,
+        "district_en": "Rasuwa",
+        "district_native_lan": "रसुवा",
+        "headquater_en": "Dhunche",
+        "headquater_native_lan": "धुन्चे",
+        "area": 1544
+      },
+      {
+        "id": 11,
+        "district_en": "Sindhupalchok",
+        "district_native_lan": "सिन्धुपाल्चोक",
+        "headquater_en": "Chautara",
+        "headquater_native_lan": "चौतारा",
+        "area": 2542
+      },
+      {
+        "id": 12,
+        "district_en": "Chitwan",
+        "district_native_lan": "चितवन",
+        "headquater_en": "Bharatpur",
+        "headquater_native_lan": "भरतपुर",
+        "area": 2218
+      },
+      {
+        "id": 13,
+        "district_en": "Makawanpur",
+        "district_native_lan": "मकवानपुर",
+        "headquater_en": "Hetauda",
+        "headquater_native_lan": "हेटौंडा",
+        "area": 2426
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "province_en": "Gandaki Pradesh",
+    "province_native_lan": "गण्डकी प्रदेश",
+    "capital_en": "Pokhara",
+    "capital_native_lan": "पोखरा",
+    "area": 21504,
+    "districts": [
+      {
+        "id": 1,
+        "district_en": "Baglung",
+        "district_native_lan": "बाग्लुङ",
+        "headquater_en": "Baglung",
+        "headquater_native_lan": "बाग्लुङ",
+        "area": 1784
+      },
+      {
+        "id": 2,
+        "district_en": "Gorkha",
+        "district_native_lan": "गोरखा",
+        "headquater_en": "Gorkha",
+        "headquater_native_lan": "गोरखा",
+        "area": 3610
+      },
+      {
+        "id": 3,
+        "district_en": "Kaski",
+        "district_native_lan": "कास्की",
+        "headquater_en": "Pokhara",
+        "headquater_native_lan": "पोखरा",
+        "area": 2017
+      },
+      {
+        "id": 4,
+        "district_en": "Lamjung",
+        "district_native_lan": "लमजुङ",
+        "headquater_en": "Besisahar",
+        "headquater_native_lan": "बेसीशहर",
+        "area": 1692
+      },
+      {
+        "id": 5,
+        "district_en": "Manang",
+        "district_native_lan": "मनाङ",
+        "headquater_en": "Chame",
+        "headquater_native_lan": "चामे",
+        "area": 2246
+      },
+      {
+        "id": 6,
+        "district_en": "Mustang",
+        "district_native_lan": "मुस्ताङ",
+        "headquater_en": "Jomsom",
+        "headquater_native_lan": "जोमसोम",
+        "area": 3573
+      },
+      {
+        "id": 7,
+        "district_en": "Myagdi",
+        "district_native_lan": "म्याग्दी",
+        "headquater_en": "Beni",
+        "headquater_native_lan": "बेनी",
+        "area": 2297
+      },
+      {
+        "id": 8,
+        "district_en": "Nawalpur",
+        "district_native_lan": "नवलपुर",
+        "headquater_en": "Kawasoti",
+        "headquater_native_lan": "कावासोती",
+        "area": 1043
+      },
+      {
+        "id": 9,
+        "district_en": "Parbat",
+        "district_native_lan": "पर्वत",
+        "headquater_en": "Kusma",
+        "headquater_native_lan": "कुस्मा",
+        "area": 494
+      },
+      {
+        "id": 10,
+        "district_en": "Syangja",
+        "district_native_lan": "स्याङ्जा",
+        "headquater_en": "Putalibazar",
+        "headquater_native_lan": "पुतलीबजार",
+        "area": 1164
+      },
+      {
+        "id": 11,
+        "district_en": "Tanahu",
+        "district_native_lan": "तनहुँ",
+        "headquater_en": "Damauli",
+        "headquater_native_lan": "दमौली",
+        "area": 1546
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "province_en": "Lumbini Pradesh",
+    "province_native_lan": "लुम्बिनी प्रदेश",
+    "capital_en": "Deukhuri",
+    "capital_native_lan": "देउखुरी",
+    "area": 22288,
+    "districts": [
+      {
+        "id": 1,
+        "district_en": "Kapilvastu",
+        "district_native_lan": "कपिलवस्तु",
+        "headquater_en": "Taulihawa",
+        "headquater_native_lan": "तौलिहवा",
+        "area": 1738
+      },
+      {
+        "id": 2,
+        "district_en": "Parasi",
+        "district_native_lan": "परासी",
+        "headquater_en": "Ramgram",
+        "headquater_native_lan": "रामग्राम",
+        "area": 635
+      },
+      {
+        "id": 3,
+        "district_en": "Rupandehi",
+        "district_native_lan": "रुपन्देही",
+        "headquater_en": "Siddarthanagar",
+        "headquater_native_lan": "सिद्धार्थनगर",
+        "area": 1360
+      },
+      {
+        "id": 4,
+        "district_en": "Arghakhanchi",
+        "district_native_lan": "अर्घाखाँची",
+        "headquater_en": "Sandhikharka",
+        "headquater_native_lan": "सन्धिखर्क",
+        "area": 1193
+      },
+      {
+        "id": 5,
+        "district_en": "Gulmi",
+        "district_native_lan": "गुल्मी",
+        "headquater_en": "Tamghas",
+        "headquater_native_lan": "तम्घास",
+        "area": 1149
+      },
+      {
+        "id": 6,
+        "district_en": "Palpa",
+        "district_native_lan": "पाल्पा",
+        "headquater_en": "Tansen",
+        "headquater_native_lan": "तानसेन",
+        "area": 1373
+      },
+      {
+        "id": 7,
+        "district_en": "Dang",
+        "district_native_lan": "दाङ",
+        "headquater_en": "Ghorahi",
+        "headquater_native_lan": "घोराही",
+        "area": 2955
+      },
+      {
+        "id": 8,
+        "district_en": "Pyuthan",
+        "district_native_lan": "प्युठान",
+        "headquater_en": "Pyuthan",
+        "headquater_native_lan": "प्युठान",
+        "area": 1309
+      },
+      {
+        "id": 9,
+        "district_en": "Rolpa",
+        "district_native_lan": "रोल्पा",
+        "headquater_en": "Liwang",
+        "headquater_native_lan": "लिवाङ",
+        "area": 1879
+      },
+      {
+        "id": 10,
+        "district_en": "Eastern Rukum",
+        "district_native_lan": "पूर्वी रुकुम",
+        "headquater_en": "Rumukot",
+        "headquater_native_lan": "रुमुकोट",
+        "area": 1161
+      },
+      {
+        "id": 11,
+        "district_en": "Banke",
+        "district_native_lan": "बाँके",
+        "headquater_en": "Nepalgunj",
+        "headquater_native_lan": "नेपालगन्ज",
+        "area": 2337
+      },
+      {
+        "id": 12,
+        "district_en": "Bardiya",
+        "district_native_lan": "बर्दिया",
+        "headquater_en": "Gulariya",
+        "headquater_native_lan": "गुलरिया",
+        "area": 2337
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "province_en": "Karnali Pradesh",
+    "province_native_lan": "कर्णाली प्रदेश",
+    "capital_en": "Birendranagar",
+    "capital_native_lan": "वीरेन्द्रनगर",
+    "area": 27984,
+    "districts": [
+      {
+        "id": 1,
+        "district_en": "Western Rukum",
+        "district_native_lan": "रुकुम पश्चिम",
+        "headquater_en": "Musikot",
+        "headquater_native_lan": "मुसिकोट",
+        "area": 1213
+      },
+      {
+        "id": 2,
+        "district_en": "Salyan",
+        "district_native_lan": "सल्यान",
+        "headquater_en": "Salyan",
+        "headquater_native_lan": "सल्यान",
+        "area": 1462
+      },
+      {
+        "id": 3,
+        "district_en": "Dolpa",
+        "district_native_lan": "डोल्पा",
+        "headquater_en": "Dunai",
+        "headquater_native_lan": "दुनै",
+        "area": 7889
+      },
+      {
+        "id": 4,
+        "district_en": "Humla",
+        "district_native_lan": "हुम्ला",
+        "headquater_en": "Simikot",
+        "headquater_native_lan": "सिमिकोट",
+        "area": 5655
+      },
+      {
+        "id": 5,
+        "district_en": "Jumla",
+        "district_native_lan": "जुम्ला",
+        "headquater_en": "Chandannath",
+        "headquater_native_lan": "चन्दननाथ",
+        "area": 2531
+      },
+      {
+        "id": 6,
+        "district_en": "Kalikot",
+        "district_native_lan": "कालिकोट",
+        "headquater_en": "Manma",
+        "headquater_native_lan": "मन्मा",
+        "area": 1741
+      },
+      {
+        "id": 7,
+        "district_en": "Mugu",
+        "district_native_lan": "मुगु",
+        "headquater_en": "Gamgadhi",
+        "headquater_native_lan": "गमगढी",
+        "area": 3535
+      },
+      {
+        "id": 8,
+        "district_en": "Surkhet",
+        "district_native_lan": "सुर्खेत",
+        "headquater_en": "Birendranagar",
+        "headquater_native_lan": "वीरेन्द्रनगर",
+        "area": 2461
+      },
+      {
+        "id": 9,
+        "district_en": "Dailekh",
+        "district_native_lan": "दैलेख",
+        "headquater_en": "Narayan",
+        "headquater_native_lan": "नारायण",
+        "area": 1502
+      },
+      {
+        "id": 10,
+        "district_en": "Jajarkot",
+        "district_native_lan": "जाजरकोट",
+        "headquater_en": "Khalanga",
+        "headquater_native_lan": "खलंगा",
+        "area": 2230
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "province_en": "Sudur Pashchim Pradesh",
+    "province_native_lan": "सुदूरपश्चिम प्रदेश",
+    "capital_en": "Dhangadhi",
+    "capital_native_lan": "धनगढी",
+    "area": 19915,
+    "districts": [
+      {
+        "id": 1,
+        "district_en": "Kailali",
+        "district_native_lan": "कैलाली",
+        "headquater_en": "Dhangadi",
+        "headquater_native_lan": "धनगढी",
+        "area": 3235
+      },
+      {
+        "id": 2,
+        "district_en": "Achham",
+        "district_native_lan": "अछाम",
+        "headquater_en": "Mangalsen",
+        "headquater_native_lan": "मंगलसेन",
+        "area": 1680
+      },
+      {
+        "id": 3,
+        "district_en": "Doti",
+        "district_native_lan": "डोटी",
+        "headquater_en": "Dipayal Silgadhi",
+        "headquater_native_lan": "दिपायल सिलगढी",
+        "area": 2025
+      },
+      {
+        "id": 4,
+        "district_en": "Bajhang",
+        "district_native_lan": "बझाङ",
+        "headquater_en": "Jayaprithvi",
+        "headquater_native_lan": "जयपृथ्वी",
+        "area": 3422
+      },
+      {
+        "id": 5,
+        "district_en": "Bajura",
+        "district_native_lan": "बाजुरा",
+        "headquater_en": "Martadi",
+        "headquater_native_lan": "मार्तडी",
+        "area": 2188
+      },
+      {
+        "id": 6,
+        "district_en": "Kanchanpur",
+        "district_native_lan": "कञ्चनपुर",
+        "headquater_en": "Bhimdatta",
+        "headquater_native_lan": "भीमदत्त",
+        "area": 1610
+      },
+      {
+        "id": 7,
+        "district_en": "Dadeldhura",
+        "district_native_lan": "डडेल्धुरा",
+        "headquater_en": "Amargadhi",
+        "headquater_native_lan": "अमरगढी",
+        "area": 1538
+      },
+      {
+        "id": 8,
+        "district_en": "Baitadi",
+        "district_native_lan": "बैतडी",
+        "headquater_en": "Dasharathchand",
+        "headquater_native_lan": "दशरथचन्द",
+        "area": 1519
+      },
+      {
+        "id": 9,
+        "district_en": "Darchula",
+        "district_native_lan": "दार्चुला",
+        "headquater_en": "Darchula",
+        "headquater_native_lan": "दार्चुला",
+        "area": 2322
+      }
+    ]
+  }
+]
