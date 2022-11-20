@@ -2,6 +2,40 @@ const Store = require("../repository/dbRepository");
 const Validate = require("../utils/validations");
 const Schema = require("../models/orderModel");
 const AddressSchema = require("../models/addressModule");
+const mail = require("../utils/nodeMailer");
+
+const read_all_orders = async () => {
+  try {
+    const order = await Store.order.read_all_orders();
+    if (order) return order;
+    throw new Error("Error occurs fetching orders");
+  } catch (err) {
+    console.log(`${err.name} => ${err.message}`);
+    throw err;
+  }
+};
+
+const read_user_orders = async (userId) => {
+  try {
+    const order = await Store.order.read_user_orders(userId);
+    if (order) return order;
+    throw new Error("Error occurs fetching user orders");
+  } catch (err) {
+    console.log(`${err.name} => ${err.message}`);
+    throw err;
+  }
+};
+
+const read_order_by_id = async (orderId) => {
+  try {
+    const order = await Store.order.read_order_from_id(orderId);
+    if (order) return order;
+    throw new Error(`Error occurs fetching  order on ID: ${orderId}`);
+  } catch (err) {
+    console.log(`${err.name} => ${err.message}`);
+    throw err;
+  }
+};
 
 /* Place order
 @params
@@ -408,9 +442,13 @@ const refund_updates = async (orderId) => {
 const send_shipment_updates = async (orderId) => {
   try {
     const order = await Store.order.read_order_from_id(orderId);
-    console.log(
-      `Type: ${order.shipment.type}, Status : ${order.shipment.status}`
-    );
+    const mailContent = {
+      from: "Sales DEpartment",
+      to: "bhuban.temp@gmail.com",
+      subject: "Regarding ORDER Updates",
+      text: `Type: ${order.shipment.type}, Status : ${order.shipment.status}`,
+    };
+    const res = await mail.send(mailContent);
     return order.shipment;
   } catch (err) {
     console.log(`${err.name} => ${err.message}`);
@@ -418,7 +456,7 @@ const send_shipment_updates = async (orderId) => {
   }
 };
 
-// send_shipment_updates("cb0341f6-b038-4b7d-b609-f806cb3eef3c");
+// send_shipment_updates("e8b02635-ef3a-4f46-ad97-d58073bd005f");
 
 /* Management: Send return updates
 @params
@@ -473,6 +511,9 @@ const send_payment_updates = async (orderId) => {
 
 module.exports = {
   place_order,
+  read_all_orders,
+  read_user_orders,
+  read_order_by_id,
   update_quantity_order,
   update_address,
   update_payment,

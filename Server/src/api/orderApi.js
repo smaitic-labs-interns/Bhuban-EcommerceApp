@@ -3,6 +3,35 @@ const router = express.Router();
 router.use(express.json());
 const Service = require("../service/allService");
 
+const read_all_orders = async (req, resp) => {
+  try {
+    const res = await Service.order.read_all_orders();
+    resp.status(200).send(res);
+  } catch (err) {
+    resp.status(400).send(err.message);
+  }
+};
+
+const read_user_orders = async (req, resp) => {
+  try {
+    const userId = req.query.id;
+    const res = await Service.order.read_user_orders(userId);
+    resp.status(200).send(res);
+  } catch (err) {
+    resp.status(400).send(err.message);
+  }
+};
+
+const read_order_by_id = async (req, resp) => {
+  try {
+    const orderId = req.query.id;
+    const res = await Service.order.read_order_by_id(orderId);
+    resp.status(200).send(res);
+  } catch (err) {
+    resp.status(400).send(err.message);
+  }
+};
+
 const place_order = async (req, resp) => {
   try {
     const userId = req.query.id;
@@ -128,6 +157,9 @@ const send_payment_updates = async (req, resp) => {
 };
 
 module.exports = {
+  read_all_orders,
+  read_user_orders,
+  read_order_by_id,
   place_order,
   update_quantity_order,
   update_address,
