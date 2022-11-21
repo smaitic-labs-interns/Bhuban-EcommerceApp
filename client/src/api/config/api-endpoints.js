@@ -45,9 +45,9 @@ export const product = {
 };
 
 export const cart = {
-  getCart:{
+  getCart: {
     method: "GET",
-    url: "/cart/getCart/"
+    url: "/cart/getCart/",
   },
   addTo: {
     method: "POST",
@@ -60,6 +60,18 @@ export const cart = {
 };
 
 export const order = {
+  all: {
+    method: "GET",
+    url: "/order/all/",
+  },
+  user: {
+    method: "GET",
+    url: "/order/user/",
+  },
+  one: {
+    method: "GET",
+    url: "/order/one/",
+  },
   place: {
     method: "POST",
     url: "/order/placeOrder/",
@@ -103,5 +115,39 @@ export const order = {
   paymentupdates: {
     method: "GET",
     url: "order/paymentupdates/",
+  },
+};
+
+export const extra = {
+  countries: {
+    method: "GET",
+    url: "/countries/getAll/",
+  },
+
+  states: {
+    method: "GET",
+    url: "/states/getAll/",
+  },
+
+  districts: {
+    method: "GET",
+    url: "/districts/getAll/",
+  },
+
+  countryStates: {
+    method: "GET",
+    url: "/country/states/getAll/",
+  },
+
+  countryDistricts: {
+    method: "GET",
+    url: "/state/districts/getAll/",
+  },
+};
+
+export const mail = {
+  send: {
+    method: "POST",
+    url: "/mail/send/",
   },
 };

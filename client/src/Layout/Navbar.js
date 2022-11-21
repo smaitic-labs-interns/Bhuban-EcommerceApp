@@ -11,6 +11,7 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { Link } from "@mui/material";
+import { ShoppingCart } from "@mui/icons-material";
 
 const pages = [
   { name: "Search", href: "/search/" },
@@ -98,6 +99,12 @@ export default function Navbar() {
                   </Link>
                 </MenuItem>
               ))}
+              <Link underline="none" href={"/cart"}>
+                <Typography textAlign="center">
+                  <ShoppingCart />
+                  CART
+                </Typography>
+              </Link>
             </Menu>
           </Box>
           <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
@@ -130,6 +137,15 @@ export default function Navbar() {
                 {page.name}
               </Button>
             ))}
+
+            <Button
+              key={"cart"}
+              onClick={handleCloseNavMenu}
+              sx={{ my: 2, color: "white", display: "block" }}
+              href={"/cart"}
+            >
+              <ShoppingCart />
+            </Button>
           </Box>
 
           {/* <Box sx={{ flexGrow: 0 }}>

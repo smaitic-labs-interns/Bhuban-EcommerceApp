@@ -1,28 +1,120 @@
-import * as React from "react";
-import { styled } from "@mui/material/styles";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import { Link, Typography } from "@mui/material";
-import { DataCell } from "../styles/RightTableStyle";
+import React, { useEffect, useState } from "react";
+import {
+  TableContainer,
+  Paper,
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableCell,
+  Button,
+} from "@mui/material";
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-];
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetch_user_orders,
+  cancel_order,
+  return_replace_order,
+} from "../../../redux/actions/orderActions";
+import ViewOrderModal from "./ViewOrderModal";
+import { CustomTableCell, TablePageWrapper } from "../styles/RightTableStyle";
+import { AssignmentReturn, Cancel, FindReplace } from "@mui/icons-material";
+import Swal from "sweetalert2";
 
 export default function RightTable() {
+  const login = useSelector((state) => state.login);
+  const cancelOrder = useSelector((state) => state.cancelOrder);
+  const userOrders = useSelector((state) => state.userOrders);
+  const returnReplace = useSelector((state) => state.returnReplace);
+  const userId = login.isLogined ? login.userId : null;
+
+  const dispatch = useDispatch();
+  const [orders, setOrders] = useState([]);
+
+  const handleCancelOrder = (id) => {
+    if (id && id !== " ") {
+      dispatch(cancel_order({ orderId: id, action: "cancel" }));
+    }
+  };
+
+  const handleReturnReplace = (id, action) => {
+    if (id && id !== " " && action && action !== "") {
+      dispatch(return_replace_order({ orderId: id, action: action }));
+    }
+  };
+
+  useEffect(() => {
+    if (userId && userId !== " ") {
+      dispatch(fetch_user_orders({ userId: userId, action: "fetch" }));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (userOrders.status === "success") setOrders(userOrders.data);
+  }, [userOrders]);
+
+  useEffect(() => {
+    if (cancelOrder.status === "success") {
+      Swal.fire({
+        title: "Success!",
+        text: `${cancelOrder.message}`,
+        icon: "success",
+        confirmButtonText: "Ok",
+      });
+      dispatch(fetch_user_orders({ userId: userId, action: "fetch" }));
+      // dispatch(
+      //   cancel_order({
+      //     orderId: "",
+      //     action: "clean",
+      //   })
+      // );
+    } else if (cancelOrder.status === "failed") {
+      Swal.fire({
+        title: "Error!",
+        text: `${cancelOrder.message}`,
+        icon: "error",
+        confirmButtonText: "Ok",
+      });
+      // dispatch(
+      //   cancel_order({
+      //     orderId: "",
+      //     action: "clean",
+      //   })
+      // );
+    }
+  }, [cancelOrder]);
+
+  useEffect(() => {
+    if (returnReplace.status === "success") {
+      Swal.fire({
+        title: "Success!",
+        text: `${returnReplace.message}`,
+        icon: "success",
+        confirmButtonText: "Ok",
+      });
+      dispatch(fetch_user_orders({ userId: userId, action: "fetch" }));
+      dispatch(
+        return_replace_order({
+          orderId: "",
+          action: "clean",
+        })
+      );
+    } else if (returnReplace.status === "failed") {
+      Swal.fire({
+        title: "Error!",
+        text: `${returnReplace.message}`,
+        icon: "error",
+        confirmButtonText: "Ok",
+      });
+      dispatch(
+        return_replace_order({
+          orderId: "",
+          action: "clean",
+        })
+      );
+    }
+  }, [returnReplace]);
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -31,46 +123,62 @@ export default function RightTable() {
             <TableCell sx={{ border: "none" }}>Recent Orders</TableCell>
           </TableRow>
           <TableRow sx={{ background: "#fafafa" }}>
-            <TableCell sx={{ borderColor: "#eff0f5" }}>Order #</TableCell>
-            <TableCell sx={{ borderColor: "#eff0f5" }} align="right">
-              Placed On
-            </TableCell>
-            <TableCell sx={{ borderColor: "#eff0f5" }} align="right">
-              Items
-            </TableCell>
-            <TableCell sx={{ borderColor: "#eff0f5" }} align="right">
-              Items
-            </TableCell>
-            <TableCell
-              sx={{ borderColor: "#eff0f5" }}
-              align="right"></TableCell>
+            <CustomTableCell>Order #</CustomTableCell>
+            <CustomTableCell>Placed On</CustomTableCell>
+            <CustomTableCell colSpan={4}>Actions</CustomTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.name}>
-              <DataCell component="th" scope="row">
-                {row.name}
-              </DataCell>
-              <DataCell align="right">{row.calories}</DataCell>
-              <DataCell align="right">{row.fat}</DataCell>
-              <DataCell align="right">{row.carbs}</DataCell>
-              <DataCell align="right">
-                <Link underline="none" sx={{ cursor: "pointer" }}>
-                  <Typography
-                    sx={{
-                      color: "#1a9cb7",
-                      fontSize: "14px",
-                      lineHeight: 1.28571,
-                    }}>
-                    Manage
-                  </Typography>
-                </Link>
-              </DataCell>
+          {orders.length !== 0 ? (
+            orders.map((order) => {
+              return (
+                <TableRow key={order.id}>
+                  <TableCell>{order.id}</TableCell>
+                  <TableCell>{order.placedOn}</TableCell>
+                  <TableCell>
+                    <ViewOrderModal order={order} />
+                  </TableCell>
+                  <TableCell>
+                    <Button
+                      variant="outlined"
+                      color="error"
+                      onClick={() => handleCancelOrder(order.id)}
+                    >
+                      <Cancel sx={{ paddingRight: "0.5rem" }} />
+                      Cancel
+                    </Button>
+                  </TableCell>
+                  <TableCell>
+                    <Button
+                      variant="outlined"
+                      color="error"
+                      onClick={() => handleReturnReplace(order.id, "return")}
+                    >
+                      <AssignmentReturn sx={{ paddingRight: "0.5rem" }} />
+                      Retrn
+                    </Button>
+                  </TableCell>
+                  <TableCell>
+                    <Button
+                      variant="outlined"
+                      color="error"
+                      onClick={() => handleReturnReplace(order.id, "replace")}
+                    >
+                      <FindReplace sx={{ paddingRight: "0.5rem" }} />
+                      Replace
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              );
+            })
+          ) : (
+            <TableRow>
+              <TableCell>Not Any Orders Available</TableCell>
             </TableRow>
-          ))}
+          )}
         </TableBody>
       </Table>
+      <TablePageWrapper>This Section is for Pagination</TablePageWrapper>
     </TableContainer>
   );
 }

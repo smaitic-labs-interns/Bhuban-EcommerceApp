@@ -10,6 +10,9 @@ import {
   DELETE_PRODUCT_REQUEST,
   DELETE_PRODUCT_SUCCESS,
   DELETE_PRODUCT_FAILED,
+  SEARCH_PRODUCT_REQUEST,
+  SEARCH_PRODUCT_SUCCESS,
+  SEARCH_PRODUCT_FAILED,
 } from "../constants/productConstants";
 
 import { axios_instance } from "../../api/config/config";
@@ -103,3 +106,26 @@ export const delete_product = (id) => async (dispatch) => {
     });
   }
 };
+
+export const search_product =
+  ({ keyword, action }) =>
+  async (dispatch) => {
+    try {
+      if (action === "clean") return dispatch({ type: SEARCH_PRODUCT_REQUEST });
+      dispatch({ type: SEARCH_PRODUCT_REQUEST });
+      const ep = { ...product.search };
+      const response = await axios_instance({
+        endpoints: ep,
+        path: { keyword: keyword },
+      });
+      dispatch({
+        type: SEARCH_PRODUCT_SUCCESS,
+        payload: response.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: SEARCH_PRODUCT_FAILED,
+        payload: err.response,
+      });
+    }
+  };

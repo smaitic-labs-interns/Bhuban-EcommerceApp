@@ -19,12 +19,24 @@ import { useSelector, useDispatch } from "react-redux";
 import { place_order } from "../../../redux/actions/orderActions";
 import Swal from "sweetalert2";
 
+import {
+  read_all_countries,
+  read_states_by_country_id,
+  read_districts_by_state_id,
+} from "../../../redux/actions/extra";
+
 export default function ShippingForm() {
   const placeOrder = useSelector((state) => state.placeOrder);
   const login = useSelector((state) => state.login);
+  const world = useSelector((state) => state.countries);
+  const country = useSelector((state) => state.states);
+  const state = useSelector((state) => state.districts);
   const dispatch = useDispatch();
 
   const userId = login.isLogined ? login.userId : null;
+  const [cntries, setCntries] = useState([]);
+  const [states, setStates] = useState([]);
+  // const [country, setCountry] = useState([]);
 
   const initialValues = {
     userId: userId,
@@ -96,6 +108,19 @@ export default function ShippingForm() {
       }
     }
   }, [values.shipmentType]);
+
+  useEffect(() => {
+    setStates(() => []);
+    dispatch(read_all_countries());
+    setCntries(world.countries);
+  }, []);
+
+  useEffect(() => {
+    if (values.country && values.country !== "")
+      dispatch(read_states_by_country_id({ countryId: values.country }));
+    setStates(country.states);
+  }, [values.country]);
+
   return (
     <FormWrapper>
       <FormContainer component={"form"} onSubmit={handleSubmit}>
@@ -112,7 +137,11 @@ export default function ShippingForm() {
             onBlur={handleBlur}
           >
             {SHIPMENT_TYPES.map((shipment) => {
-              return <MenuItem value={shipment.name}>{shipment.name}</MenuItem>;
+              return (
+                <MenuItem key={shipment.charge} value={shipment.name}>
+                  {shipment.name}
+                </MenuItem>
+              );
             })}
           </Select>
           <p style={shipment.style}>
@@ -132,9 +161,20 @@ export default function ShippingForm() {
             onChange={handleChange}
             onBlur={handleBlur}
           >
-            <MenuItem value="Nepal">{"Nepal"}</MenuItem>
+            {/* {cntries.length !== 0 ? (
+              cntries.map((country) => {
+                return (
+                  <MenuItem key={country.id} value={country.id}>
+                    {country.country}
+                  </MenuItem>
+                );
+              })
+            ) : (
+              <MenuItem value={"Not Available"}>{"Not Available"}</MenuItem>
+            )} */}
+            <MenuItem value={"Nepal"}>{"Nepal"}</MenuItem>
             <MenuItem value={"India"}>{"India"}</MenuItem>
-            <MenuItem value={"Pakistan"}>{"Pakistan"}</MenuItem>
+            <MenuItem value={"China"}>{"China"}</MenuItem>
           </Select>
         </OrderFormInputWrapper>
 
@@ -150,9 +190,19 @@ export default function ShippingForm() {
             onChange={handleChange}
             onBlur={handleBlur}
           >
-            <MenuItem value="Bagmati">{"Bagmati"}</MenuItem>
-            <MenuItem value={"Karnali"}>{"Karnali"}</MenuItem>
-            <MenuItem value={"Lumbini"}>{"Lumbini"}</MenuItem>
+            {/* {states.length !== 0 ? (
+              states.map((state) => {
+                return (
+                  <MenuItem key={state.id} value={state.id}>
+                    {state.statename}
+                  </MenuItem>
+                );
+              })
+            ) : (
+              <MenuItem value={"Not Available"}>{"Not Available"}</MenuItem>
+            )} */}
+            <MenuItem value={"bagmati"}>{"bagmati"}</MenuItem>
+            <MenuItem value={"karnali"}>{"karnali"}</MenuItem>
           </Select>
         </OrderFormInputWrapper>
 

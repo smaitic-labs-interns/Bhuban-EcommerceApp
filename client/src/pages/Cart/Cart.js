@@ -9,16 +9,21 @@ import {
   CartRightCardWrapper,
 } from "./styles/cartStyle";
 import { useDispatch, useSelector } from "react-redux";
-import { fetch_user_Cart } from "../../redux/actions/cartActions";
+import {
+  fetch_user_Cart,
+  fetch_cart_products_details,
+} from "../../redux/actions/cartActions";
 import Checkout from "./Components/Checkout";
 
 export default function Cart() {
   const userCart = useSelector((state) => state.userCart);
+  const cartProducts = useSelector((state) => state.cartProductsDetails);
   const login = useSelector((state) => state.login);
   const dispatch = useDispatch();
   const userId = login.isLogined ? login.userId : null;
 
   const [cartDetails, setCartDetails] = useState({});
+  const [cart, setCart] = useState({});
 
   useEffect(() => {
     if (userId && userId !== "") {
@@ -27,15 +32,42 @@ export default function Cart() {
   }, [userId]);
 
   useEffect(() => {
-    setCartDetails(userCart);
+    if (userCart.status === "success") {
+      setCart(userCart);
+      const pId = [];
+      for (let product of userCart.products) {
+        pId.push(product.productId);
+      }
+
+      if (pId.length !== 0)
+        dispatch(
+          fetch_cart_products_details({ productId: pId, action: "fetch" })
+        );
+    }
   }, [userCart]);
+
+  useEffect(() => {
+    // if (cartProducts.status === "success") {
+    //   const details = cartProducts.details;
+    //   const prdcts = [];
+    //   for (let index in cart.products) {
+    //     // delete details[index].id;
+    //     console.log(details[index]);
+    //     prdcts.push({
+    //       ...cart.products[index],
+    //       ...details[index],
+    //     });
+    //   }
+    //   console.log(prdcts);
+    // }
+  }, [cartProducts]);
 
   return (
     <>
       <CartWrapper>
         <CartLeftWrapper>
           <CartLeftCardWrapper>
-            <CartTable cart={cartDetails} />
+            <CartTable cart={cart} />
           </CartLeftCardWrapper>
         </CartLeftWrapper>
         <CartRightWrapper>

@@ -10,7 +10,7 @@ import Cart from "./pages/Cart/Cart";
 import Admin from "./pages/Admin/Admin";
 import Order from "./pages/Order/Order";
 import { useSelector } from "react-redux";
-
+import Bill from "./pages/Bill/Bill";
 // For routing
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 // import PublicRoute from "./routes/PublicRoute";
@@ -18,6 +18,8 @@ import PrivateRoute from "./routes/PrivateRoute";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import AdminRoute from "./routes/AdminRoute";
 import Layout from "./Layout/Layout";
+import Track from "./pages/track/Track";
+import Search from "./pages/Search/Search";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -67,6 +69,9 @@ function App() {
             ></Route>
             <Route path="cart" element={<Cart />}></Route>
             <Route path="placeOrder" element={<Order />}></Route>
+            <Route path="generateBill" element={<Bill />}></Route>
+            <Route path="order" element={<Track />}></Route>
+            <Route path="search" element={<Search />}></Route>
 
             {/* <Route
               path="placeOrder"

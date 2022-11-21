@@ -12,6 +12,9 @@ import {
   DELETE_PRODUCT_REQUEST,
   DELETE_PRODUCT_SUCCESS,
   DELETE_PRODUCT_FAILED,
+  SEARCH_PRODUCT_REQUEST,
+  SEARCH_PRODUCT_SUCCESS,
+  SEARCH_PRODUCT_FAILED,
 } from "../constants/productConstants";
 
 const initialState = {
@@ -44,7 +47,6 @@ export const productReducer = (state = initialState, action) => {
 };
 
 export const selectedProductReducer = (state = {}, { type, payload }) => {
-  console.log("FROM REDUCER", payload);
   switch (type) {
     case FETCH_PRODUCT_REQUEST:
       return {};
@@ -86,6 +88,37 @@ export const delete_product_reducer = (
       return { ...state, products: payload };
     case DELETE_PRODUCT_FAILED:
       return {};
+    default:
+      return state;
+  }
+};
+
+const searchProductInitialState = {
+  status: null,
+  products: [],
+};
+
+export const search_product_reducer = (
+  state = searchProductInitialState,
+  { type, payload }
+) => {
+  switch (type) {
+    case SEARCH_PRODUCT_REQUEST:
+      return {
+        ...state,
+        status: null,
+      };
+    case SEARCH_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        status: "success",
+        products: payload,
+      };
+    case SEARCH_PRODUCT_FAILED:
+      return {
+        ...state,
+        status: "failed",
+      };
     default:
       return state;
   }

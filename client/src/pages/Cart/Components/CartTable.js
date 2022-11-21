@@ -9,6 +9,7 @@ import Paper from "@mui/material/Paper";
 import { Link, Typography, Box } from "@mui/material";
 import { DataCell } from "../styles/cartTableStyle";
 import { fetch_product } from "../../../redux/actions/productActions";
+import EditCartModal from "./EditCartModal";
 
 export default function CartTable({ cart }) {
   const { message, noOfProducts, products, totalBill } = cart;
@@ -65,7 +66,12 @@ export default function CartTable({ cart }) {
                         lineHeight: 1.28571,
                       }}
                     >
-                      Edit
+                      <EditCartModal
+                        data={{
+                          id: product.productId,
+                          quantity: product.quantity,
+                        }}
+                      />
                     </Typography>
                   </Link>
                 </DataCell>
@@ -80,7 +86,7 @@ export default function CartTable({ cart }) {
             <DataCell align="right" colSpan={4}>
               <Typography fontWeight={600}>Sub Total</Typography>
             </DataCell>
-            <DataCell>Rs. {totalBill}</DataCell>
+            <DataCell>Rs. {totalBill / 100}</DataCell>
           </TableRow>
           <TableRow>
             <DataCell align="right" colSpan={4}>
@@ -92,7 +98,11 @@ export default function CartTable({ cart }) {
             <DataCell align="right" colSpan={4}>
               <Typography fontWeight={600}>Total</Typography>
             </DataCell>
-            <DataCell>Rs. {(totalBill + totalBill * 0.13) / 100}</DataCell>
+            <DataCell>
+              <Typography fontWeight={600}>
+                Rs. {Math.round((totalBill + totalBill * 0.13) / 100)}
+              </Typography>
+            </DataCell>
           </TableRow>
         </TableBody>
       </Table>
