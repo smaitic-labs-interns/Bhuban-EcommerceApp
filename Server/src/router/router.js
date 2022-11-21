@@ -47,4 +47,6 @@ router.get("/districts/getAll", api.extra.read_all_districts);
 router.get("/country/states/getAll", api.extra.read_states_by_country_id);
 router.get("/state/districts/getAll", api.extra.read_districts_by_state_id);
 
+// send mail API
+router.post("/mail/send", api.mail.send);
 module.exports = router;

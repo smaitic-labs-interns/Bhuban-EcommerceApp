@@ -4,6 +4,7 @@ const { parse } = require("csv-parse");
 const { read_data, write_data } = require("./fileUtils");
 
 const { Client } = require("pg");
+const e = require("express");
 require("dotenv").config();
 
 const PGHOST = "localhost";
@@ -542,4 +543,95 @@ const p2_h_nep = [
 //   console.log("All Done !");
 // };
 
+// crfile();
+
+// FOR LOCAL LEVEL
+
+// crfile();
+
+const actualData = [];
+const data = [];
+const districts = [];
+
+fs.createReadStream("./local-level.csv")
+  .pipe(
+    parse({
+      delimiter: ",",
+      columns: true,
+      ltrim: true,
+    })
+  )
+  .on("data", function (row) {
+    // console.log(row);
+    data.push(row);
+  })
+  .on("error", function (error) {
+    console.log(error.message);
+  })
+  .on("end", function () {
+    let counter = 0;
+    data.forEach((item) => {
+      // let list = {
+      //   country: item.country,
+      //   capital: item.city_ascii,
+      //   cc_iso2: item.iso2,
+      //   cc_iso3: item.iso3,
+      //   latitude: item.lat,
+      //   longitude: item.lng,
+      // };
+      // wholeList.push(list);
+      // console.log(item);
+      let leve = item.level.replace("Municipality", "");
+      leve = leve.replace("Rural", "");
+      leve = leve.trimEnd();
+      let dis = item.District.toLowerCase();
+      dis = dis.charAt(0).toUpperCase() + dis.slice(1);
+
+      if (dis.includes("Rukum west") && !districts.includes("Western Rukum")) {
+        districts.push("Western Rukum");
+      } else if (
+        dis.includes("Rukum east") &&
+        !districts.includes("Eastern Rukum")
+      ) {
+        districts.push("Eastern Rukum");
+      } else if (!districts.includes(dis)) {
+        districts.push(dis);
+        counter++;
+      }
+
+      actualData.push({
+        district: dis,
+        local_level: leve,
+        type: item.level_type,
+      });
+    });
+
+    // console.log(actualData);
+    console.log(districts);
+    console.log(districts.length);
+    console.log("COunter", counter);
+
+    // let con = country.sort();
+
+    // for (c of con) {
+    //   for (lis of wholeList) {
+    //     if (!doneCoun.includes(c) && c == lis.country) {
+    //       actualData.push(lis);
+    //       doneCoun.push(c);
+    //     }
+    //   }
+    // }
+    // add_data(actualData);
+
+    // write_data("world_countries.json", actualData);
+  });
+
+const local_level = [];
+const crfile = async () => {
+  const p1 = await read_data("./final_province.json");
+
+  console.log(p1);
+  // write_data("final_world_data.json", countrylevel);
+  console.log("done");
+};
 // crfile();

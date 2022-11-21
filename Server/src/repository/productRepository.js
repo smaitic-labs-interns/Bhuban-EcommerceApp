@@ -166,7 +166,22 @@ const search_product = async (keyword) => {
         }
       }
     }
-    if (value.length > 0) return value;
+    if (value.length > 0) {
+      for (let product of value) {
+        let image = await con.query(
+          "SELECT * FROM product_images WHERE productId = $1",
+          [product.id]
+        );
+        if (image.rowCount !== 0) {
+          product.images = image.rows;
+        } else {
+          product.images = [
+            { imageurl: "/images/noImageFound.png", altText: "No Image Found" },
+          ];
+        }
+      }
+      return value;
+    }
     throw new Error(`No Product Found For Keyword ${keyword}`);
   } catch (err) {
     throw err;

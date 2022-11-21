@@ -10,7 +10,6 @@ const read_all_orders = async () => {
     if (order) return order;
     throw new Error("Error occurs fetching orders");
   } catch (err) {
-    console.log(`${err.name} => ${err.message}`);
     throw err;
   }
 };
@@ -18,10 +17,9 @@ const read_all_orders = async () => {
 const read_user_orders = async (userId) => {
   try {
     const order = await Store.order.read_user_orders(userId);
-    if (order) return order;
+    if (order.length !== 0) return order;
     throw new Error("Error occurs fetching user orders");
   } catch (err) {
-    console.log(`${err.name} => ${err.message}`);
     throw err;
   }
 };
@@ -32,7 +30,6 @@ const read_order_by_id = async (orderId) => {
     if (order) return order;
     throw new Error(`Error occurs fetching  order on ID: ${orderId}`);
   } catch (err) {
-    console.log(`${err.name} => ${err.message}`);
     throw err;
   }
 };
@@ -74,13 +71,10 @@ const place_order = async (
         );
       }
       // Store.cart.delete_cart(cart.id);
-      if (updCartSts) {
-        console.log(`Your order has been placed`);
-        return `Your order has been placed`;
-      }
+      if (updCartSts) return `Your order has been placed`;
     }
+    throw new Error("Error Occurs placing Order, Try again later!");
   } catch (err) {
-    console.log(`${err.name} => ${err.message}`);
     throw err;
   }
 };
@@ -156,7 +150,6 @@ const update_quantity_order = async (orderId, product, action) => {
         );
     }
   } catch (err) {
-    console.log(`${err.name} => ${err.message}`);
     throw err;
   }
 };
@@ -190,7 +183,6 @@ const update_address = async (orderId, newAddress) => {
       return "Address Updated Sucessfully";
     }
   } catch (err) {
-    console.log(`${err.name} => ${err.message}`);
     throw err;
   }
 };
@@ -230,7 +222,6 @@ const update_payment = async (orderId, newPayment) => {
       return "Payment Updated Sucessfully";
     }
   } catch (err) {
-    console.log(`${err.name} => ${err.message}`);
     throw err;
   }
 };
@@ -289,7 +280,6 @@ const update_order_status = async (orderId, status) => {
         break;
     }
   } catch (err) {
-    console.log(`${err.name} => ${err.message}`);
     throw err;
   }
 };
@@ -311,7 +301,6 @@ const track_order = async (orderId) => {
     );
     return order.shipment;
   } catch (err) {
-    console.log(`${err.name} => ${err.message}`);
     throw err;
   }
 };
@@ -351,7 +340,6 @@ const cancel_order = async (orderId) => {
       return "Order has been placed for cancellation";
     }
   } catch (err) {
-    console.log(`${err.name} => ${err.message}`);
     throw err;
   }
 };
@@ -397,7 +385,6 @@ const return_replace_order = async (orderId, action) => {
       return `Your order has been placed for ${action} Sucessfully`;
     }
   } catch (err) {
-    console.log(`${err.name} => ${err.message}`);
     throw err;
   }
 };
@@ -423,7 +410,6 @@ const refund_updates = async (orderId) => {
     }
     throw new Error(`No refund order found for ID:  "${orderId}"`);
   } catch (err) {
-    console.log(`${err.name} => ${err.message}`);
     throw err;
   }
 };
@@ -451,7 +437,6 @@ const send_shipment_updates = async (orderId) => {
     const res = await mail.send(mailContent);
     return order.shipment;
   } catch (err) {
-    console.log(`${err.name} => ${err.message}`);
     throw err;
   }
 };
@@ -478,7 +463,6 @@ const send_return_updates = async (orderId) => {
     }
     throw new Error(`No return order found for ID:  "${orderId}"`);
   } catch (err) {
-    console.log(`${err.name} => ${err.message}`);
     throw err;
   }
 };
@@ -502,7 +486,6 @@ const send_payment_updates = async (orderId) => {
     );
     return order.payment;
   } catch (err) {
-    console.log(`${err.name} => ${err.message}`);
     throw err;
   }
 };

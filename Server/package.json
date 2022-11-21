@@ -34,6 +34,7 @@
     "multer": "^1.4.5-lts.1",
     "mysql": "^2.18.1",
     "mysql-await": "^2.2.2",
+    "nodemailer": "^6.8.0",
     "pg": "^8.7.3",
     "react": "^18.2.0",
     "sync-sql": "^1.0.2",

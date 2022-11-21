@@ -15,6 +15,7 @@ const read_all_orders = async (req, resp) => {
 const read_user_orders = async (req, resp) => {
   try {
     const userId = req.query.id;
+    console.log("objecUSER IFt: ", userId);
     const res = await Service.order.read_user_orders(userId);
     resp.status(200).send(res);
   } catch (err) {

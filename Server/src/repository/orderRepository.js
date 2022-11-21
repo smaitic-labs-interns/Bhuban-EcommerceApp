@@ -48,6 +48,7 @@ const read_all_orders = async () => {
             shippingAddress: shipAddRes,
             payment: paymRes,
             shipment: shipRes,
+            placedOn: order.createdat,
           };
           allOrders.push(ord);
         }
@@ -111,6 +112,7 @@ const read_user_orders = async (userId) => {
             shippingAddress: shipAddRes,
             payment: paymRes,
             shipment: shipRes,
+            placedOn: order.createdat,
           };
           allOrders.push(ord);
         }
@@ -227,6 +229,7 @@ const read_order_from_id = async (orderId) => {
         shippingAddress: shipAddRes,
         payment: paymRes,
         shipment: shipRes,
+        placedOn: order.createdat,
       };
       return ord;
     }
