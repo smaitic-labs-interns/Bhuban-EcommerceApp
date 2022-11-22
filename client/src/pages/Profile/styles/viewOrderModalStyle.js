@@ -42,14 +42,16 @@ export const DetailsWrapper = styled(Box)(() => ({
   width: "100%",
   display: "flex",
   flexWrap: "wrap",
-  justifyContent: "center",
+  padding: "2rem",
+  justifyContent: "space-between",
+  border: "solid darkgray",
+  borderRadius: "10px",
+  textAlign: "center",
 }));
 
 export const ContentText = styled(Typography)(() => ({
   fontWeight: 600,
   fontSize: "16px",
-  width: "30%",
-  margin: "1rem 0",
   "& > span": {
     fontStyle: "italic",
     color: "darkgray",

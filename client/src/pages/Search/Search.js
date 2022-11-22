@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, TextField, Autocomplete, Typography } from "@mui/material";
+import { TextField, Autocomplete, Typography } from "@mui/material";
 import SearchList from "./Components/SearchList";
 import {
   SearchWrapper,
@@ -64,7 +64,7 @@ export default function SearchPage() {
             renderInput={(params) => (
               <TextField
                 {...params}
-                label="Movie"
+                label="Enter Search Keyword"
                 onChange={(e) => handleChange(e.target.value)}
               />
             )}

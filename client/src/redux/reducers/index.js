@@ -25,7 +25,7 @@ import {
   update_order_address_reducer,
   update_order_payment_reducer,
   cancel_order_reducer,
-  return_replace_order_reducer,
+  return_replace_ord_reducer,
 } from "./orderReducer";
 import {
   all_countries,
@@ -191,7 +191,7 @@ const persistedReducer = persistCombineReducers(persistConfig, {
       storage: storage,
       blacklist: ["data", "status"],
     },
-    return_replace_order_reducer
+    return_replace_ord_reducer
   ),
   countries: persistReducer(
     {

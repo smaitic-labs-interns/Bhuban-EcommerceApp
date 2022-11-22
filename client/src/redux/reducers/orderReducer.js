@@ -279,7 +279,7 @@ export const cancel_order_reducer = (
   }
 };
 
-export const return_replace_order_reducer = (
+export const return_replace_ord_reducer = (
   state = updateOrderInitialState,
   { type, payload }
 ) => {

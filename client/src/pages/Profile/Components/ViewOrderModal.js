@@ -17,14 +17,12 @@ import {
   Cancel,
   Edit,
   Save,
+  RemoveRedEye,
+  Close,
 } from "@mui/icons-material";
 import Swal from "sweetalert2";
-import {
-  fetch_user_Cart,
-  update_user_cart,
-} from "../../../redux/actions/cartActions";
+
 import { useDispatch, useSelector } from "react-redux";
-import { RemoveRedEye, Close } from "@mui/icons-material";
 import {
   ViewOrderModalWrapper,
   CloseButtonWrapper,
@@ -37,6 +35,10 @@ import {
 } from "../styles/viewOrderModalStyle";
 import EditAddressModel from "./EditAddressModal";
 import EditProductModal from "./EditProductModal";
+import {
+  updatet_order_payment,
+  fetch_user_orders,
+} from "../../../redux/actions/orderActions";
 
 const style = {
   position: "absolute",
@@ -48,21 +50,84 @@ const style = {
   border: "2px solid #000",
   boxShadow: 24,
   p: 4,
+  overflowY: "scroll",
 };
 
 export default function ViewOrderModal({ order }) {
-  //   const updateCart = useSelector((state) => state.updateCart);
+  const updateOrderPayment = useSelector((state) => state.updateOrderPayment);
   //   const login = useSelector((state) => state.login);
-  //   const dispatch = useDispatch();
+  const dispatch = useDispatch();
   //   const userId = login.isLogined ? login.userId : null;
-
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
-  const [editAddress, setEditAddress] = useState(false);
+  // const [editAddress, setEditAddress] = useState(false);
   // const handleClose = () => setOpens(false);s
   const { country, province, district, city, ward, tole, houseNo } =
     order.shippingAddress;
   var index = 0;
+
+  const handleUpdatePayment = async () => {
+    const { value: payment } = await Swal.fire({
+      title: "Pay Now",
+      input: "select",
+      inputOptions: {
+        CASH: "Cash on Delivery",
+        "E-sewa": "E-sewa",
+        Khalti: "khalti",
+        "Connect-Ips": "Connect -Ips",
+      },
+      inputPlaceholder: "Select Payment Method",
+      showCancelButton: true,
+      inputValidator: (value) => {
+        return new Promise((resolve) => {
+          if (value !== "") {
+            Swal.close();
+            dispatch(
+              updatet_order_payment({
+                orderId: order.id,
+                payment: value,
+                action: "update",
+              })
+            );
+          } else {
+            resolve("Please Select payment pethod :)");
+          }
+        });
+      },
+    });
+  };
+
+  useEffect(() => {
+    if (updateOrderPayment.status === "success") {
+      Swal.fire({
+        title: "Success!",
+        text: `${updateOrderPayment.message}`,
+        icon: "success",
+        confirmButtonText: "Ok",
+      });
+      dispatch(
+        updatet_order_payment({
+          orderId: "",
+          payment: "",
+          action: "clean",
+        })
+      );
+    } else if (updateOrderPayment.status === "failed") {
+      Swal.fire({
+        title: "Error!",
+        text: `${updateOrderPayment.message}`,
+        icon: "error",
+        confirmButtonText: "Ok",
+      });
+      dispatch(
+        updatet_order_payment({
+          orderId: "",
+          payment: "",
+          action: "clean",
+        })
+      );
+    }
+  }, [updateOrderPayment]);
 
   return (
     <div>
@@ -85,39 +150,43 @@ export default function ViewOrderModal({ order }) {
             <ContentContainer>
               <DetailsWrapper>
                 <ContentText>
-                  Country: <span>{country}</span>
+                  Country: <br />
+                  <span>{country}</span>
                 </ContentText>
                 <ContentText>
-                  Province: <span>{province}</span>
+                  Province: <br /> <span>{province}</span>
                 </ContentText>
                 <ContentText>
-                  District: <span>{district}</span>
+                  District: <br /> <span>{district}</span>
                 </ContentText>
                 <ContentText>
-                  Ward: <span>{ward}</span>
+                  Ward: <br /> <span>{ward}</span>
                 </ContentText>
                 <ContentText>
-                  Tole: <span>{tole}</span>
+                  Tole: <br /> <span>{tole}</span>
                 </ContentText>
                 <ContentText>
-                  House No.: <span>{houseNo}</span>
+                  House No.: <br /> <span>{houseNo}</span>
                 </ContentText>
               </DetailsWrapper>
-              <EditButtonWrapper>
+              {/* <EditButtonWrapper>
                 <EditAddressModel address={order.shippingAddress} />
-              </EditButtonWrapper>
+              </EditButtonWrapper> */}
             </ContentContainer>
             <ContentTitle>Order Details</ContentTitle>
             <ContentContainer>
               <DetailsWrapper>
                 <ContentText>
-                  Shipment Type.: <span>{order.shipment.type}</span>
+                  Shipment Type.:
+                  <br /> <span>{order.shipment.type}</span>
                 </ContentText>
                 <ContentText>
-                  Shipment Status.: <span>{order.shipment.status}</span>
+                  Shipment Status.: <br />
+                  <span>{order.shipment.status}</span>
                 </ContentText>
                 <ContentText>
-                  Order Status.: <span>{order.orderStatus}</span>
+                  Order Status.:
+                  <br /> <span>{order.orderStatus}</span>
                 </ContentText>
               </DetailsWrapper>
             </ContentContainer>
@@ -126,23 +195,35 @@ export default function ViewOrderModal({ order }) {
             <ContentContainer>
               <DetailsWrapper>
                 <ContentText>
-                  Payment Type.: <span>{order.payment.type}</span>
+                  Payment Type.: <br />
+                  <span>{order.payment.type}</span>
                 </ContentText>
                 <ContentText>
-                  Payment Status.: <span>{order.payment.status}</span>
+                  Payment Status.: <br />
+                  <span>{order.payment.status}</span>
                 </ContentText>
                 <ContentText>
-                  Total Bill.: <span>{order.totalBill}</span>
+                  Total Bill.: <br /> <span>{order.totalBill}</span>
                 </ContentText>
               </DetailsWrapper>
+              {/* <EditButtonWrapper>
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  onClick={() => handleUpdatePayment()}
+                >
+                  <Edit />
+                  Edit
+                </Button>
+              </EditButtonWrapper> */}
             </ContentContainer>
+            <ContentTitle>Products Details</ContentTitle>
             <ContentTable>
               <TableHead>
                 <TableRow>
                   <TableCell>S.N.</TableCell>
                   <TableCell>Product #</TableCell>
                   <TableCell>Quantity</TableCell>
-                  <TableCell>Action</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -153,9 +234,11 @@ export default function ViewOrderModal({ order }) {
                       <TableCell>{index}</TableCell>
                       <TableCell>{product.productId}</TableCell>
                       <TableCell>{product.quantity}</TableCell>
-                      <TableCell>
-                        <EditProductModal data={product} />
-                      </TableCell>
+                      {/* <TableCell>
+                        <EditProductModal
+                          data={{ ...product, orderId: order.id }}
+                        />
+                      </TableCell> */}
                     </TableRow>
                   );
                 })}

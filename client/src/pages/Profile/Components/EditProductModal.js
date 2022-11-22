@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Button, Box, Modal, TextField, Typography } from "@mui/material";
 import { Edit, RemoveOutlined, Add, Update, Cancel } from "@mui/icons-material";
 import Swal from "sweetalert2";
-import {
-  fetch_user_Cart,
-  update_user_cart,
-} from "../../../redux/actions/cartActions";
+
 import { useDispatch, useSelector } from "react-redux";
+import {
+  update_order_quantity,
+  fetch_user_orders,
+} from "../../../redux/actions/orderActions";
 
 const style = {
   position: "absolute",
@@ -21,7 +22,7 @@ const style = {
 };
 
 export default function EditProductModal({ data }) {
-  const updateCart = useSelector((state) => state.updateCart);
+  const updateOrderQuantity = useSelector((state) => state.updateOrderQuantity);
   const login = useSelector((state) => state.login);
   const dispatch = useDispatch();
   const userId = login.isLogined ? login.userId : null;
@@ -51,21 +52,21 @@ export default function EditProductModal({ data }) {
     }
   };
 
-  const handleUpdateCart = () => {
+  const handleUpdateOrder = () => {
     if (quty < prevQuantity) {
       dispatch(
-        update_user_cart({
-          userId: userId,
-          id: data.id,
+        update_order_quantity({
+          orderId: data.orderId,
+          id: data.productId,
           quantity: prevQuantity - quty,
           action: "remove",
         })
       );
     } else if (quty > prevQuantity) {
       dispatch(
-        update_user_cart({
-          userId: userId,
-          id: data.id,
+        update_order_quantity({
+          orderId: data.orderId,
+          id: data.productId,
           quantity: quty - prevQuantity,
           action: "add",
         })
@@ -83,39 +84,39 @@ export default function EditProductModal({ data }) {
 
   useEffect(() => {
     setOpen(false);
-    if (updateCart.status === "success") {
+    if (updateOrderQuantity.status === "success") {
       Swal.fire({
         title: "Success!",
-        text: `${updateCart.message}`,
+        text: `${updateOrderQuantity.message}`,
         icon: "success",
         confirmButtonText: "Ok",
       });
-      dispatch(fetch_user_Cart({ userId: userId }));
+      dispatch(fetch_user_orders({ userId: userId, action: "fetch" }));
       dispatch(
-        update_user_cart({
-          userId: "",
+        update_order_quantity({
+          orderId: "",
           id: "",
           quantity: "",
           action: "clean",
         })
       );
-    } else if (updateCart.status === "failed") {
+    } else if (updateOrderQuantity.status === "failed") {
       Swal.fire({
         title: "Error!",
-        text: `${updateCart.message}`,
+        text: `${updateOrderQuantity.message}`,
         icon: "error",
         confirmButtonText: "Ok",
       });
       dispatch(
-        update_user_cart({
-          userId: "",
+        update_order_quantity({
+          orderId: "",
           id: "",
           quantity: "",
           action: "clean",
         })
       );
     }
-  }, [updateCart]);
+  }, [updateOrderQuantity]);
 
   return (
     <div>
@@ -166,7 +167,7 @@ export default function EditProductModal({ data }) {
             <Button
               variant="contained"
               color="primary"
-              onClick={handleUpdateCart}
+              onClick={handleUpdateOrder}
             >
               <Update />
               &nbsp;{" Update"}

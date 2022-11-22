@@ -273,7 +273,7 @@ export const updatet_order_payment =
       const response = await axios_instance({
         endpoints: order.updatePayment,
         query: { id: orderId },
-        data: payment,
+        data: { payment: payment },
       });
 
       dispatch({
@@ -323,20 +323,21 @@ export const return_replace_order =
         return dispatch({ type: RETURN_REPLACE_ORDER_REQUEST });
       }
 
-      dispatch({ type: RETURN_REPLACE_ORDER_SUCCESS });
+      dispatch({ type: RETURN_REPLACE_ORDER_REQUEST });
       const response = await axios_instance({
         endpoints: order.returnReplace,
         query: { id: orderId },
-        data: action,
+        data: { action: action },
       });
 
       dispatch({
-        type: RETURN_REPLACE_ORDER_FAILED,
+        type: RETURN_REPLACE_ORDER_SUCCESS,
         payload: response.data,
       });
     } catch (err) {
+      console.log(err);
       dispatch({
-        type: CANCEL_ORDER_FAILED,
+        type: RETURN_REPLACE_ORDER_FAILED,
         payload: err.response,
       });
     }

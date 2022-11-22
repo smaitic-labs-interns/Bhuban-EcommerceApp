@@ -139,7 +139,7 @@ export const extra = {
     url: "/country/states/getAll/",
   },
 
-  countryDistricts: {
+  stateDistricts: {
     method: "GET",
     url: "/state/districts/getAll/",
   },

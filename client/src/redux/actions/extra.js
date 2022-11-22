@@ -61,9 +61,8 @@ export const read_states_by_country_id =
   async (dispatch) => {
     try {
       dispatch({ type: GET_COUNTRY_STATES_REQUEST });
-      let ep = { ...extra.countryStates };
       const response = await axios_instance({
-        endpoints: ep,
+        endpoints: extra.countryStates,
         query: { id: countryId },
       });
 
@@ -87,7 +86,7 @@ export const read_districts_by_state_id =
     try {
       dispatch({ type: GET_STATE_DISTRICTS_REQUEST });
       const response = await axios_instance({
-        endpoints: extra.districts,
+        endpoints: extra.stateDistricts,
         query: {
           id: stateId,
         },

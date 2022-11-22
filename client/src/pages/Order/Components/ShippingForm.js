@@ -3,7 +3,7 @@ import {
   Select,
   MenuItem,
   TextField,
-  Box,
+  Autocomplete,
   Button,
   InputLabel,
 } from "@mui/material";
@@ -14,7 +14,9 @@ import {
   PlaceOrderButtonWrapper,
 } from "../Styles/shippingFormStyle";
 
-import { Formik, useFormik } from "formik";
+import { useFormik } from "formik";
+import { axios_instance } from "../../../api/config/config";
+import { extra } from "../../../api/config/api-endpoints";
 import { useSelector, useDispatch } from "react-redux";
 import { place_order } from "../../../redux/actions/orderActions";
 import Swal from "sweetalert2";
@@ -24,25 +26,53 @@ import {
   read_states_by_country_id,
   read_districts_by_state_id,
 } from "../../../redux/actions/extra";
+import { useNavigate } from "react-router-dom";
 
 export default function ShippingForm() {
   const placeOrder = useSelector((state) => state.placeOrder);
   const login = useSelector((state) => state.login);
-  const world = useSelector((state) => state.countries);
-  const country = useSelector((state) => state.states);
-  const state = useSelector((state) => state.districts);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const userId = login.isLogined ? login.userId : null;
-  const [cntries, setCntries] = useState([]);
-  const [states, setStates] = useState([]);
-  // const [country, setCountry] = useState([]);
+
+  const [address, setAddress] = useState({
+    country: {
+      selected: {
+        id: "",
+        name: "",
+      },
+      all: [],
+    },
+    state: {
+      selected: {
+        id: "",
+        name: "",
+      },
+      all: [],
+    },
+    district: {
+      selected: {
+        id: "",
+        name: "",
+      },
+      all: [],
+    },
+    city: {
+      selected: {
+        id: "",
+        name: "",
+      },
+      all: [],
+    },
+  });
 
   const initialValues = {
     userId: userId,
-    country: "",
-    province: "",
-    city: "",
+    country: address.country,
+    province: address.state,
+    district: address.district,
+    city: address.city,
     ward: "",
     tole: "",
     houseNo: "",
@@ -65,23 +95,6 @@ export default function ShippingForm() {
       dispatch(place_order({ ...values, action: "add" }));
     },
   });
-
-  useEffect(() => {
-    if (placeOrder.status === "success") {
-      Swal.fire({
-        title: "Success!",
-        text: `${placeOrder.message}`,
-        icon: "success",
-      });
-      dispatch(place_order({ ...initialValues, action: "clean" }));
-    } else if (placeOrder.status === "failed") {
-      Swal.fire({
-        title: "Error!",
-        text: `${placeOrder.message}`,
-        icon: "error",
-      });
-    }
-  }, [placeOrder]);
 
   const [shipment, setShipment] = useState({
     style: { display: "none" },
@@ -110,17 +123,131 @@ export default function ShippingForm() {
   }, [values.shipmentType]);
 
   useEffect(() => {
-    setStates(() => []);
-    dispatch(read_all_countries());
-    setCntries(world.countries);
+    axios_instance({
+      endpoints: extra.countries,
+    })
+      .then((response) => {
+        let cntries = [];
+        for (let cntry of response.data) {
+          cntries.push({ id: cntry.id, name: cntry.country });
+        }
+        setAddress((address) => (address.country.all = cntries));
+      })
+      .catch((err) => {
+        // setAddress((address) => ({...address, address.country.all: []}));
+      });
   }, []);
 
-  useEffect(() => {
-    if (values.country && values.country !== "")
-      dispatch(read_states_by_country_id({ countryId: values.country }));
-    setStates(country.states);
-  }, [values.country]);
+  console.log(address);
 
+  const handleChangeAddress = ({ type, value }) => {
+    const { id, name } = value;
+
+    switch (type) {
+      case "country":
+        break;
+      case "province":
+        break;
+      case "district":
+        break;
+      case "city":
+        break;
+
+      default:
+        break;
+    }
+
+    // setAddress((address) => ({ ...address, country: name }));
+    // setCid(id);
+    console.log(address);
+    // axios_instance({
+    //   endpoints: extra.countryStates,
+    //   query: { id: id },
+    // })
+    //   .then((response) => {
+    //     let states = [];
+    //     for (let state of response.data) {
+    //       states.push({ id: state.id, name: state.stateName });
+    //     }
+    //     setAddress((address) => ({ ...address, allStates: states }));
+    //   })
+    //   .catch((err) => {
+    //     setAddress((address) => ({ ...address, allStates: [] }));
+    //   });
+  };
+  // useEffect(() => {
+  //   axios_instance({
+  //     endpoints: extra.countryStates,
+  //     query: { id: cid },
+  //   })
+  //     .then((response) => {
+  //       let states = [];
+  //       for (let state of response.data) {
+  //         states.push({ id: state.id, name: state.stateName });
+  //       }
+  //       setAddress((address) => ({ ...address, allStates: states }));
+  //     })
+  //     .catch((err) => {
+  //       setAddress((address) => ({ ...address, allStates: [] }));
+  //     });
+  // }, [cid]);
+
+  const handleSelectState = (value) => {
+    const { id, name } = value;
+    setAddress((address) => ({ ...address, state: name }));
+    axios_instance({
+      endpoints: extra.stateDistricts,
+      query: { id: id },
+    })
+      .then((response) => {
+        let districts = [];
+        for (let district of response.data) {
+          // console.log(district)
+          districts.push({ id: district.id, name: district.districtName });
+        }
+        setAddress((address) => ({ ...address, allDistricts: districts }));
+      })
+      .catch((err) => {
+        setAddress((address) => ({ ...address, district: [] }));
+      });
+  };
+
+  const handleSelectDistrict = (value) => {
+    const { id, name } = value;
+    setAddress((address) => ({ ...address, district: name }));
+    // axios_instance({
+    //   endpoints: extra.,
+    //   query: { id: id },
+    // })
+    //   .then((response) => {
+    //     let states = [];
+    //     for (let state of response.data) {
+    //       states.push({ id: state.id, name: state.stateName });
+    //     }
+    //     setStates(states);
+    //   })
+    //   .catch((err) => {
+    //     setStates([]);
+    //   });
+  };
+
+  useEffect(() => {
+    if (placeOrder.status === "success") {
+      Swal.fire({
+        title: "Success!",
+        text: `${placeOrder.message}`,
+        icon: "success",
+      });
+      navigate("generateBill");
+      dispatch(place_order({ ...initialValues, action: "clean" }));
+    } else if (placeOrder.status === "failed") {
+      Swal.fire({
+        title: "Error!",
+        text: `${placeOrder.message}`,
+        icon: "error",
+      });
+    }
+  }, [placeOrder]);
   return (
     <FormWrapper>
       <FormContainer component={"form"} onSubmit={handleSubmit}>
@@ -156,25 +283,27 @@ export default function ShippingForm() {
             labelId="country-label"
             id="country"
             name="country"
-            value={values.country}
             label="Country Name"
-            onChange={handleChange}
+            value={address.country}
+            onChange={(e) => {
+              handleChangeAddress({ type: "country", value: e.target.value });
+            }}
             onBlur={handleBlur}
           >
-            {/* {cntries.length !== 0 ? (
-              cntries.map((country) => {
+            {address.country.all.length !== 0 ? (
+              address.country.all.map((country) => {
                 return (
-                  <MenuItem key={country.id} value={country.id}>
-                    {country.country}
+                  <MenuItem
+                    key={country.id}
+                    value={{ id: country.id, name: country.name }}
+                  >
+                    {country.name}
                   </MenuItem>
                 );
               })
             ) : (
               <MenuItem value={"Not Available"}>{"Not Available"}</MenuItem>
-            )} */}
-            <MenuItem value={"Nepal"}>{"Nepal"}</MenuItem>
-            <MenuItem value={"India"}>{"India"}</MenuItem>
-            <MenuItem value={"China"}>{"China"}</MenuItem>
+            )}
           </Select>
         </OrderFormInputWrapper>
 
@@ -187,22 +316,56 @@ export default function ShippingForm() {
             name="province"
             value={values.province}
             label="Select Provience/state"
-            onChange={handleChange}
+            onChange={(e) => {
+              handleChangeAddress({ type: "province", value: e.target.value });
+            }}
             onBlur={handleBlur}
           >
-            {/* {states.length !== 0 ? (
-              states.map((state) => {
+            {address.state.all.length !== 0 ? (
+              address.state.all.map((state) => {
                 return (
-                  <MenuItem key={state.id} value={state.id}>
+                  <MenuItem
+                    key={state.id}
+                    value={{ id: state.id, name: state.name }}
+                  >
                     {state.statename}
                   </MenuItem>
                 );
               })
             ) : (
               <MenuItem value={"Not Available"}>{"Not Available"}</MenuItem>
-            )} */}
-            <MenuItem value={"bagmati"}>{"bagmati"}</MenuItem>
-            <MenuItem value={"karnali"}>{"karnali"}</MenuItem>
+            )}
+          </Select>
+        </OrderFormInputWrapper>
+
+        <OrderFormInputWrapper>
+          <InputLabel id="district-label">Select District</InputLabel>
+          <Select
+            fullWidth
+            labelId="district-label"
+            id="district"
+            name="district"
+            value={values.province}
+            label="Select District"
+            onChange={(e) => {
+              handleChangeAddress({ type: "district", value: e.target.value });
+            }}
+            onBlur={handleBlur}
+          >
+            {address.district.all.length !== 0 ? (
+              address.district.all.map((district) => {
+                return (
+                  <MenuItem
+                    key={district.id}
+                    value={{ id: district.id, name: district.name }}
+                  >
+                    {district.name}
+                  </MenuItem>
+                );
+              })
+            ) : (
+              <MenuItem value={"Not Available"}>{"Not Available"}</MenuItem>
+            )}
           </Select>
         </OrderFormInputWrapper>
 
@@ -218,9 +381,9 @@ export default function ShippingForm() {
             onChange={handleChange}
             onBlur={handleBlur}
           >
-            <MenuItem value="Nepal">{"Kathmandu"}</MenuItem>
-            <MenuItem value={"India"}>{"Bhaktapur"}</MenuItem>
-            <MenuItem value={"Pakistan"}>{"Dhapakhel"}</MenuItem>
+            <MenuItem value="Dhapakhel">{"Dhapakhel"}</MenuItem>
+            <MenuItem value={"Godawari"}>{"Godawari"}</MenuItem>
+            <MenuItem value={"Satdobato"}>{"Satdobato"}</MenuItem>
           </Select>
         </OrderFormInputWrapper>
 

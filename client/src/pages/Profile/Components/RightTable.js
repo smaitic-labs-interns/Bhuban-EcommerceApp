@@ -33,13 +33,42 @@ export default function RightTable() {
 
   const handleCancelOrder = (id) => {
     if (id && id !== " ") {
-      dispatch(cancel_order({ orderId: id, action: "cancel" }));
+      Swal.fire({
+        title: "Do you want to cancel this order?",
+        showDenyButton: true,
+        confirmButtonText: "Yes",
+        denyButtonText: "No",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          dispatch(cancel_order({ orderId: id, action: "cancel" }));
+        } else if (result.isDenied) {
+          Swal.fire("Changes are not saved", "", "info");
+        }
+      });
     }
   };
 
   const handleReturnReplace = (id, action) => {
     if (id && id !== " " && action && action !== "") {
-      dispatch(return_replace_order({ orderId: id, action: action }));
+      Swal.fire({
+        title: `Do you want to ${action} this order?`,
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: "Yes",
+        denyButtonText: "No",
+        customClass: {
+          actions: "my-actions",
+          cancelButton: "order-1 right-gap",
+          confirmButton: "order-2",
+          denyButton: "order-3",
+        },
+      }).then((result) => {
+        if (result.isConfirmed) {
+          dispatch(return_replace_order({ orderId: id, action: action }));
+        } else if (result.isDenied) {
+          Swal.fire("Changes are not saved", "", "info");
+        }
+      });
     }
   };
 
@@ -56,18 +85,12 @@ export default function RightTable() {
   useEffect(() => {
     if (cancelOrder.status === "success") {
       Swal.fire({
-        title: "Success!",
+        title: "Order Cancelled Sucessfully",
         text: `${cancelOrder.message}`,
         icon: "success",
         confirmButtonText: "Ok",
       });
       dispatch(fetch_user_orders({ userId: userId, action: "fetch" }));
-      // dispatch(
-      //   cancel_order({
-      //     orderId: "",
-      //     action: "clean",
-      //   })
-      // );
     } else if (cancelOrder.status === "failed") {
       Swal.fire({
         title: "Error!",
@@ -75,12 +98,14 @@ export default function RightTable() {
         icon: "error",
         confirmButtonText: "Ok",
       });
-      // dispatch(
-      //   cancel_order({
-      //     orderId: "",
-      //     action: "clean",
-      //   })
-      // );
+    }
+    if (cancelOrder.status !== null) {
+      dispatch(
+        cancel_order({
+          orderId: "",
+          action: "clean",
+        })
+      );
     }
   }, [cancelOrder]);
 
@@ -93,12 +118,6 @@ export default function RightTable() {
         confirmButtonText: "Ok",
       });
       dispatch(fetch_user_orders({ userId: userId, action: "fetch" }));
-      dispatch(
-        return_replace_order({
-          orderId: "",
-          action: "clean",
-        })
-      );
     } else if (returnReplace.status === "failed") {
       Swal.fire({
         title: "Error!",
@@ -106,6 +125,8 @@ export default function RightTable() {
         icon: "error",
         confirmButtonText: "Ok",
       });
+    }
+    if (returnReplace.status !== null) {
       dispatch(
         return_replace_order({
           orderId: "",
@@ -151,7 +172,7 @@ export default function RightTable() {
                   <TableCell>
                     <Button
                       variant="outlined"
-                      color="error"
+                      color="secondary"
                       onClick={() => handleReturnReplace(order.id, "return")}
                     >
                       <AssignmentReturn sx={{ paddingRight: "0.5rem" }} />
@@ -161,7 +182,7 @@ export default function RightTable() {
                   <TableCell>
                     <Button
                       variant="outlined"
-                      color="error"
+                      color="primary"
                       onClick={() => handleReturnReplace(order.id, "replace")}
                     >
                       <FindReplace sx={{ paddingRight: "0.5rem" }} />
