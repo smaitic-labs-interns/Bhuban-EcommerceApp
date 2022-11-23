@@ -68,10 +68,17 @@ const delete_product = async (productId) => {
       productId,
     ]);
     if (result.rowCount > 0) {
-      const delRes = await con.query("DELETE FROM products WHERE id= $1", [
-        productId,
-      ]);
-      if (delRes.rowCount > 0) return true;
+      const delImgRes = await con.query(
+        "DELETE FROM product_images WHERE productId= $1",
+        [productId]
+      );
+      if (delImgRes.rowCount > 0) {
+        const delRes = await con.query("DELETE FROM products WHERE id= $1", [
+          productId,
+        ]);
+        if (delRes.rowCount > 0) return true;
+      }
+      throw new Error(`Error occurs deleteing Images`);
     }
     throw new Error(`No Product Found for ID: ${productId}`);
   } catch (err) {
