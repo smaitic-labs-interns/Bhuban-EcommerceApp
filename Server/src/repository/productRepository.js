@@ -93,7 +93,7 @@ const update_product = async (productId, newProduct) => {
     ]);
     if (result.rowCount > 0) {
       const updRes = await con.query(
-        "UPDATE products SET category =$1, model =$2, brand =$3, name= $4, description =$4, price =$5, quantity =$6, rating =$7 WHERE id= $8",
+        "UPDATE products SET category =$1, model =$2, brand =$3, name= $4, description =$5, price =$6, quantity =$7 WHERE id= $8",
         [
           newProduct.category,
           newProduct.model,
@@ -102,7 +102,6 @@ const update_product = async (productId, newProduct) => {
           newProduct.description,
           newProduct.price,
           newProduct.quantity,
-          newProduct.rating,
           productId,
         ]
       );
@@ -110,6 +109,7 @@ const update_product = async (productId, newProduct) => {
     }
     throw new Error(`No Product Found for Id: ${productId}`);
   } catch (err) {
+    console.log(err);
     throw err;
   }
 };

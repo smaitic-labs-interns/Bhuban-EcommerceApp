@@ -105,8 +105,7 @@ const update_product = async (
   name,
   description,
   price,
-  quantity,
-  rating
+  quantity
 ) => {
   try {
     const { error, value } = Validate.updating_product_validation({
@@ -117,11 +116,9 @@ const update_product = async (
       description,
       price,
       quantity,
-      rating,
     });
     if (error) throw error;
     if (await store.product.update_product(productID, value)) {
-      console.log("Product updated sucessfully");
       return "Product updated sucessfully";
     }
   } catch (err) {

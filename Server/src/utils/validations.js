@@ -79,7 +79,6 @@ const updating_product_validation = ({
   description,
   price,
   quantity,
-  rating,
 }) => {
   const update_product_rule = Joi.object({
     category: Joi.string().allow("", null),
@@ -89,7 +88,6 @@ const updating_product_validation = ({
     description: Joi.string().allow("", null),
     price: Joi.number().allow("", null),
     quantity: Joi.number().allow(0, "", null),
-    rating: Joi.number().allow("", null),
   });
   return update_product_rule.validate({
     category,
@@ -99,7 +97,6 @@ const updating_product_validation = ({
     description,
     price,
     quantity,
-    rating,
   });
 };
 

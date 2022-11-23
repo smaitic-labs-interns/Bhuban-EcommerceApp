@@ -64,8 +64,7 @@ const update_product = async (req, resp) => {
       data.name,
       data.description,
       data.price,
-      data.quantity,
-      data.rating
+      data.quantity
     );
     resp.status(200).send(res);
   } catch (err) {
