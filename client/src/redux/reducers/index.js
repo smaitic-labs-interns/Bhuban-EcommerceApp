@@ -4,6 +4,8 @@ import {
   selectedProductReducer,
   addProductReducer,
   search_product_reducer,
+  delete_product_reducer,
+  update_product_reducer,
 } from "./productReducer";
 import {
   cartReducer,
@@ -39,6 +41,8 @@ const persistConfig = {
   blacklist: [
     "login",
     "searchProduct",
+    "deleteProduct",
+    "updateProduct",
     "cartProductsDetails",
     "addToCart",
     "updateCart",
@@ -87,6 +91,22 @@ const persistedReducer = persistCombineReducers(persistConfig, {
       blacklist: ["products", "status"],
     },
     search_product_reducer
+  ),
+  deleteProduct: persistReducer(
+    {
+      key: "deleteProduct",
+      storage: storage,
+      blacklist: ["message", "status"],
+    },
+    delete_product_reducer
+  ),
+  updateProduct: persistReducer(
+    {
+      key: "updateProduct",
+      storage: storage,
+      blacklist: ["message", "status"],
+    },
+    update_product_reducer
   ),
   updateCart: persistReducer(
     {

@@ -38,8 +38,8 @@ import QRCode from "qrcode";
 import ReactToPrint from "react-to-print";
 import { Print } from "@mui/icons-material";
 import { axios_instance } from "../../api/config/config";
-import { mail } from "../../api/config/api-endpoints";
 import { send_mail } from "../../redux/actions/mail.actions";
+import { mail } from "../../api/config/api-endpoints";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function Bill() {
@@ -68,32 +68,7 @@ export default function Bill() {
     console.log(clicked);
   }, [clicked]);
 
-  useEffect(() => {
-    let pDetails = "";
-    for (let pr of cart.products) {
-      pDetails = `ID: ${pr.productId} <br> Quantity: ${pr.quantity}`;
-    }
-    let from = "Ecommerce App <Bill Generation>";
-    let to = "bhuban.temp@gmail.com";
-    let subject = "Regarding Order Invoice";
-    let text = ``;
-    let html = `Your Order Hasbeen Placed Sucessfully With The following Details:<br>
-    <b>Total Bill: </b> ${cart.totalBill} <br>
-    <b>No of Products: </b> ${cart.noOfProducts}<br>
-    ${pDetails}`;
-
-    // html: componentRef,
-    dispatch(
-      send_mail({
-        from: from,
-        to: to,
-        subject: subject,
-        text: text,
-        html: html,
-        action: "send",
-      })
-    );
-  }, []);
+  useEffect(() => {}, []);
 
   // useEffect(async () => {
   //   const payload = {

@@ -23,7 +23,7 @@ export const LeftTabContainer = styled(Box)(() => ({
 
 export const RightWrapper = styled(Box)(() => ({
   width: "80%",
-  height: "90vh",
+  height: "91.8vh",
   padding: "20px 0",
   border: "solid #313A46 20px",
   overflowY: "scroll",

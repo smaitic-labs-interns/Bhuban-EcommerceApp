@@ -12,8 +12,12 @@ export const ProductContainer = styled(Box)(() => ({
 }));
 
 export const ProductActionWrapper = styled(Box)(() => ({
-  display: "flex",
-  justifyContent: "space-between",
+  // display: "flex",
+  // justifyContent: "center",
+}));
+
+export const AddProductCntntWrapper = styled(Box)(() => ({
+  border: " solid green 2px",
 }));
 
 export const AddProductButton = styled(Button)(() => ({
@@ -21,6 +25,7 @@ export const AddProductButton = styled(Button)(() => ({
   backgroundColor: "green",
   border: "solid yello-green 2px",
   color: "#fff",
+  margin: "1rem",
   boxShadow: "0 2px 6px 0 rgba(198, 250, 177)",
   "&:hover": {
     backgroundColor: "#fff",
@@ -45,9 +50,10 @@ export const RightSideButtonsWrapper = styled(Button)(() => ({
 }));
 
 export const DisplaySearchWrapper = styled(Box)(() => ({
-  marginTop: "2rem",
+  padding: "2rem",
   display: "flex",
   justifyContent: "space-between",
+  background: "darkgray",
 }));
 
 export const DisplayProductsWrapper = styled(Box)(() => ({

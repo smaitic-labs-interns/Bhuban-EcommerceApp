@@ -13,6 +13,9 @@ import {
   SEARCH_PRODUCT_REQUEST,
   SEARCH_PRODUCT_SUCCESS,
   SEARCH_PRODUCT_FAILED,
+  UPDATE_PRODUCT_REQUEST,
+  UPDATE_PRODUCT_SUCCESS,
+  UPDATE_PRODUCT_FAILED,
 } from "../constants/productConstants";
 
 import { axios_instance } from "../../api/config/config";
@@ -86,26 +89,68 @@ export const add_product = (value, action) => async (dispatch) => {
   }
 };
 
-export const delete_product = (id) => async (dispatch) => {
-  try {
-    console.log(id);
-    const payload = { id: id }; //since formData is received as argument so passing directly
-    dispatch({ type: DELETE_PRODUCT_REQUEST });
-    const response = await axios_instance({
-      endpoints: product.remove,
-      query: payload,
-    });
-    dispatch({
-      type: DELETE_PRODUCT_SUCCESS,
-      payload: { ...response.data },
-    });
-  } catch (err) {
-    dispatch({
-      type: DELETE_PRODUCT_FAILED,
-      payload: err.response,
-    });
-  }
-};
+export const delete_product =
+  ({ productId, action }) =>
+  async (dispatch) => {
+    try {
+      if (action === "clean") {
+        return dispatch({ type: DELETE_PRODUCT_REQUEST });
+      }
+      dispatch({ type: DELETE_PRODUCT_REQUEST });
+      const payload = { id: productId };
+
+      const response = await axios_instance({
+        endpoints: product.remove,
+        query: payload,
+      });
+
+      dispatch({
+        type: DELETE_PRODUCT_SUCCESS,
+        payload: response.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: DELETE_PRODUCT_FAILED,
+        payload: err.response,
+      });
+    }
+  };
+
+export const update_product =
+  ({ productId, data, action }) =>
+  async (dispatch) => {
+    try {
+      if (action === "clean") {
+        return dispatch({ type: UPDATE_PRODUCT_REQUEST });
+      }
+      dispatch({ type: UPDATE_PRODUCT_REQUEST });
+      const payload = {
+        category: data.category,
+        model: data.model,
+        brand: data.brand,
+        name: data.name,
+        description: data.description,
+        price: data.price,
+        quantity: data.quantity,
+      };
+
+      const response = await axios_instance({
+        endpoints: product.update,
+        query: { id: productId },
+        data: payload,
+      });
+
+      dispatch({
+        type: UPDATE_PRODUCT_SUCCESS,
+        payload: response.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: UPDATE_PRODUCT_FAILED,
+        payload: err.response,
+      });
+    }
+  };
 
 export const search_product =
   ({ keyword, action }) =>

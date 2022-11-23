@@ -9,8 +9,8 @@ import {
 } from "./styles/adminStyle";
 import { Home, Inventory, People } from "@mui/icons-material";
 import RightContent from "./Components/RightContent";
-import AddProduct from "./Components/AddProduct";
 import Product from "./Components/Product";
+import Order from "./Components/Order";
 
 export default function Admin() {
   const [target, setTarget] = useState(1);
@@ -38,13 +38,13 @@ export default function Admin() {
             />
             <LeftTabCard
               icon={<Inventory />}
-              title={"Add Product"}
+              title={"Product"}
               sx={target === 2 ? selected : null}
               onClick={() => setTarget(2)}
             />
             <LeftTabCard
               icon={<People />}
-              title={"Users"}
+              title={"Order"}
               sx={target === 3 ? selected : null}
               onClick={() => setTarget(3)}
             />
@@ -53,10 +53,10 @@ export default function Admin() {
         <RightWrapper>
           <RightContentContainer>
             <RightContent sx={target === 1 ? showContent : null}>
-              <Product />
+              <Order />
             </RightContent>
             <RightContent sx={target === 2 ? showContent : null}>
-              <AddProduct />
+              <Product />
             </RightContent>
             <RightContent sx={target === 3 ? showContent : null}>
               COntent 3

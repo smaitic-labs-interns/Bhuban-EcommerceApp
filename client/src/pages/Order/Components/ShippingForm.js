@@ -20,6 +20,8 @@ import { extra } from "../../../api/config/api-endpoints";
 import { useSelector, useDispatch } from "react-redux";
 import { place_order } from "../../../redux/actions/orderActions";
 import Swal from "sweetalert2";
+import { send_mail } from "../../../redux/actions/mail.actions";
+import { mail } from "../../../api/config/api-endpoints";
 
 import {
   read_all_countries,
@@ -30,11 +32,39 @@ import { useNavigate } from "react-router-dom";
 
 export default function ShippingForm() {
   const placeOrder = useSelector((state) => state.placeOrder);
+  const sendMail = useSelector((state) => state.sendMail);
+  const cart = useSelector((state) => state.userCart);
   const login = useSelector((state) => state.login);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const userId = login.isLogined ? login.userId : null;
+  const [countries, setCountry] = useState({
+    selected: {
+      id: "",
+      name: "",
+    },
+    all: [],
+  });
+  const [states, setState] = useState({
+    state: {
+      selected: {
+        id: "",
+        name: "",
+      },
+      all: [],
+    },
+  });
+  const [districts, setDistrict] = useState({
+    district: {
+      selected: {
+        id: "",
+        name: "",
+      },
+      all: [],
+    },
+  });
+  // const [country, setCountry] = useState()
 
   const [address, setAddress] = useState({
     country: {
@@ -123,6 +153,8 @@ export default function ShippingForm() {
   }, [values.shipmentType]);
 
   useEffect(() => {
+    // setCountry((countries) => ({...countries, all: []}));
+
     axios_instance({
       endpoints: extra.countries,
     })
@@ -131,14 +163,15 @@ export default function ShippingForm() {
         for (let cntry of response.data) {
           cntries.push({ id: cntry.id, name: cntry.country });
         }
-        setAddress((address) => (address.country.all = cntries));
+        // setAddress((address) => ({...address,{ ...country, all: cntries}}));
+        setCountry((c) => ({ ...c, all: cntries }));
       })
       .catch((err) => {
         // setAddress((address) => ({...address, address.country.all: []}));
       });
   }, []);
 
-  console.log(address);
+  console.log(countries);
 
   const handleChangeAddress = ({ type, value }) => {
     const { id, name } = value;
@@ -238,8 +271,87 @@ export default function ShippingForm() {
         text: `${placeOrder.message}`,
         icon: "success",
       });
-      navigate("generateBill");
+
+      let pDetails = "";
+      let index = 0;
+      for (let pr of cart.products) {
+        index++;
+        pDetails += `<tr>
+                      <td>${index}</td>
+                      <td>${pr.pDetails.category} : ${pr.pDetails.name}</td>
+                      <td>${pr.quantity}</td>
+                      <td>${pr.pDetails.price / 100}</td>
+                      <td>Rs: ${(pr.pDetails.price * pr.quantity) / 100}</td>
+                    </tr>`;
+      }
+      pDetails += `<tr style = "border-top: solid black 5px">
+                    <td></td>
+                    <td style = "font-weight: 600;">Grand Total</td>
+                    <td></td>
+                    <td colSpan=2 style = "font-weight: 600;">Rs: ${
+                      cart.totalBill / 100
+                    }</td>
+                  </tr>`;
+
+      let mailCntnt = `      
+      <!DOCTYPE html>
+      <html>
+      <head>
+      <style>
+      table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+      }
+
+      tr:nth-child(even) {
+        background-color: #dddddd;
+      }
+      </style>
+      </head>
+      <body>
+
+      <h2>Your Order Hasbeen Placed Sucessfully With The following Details:</h2>
+
+      <table>
+        <tr>
+          <th>S.N.</th>
+          <th>Product</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Total</th>
+        </tr>
+        ${pDetails}
+      </table>
+      </body>
+      </html>
+      `;
+
+      let from = "Ecommerce App <Bill Generation>";
+      let to = "bhuban.temp@gmail.com";
+      let subject = "Regarding Order Invoice";
+      let text = ``;
+      let html = mailCntnt;
+
+      // html: componentRef,
+      dispatch(
+        send_mail({
+          from: from,
+          to: to,
+          subject: subject,
+          text: text,
+          html: html,
+          action: "send",
+        })
+      );
       dispatch(place_order({ ...initialValues, action: "clean" }));
+      navigate("generateBill");
     } else if (placeOrder.status === "failed") {
       Swal.fire({
         title: "Error!",
@@ -290,8 +402,8 @@ export default function ShippingForm() {
             }}
             onBlur={handleBlur}
           >
-            {address.country.all.length !== 0 ? (
-              address.country.all.map((country) => {
+            {countries.all.length !== 0 ? (
+              countries.all.map((country) => {
                 return (
                   <MenuItem
                     key={country.id}

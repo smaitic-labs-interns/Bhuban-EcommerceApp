@@ -15,14 +15,13 @@ import {
   SEARCH_PRODUCT_REQUEST,
   SEARCH_PRODUCT_SUCCESS,
   SEARCH_PRODUCT_FAILED,
+  UPDATE_PRODUCT_REQUEST,
+  UPDATE_PRODUCT_SUCCESS,
+  UPDATE_PRODUCT_FAILED,
 } from "../constants/productConstants";
 
 const initialState = {
   products: [],
-};
-const deleteProductInitialState = {
-  id: "",
-  message: "",
 };
 
 const addProductInitialState = {
@@ -77,17 +76,60 @@ export const addProductReducer = (
   }
 };
 
+const productActionInitialState = {
+  status: null,
+  message: "",
+};
+
 export const delete_product_reducer = (
-  state = deleteProductInitialState,
+  state = productActionInitialState,
   { type, payload }
 ) => {
   switch (type) {
     case DELETE_PRODUCT_REQUEST:
-      return { ...state, ...payload };
+      return {
+        ...state,
+        status: null,
+      };
     case DELETE_PRODUCT_SUCCESS:
-      return { ...state, products: payload };
+      return {
+        ...state,
+        status: "success",
+        message: payload,
+      };
     case DELETE_PRODUCT_FAILED:
-      return {};
+      return {
+        ...state,
+        status: "failed",
+        message: payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export const update_product_reducer = (
+  state = productActionInitialState,
+  { type, payload }
+) => {
+  switch (type) {
+    case UPDATE_PRODUCT_REQUEST:
+      return {
+        ...state,
+        status: null,
+      };
+    case UPDATE_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        status: "success",
+        message: payload,
+      };
+    case UPDATE_PRODUCT_FAILED:
+      return {
+        ...state,
+        status: "failed",
+        message: payload,
+      };
     default:
       return state;
   }
