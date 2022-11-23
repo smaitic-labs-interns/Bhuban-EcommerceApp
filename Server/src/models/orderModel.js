@@ -44,7 +44,7 @@ const Order = (
     shippingAddress: value,
     payment: { type: paymentType, status: paymentStatus },
     shipment: { type: shipmentType, status: "review" },
-    orderStatus: "requested",
+    orderStatus: "pending",
   };
 };
 
