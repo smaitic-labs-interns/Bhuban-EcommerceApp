@@ -88,6 +88,14 @@ export const order = {
     method: "PUT",
     url: "order/updatePayment/",
   },
+  updateStatus: {
+    method: "PUT",
+    url: "order/updateStatus/",
+  },
+  updateShipment: {
+    method: "PUT",
+    url: "order/updateShipment/",
+  },
   track: {
     method: "GET",
     url: "/order/trackOrder/",
