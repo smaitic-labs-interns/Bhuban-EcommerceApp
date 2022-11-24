@@ -23,7 +23,7 @@ const Order = (
   if (!PAYMENT_TYPES.includes(paymentType)) {
     throw new Error("Invalid Payment");
   }
-  const paymentStatus = paymentType === "CASH" ? "Unpaid" : "paid";
+  const paymentStatus = paymentType === "CASH" ? "unPaid" : "paid";
 
   let shipmentCharge = 0;
   for (SHIPMENT of SHIPMENT_TYPES) {

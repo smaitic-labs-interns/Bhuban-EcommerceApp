@@ -212,13 +212,22 @@ const update_payment = async (orderId, newPayment) => {
     const order = await Store.order.read_order_from_id(orderId);
     const PAYMENT_TYPES = ["E-sewa", "Khalti", "CONNECT-IPS", "CASH"];
 
+    if (order.orderStatus === "cancelled") {
+      throw new Error(
+        "Error Occur Updating Payment (Order has been cancelled)"
+      );
+    } else if (order.orderStatus === "refund") {
+      throw new Error(
+        "Error Occur Updating Payment (Order has Placed For refund)"
+      );
+    }
+
     if (!PAYMENT_TYPES.includes(newPayment.type)) {
       throw new Error("Invalid Payment");
     }
     order.payment = newPayment;
 
     if (Store.order.update_order(orderId, order)) {
-      console.log("Payment Updated Sucessfully");
       return "Payment Updated Sucessfully";
     }
   } catch (err) {
@@ -231,54 +240,61 @@ const update_payment = async (orderId, newPayment) => {
 const update_order_status = async (orderId, status) => {
   try {
     const order = await Store.order.read_order_from_id(orderId);
-    switch (status) {
-      case "pending":
-        order.shipment.status = "";
-        break;
-      case "Awaiting Payment":
-        order.shipment.status = "";
-        break;
-      case "Awaiting Fulfillment":
-        order.shipment.status = "";
-        break;
+    order.orderStatus = status;
 
-      case "Awaiting Shipment":
-        order.shipment.status = "";
-        break;
-      case "Awaiting Pickup":
-        order.shipment.status = "";
-        break;
-      case "Partially Shipped":
-        order.shipment.status = "";
-        break;
-      case "Completed":
-        order.shipment.status = "";
-        break;
-      case "Shipped":
-        order.shipment.status = "";
-        break;
-      case "Cancelled":
-        order.shipment.status = "";
-        break;
-
-      case "Declined":
-        order.shipment.status = "";
-        break;
-      case "Refunded":
-        order.shipment.status = "";
-        break;
-      case "Disputed":
-        order.shipment.status = "";
-        break;
-      case "Manual Verification Required":
-        order.shipment.status = "";
-        break;
-      case "Partially Refunded":
-        order.shipment.status = "";
-        break;
-      default:
-        break;
+    if (Store.order.update_order(orderId, order)) {
+      return `Order Status Updated Sucessfully. New Status: (${status}`;
     }
+    throw new Error("Error Occurs Updating Status");
+
+    // switch (status) {
+    //   case "pending":
+    //     order.shipment.status = "Waiting For Approval";
+    //     break;
+    //   case "Awaiting Payment":
+    //     order.shipment.status = "";
+    //     break;
+    //   case "Awaiting Fulfillment":
+    //     order.shipment.status = "";
+    //     break;
+
+    //   case "Awaiting Shipment":
+    //     order.shipment.status = "";
+    //     break;
+    //   case "Awaiting Pickup":
+    //     order.shipment.status = "";
+    //     break;
+    //   case "Partially Shipped":
+    //     order.shipment.status = "";
+    //     break;
+    //   case "Completed":
+    //     order.shipment.status = "";
+    //     break;
+    //   case "Shipped":
+    //     order.shipment.status = "";
+    //     break;
+    //   case "Cancelled":
+    //     order.shipment.status = "";
+    //     break;
+
+    //   case "Declined":
+    //     order.shipment.status = "";
+    //     break;
+    //   case "Refunded":
+    //     order.shipment.status = "";
+    //     break;
+    //   case "Disputed":
+    //     order.shipment.status = "";
+    //     break;
+    //   case "Manual Verification Required":
+    //     order.shipment.status = "";
+    //     break;
+    //   case "Partially Refunded":
+    //     order.shipment.status = "";
+    //     break;
+    //   default:
+    //     break;
+    // }
   } catch (err) {
     throw err;
   }
@@ -500,6 +516,7 @@ module.exports = {
   update_quantity_order,
   update_address,
   update_payment,
+  update_order_status,
   track_order,
   cancel_order,
   return_replace_order,

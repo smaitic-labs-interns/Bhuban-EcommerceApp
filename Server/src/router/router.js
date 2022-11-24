@@ -15,9 +15,9 @@ router.get("/product/getone/:productId", api.product.get_product_by_id);
 router.post("/product/add", api.product.add_product);
 router.delete("/product/remove", api.product.remove_product);
 router.put("/product/update", api.product.update_product);
+router.get("/product/search/:keyword", api.product.search_products);
 router.get("/product/revenueReport", api.product.revenue_report);
 router.get("/product/arAgingReport", api.product.ar_aging_report);
-router.get("/product/search/:keyword", api.product.search_products);
 
 // for cart
 router.get("/cart/getCart/", api.cart.get_user_cart);
@@ -32,6 +32,7 @@ router.post("/order/placeOrder", api.order.place_order);
 router.put("/order/updateQuantityInOrder", api.order.update_quantity_order);
 router.put("/order/updateAddress", api.order.update_address);
 router.put("/order/updatePayment", api.order.update_payment);
+router.put("/order/updateStatus", api.order.update_status);
 router.get("/order/trackOrder", api.order.track_order);
 router.put("/order/cancelOrder", api.order.cancel_order);
 router.put("/order/returnReplaceOrder", api.order.return_replace_order);
