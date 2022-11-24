@@ -300,6 +300,20 @@ const update_order_status = async (orderId, status) => {
   }
 };
 
+const update_shipment = async (orderId, shipment) => {
+  try {
+    const order = await Store.order.read_order_from_id(orderId);
+    order.shipment = shipment;
+
+    if (Store.order.update_order(orderId, order)) {
+      return `Shipment Updated Sucessfully. New Shipment :<br /> type: (${shipment.type}, status: ${shipment.status}`;
+    }
+    throw new Error("Error Occurs Updating Shipment");
+  } catch (err) {
+    throw err;
+  }
+};
+
 /* track Order 
 @params
     1) orderId: "Unique Id"
@@ -517,6 +531,7 @@ module.exports = {
   update_address,
   update_payment,
   update_order_status,
+  update_shipment,
   track_order,
   cancel_order,
   return_replace_order,

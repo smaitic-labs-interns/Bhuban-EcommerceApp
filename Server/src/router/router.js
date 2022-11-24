@@ -33,6 +33,7 @@ router.put("/order/updateQuantityInOrder", api.order.update_quantity_order);
 router.put("/order/updateAddress", api.order.update_address);
 router.put("/order/updatePayment", api.order.update_payment);
 router.put("/order/updateStatus", api.order.update_status);
+router.put("/order/updateShipment", api.order.update_shipment);
 router.get("/order/trackOrder", api.order.track_order);
 router.put("/order/cancelOrder", api.order.cancel_order);
 router.put("/order/returnReplaceOrder", api.order.return_replace_order);

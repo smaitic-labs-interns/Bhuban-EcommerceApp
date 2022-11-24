@@ -97,6 +97,17 @@ const update_status = async (req, resp) => {
   }
 };
 
+const update_shipment = async (req, resp) => {
+  try {
+    const orderId = req.query.id;
+    const shipment = req.body;
+    const res = await Service.order.update_payment(orderId, shipment);
+    resp.status(200).send(res);
+  } catch (err) {
+    resp.status(400).send(err.message);
+  }
+};
+
 const track_order = async (req, resp) => {
   try {
     const orderId = req.query.id;
@@ -177,6 +188,7 @@ module.exports = {
   update_address,
   update_payment,
   update_status,
+  update_shipment,
   track_order,
   cancel_order,
   return_replace_order,
