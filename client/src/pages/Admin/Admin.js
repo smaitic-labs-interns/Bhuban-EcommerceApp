@@ -53,13 +53,13 @@ export default function Admin() {
         <RightWrapper>
           <RightContentContainer>
             <RightContent sx={target === 1 ? showContent : null}>
-              <Order />
+              {"Contains Different Cards"}
             </RightContent>
             <RightContent sx={target === 2 ? showContent : null}>
               <Product />
             </RightContent>
             <RightContent sx={target === 3 ? showContent : null}>
-              COntent 3
+              <Order />
             </RightContent>
           </RightContentContainer>
         </RightWrapper>

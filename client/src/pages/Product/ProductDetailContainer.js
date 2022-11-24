@@ -17,7 +17,6 @@ export default function ProductDetailContainer() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("PRODUCT ID: ", productId);
     if (productId && productId !== "") dispatch(fetch_product(productId));
 
     // return () => {

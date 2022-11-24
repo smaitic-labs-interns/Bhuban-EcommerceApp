@@ -43,13 +43,11 @@ export const fetch_product = (id) => async (dispatch) => {
       endpoints: e,
       path: { productId: id },
     });
-    // console.log(response);
     dispatch({
       type: FETCH_PRODUCT_SUCCESS,
       payload: response.data,
     });
   } catch (err) {
-    console.log(err);
     dispatch({
       type: FETCH_PRODUCT_FAILED,
       payload: err.response,

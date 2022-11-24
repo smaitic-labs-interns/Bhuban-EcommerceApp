@@ -29,6 +29,21 @@ import {
   RETURN_REPLACE_ORDER_REQUEST,
   RETURN_REPLACE_ORDER_SUCCESS,
   RETURN_REPLACE_ORDER_FAILED,
+  REFUND_UPDATES_REQUEST,
+  REFUND_UPDATES_SUCCESS,
+  REFUND_UPDATES_FAILED,
+  SHIPMENT_UPDATES_REQUEST,
+  SHIPMENT_UPDATES_SUCCESS,
+  SHIPMENT_UPDATES_FAILED,
+  RETURN_UPDATES_REQUEST,
+  RETURN_UPDATES_SUCCESS,
+  RETURN_UPDATES_FAILED,
+  PAYMENT_UPDATES_REQUEST,
+  PAYMENT_UPDATES_SUCCESS,
+  PAYMENT_UPDATES_FAILED,
+  UPDATE_ORDER_STATUS_REQUEST,
+  UPDATE_ORDER_STATUS_SUCCESS,
+  UPDATE_ORDER_STATUS_FAILED,
 } from "../constants/orderConstants";
 import { order } from "../../api/config/api-endpoints";
 import { axios_instance } from "../../api/config/config";
@@ -262,7 +277,7 @@ export const update_order_address =
   };
 
 export const updatet_order_payment =
-  ({ orderId, payment, action }) =>
+  ({ orderId, paymentType, paymentStatus, action }) =>
   async (dispatch) => {
     try {
       if (action === "clean") {
@@ -273,7 +288,7 @@ export const updatet_order_payment =
       const response = await axios_instance({
         endpoints: order.updatePayment,
         query: { id: orderId },
-        data: { payment: payment },
+        data: { type: paymentType, status: paymentStatus },
       });
 
       dispatch({
@@ -335,9 +350,143 @@ export const return_replace_order =
         payload: response.data,
       });
     } catch (err) {
-      console.log(err);
       dispatch({
         type: RETURN_REPLACE_ORDER_FAILED,
+        payload: err.response,
+      });
+    }
+  };
+
+export const refund_updates =
+  ({ orderId, action }) =>
+  async (dispatch) => {
+    try {
+      console.log(orderId, action);
+      if (action === "clean") {
+        return dispatch({ type: REFUND_UPDATES_REQUEST });
+      }
+
+      dispatch({ type: REFUND_UPDATES_REQUEST });
+      const response = await axios_instance({
+        endpoints: order.refund,
+        query: { id: orderId },
+      });
+
+      dispatch({
+        type: REFUND_UPDATES_SUCCESS,
+        payload: response.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: REFUND_UPDATES_FAILED,
+        payload: err.response,
+      });
+    }
+  };
+
+export const shipment_updates =
+  ({ orderId, action }) =>
+  async (dispatch) => {
+    try {
+      console.log(orderId, action);
+      if (action === "clean") {
+        return dispatch({ type: SHIPMENT_UPDATES_REQUEST });
+      }
+
+      dispatch({ type: SHIPMENT_UPDATES_REQUEST });
+      const response = await axios_instance({
+        endpoints: order.shipmentUpdates,
+        query: { id: orderId },
+      });
+
+      dispatch({
+        type: SHIPMENT_UPDATES_SUCCESS,
+        payload: response.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: SHIPMENT_UPDATES_FAILED,
+        payload: err.response,
+      });
+    }
+  };
+
+export const return_updates =
+  ({ orderId, action }) =>
+  async (dispatch) => {
+    try {
+      console.log(orderId, action);
+      if (action === "clean") {
+        return dispatch({ type: RETURN_UPDATES_REQUEST });
+      }
+
+      dispatch({ type: RETURN_UPDATES_REQUEST });
+      const response = await axios_instance({
+        endpoints: order.returnUpdates,
+        query: { id: orderId },
+      });
+
+      dispatch({
+        type: RETURN_UPDATES_SUCCESS,
+        payload: response.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: RETURN_UPDATES_FAILED,
+        payload: err.response,
+      });
+    }
+  };
+
+export const payment_updates =
+  ({ orderId, action }) =>
+  async (dispatch) => {
+    try {
+      console.log(orderId, action);
+      if (action === "clean") {
+        return dispatch({ type: PAYMENT_UPDATES_REQUEST });
+      }
+
+      dispatch({ type: PAYMENT_UPDATES_REQUEST });
+      const response = await axios_instance({
+        endpoints: order.paymentupdates,
+        query: { id: orderId },
+      });
+
+      dispatch({
+        type: PAYMENT_UPDATES_SUCCESS,
+        payload: response.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: PAYMENT_UPDATES_FAILED,
+        payload: err.response,
+      });
+    }
+  };
+
+export const update_order_status =
+  ({ orderId, status, action }) =>
+  async (dispatch) => {
+    try {
+      if (action === "clean") {
+        return dispatch({ type: UPDATE_ORDER_STATUS_REQUEST });
+      }
+
+      dispatch({ type: UPDATE_ORDER_STATUS_REQUEST });
+      const response = await axios_instance({
+        endpoints: order.updateStatus,
+        query: { id: orderId },
+        data: { status: status },
+      });
+
+      dispatch({
+        type: UPDATE_ORDER_STATUS_SUCCESS,
+        payload: response.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: UPDATE_ORDER_STATUS_FAILED,
         payload: err.response,
       });
     }

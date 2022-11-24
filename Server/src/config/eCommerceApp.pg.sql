@@ -130,7 +130,23 @@ CREATE TABLE shipment_address (
   CONSTRAINT Fk_shipment_address_orderId FOREIGN KEY (orderId) REFERENCES orders(id)
 );
 
-
+--- FOr Notification ---
+CREATE TABLE notification_table (
+  id SERIAL,
+  title text NOT NULL,
+  description text,
+  notificationType varchar(100),
+  category varchar(100) NOT NULL,
+  fromDepartment varchar(100) NOT NULL,
+  scope varchar(30) NOT NULL,
+  createdBy VARCHAR(36) NOT NULL,
+  createdAt TIMESTAMP DEFAULT NOW(),
+  updatedBy VARCHAR(36) NOT NULL,
+  updatedAt TIMESTAMP DEFAULT NOW(),
+  status VARCHAR(36),
+  CONSTRAINT Fk_notification_userId FOREIGN KEY (userId) REFERENCES users(id),
+  -- CONSTRAINT Fk_notification_orderId FOREIGN KEY (orderId) REFERENCES orders(id)
+);
 
 ---**** FOR COUNTRIES DATABASES-----
 

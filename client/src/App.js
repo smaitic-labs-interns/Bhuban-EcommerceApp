@@ -35,7 +35,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             {/* <Routes> */}
-            <Route index element={<Home />} />
+            {/* <Route index element={<Home />} />
             <Route
               path="profile"
               element={
@@ -60,18 +60,18 @@ function App() {
                   children={<Register />}
                   isAuthenticated={isAuthenticated}
                 />
-              }
-            />
-            <Route path="logout" element={<Logout />}></Route>
+              } */}
+            {/* /> */}
+            {/* <Route path="logout" element={<Logout />}></Route>
             <Route
               path="product/:productId"
-              element={<ProductDetailContainer />}
-            ></Route>
-            <Route path="cart" element={<Cart />}></Route>
+              element={<ProductDetailContainer />} */}
+            {/* ></Route> */}
+            {/* <Route path="cart" element={<Cart />}></Route> */}
             <Route path="placeOrder" element={<Order />}></Route>
-            <Route path="generateBill" element={<Bill />}></Route>
+            {/* <Route path="generateBill" element={<Bill />}></Route>
             <Route path="order" element={<Track />}></Route>
-            <Route path="search" element={<Search />}></Route>
+            <Route path="search" element={<Search />}></Route> */}
 
             {/* <Route
               path="placeOrder"
@@ -84,7 +84,7 @@ function App() {
             ></Route> */}
           </Route>
 
-          <Route path="/admin">
+          {/* <Route path="/admin">
             <Route
               index
               element={
@@ -95,7 +95,7 @@ function App() {
               }
             ></Route>
           </Route>
-          <Route path="*" element={<NotFound />}></Route>
+          <Route path="*" element={<NotFound />}></Route> */}
         </Routes>
       </BrowserRouter>
     </div>

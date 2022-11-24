@@ -29,6 +29,21 @@ import {
   RETURN_REPLACE_ORDER_REQUEST,
   RETURN_REPLACE_ORDER_SUCCESS,
   RETURN_REPLACE_ORDER_FAILED,
+  REFUND_UPDATES_REQUEST,
+  REFUND_UPDATES_SUCCESS,
+  REFUND_UPDATES_FAILED,
+  SHIPMENT_UPDATES_REQUEST,
+  SHIPMENT_UPDATES_SUCCESS,
+  SHIPMENT_UPDATES_FAILED,
+  RETURN_UPDATES_REQUEST,
+  RETURN_UPDATES_SUCCESS,
+  RETURN_UPDATES_FAILED,
+  PAYMENT_UPDATES_REQUEST,
+  PAYMENT_UPDATES_SUCCESS,
+  PAYMENT_UPDATES_FAILED,
+  UPDATE_ORDER_STATUS_REQUEST,
+  UPDATE_ORDER_STATUS_SUCCESS,
+  UPDATE_ORDER_STATUS_FAILED,
 } from "../constants/orderConstants";
 
 const placeOrderInitialState = {
@@ -294,6 +309,131 @@ export const return_replace_ord_reducer = (
         status: "success",
       };
     case RETURN_REPLACE_ORDER_FAILED:
+      return {
+        ...state,
+        message: payload.data,
+        status: "failed",
+      };
+    default:
+      return state;
+  }
+};
+
+export const refund_updates_reducer = (
+  state = updateOrderInitialState,
+  { type, payload }
+) => {
+  switch (type) {
+    case REFUND_UPDATES_REQUEST:
+      return { ...state, status: null };
+
+    case REFUND_UPDATES_SUCCESS:
+      return {
+        ...state,
+        message: payload,
+        status: "success",
+      };
+    case REFUND_UPDATES_FAILED:
+      return {
+        ...state,
+        message: payload.data,
+        status: "failed",
+      };
+    default:
+      return state;
+  }
+};
+
+export const shipment_updates_reducer = (
+  state = updateOrderInitialState,
+  { type, payload }
+) => {
+  switch (type) {
+    case SHIPMENT_UPDATES_REQUEST:
+      return { ...state, status: null };
+
+    case SHIPMENT_UPDATES_SUCCESS:
+      return {
+        ...state,
+        message: payload,
+        status: "success",
+      };
+    case SHIPMENT_UPDATES_FAILED:
+      return {
+        ...state,
+        message: payload.data,
+        status: "failed",
+      };
+    default:
+      return state;
+  }
+};
+
+export const return_updates_reducer = (
+  state = updateOrderInitialState,
+  { type, payload }
+) => {
+  switch (type) {
+    case RETURN_UPDATES_REQUEST:
+      return { ...state, status: null };
+
+    case RETURN_UPDATES_SUCCESS:
+      return {
+        ...state,
+        message: payload,
+        status: "success",
+      };
+    case RETURN_UPDATES_FAILED:
+      return {
+        ...state,
+        message: payload.data,
+        status: "failed",
+      };
+    default:
+      return state;
+  }
+};
+
+export const payment_updates_reducer = (
+  state = updateOrderInitialState,
+  { type, payload }
+) => {
+  switch (type) {
+    case PAYMENT_UPDATES_REQUEST:
+      return { ...state, status: null };
+
+    case PAYMENT_UPDATES_SUCCESS:
+      return {
+        ...state,
+        message: payload,
+        status: "success",
+      };
+    case PAYMENT_UPDATES_FAILED:
+      return {
+        ...state,
+        message: payload.data,
+        status: "failed",
+      };
+    default:
+      return state;
+  }
+};
+
+export const update_order_status_reducer = (
+  state = updateOrderInitialState,
+  { type, payload }
+) => {
+  switch (type) {
+    case UPDATE_ORDER_STATUS_REQUEST:
+      return { ...state, status: null };
+
+    case UPDATE_ORDER_STATUS_SUCCESS:
+      return {
+        ...state,
+        message: payload,
+        status: "success",
+      };
+    case UPDATE_ORDER_STATUS_FAILED:
       return {
         ...state,
         message: payload.data,

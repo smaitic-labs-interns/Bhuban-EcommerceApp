@@ -10,23 +10,20 @@ import OrderTable from "./OrderTable";
 
 export default function Order() {
   const allOrder = useSelector((state) => state.allOrder);
-  const [orders, setOrders] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetch_all_order());
   }, []);
 
-  useEffect(() => {
-    if (allOrder.status === "success") {
-      setOrders(allOrder.data);
-    }
-  }, [allOrder]);
-
   return (
     <OrderWrapper>
       <OrderContainer>
-        {orders.length !== 0 ? <OrderTable orders={orders} /> : ""}
+        {allOrder.status === "success" ? (
+          <OrderTable orders={allOrder.data} />
+        ) : (
+          ""
+        )}
       </OrderContainer>
     </OrderWrapper>
   );

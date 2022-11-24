@@ -28,6 +28,11 @@ import {
   update_order_payment_reducer,
   cancel_order_reducer,
   return_replace_ord_reducer,
+  refund_updates_reducer,
+  shipment_updates_reducer,
+  return_updates_reducer,
+  payment_updates_reducer,
+  update_order_status_reducer,
 } from "./orderReducer";
 import {
   all_countries,
@@ -53,8 +58,13 @@ const persistConfig = {
     "updateOrderQuantity",
     "updateOrderAddress",
     "updateOrderPayment",
+    "updateOrderStatus",
     "cancelOrder",
     "returnReplace",
+    "refundUpdates",
+    "shipmentUpdates",
+    "returnUpdates",
+    "paymentUpdates",
     "addProduct",
     "allCountries",
     "allStates",
@@ -197,6 +207,14 @@ const persistedReducer = persistCombineReducers(persistConfig, {
     },
     update_order_payment_reducer
   ),
+  updateOrderStatus: persistReducer(
+    {
+      key: "updateOrderStatus",
+      storage: storage,
+      blacklist: ["data", "status"],
+    },
+    update_order_status_reducer
+  ),
   cancelOrder: persistReducer(
     {
       key: "cancelOrder",
@@ -212,6 +230,38 @@ const persistedReducer = persistCombineReducers(persistConfig, {
       blacklist: ["data", "status"],
     },
     return_replace_ord_reducer
+  ),
+  refundUpdates: persistReducer(
+    {
+      key: "refundUpdates",
+      storage: storage,
+      blacklist: ["data", "status"],
+    },
+    refund_updates_reducer
+  ),
+  shipmentUpdates: persistReducer(
+    {
+      key: "shipmentUpdates",
+      storage: storage,
+      blacklist: ["data", "status"],
+    },
+    shipment_updates_reducer
+  ),
+  returnUpdates: persistReducer(
+    {
+      key: "returnUpdates",
+      storage: storage,
+      blacklist: ["data", "status"],
+    },
+    return_updates_reducer
+  ),
+  paymentUpdates: persistReducer(
+    {
+      key: "paymentUpdates",
+      storage: storage,
+      blacklist: ["data", "status"],
+    },
+    payment_updates_reducer
   ),
   countries: persistReducer(
     {
