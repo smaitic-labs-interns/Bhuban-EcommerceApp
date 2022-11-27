@@ -10,7 +10,7 @@ require("dotenv").config();
 const PGHOST = "localhost";
 const PGUSER = "postgres";
 const PGDATABASE = "eCommerceApp";
-const PGPASSWORD = "postgres";
+const PGPASSWORD = "toor";
 const PGPORT = 5432;
 
 const client = new Client({
