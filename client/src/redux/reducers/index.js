@@ -33,6 +33,7 @@ import {
   return_updates_reducer,
   payment_updates_reducer,
   update_order_status_reducer,
+  placed_order_details_reducer,
 } from "./orderReducer";
 import {
   all_countries,
@@ -174,6 +175,14 @@ const persistedReducer = persistCombineReducers(persistConfig, {
       blacklist: ["message", "status"],
     },
     place_order_reducer
+  ),
+  placedOrderDetails: persistReducer(
+    {
+      key: "placedOrderDetails",
+      storage: storage,
+      blacklist: ["message", "status"],
+    },
+    placed_order_details_reducer
   ),
   trackOrder: persistReducer(
     {

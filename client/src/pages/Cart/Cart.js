@@ -27,7 +27,7 @@ export default function Cart() {
 
   useEffect(() => {
     if (userId && userId !== "") {
-      dispatch(fetch_user_Cart({ userId: userId }));
+      dispatch(fetch_user_Cart({ userId: userId, action: "fetch" }));
     }
   }, [userId]);
 
@@ -72,7 +72,7 @@ export default function Cart() {
         </CartLeftWrapper>
         <CartRightWrapper>
           <CartRightCardWrapper>
-            <Checkout />
+            <Checkout cart={cart} />
           </CartRightCardWrapper>
         </CartRightWrapper>
       </CartWrapper>

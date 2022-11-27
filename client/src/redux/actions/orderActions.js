@@ -44,6 +44,9 @@ import {
   UPDATE_ORDER_STATUS_REQUEST,
   UPDATE_ORDER_STATUS_SUCCESS,
   UPDATE_ORDER_STATUS_FAILED,
+  PLACED_ORDER_DETAILS_REQUEST,
+  PLACED_ORDER_DETAILS_SUCCESS,
+  PLACED_ORDER_DETAILS_FAILED,
 } from "../constants/orderConstants";
 import { order } from "../../api/config/api-endpoints";
 import { axios_instance } from "../../api/config/config";
@@ -488,6 +491,55 @@ export const update_order_status =
       dispatch({
         type: UPDATE_ORDER_STATUS_FAILED,
         payload: err.response,
+      });
+    }
+  };
+
+export const placed_order_details =
+  ({ order, cart, action }) =>
+  async (dispatch) => {
+    try {
+      if (action === "clean") {
+        return dispatch({ type: PLACED_ORDER_DETAILS_REQUEST });
+      }
+
+      dispatch({ type: PLACED_ORDER_DETAILS_REQUEST });
+      // const response = await axios_instance({
+      //   endpoints: order.updateStatus,
+      //   query: { id: orderId },
+      //   data: { status: status },
+      // });
+
+      const response = {
+        cart: cart,
+        address: {
+          country: order.country,
+          province: order.province,
+          district: order.district,
+          city: order.city,
+          ward: order.ward,
+          tole: order.tole,
+          houseNo: order.houseNo,
+        },
+        shipment: {
+          type: order.shipmentType,
+          status: "Awaiting Verification",
+        },
+        payment: {
+          type: order.paymentType,
+          status: "NA",
+        },
+        message: "Bill generated Sucessfully",
+      };
+
+      dispatch({
+        type: PLACED_ORDER_DETAILS_SUCCESS,
+        payload: response,
+      });
+    } catch (err) {
+      dispatch({
+        type: PLACED_ORDER_DETAILS_FAILED,
+        payload: { message: "Error Occurs Try again Later" },
       });
     }
   };

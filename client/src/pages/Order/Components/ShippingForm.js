@@ -19,9 +19,11 @@ import { axios_instance } from "../../../api/config/config";
 import { extra } from "../../../api/config/api-endpoints";
 import { useSelector, useDispatch } from "react-redux";
 import { place_order } from "../../../redux/actions/orderActions";
+import { fetch_user_Cart } from "../../../redux/actions/cartActions";
 import Swal from "sweetalert2";
 import { send_mail } from "../../../redux/actions/mail.actions";
 import { mail } from "../../../api/config/api-endpoints";
+import { placed_order_details } from "../../../redux/actions/orderActions";
 
 import { useNavigate } from "react-router-dom";
 
@@ -35,12 +37,164 @@ export default function ShippingForm() {
 
   const userId = login.isLogined ? login.userId : null;
 
+  const [address, setAddress] = useState({
+    country: {
+      selected: {
+        id: "",
+        name: "",
+      },
+      all: [],
+    },
+    state: {
+      selected: {
+        id: "",
+        name: "",
+      },
+      all: [],
+    },
+    district: {
+      selected: {
+        id: "",
+        name: "",
+      },
+      all: [],
+    },
+  });
+
+  const handleChangeAddress = (type, value) => {
+    if (value === "") return;
+    switch (type) {
+      case "country":
+        const country = address.country.all.filter(
+          (country) => country.name === value
+        );
+        setAddress((address) => ({
+          ...address,
+          country: { ...address.country, selected: country[0] },
+        }));
+        break;
+      case "state":
+        const state = address.state.all.filter((state) => state.name === value);
+        setAddress((address) => ({
+          ...address,
+          state: { ...address.state, selected: state[0] },
+        }));
+        break;
+      case "district":
+        const district = address.district.all.filter(
+          (district) => district.name === value
+        );
+        setAddress((address) => ({
+          ...address,
+          district: { ...address.district, selected: district[0] },
+        }));
+      case "city":
+        break;
+      default:
+        break;
+    }
+  };
+
+  useEffect(() => {
+    axios_instance({
+      endpoints: extra.countries,
+    })
+      .then((response) => {
+        let cAll = [];
+        for (let c of response.data) {
+          cAll.push({ id: c.id, name: c.country });
+        }
+        setAddress((address) => ({
+          ...address,
+          country: { ...address.country, all: cAll },
+        }));
+      })
+      .catch((err) => {
+        setAddress((address) => ({
+          ...address,
+          country: { ...address.country, all: [] },
+        }));
+      });
+  }, []);
+
+  useEffect(() => {
+    let id = address.country.selected.id;
+    if (id && id !== "") {
+      axios_instance({
+        endpoints: extra.countryStates,
+        query: { id: id },
+      })
+        .then((response) => {
+          let stats = [];
+          for (let c of response.data) {
+            stats.push({ id: c.id, name: c.statename });
+          }
+          setAddress((address) => ({
+            ...address,
+            state: { ...address.state, all: stats },
+          }));
+        })
+        .catch((err) => {
+          setAddress((address) => ({
+            ...address,
+            state: { ...address.state, all: [] },
+          }));
+        });
+    }
+  }, [address.country.selected.id]);
+
+  useEffect(() => {
+    let id = address.state.selected.id;
+    if (id && id !== "") {
+      axios_instance({
+        endpoints: extra.stateDistricts,
+        query: { id: id },
+      })
+        .then((response) => {
+          let stats = [];
+          for (let c of response.data) {
+            stats.push({ id: c.id, name: c.district });
+          }
+          setAddress((address) => ({
+            ...address,
+            district: { ...address.district, all: stats },
+          }));
+        })
+        .catch((err) => {
+          setAddress((address) => ({
+            ...address,
+            district: { ...address.district, all: [] },
+          }));
+        });
+    }
+  }, [address.state.selected.id]);
+
+  useEffect(() => {
+    let id = address.district.selected.id;
+    // if (id && id !== "") {
+    //   axios_instance({
+    //     endpoints: extra.stateDistricts,
+    //     query: { id: id },
+    //   })
+    //     .then((response) => {
+    //       let stats = [];
+    //       for (let c of response.data) {
+    //         stats.push({ id: c.id, name: c.districtname });
+    //       }
+    //       setAddress((address) => ({
+    //         ...address,
+    //         district: { ...address.district, all: stats },
+    //       }));
+    //     })
+    //     .catch((err) => {
+    //       setStates([]);
+    //     });
+    // }
+  }, [address.district.selected.id]);
+
   const initialValues = {
     userId: userId,
-    // country: address.country,
-    // province: address.state,
-    // district: address.district,
-    // city: address.city,
+    city: "",
     ward: "",
     tole: "",
     houseNo: "",
@@ -60,161 +214,246 @@ export default function ShippingForm() {
     initialValues: initialValues,
     // validationSchema: loginSchema, // for data validation
     onSubmit: (values) => {
+      values.country = address.country.selected.name;
+      values.province = address.state.selected.name;
+      values.district = address.district.selected.name;
       dispatch(place_order({ ...values, action: "add" }));
     },
   });
 
-  const [countries, setCountries] = useState([]);
-  const [selCountry, setSelCountry] = useState("");
-
-  const handleChangeAddress = ({ type, value }) => {
-    const { id, name } = value;
-
-    switch (type) {
-      case "country":
-        setSelCountry(name);
-        break;
-      case "province":
-        break;
-      case "district":
-        break;
-      case "city":
-        break;
-
-      default:
-        break;
-    }
-    console.log(selCountry);
-  };
+  const [shipment, setShipment] = useState({
+    style: { display: "none" },
+    type: "none",
+    cost: 0,
+  });
+  const SHIPMENT_TYPES = [
+    { name: "International", charge: 500 },
+    { name: "Outside Valley", charge: 300 },
+    { name: "Inside Valley", charge: 200 },
+    { name: "Outside-RingRoad", charge: 150 },
+    { name: "Inside- RIngRoad", charge: 100 },
+  ];
 
   useEffect(() => {
-    axios_instance({
-      endpoints: extra.countries,
-    })
-      .then((response) => {
-        let cAll = [];
-        for (let c of response.data) {
-          cAll.push({ id: c.id, name: c.country });
-        }
-        setCountries(cAll);
-      })
-      .catch((err) => {
-        setCountries([]);
+    for (var ship of SHIPMENT_TYPES) {
+      if (ship.name === values.shipmentType) {
+        setShipment({
+          ...shipment,
+          style: { display: "block" },
+          type: ship.name,
+          cost: ship.charge,
+        });
+      }
+    }
+  }, [values.shipmentType]);
+
+  useEffect(() => {
+    if (placeOrder.status === "success") {
+      Swal.fire({
+        title: "Success!",
+        text: `${placeOrder.message}`,
+        icon: "success",
       });
-  }, []);
+
+      let pDetails = "";
+      let index = 0;
+      for (let pr of cart.products) {
+        index++;
+        pDetails += `<tr>
+                      <td>${index}</td>
+                      <td>${pr.pDetails.category} - ${pr.pDetails.model} - ${
+          pr.pDetails.brand
+        }</td>
+                      <td>${pr.quantity}</td>
+                      <td>${pr.pDetails.price / 100}</td>
+                      <td>Rs: ${(pr.pDetails.price * pr.quantity) / 100}</td>
+                    </tr>`;
+      }
+      pDetails += `<tr style = "border-top: solid black 5px">
+                    <td></td>
+                    <td style = "font-weight: 600;">Grand Total</td>
+                    <td></td>
+                    <td colSpan=2 style = "font-weight: 600;">Rs: ${
+                      cart.totalBill / 100
+                    }</td>
+                  </tr>`;
+
+      let mailCntnt = `      
+      <!DOCTYPE html>
+      <html>
+      <head>
+      <style>
+      table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+      }
+
+      tr:nth-child(even) {
+        background-color: #dddddd;
+      }
+      </style>
+      </head>
+      <body>
+
+      <h2>Your Order Hasbeen Placed Sucessfully With The following Details:</h2>
+
+      <table>
+        <tr>
+          <th>S.N.</th>
+          <th>Product</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Total</th>
+        </tr>
+        ${pDetails}
+      </table>
+      </body>
+      </html>
+      `;
+
+      let from = "Ecommerce App <Bill Generation>";
+      let to = "bhuban.temp@gmail.com";
+      let subject = "Regarding Order Invoice";
+      let text = ``;
+      let html = mailCntnt;
+
+      // html: componentRef,
+      dispatch(
+        send_mail({
+          from: from,
+          to: to,
+          subject: subject,
+          text: text,
+          html: html,
+          action: "send",
+        })
+      );
+      dispatch(
+        placed_order_details({ order: values, cart: cart, action: "fetch" })
+      );
+      dispatch(place_order({ ...initialValues, action: "clean" }));
+      dispatch(fetch_user_Cart({ userId: "", action: "clean" }));
+      navigate("/generateBill");
+    } else if (placeOrder.status === "failed") {
+      Swal.fire({
+        title: "Error!",
+        text: `${placeOrder.message}`,
+        icon: "error",
+      });
+    }
+  }, [placeOrder]);
 
   return (
     <FormWrapper>
       <FormContainer component={"form"} onSubmit={handleSubmit}>
         <OrderFormInputWrapper>
-          <InputLabel id="country-label">Select Country</InputLabel>
+          <InputLabel id="shipment-type-label">Shipment Type</InputLabel>
           <Select
             fullWidth
-            labelId="country-label"
-            id="country"
-            name="country"
-            label="Country Name"
-            // value={selCountry}
-            onChange={(e) => {
-              handleChangeAddress({ type: "country", value: e.target.value });
-            }}
-            onBlur={handleBlur}
-          >
-            {countries.length !== 0 ? (
-              countries.map((country) => {
-                return (
-                  <MenuItem
-                    key={country.id}
-                    value={{ id: country.id, name: country.name }}
-                  >
-                    {country.name}
-                  </MenuItem>
-                );
-              })
-            ) : (
-              <MenuItem value={"Not Available"}>{"Not Available"}</MenuItem>
-            )}
-          </Select>
-        </OrderFormInputWrapper>
-
-        <OrderFormInputWrapper>
-          <InputLabel id="province-label">Select Provience/state</InputLabel>
-          <Select
-            fullWidth
-            labelId="province-label"
-            id="province"
-            name="province"
-            value={values.province}
-            label="Select Provience/state"
-            onChange={(e) => {
-              handleChangeAddress({ type: "province", value: e.target.value });
-            }}
-            // onBlur={handleBlur}
-          >
-            {/* {states.all.length !== 0 ? (
-              states.all.map((state) => {
-                return (
-                  <MenuItem
-                    key={state.id}
-                    value={{ id: state.id, name: state.name }}
-                  >
-                    {state.statename}
-                  </MenuItem>
-                );
-              })
-            ) : (
-              <MenuItem value={"Not Available"}>{"Not Available"}</MenuItem>
-            )} */}
-          </Select>
-        </OrderFormInputWrapper>
-
-        <OrderFormInputWrapper>
-          <InputLabel id="district-label">Select District</InputLabel>
-          <Select
-            fullWidth
-            labelId="district-label"
-            id="district"
-            name="district"
-            value={values.province}
-            label="Select District"
-            onChange={(e) => {
-              handleChangeAddress({ type: "district", value: e.target.value });
-            }}
-            onBlur={handleBlur}
-          >
-            {/* {address.district.all.length !== 0 ? (
-              address.district.all.map((district) => {
-                return (
-                  <MenuItem
-                    key={district.id}
-                    value={{ id: district.id, name: district.name }}
-                  >
-                    {district.name}
-                  </MenuItem>
-                );
-              })
-            ) : (
-              <MenuItem value={"Not Available"}>{"Not Available"}</MenuItem>
-            )} */}
-          </Select>
-        </OrderFormInputWrapper>
-
-        <OrderFormInputWrapper>
-          <InputLabel id="city-label">Select City/Local-level</InputLabel>
-          <Select
-            fullWidth
-            labelId="city-label"
-            id="city"
-            name="city"
-            value={values.city}
-            label="Select City / local-level"
+            labelId="shipment-type-label"
+            id="shipmentType"
+            name="shipmentType"
+            value={values.shipmentType}
+            label="Shipment Type"
             onChange={handleChange}
             onBlur={handleBlur}
           >
-            <MenuItem value="Dhapakhel">{"Dhapakhel"}</MenuItem>
-            <MenuItem value={"Godawari"}>{"Godawari"}</MenuItem>
-            <MenuItem value={"Satdobato"}>{"Satdobato"}</MenuItem>
+            {SHIPMENT_TYPES.map((shipment) => {
+              return (
+                <MenuItem key={shipment.charge} value={shipment.name}>
+                  {shipment.name}
+                </MenuItem>
+              );
+            })}
           </Select>
+          <p style={shipment.style}>
+            {`Cost for ${shipment.type} Shipment is : Rs. ${shipment.cost}`}
+          </p>
+        </OrderFormInputWrapper>
+
+        <OrderFormInputWrapper>
+          <label htmlFor="country">Select Country</label>
+          <br />
+          <select
+            id="country"
+            onChange={(e) => handleChangeAddress("country", e.target.value)}
+          >
+            <option value={""}>{"Select Country"}</option>
+            {address.country.all.length !== 0 ? (
+              address.country.all.map((country) => (
+                <option key={country.id} value={country.name}>
+                  {country.name}
+                </option>
+              ))
+            ) : (
+              <option value={""}> {"Shipping Not Availabel"}</option>
+            )}
+          </select>
+        </OrderFormInputWrapper>
+
+        <OrderFormInputWrapper>
+          <label htmlFor="states">Select Provience/state</label> <br />
+          <select
+            id="states"
+            onChange={(e) => handleChangeAddress("state", e.target.value)}
+          >
+            <option value={""}>{"Select Province/States"}</option>;
+            {address.state.all.length !== 0 ? (
+              address.state.all.map((state) => {
+                return (
+                  <option key={state.id} value={state.name}>
+                    {state.name}
+                  </option>
+                );
+              })
+            ) : (
+              <option value={""}>{"Shipping Not Available"}</option>
+            )}
+          </select>
+        </OrderFormInputWrapper>
+
+        <OrderFormInputWrapper>
+          <label htmlFor="districts">Select Provience/state</label> <br />
+          <select
+            id="districts"
+            onChange={(e) => handleChangeAddress("district", e.target.value)}
+          >
+            <option value={""}>{"Select District"}</option>;
+            {address.district.all.length !== 0 ? (
+              address.district.all.map((district) => {
+                return (
+                  <option key={district.id} value={district.name}>
+                    {district.name}
+                  </option>
+                );
+              })
+            ) : (
+              <option value={""}>{"Shipping Not Available"}</option>
+            )}
+          </select>
+        </OrderFormInputWrapper>
+
+        <OrderFormInputWrapper>
+          <label id="cities">Select City/Local-level</label> <br />
+          <select
+            id="cities"
+            name="city"
+            value={values.city}
+            onChange={handleChange}
+            onBlur={handleBlur}
+          >
+            <option value={""}>{"Select Local Level"}</option>;
+            <option value="Dhapakhel">{"Dhapakhel"}</option>
+            <option value={"Godawari"}>{"Godawari"}</option>
+            <option value={"Satdobato"}>{"Satdobato"}</option>
+          </select>
         </OrderFormInputWrapper>
 
         <OrderFormInputWrapper>

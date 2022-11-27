@@ -124,25 +124,18 @@ export default function ProductDetail({ product }) {
   };
 
   useEffect(() => {
-    if (userId && userId !== " ") dispatch(fetch_user_Cart({ userId }));
+    if (userId && userId !== " ")
+      dispatch(fetch_user_Cart({ userId: userId, action: "fetch" }));
   }, [userId]);
 
   useEffect(() => {
     if (addToCart.status === "success") {
-      dispatch(fetch_user_Cart({ userId }));
+      dispatch(fetch_user_Cart({ userId: userId, action: "fetch" }));
       Swal.fire({
         title: "Success!",
         text: `${addToCart.message}`,
         icon: "success",
       });
-      dispatch(
-        add_to_cart({
-          userId: "",
-          productId: "",
-          quantity: "",
-          action: "clean",
-        })
-      );
     } else if (addToCart.status === "failed") {
       Swal.fire({
         title: "Failed!",
@@ -150,6 +143,9 @@ export default function ProductDetail({ product }) {
         icon: "error",
         confirmButtonText: "Ok",
       });
+    }
+
+    if (addToCart.status !== null) {
       dispatch(
         add_to_cart({
           userId: "",

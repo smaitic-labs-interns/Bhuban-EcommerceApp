@@ -21,15 +21,10 @@ const initialState = {
   message: "",
 };
 
-const cartProductsDetail = {
-  products: [],
-  status: null,
-};
-
 export const cartReducer = (state = initialState, action) => {
   switch (action.type) {
     case USER_CART_REQUEST:
-      return { ...state, status: null };
+      return initialState;
     case USER_CART_SUCCESS:
       return {
         ...state,
@@ -48,29 +43,6 @@ export const cartReducer = (state = initialState, action) => {
       return state;
   }
 };
-
-// export const getCartReducer = (state = initialState, action) => {
-//   switch (action.type) {
-//     case SET_CART_REQUEST:
-//       return {
-//         ...state,
-//         loading: true,
-//       };
-//     case SET_CART_FAIL:
-//       return {
-//         ...state,
-//         loading: false,
-//         isLogined: false,
-//         message: action.payload.data,
-//       };
-//     case SET_CART_SUCCESS:
-//       return {
-
-//       };
-//     default:
-//       return state;
-//   }
-// };
 
 const addToCartInitialState = {
   products: [],

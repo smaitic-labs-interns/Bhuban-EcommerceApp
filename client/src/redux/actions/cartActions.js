@@ -17,9 +17,12 @@ import { axios_instance } from "../../api/config/config";
 import { cart, product } from "../../api/config/api-endpoints";
 
 export const fetch_user_Cart =
-  ({ userId }) =>
+  ({ userId, action }) =>
   async (dispatch) => {
     try {
+      if (action === "claen") {
+        return dispatch({ type: USER_CART_REQUEST });
+      }
       dispatch({ type: USER_CART_REQUEST });
       const response = await axios_instance({
         endpoints: cart.getCart,

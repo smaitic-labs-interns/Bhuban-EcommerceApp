@@ -8,15 +8,21 @@ import {
   CheckoutWrapper,
 } from "../styles/checkoutStyle";
 
-export default function Checkout() {
+export default function Checkout({ cart }) {
   return (
     <CheckoutWrapper>
       <CheckoutTitleWrapper>
         <Typography>{"Order Summary"}</Typography>
       </CheckoutTitleWrapper>
-      <Link to={"/placeOrder"} style={{ textDecoration: "none" }}>
+      <Link
+        to={cart.noOfProducts === 0 ? "#" : "/placeOrder"}
+        style={{ textDecoration: "none" }}
+      >
         <CheckoutButtonWrapper>
-          <Button variant="success">
+          <Button
+            disabled={cart.noOfProducts == 0 ? true : false}
+            variant="success"
+          >
             <Typography>Proceed To Checkout</Typography>
           </Button>
         </CheckoutButtonWrapper>

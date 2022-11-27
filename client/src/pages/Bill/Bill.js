@@ -45,11 +45,28 @@ import { useDispatch, useSelector } from "react-redux";
 export default function Bill() {
   const sendMail = useSelector((state) => state.sendMail);
   const cart = useSelector((state) => state.userCart);
+  const login = useSelector((state) => state.login);
+  const placedOrderDetails = useSelector((state) => state.placedOrderDetails);
   const dispatch = useDispatch();
+  let userFullName = login
+    ? `${login.firstName} ${login.middleNmae} ${login.lastName}`
+    : "Undefined";
+
+  let {
+    country,
+    province,
+    city,
+    ward,
+    tole,
+    houseNo,
+    shipmentType,
+    paymentType,
+    message,
+  } = placedOrderDetails;
 
   const componentRef = useRef();
   const [qrcode, setQrcode] = useState("");
-  const text = "myshop.com";
+  const text = userFullName;
 
   useEffect(() => {
     QRCode.toDataURL(text).then((data) => {
@@ -68,7 +85,9 @@ export default function Bill() {
     console.log(clicked);
   }, [clicked]);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    console.log(placedOrderDetails);
+  }, [placedOrderDetails]);
 
   // useEffect(async () => {
   //   const payload = {
@@ -84,6 +103,15 @@ export default function Bill() {
   //   });
   //   console.log(res);
   // }, []);
+
+  let shippingAddress = placedOrderDetails
+    ? `Countrry: ${country}
+    province: ${province}
+    city: ${city}
+    ward: ${ward}
+    tole: ${tole}
+    houseNo: ${houseNo}`
+    : "Undefined";
 
   return (
     <BillWrapper>
@@ -110,7 +138,7 @@ export default function Bill() {
           <ShopDetailWrapper>
             <Typography>Registration Number: MyShop-23242546</Typography>
             <DateWrapper>
-              Date: <span>2022-04-22</span>
+              Date: <span>{" " + new Date().toString()}</span>
             </DateWrapper>
           </ShopDetailWrapper>
         </HeaderWrapper>
@@ -139,11 +167,11 @@ export default function Bill() {
         <UserDescWrapper>
           <UserDetailsWrapper>
             <ContentWrapper>
-              Name: <span> uban Yadav.</span>
+              Name: <span>{userFullName}</span>
             </ContentWrapper>
             <ContentWrapper>
               Shipping Address:
-              <span>Dhapakhel-23, Lalitpur Nepal. P.O Box: 23232 (Near )</span>
+              <span>{shippingAddress}</span>
             </ContentWrapper>
             <ContentWrapper>
               Extra Notes: :<span></span>
@@ -153,7 +181,7 @@ export default function Bill() {
             Contact Number:
             <span>9808888909, 9862601894</span>
             <br />
-            Email: <span>yadav.bhuban.by@gmail.com</span>
+            Email: <span>{login.email}</span>
           </ContentWrapper>
         </UserDescWrapper>
         <TitleWrapper>Product Details</TitleWrapper>

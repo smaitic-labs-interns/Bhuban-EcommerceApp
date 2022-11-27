@@ -44,10 +44,12 @@ import {
   UPDATE_ORDER_STATUS_REQUEST,
   UPDATE_ORDER_STATUS_SUCCESS,
   UPDATE_ORDER_STATUS_FAILED,
+  PLACED_ORDER_DETAILS_REQUEST,
+  PLACED_ORDER_DETAILS_SUCCESS,
+  PLACED_ORDER_DETAILS_FAILED,
 } from "../constants/orderConstants";
 
 const placeOrderInitialState = {
-  userId: "",
   country: "",
   province: "",
   city: "",
@@ -437,6 +439,44 @@ export const update_order_status_reducer = (
       return {
         ...state,
         message: payload.data,
+        status: "failed",
+      };
+    default:
+      return state;
+  }
+};
+
+const placedOrdDetInitState = {
+  cart: {},
+  shippingAddress: {},
+  payment: {},
+  shipment: {},
+  status: null,
+  message: "",
+};
+
+export const placed_order_details_reducer = (
+  state = placeOrderInitialState,
+  { type, payload }
+) => {
+  switch (type) {
+    case PLACED_ORDER_DETAILS_REQUEST:
+      return placedOrdDetInitState;
+
+    case PLACED_ORDER_DETAILS_SUCCESS:
+      return {
+        ...state,
+        status: "success",
+        cart: payload.cart,
+        shippingAddress: payload.address,
+        payment: payload.payment,
+        shipment: payload.shipment,
+        message: payload.message,
+      };
+    case { PLACED_ORDER_DETAILS_FAILED }:
+      return {
+        ...state,
+        message: payload.message,
         status: "failed",
       };
     default:

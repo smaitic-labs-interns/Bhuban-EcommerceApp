@@ -4,10 +4,7 @@ import noProduct from "../../public/images/no-product.jpg";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect, useState } from "react";
-import {
-  fetch_product,
-  removeSelectedProduct,
-} from "../../redux/actions/productActions";
+import { fetch_product } from "../../redux/actions/productActions";
 import { Box } from "@mui/material";
 
 export default function ProductDetailContainer() {
@@ -18,10 +15,6 @@ export default function ProductDetailContainer() {
 
   useEffect(() => {
     if (productId && productId !== "") dispatch(fetch_product(productId));
-
-    // return () => {
-    //   dispatch(removeSelectedProduct());
-    // };
   }, [productId]);
 
   useEffect(() => {}, [product]);
