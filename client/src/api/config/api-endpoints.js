@@ -126,30 +126,30 @@ export const order = {
   },
 };
 
-export const extra = {
+export const address = {
   countries: {
     method: "GET",
-    url: "/countries/getAll/",
+    url: "/countries/all/",
   },
 
   states: {
     method: "GET",
-    url: "/states/getAll/",
+    url: "/states/all/",
   },
 
   districts: {
     method: "GET",
-    url: "/districts/getAll/",
+    url: "/districts/all/",
   },
 
   countryStates: {
     method: "GET",
-    url: "/country/states/getAll/",
+    url: "/country/states/all/",
   },
 
   stateDistricts: {
     method: "GET",
-    url: "/state/districts/getAll/",
+    url: "/state/districts/all/",
   },
 };
 

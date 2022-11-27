@@ -39,7 +39,7 @@ import {
   all_countries,
   country_all_states,
   state_all_districts,
-} from "./extra";
+} from "./address.reducer";
 
 const persistConfig = {
   key: "persist-store",
