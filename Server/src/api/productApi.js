@@ -26,6 +26,7 @@ const add_product = async (req, resp) => {
   try {
     const data = req.body;
     const file = req.files;
+    console.log(data);
     const res = await Service.product.add_product(
       data.category,
       data.model,
@@ -34,6 +35,7 @@ const add_product = async (req, resp) => {
       data.description,
       data.price,
       data.quantity,
+      data.addedBy,
       file
     );
     resp.status(200).send(data);
@@ -64,7 +66,8 @@ const update_product = async (req, resp) => {
       data.name,
       data.description,
       data.price,
-      data.quantity
+      data.quantity,
+      data.updatedBy
     );
     resp.status(200).send(res);
   } catch (err) {

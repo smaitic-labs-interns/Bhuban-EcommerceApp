@@ -29,7 +29,7 @@ const get_all_product = async () => {
 const add_product = async (product) => {
   try {
     const result = await con.query(
-      "INSERT INTO products (id, category, model, brand, name, description, price, quantity) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)",
+      "INSERT INTO products (id, category, model, brand, name, description, price, quantity, addedBy) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)",
       [
         product.id,
         product.category,
@@ -39,6 +39,7 @@ const add_product = async (product) => {
         product.description,
         product.price,
         product.quantity,
+        product.addedBy,
       ]
     );
     const path = await upload_product_images({
@@ -90,9 +91,10 @@ const update_product = async (productId, newProduct) => {
     const result = await con.query("SELECT * FROM products WHERE id= $1", [
       productId,
     ]);
+    console.log(newProduct);
     if (result.rowCount > 0) {
       const updRes = await con.query(
-        "UPDATE products SET category =$1, model =$2, brand =$3, name= $4, description =$5, price =$6, quantity =$7 WHERE id= $8",
+        "UPDATE products SET category =$1, model =$2, brand =$3, name= $4, description =$5, price =$6, quantity =$7, updatedBy = $8, updatedAt=$9 WHERE id= $10",
         [
           newProduct.category,
           newProduct.model,
@@ -101,6 +103,8 @@ const update_product = async (productId, newProduct) => {
           newProduct.description,
           newProduct.price,
           newProduct.quantity,
+          newProduct.updatedBy,
+          new Date(),
           productId,
         ]
       );
@@ -108,7 +112,6 @@ const update_product = async (productId, newProduct) => {
     }
     throw new Error(`No Product Found for Id: ${productId}`);
   } catch (err) {
-    console.log(err);
     throw err;
   }
 };

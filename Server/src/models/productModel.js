@@ -9,6 +9,7 @@ const Product = ({
   description,
   price,
   quantity,
+  addedBy,
   images,
 }) => {
   const { error, value } = Validate.product_validation({
@@ -19,6 +20,7 @@ const Product = ({
     description,
     price,
     quantity,
+    addedBy,
   });
   if (error) throw error;
   return {
@@ -30,6 +32,7 @@ const Product = ({
     description: value.description,
     price: value.price,
     quantity: value.quantity,
+    addedBy: value.addedBy,
     images: images,
   };
 };

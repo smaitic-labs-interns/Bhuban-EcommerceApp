@@ -49,7 +49,7 @@ const product_validation = ({
   description,
   price,
   quantity,
-  rating,
+  addedBy,
 }) => {
   const product_rule = Joi.object({
     category: Joi.string().required(),
@@ -59,6 +59,7 @@ const product_validation = ({
     description: Joi.string(),
     price: Joi.number().required(),
     quantity: Joi.number().required(),
+    addedBy: Joi.string().required(),
   });
   return product_rule.validate({
     category,
@@ -68,6 +69,7 @@ const product_validation = ({
     description,
     price,
     quantity,
+    addedBy,
   });
 };
 
@@ -79,6 +81,7 @@ const updating_product_validation = ({
   description,
   price,
   quantity,
+  updatedBy,
 }) => {
   const update_product_rule = Joi.object({
     category: Joi.string().allow("", null),
@@ -88,6 +91,7 @@ const updating_product_validation = ({
     description: Joi.string().allow("", null),
     price: Joi.number().allow("", null),
     quantity: Joi.number().allow(0, "", null),
+    updatedBy: Joi.string().required(),
   });
   return update_product_rule.validate({
     category,
@@ -97,6 +101,7 @@ const updating_product_validation = ({
     description,
     price,
     quantity,
+    updatedBy,
   });
 };
 

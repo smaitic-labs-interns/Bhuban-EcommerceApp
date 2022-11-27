@@ -20,6 +20,7 @@ const add_product = async (
   description,
   price,
   quantity,
+  addedBy,
   images
 ) => {
   try {
@@ -31,6 +32,7 @@ const add_product = async (
       description,
       price,
       quantity,
+      addedBy,
       images,
     });
     if (await store.product.add_product(product)) {
@@ -105,7 +107,8 @@ const update_product = async (
   name,
   description,
   price,
-  quantity
+  quantity,
+  updatedBy
 ) => {
   try {
     const { error, value } = Validate.updating_product_validation({
@@ -116,6 +119,7 @@ const update_product = async (
       description,
       price,
       quantity,
+      updatedBy,
     });
     if (error) throw error;
     if (await store.product.update_product(productID, value)) {
