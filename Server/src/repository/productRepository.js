@@ -29,7 +29,7 @@ const get_all_product = async () => {
 const add_product = async (product) => {
   try {
     const result = await con.query(
-      "INSERT INTO products (id, category, model, brand, name, description, price, quantity, rating) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)",
+      "INSERT INTO products (id, category, model, brand, name, description, price, quantity) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)",
       [
         product.id,
         product.category,
@@ -39,7 +39,6 @@ const add_product = async (product) => {
         product.description,
         product.price,
         product.quantity,
-        product.rating,
       ]
     );
     const path = await upload_product_images({

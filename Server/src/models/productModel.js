@@ -30,7 +30,6 @@ const Product = ({
     description: value.description,
     price: value.price,
     quantity: value.quantity,
-    rating: 0,
     images: images,
   };
 };
