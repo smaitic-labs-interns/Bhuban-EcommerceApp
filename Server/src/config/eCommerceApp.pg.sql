@@ -1,6 +1,23 @@
 
 ---DATABASE
-CREATE DATABASE eCOmmerceApp;
+CREATE DATABASE eCommerceApp;
+
+--- User roles enum type
+CREATE TYPE user_role AS ENUM ('superadmin', 'admin', 'edito', 'user');
+
+
+-- Creating Trigger for updatedAt
+CREATE OR REPLACE FUNCTION update_modified_column() 
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.updatedAt = now();
+    RETURN NEW; 
+END;
+$$ language 'plpgsql';
+
+--- applying trigger
+CREATE TRIGGER update_useer_updtime BEFORE UPDATE ON eCommerceApp FOR EACH ROW EXECUTE PROCEDURE  update_modified_column();
+
 
 -- USERS
 CREATE TABLE users (
@@ -14,6 +31,9 @@ CREATE TABLE users (
   imgageAltText text,
   password text NOT NULL,
   createdAt TIMESTAMP DEFAULT NOW(),
+  updatedAt TIMESTAMP DEFAULT NOW(),
+  updatedBy VARCHAR(36),
+  role user_role,
   PRIMARY KEY(id)
 );
 
@@ -27,8 +47,10 @@ CREATE TABLE products (
   description text NOT NULL,
   price INT NOT NULL,
   quantity INT NOT NULL,
-  rating decimal(3,0) DEFAULT 0,
-  createdAt TIMESTAMP DEFAULT NOW(),
+  addedBy varchar(36) NOT NULL,
+  addedAt TIMESTAMP DEFAULT NOW(),
+  updatedAt TIMESTAMP DEFAULT NOW(),
+  updatedBy VARCHAR(36),
   PRIMARY KEY(id)
 );
 
@@ -50,6 +72,8 @@ CREATE TABLE product_images (
   status varchar(20) NOT NULL,
   createdAt TIMESTAMP DEFAULT NOW(),
   PRIMARY KEY(id),
+  updatedAt TIMESTAMP DEFAULT NOW(),
+  updatedBy VARCHAR(36),
   CONSTRAINT Fk_carts FOREIGN KEY(userId)  REFERENCES users(id)
 );
 
@@ -71,6 +95,8 @@ CREATE TABLE orders (
   totalBill BIGINT NOT NULL,
   orderStatus varchar(30) NOT NULL,
   createdAt TIMESTAMP DEFAULT NOW(),
+  updatedAt TIMESTAMP ,
+  updatedBy VARCHAR(36),
   PRIMARY KEY(id),
   CONSTRAINT Fk_orders_userId FOREIGN KEY(userId) REFERENCES users(id) 
 );
@@ -151,33 +177,33 @@ CREATE TABLE notification_table (
 ---**** FOR COUNTRIES DATABASES-----
 
 ---For World Countries
-CREATE TABLE world_countries (
+CREATE TABLE countries (
   id SERIAL,
-  country VARCHAR(100) NOT NULL,
+  name VARCHAR(100) NOT NULL,
   capital VARCHAR(100) NOT NULL,
   cc_iso2 VARCHAR(2) NOT NULL,
   cc_iso3 VARCHAR(3) NOT NULL,
   latitude VARCHAR(10) NOT NULL,
   longitude varchar(10) NOT NULL,
-  PRIMARY KEY(id)users
+  PRIMARY KEY(id)
 );
 
 ---For world State/province
 
-CREATE TABLE world_states (
+CREATE TABLE states (
   id SERIAL,
-  stateName VARCHAR(100) NOT NULL,
+  name VARCHAR(100) NOT NULL,
   countryId SERIAL,
   PRIMARY KEY(id),
-  CONSTRAINT Fk_world_states_countryId FOREIGN KEY (countryId) REFERENCES world_countries(id)
+  CONSTRAINT Fk_states_countryId FOREIGN KEY (countryId) REFERENCES countries(id)
 );
 
 -- FOR WORLD Districts 
 
-CREATE TABLE world_districts (
+CREATE TABLE districts (
   id SERIAL,
-  district VARCHAR(100) NOT NULL,
+  name VARCHAR(100) NOT NULL,
   stateId SERIAL,
   PRIMARY KEY(id),
-  CONSTRAINT Fk_world_districts_stateId FOREIGN KEY (stateId) REFERENCES world_states(id)
+  CONSTRAINT Fk_districts_stateId FOREIGN KEY (stateId) REFERENCES states(id)
 );
