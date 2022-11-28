@@ -11,6 +11,7 @@ router.post("/user/login", api.user.user_login);
 
 // for product
 router.get("/product/getAll", api.product.get_all_product);
+router.get("/product/limited", api.product.get_limited_product);
 router.get("/product/getone/:productId", api.product.get_product_by_id);
 router.post("/product/add", api.product.add_product);
 router.delete("/product/remove", api.product.remove_product);

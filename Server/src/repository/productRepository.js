@@ -26,6 +26,58 @@ const get_all_product = async () => {
   }
 };
 
+const get_limited_product = async ({ page, limit }) => {
+  try {
+    let res = await con.query("SELECT COUNT(*) FROM products");
+    const length = res.rows[0].count;
+
+    const startIndex = (page - 1) * limit;
+    const endIndex = page * limit;
+
+    const result = {};
+
+    if (endIndex < length) {
+      result.next = {
+        page: page + 1,
+        limit: limit,
+      };
+    }
+
+    if (startIndex < 0) {
+      result.previous = {
+        page: page - 1,
+        limit: limit,
+      };
+    }
+
+    let products = await con.query(
+      "SELECT * FROM products ORDER BY addedAt DESC offset $1 LIMIT $2",
+      [startIndex, endIndex]
+    );
+    if (products.rowCount !== 0) {
+      for (let product of products.rows) {
+        let image = await con.query(
+          "SELECT * FROM product_images WHERE productId = $1",
+          [product.id]
+        );
+        if (image.rowCount !== 0) {
+          product.images = image.rows;
+        } else {
+          product.images = [
+            { imageurl: "/images/noImageFound.png", altText: "No Image Found" },
+          ];
+        }
+      }
+
+      result.data = products.rows;
+      return result;
+    }
+    throw new Error(`No product Found`);
+  } catch (err) {
+    throw err;
+  }
+};
+
 const add_product = async (product) => {
   try {
     const result = await con.query(
@@ -228,6 +280,7 @@ const update_quantity = async (productId, quantity, action) => {
 module.exports = {
   add_product,
   get_all_product,
+  get_limited_product,
   delete_product,
   update_product,
   search_product,

@@ -3,6 +3,26 @@ const router = express.Router();
 router.use(express.json());
 const Service = require("../service/allService");
 
+const get_all_product = async (req, resp) => {
+  try {
+    const res = await Service.product.get_all_product();
+    resp.status(200).send(res);
+  } catch (err) {
+    resp.status(400).send(err.message);
+  }
+};
+
+const get_limited_product = async (req, resp) => {
+  try {
+    const page = req.query.page;
+    const limit = req.query.limit;
+    const res = await Service.product.get_limited_product({ page, limit });
+    resp.status(200).send(res);
+  } catch (err) {
+    resp.status(400).send(err.message);
+  }
+};
+
 const get_product_by_id = async (req, resp) => {
   try {
     const productId = req.params.productId;
@@ -13,20 +33,10 @@ const get_product_by_id = async (req, resp) => {
   }
 };
 
-const get_all_product = async (req, resp) => {
-  try {
-    const res = await Service.product.get_all_product();
-    resp.status(200).send(res);
-  } catch (err) {
-    resp.status(400).send(err.message);
-  }
-};
-
 const add_product = async (req, resp) => {
   try {
     const data = req.body;
     const file = req.files;
-    console.log(data);
     const res = await Service.product.add_product(
       data.category,
       data.model,
@@ -103,6 +113,7 @@ const search_products = async (req, resp) => {
 
 module.exports = {
   get_all_product,
+  get_limited_product,
   get_product_by_id,
   add_product,
   remove_product,

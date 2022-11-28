@@ -2,6 +2,38 @@ const store = require("../repository/dbRepository");
 const Schema = require("../models/productModel");
 const Validate = require("../utils/validations");
 
+const get_all_product = async () => {
+  try {
+    const products = await store.product.get_all_product();
+    if (products) return products;
+  } catch (err) {
+    throw err;
+  }
+};
+
+const get_limited_product = async ({ page, limit }) => {
+  try {
+    newPage = page == 0 ? 1 : page;
+    newLimit = limit == 0 ? 1 : limit;
+    const products = await store.product.get_limited_product({
+      page: newPage,
+      limit: newLimit,
+    });
+    if (products) return products;
+  } catch (err) {
+    throw err;
+  }
+};
+
+const get_product_by_id = async (productId) => {
+  try {
+    const product = await store.product.find_product(productId);
+    if (product) return product;
+  } catch (err) {
+    throw err;
+  }
+};
+
 /* Management: Add Product to file
 @params
     1) productDetails: "Products with full details", productObject
@@ -39,26 +71,6 @@ const add_product = async (
       console.log("Product added to Database sucessfully");
       return "Product added to Database sucessfully";
     }
-  } catch (err) {
-    console.log(`${err.name} => ${err.message}`);
-    throw err;
-  }
-};
-
-const get_all_product = async () => {
-  try {
-    const products = await store.product.get_all_product();
-    if (products) return products;
-  } catch (err) {
-    console.log(`${err.name} => ${err.message}`);
-    throw err;
-  }
-};
-
-const get_product_by_id = async (productId) => {
-  try {
-    const product = await store.product.find_product(productId);
-    if (product) return product;
   } catch (err) {
     console.log(`${err.name} => ${err.message}`);
     throw err;
@@ -179,6 +191,7 @@ const search_products = async (keyword) => {
 
 module.exports = {
   get_all_product,
+  get_limited_product,
   get_product_by_id,
   add_product,
   remove_product,
