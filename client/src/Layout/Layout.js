@@ -7,7 +7,7 @@ import { Outlet } from "react-router-dom";
 export default function Layout({ children }) {
   return (
     <>
-      <Box>
+      <Box sx={{ width: "100%", height: "100vh" }}>
         <Box sx={{ position: "sticky" }}>
           <Navbar></Navbar>
         </Box>
@@ -18,7 +18,7 @@ export default function Layout({ children }) {
             borderTop: "none",
             borderBottom: "none",
             position: "relative",
-            height: "82vh",
+            height: "83.5vh",
             overflow: "scroll",
             // whiteSpace: "nowrap",
             scrollbarWidth: "none", //Firefox
@@ -26,14 +26,16 @@ export default function Layout({ children }) {
               display: "none", //Chrome, Safari and Opera
               MsOverflowStyle: "none", // IE, Edge
             },
-          }}>
+          }}
+        >
           <Outlet />
         </Box>
         <Box
           sx={{
             border: "solid #1976D2 15px",
             position: "sticky",
-          }}>
+          }}
+        >
           <Footer></Footer>
         </Box>
       </Box>
