@@ -61,31 +61,33 @@ export const removeSelectedProduct = () => {
   };
 };
 
-export const add_product = (value, action) => async (dispatch) => {
-  try {
-    if (action === "clean") {
-      return dispatch({ type: ADD_PRODUCT_REQUEST });
+export const add_product =
+  ({ value, action }) =>
+  async (dispatch) => {
+    try {
+      if (action === "clean") {
+        return dispatch({ type: ADD_PRODUCT_REQUEST });
+      }
+      const payload = value; //since whole formData is received as argument so passing directly
+      dispatch({ type: ADD_PRODUCT_REQUEST });
+      const response = await axios_instance({
+        endpoints: product.add,
+        data: payload,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      dispatch({
+        type: ADD_PRODUCT_SUCCESS,
+        payload: response.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: ADD_PRODUCT_FAILED,
+        payload: err.response,
+      });
     }
-    const payload = value; //since whole formData is received as argument so passing directly
-    dispatch({ type: ADD_PRODUCT_REQUEST });
-    const response = await axios_instance({
-      endpoints: product.add,
-      data: payload,
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
-    dispatch({
-      type: ADD_PRODUCT_SUCCESS,
-      payload: { ...response.data },
-    });
-  } catch (err) {
-    dispatch({
-      type: ADD_PRODUCT_FAILED,
-      payload: err.response,
-    });
-  }
-};
+  };
 
 export const delete_product =
   ({ productId, action }) =>
@@ -115,7 +117,7 @@ export const delete_product =
   };
 
 export const update_product =
-  ({ productId, data, action }) =>
+  ({ productId, userId, data, action }) =>
   async (dispatch) => {
     try {
       if (action === "clean") {
@@ -130,6 +132,7 @@ export const update_product =
         description: data.description,
         price: data.price,
         quantity: data.quantity,
+        updatedBy: userId,
       };
 
       const response = await axios_instance({

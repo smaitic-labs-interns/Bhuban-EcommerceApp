@@ -28,6 +28,9 @@ const initialStateLogin = {
   isLogined: false,
   message: "",
   loading: true,
+  role: null,
+  imageUrl: "",
+  imageAltText: "",
 };
 
 export const registerReducer = (state = initialStateRegister, action) => {
@@ -74,8 +77,26 @@ export const loginReducer = (state = initialStateLogin, action) => {
         lastName: action.payload.lastname,
         address: action.payload.address,
         email: action.payload.email,
+        imageUrl: action.payload.imageurl,
+        imageAltText: action.payload.imagealttext,
         message: "login success",
+        role: action.payload.role,
       };
+    case USER_LOGOUT:
+      return initialStateLogin;
+    default:
+      return state;
+  }
+};
+
+export const logout_reducer = (
+  state = initialStateLogin,
+  { type, payload }
+) => {
+  switch (type) {
+    case USER_LOGOUT:
+      return state;
+
     default:
       return state;
   }

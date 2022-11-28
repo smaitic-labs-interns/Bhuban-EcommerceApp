@@ -7,7 +7,12 @@ import {
   RightWrapper,
   RightContentContainer,
 } from "./styles/adminStyle";
-import { Home, Inventory, People } from "@mui/icons-material";
+import {
+  Home,
+  Inventory,
+  People,
+  ShoppingCartCheckout,
+} from "@mui/icons-material";
 import RightContent from "./Components/RightContent";
 import Product from "./Components/Product";
 import Order from "./Components/Order";
@@ -43,9 +48,15 @@ export default function Admin() {
               onClick={() => setTarget(2)}
             />
             <LeftTabCard
-              icon={<People />}
+              icon={<ShoppingCartCheckout />}
               title={"Order"}
               sx={target === 3 ? selected : null}
+              onClick={() => setTarget(3)}
+            />
+            <LeftTabCard
+              icon={<People />}
+              title={"Users"}
+              sx={target === 4 ? selected : null}
               onClick={() => setTarget(3)}
             />
           </LeftTabContainer>
@@ -59,6 +70,9 @@ export default function Admin() {
               <Product />
             </RightContent>
             <RightContent sx={target === 3 ? showContent : null}>
+              <Order />
+            </RightContent>
+            <RightContent sx={target === 4 ? showContent : null}>
               <Order />
             </RightContent>
           </RightContentContainer>

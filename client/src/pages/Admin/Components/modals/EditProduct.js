@@ -16,16 +16,20 @@ import { useFormik } from "formik";
 
 import { TextField, Box, Modal, Button, TextareaAutosize } from "@mui/material";
 import addProduct from "../../../../public/images/addProduct.png";
-import { add_product } from "../../../../redux/actions/productActions";
+import {
+  add_product,
+  fetchProducts,
+  update_product,
+} from "../../../../redux/actions/productActions";
 import { useSelector, useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import { Close, Edit, Save } from "@mui/icons-material";
-import { update_product } from "../../../../redux/actions/productActions";
-import { fetchProducts } from "../../../../redux/actions/productActions";
 
 export default function EditProduct({ product }) {
   const addProduct = useSelector((state) => state.addProduct);
   const updateProduct = useSelector((state) => state.updateProduct);
+  const login = useSelector((state) => state.login);
+  const userId = login.isLogined ? login.userId : null;
   const dispatch = useDispatch();
   const [image, setImage] = useState([]);
 
@@ -57,6 +61,7 @@ export default function EditProduct({ product }) {
       dispatch(
         update_product({
           productId: product.id,
+          userId: userId,
           data: values,
           action: "update",
         })
@@ -81,7 +86,9 @@ export default function EditProduct({ product }) {
         text: `${updateProduct.message}`,
         icon: "success",
       });
-      dispatch(update_product({ productId: "", data: {}, action: "clean" }));
+      dispatch(
+        update_product({ productId: "", userId: "", data: {}, action: "clean" })
+      );
       dispatch(fetchProducts());
     } else if (updateProduct.status === "failed") {
       Swal.fire({

@@ -11,7 +11,7 @@ import {
 } from "../constants/extra";
 
 import { axios_instance } from "../../api/config/config";
-import { extra } from "../../api/config/api-endpoints";
+import { address } from "../../api/config/api-endpoints";
 
 export const read_all_countries = () => async (dispatch) => {
   try {

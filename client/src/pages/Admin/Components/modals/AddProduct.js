@@ -24,7 +24,8 @@ export default function AddProduct() {
   const dispatch = useDispatch();
   const [image, setImage] = useState([]);
   const [category, setCategory] = useState("");
-
+  const login = useSelector((state) => state.login);
+  const userId = login.isLogined ? login.userId : null;
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
 
@@ -64,7 +65,8 @@ export default function AddProduct() {
       formData.append("price", values.price);
       formData.append("quantity", values.quantity);
       formData.append("description", values.description);
-      dispatch(add_product(formData, "add"));
+      formData.append("addedBy", userId);
+      dispatch(add_product({ value: formData, action: "add" }));
     },
   });
 
@@ -84,7 +86,7 @@ export default function AddProduct() {
         text: `${addProduct.message}`,
         icon: "success",
       });
-      dispatch(add_product(initialValues, "clean"));
+      dispatch(add_product({ value: {}, action: "clean" }));
     } else if (addProduct.status === "failed") {
       Swal.fire({
         title: "Error!",

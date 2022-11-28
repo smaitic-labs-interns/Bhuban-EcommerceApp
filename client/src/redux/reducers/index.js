@@ -84,7 +84,6 @@ const persistedReducer = persistCombineReducers(persistConfig, {
     },
     loginReducer
   ),
-  // login: loginReducer,z
   allProducts: productReducer,
   product: selectedProductReducer,
   addProduct: persistReducer(
