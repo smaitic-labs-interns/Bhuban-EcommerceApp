@@ -57,6 +57,14 @@ export const product = {
 };
 
 export const cart = {
+  all: {
+    method: "GET",
+    url: "/cart/all/",
+  },
+  limited: {
+    method: "GET",
+    url: "/cart/limited/",
+  },
   getCart: {
     method: "GET",
     url: "/cart/getCart/",
