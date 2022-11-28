@@ -13,8 +13,8 @@ const get_all_product = async () => {
 
 const get_limited_product = async ({ page, limit }) => {
   try {
-    newPage = page == 0 ? 1 : page;
-    newLimit = limit == 0 ? 1 : limit;
+    newPage = parseInt(page) === 0 ? 1 : parseInt(page);
+    newLimit = parseInt(limit) === 0 ? 1 : parseInt(limit);
     const products = await store.product.get_limited_product({
       page: newPage,
       limit: newLimit,

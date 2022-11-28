@@ -16,8 +16,8 @@ const read_all_orders = async () => {
 
 const read_limited_orders = async ({ page, limit }) => {
   try {
-    newPage = page == 0 ? 1 : page;
-    newLimit = limit == 0 ? 1 : limit;
+    newPage = parseInt(page) === 0 ? 1 : parseInt(page);
+    newLimit = parseInt(limit) === 0 ? 1 : parseInt(limit);
     const order = await Store.order.read_limited_orders({
       page: newPage,
       limit: newLimit,

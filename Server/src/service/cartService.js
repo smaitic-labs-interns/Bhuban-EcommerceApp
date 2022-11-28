@@ -12,8 +12,8 @@ const get_all_cart = async () => {
 
 const get_limited_cart = async ({ page, limit }) => {
   try {
-    newPage = page == 0 ? 1 : page;
-    newLimit = limit == 0 ? 1 : limit;
+    newPage = parseInt(page) === 0 ? 1 : parseInt(page);
+    newLimit = parseInt(limit) === 0 ? 1 : parseInt(limit);
     const carts = await Store.cart.get_limited_cart({
       page: newPage,
       limit: newLimit,
