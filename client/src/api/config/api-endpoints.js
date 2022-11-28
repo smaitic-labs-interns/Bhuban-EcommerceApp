@@ -1,4 +1,12 @@
 export const user = {
+  all: {
+    method: "GET",
+    url: "/user/all/",
+  },
+  login: {
+    method: "GET",
+    url: "/user/limited/",
+  },
   login: {
     method: "POST",
     url: "/user/login/",
