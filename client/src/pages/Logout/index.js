@@ -13,7 +13,10 @@ export default function index() {
 
   useEffect(() => {
     dispatch(user_logout());
-    navigateToLogin();
-  }, [login.isLogined]);
+  }, []);
+
+  useEffect(() => {
+    if (login.isLogined) navigateToLogin();
+  }, [login]);
   return <div>Logout Page</div>;
 }
