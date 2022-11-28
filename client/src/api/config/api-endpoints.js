@@ -14,9 +14,9 @@ export const product = {
     method: "GET",
     url: "/product/getAll/",
   },
-  all: {
+  limited: {
     method: "GET",
-    url: " /product/limited/",
+    url: "/product/limited/",
   },
   one: {
     method: "GET",
@@ -67,6 +67,10 @@ export const order = {
   all: {
     method: "GET",
     url: "/order/all/",
+  },
+  limited: {
+    method: "GET",
+    url: "/order/limited/",
   },
   user: {
     method: "GET",
