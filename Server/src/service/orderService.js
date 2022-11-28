@@ -14,6 +14,21 @@ const read_all_orders = async () => {
   }
 };
 
+const read_limited_orders = async ({ page, limit }) => {
+  try {
+    newPage = page == 0 ? 1 : page;
+    newLimit = limit == 0 ? 1 : limit;
+    const order = await Store.order.read_limited_orders({
+      page: newPage,
+      limit: newLimit,
+    });
+    if (order) return order;
+    throw new Error("Error occurs fetching orders");
+  } catch (err) {
+    throw err;
+  }
+};
+
 const read_user_orders = async (userId) => {
   try {
     const order = await Store.order.read_user_orders(userId);
@@ -523,9 +538,10 @@ const send_payment_updates = async (orderId) => {
 // send_payment_updates("a699efaa-0e54-490d-b197-10e32a76efc2");
 
 module.exports = {
-  place_order,
   read_all_orders,
+  read_limited_orders,
   read_user_orders,
+  place_order,
   read_order_by_id,
   update_quantity_order,
   update_address,

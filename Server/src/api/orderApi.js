@@ -12,6 +12,17 @@ const read_all_orders = async (req, resp) => {
   }
 };
 
+const read_limited_orders = async (req, resp) => {
+  try {
+    const page = req.query.page;
+    const limit = req.query.limit;
+    const res = await Service.order.read_limited_orders({ page, limit });
+    resp.status(200).send(res);
+  } catch (err) {
+    resp.status(400).send(err.message);
+  }
+};
+
 const read_user_orders = async (req, resp) => {
   try {
     const userId = req.query.id;
@@ -181,6 +192,7 @@ const send_payment_updates = async (req, resp) => {
 
 module.exports = {
   read_all_orders,
+  read_limited_orders,
   read_user_orders,
   read_order_by_id,
   place_order,
