@@ -86,7 +86,7 @@ const read_limited_orders = async ({ page, limit }) => {
       };
     }
     let orders = await con.query(
-      `SELECT * FROM orders ORDER BY createdAt offset $1 LIMIT $2`,
+      `SELECT * FROM orders ORDER BY createdAt DESC offset $1 LIMIT $2`,
       [startIndex, endIndex]
     );
     const allOrders = [];
@@ -212,7 +212,92 @@ const read_user_orders = async (userId) => {
   }
 };
 
-// read_user_orders()
+const read_user_order_limited = async ({ page, limit, userId }) => {
+  try {
+    let res = await con.query("SELECT COUNT(*) FROM orders WHERE userId = $1", [
+      userId,
+    ]);
+    const length = res.rows[0].count;
+
+    const startIndex = (page - 1) * limit;
+    const endIndex = page * limit;
+
+    const result = {};
+
+    if (endIndex < length) {
+      result.next = {
+        page: page + 1,
+        limit: limit,
+      };
+    }
+
+    if (startIndex < 0) {
+      result.previous = {
+        page: page - 1,
+        limit: limit,
+      };
+    }
+    let orders = await con.query(`SELECT * FROM orders WHERE userId = $1`, [
+      userId,
+    ]);
+    const allOrders = [];
+    if (orders.rowCount > 0) {
+      for (let order of orders.rows) {
+        let ordProdRes = await con.query(
+          `SELECT productId, quantity FROM order_products WHERE orderId = $1`,
+          [order.id]
+        );
+        let shipAddRes = await con.query(
+          `SELECT country, province, city, ward, tole, houseNo FROM shipment_address WHERE orderId = $1 ORDER BY createdAt DESC offset $2 LIMIT $3`,
+          [order.id, startIndex, endIndex]
+        );
+        let shipRes = await con.query(
+          `SELECT type , status FROM shipment WHERE orderId = $1`,
+          [order.id]
+        );
+        let paymRes = await con.query(
+          `SELECT type, status FROM payment WHERE orderId = $1`,
+          [order.id]
+        );
+        ordProdRes = ordProdRes.rows;
+        shipAddRes = shipAddRes.rows[0];
+        shipRes = shipRes.rows[0];
+        paymRes = paymRes.rows[0];
+
+        for (key in shipAddRes) {
+          if (key === "houseno") {
+            shipAddRes.houseNo = shipAddRes[key];
+            delete shipAddRes.houseno;
+          }
+          const prdts = [];
+          for (item of ordProdRes) {
+            prdts.push({
+              productId: item.productid,
+              quantity: Number(item.quantity),
+            });
+          }
+          let ord = {
+            id: order.id,
+            userId: order.userid,
+            orderStatus: order.orderstatus,
+            totalBill: Number(order.totalbill),
+            products: prdts,
+            shippingAddress: shipAddRes,
+            payment: paymRes,
+            shipment: shipRes,
+            placedOn: order.createdat,
+          };
+          allOrders.push(ord);
+        }
+      }
+      result.data = allOrders;
+      return result;
+    }
+    throw new Error(`No Orders Found for user ID: ${userId}`);
+  } catch (err) {
+    throw err;
+  }
+};
 
 const place_order = async (order) => {
   try {
@@ -430,6 +515,7 @@ module.exports = {
   read_all_orders,
   read_limited_orders,
   read_user_orders,
+  read_user_order_limited,
   read_order_from_id,
   update_order,
   place_order,

@@ -92,6 +92,10 @@ export const order = {
     method: "GET",
     url: "/order/user/",
   },
+  userLimited: {
+    method: "GET",
+    url: "/order/user/limited",
+  },
   one: {
     method: "GET",
     url: "/order/one/",

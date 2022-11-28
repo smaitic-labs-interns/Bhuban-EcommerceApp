@@ -39,6 +39,22 @@ const read_user_orders = async (userId) => {
   }
 };
 
+const read_user_order_limited = async ({ userId, page, limit }) => {
+  try {
+    newPage = parseInt(page) === 0 ? 1 : parseInt(page);
+    newLimit = parseInt(limit) === 0 ? 1 : parseInt(limit);
+    const order = await Store.order.read_user_order_limited({
+      userId: userId,
+      page: newPage,
+      limit: newLimit,
+    });
+    if (order.length !== 0) return order;
+    throw new Error("Error occurs fetching user orders");
+  } catch (err) {
+    throw err;
+  }
+};
+
 const read_order_by_id = async (orderId) => {
   try {
     const order = await Store.order.read_order_from_id(orderId);
@@ -543,6 +559,7 @@ module.exports = {
   read_user_orders,
   place_order,
   read_order_by_id,
+  read_user_order_limited,
   update_quantity_order,
   update_address,
   update_payment,

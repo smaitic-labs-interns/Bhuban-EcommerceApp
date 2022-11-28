@@ -26,8 +26,22 @@ const read_limited_orders = async (req, resp) => {
 const read_user_orders = async (req, resp) => {
   try {
     const userId = req.query.id;
-    console.log("objecUSER IFt: ", userId);
     const res = await Service.order.read_user_orders(userId);
+    resp.status(200).send(res);
+  } catch (err) {
+    resp.status(400).send(err.message);
+  }
+};
+const read_user_order_limited = async (req, resp) => {
+  try {
+    const userId = req.query.id;
+    const page = req.query.page;
+    const limit = req.query.limit;
+    const res = await Service.order.read_user_order_limited({
+      userId,
+      page,
+      limit,
+    });
     resp.status(200).send(res);
   } catch (err) {
     resp.status(400).send(err.message);
@@ -194,6 +208,7 @@ module.exports = {
   read_all_orders,
   read_limited_orders,
   read_user_orders,
+  read_user_order_limited,
   read_order_by_id,
   place_order,
   update_quantity_order,
