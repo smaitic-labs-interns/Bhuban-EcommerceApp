@@ -1,6 +1,29 @@
 const Store = require("../repository/dbRepository");
 const Schema = require("../models/cartModel");
 
+const get_all_cart = async () => {
+  try {
+    const carts = await Store.cart.get_all_cart();
+    if (carts) return carts;
+  } catch (err) {
+    throw err;
+  }
+};
+
+const get_limited_cart = async ({ page, limit }) => {
+  try {
+    newPage = page == 0 ? 1 : page;
+    newLimit = limit == 0 ? 1 : limit;
+    const carts = await Store.cart.get_limited_cart({
+      page: newPage,
+      limit: newLimit,
+    });
+    if (carts) return carts;
+  } catch (err) {
+    throw err;
+  }
+};
+
 /* Add product to cart
 @params
     1.cartId: Id of cart, unique for each customer
@@ -147,6 +170,8 @@ const update_quantity_in_cart = async (userId, product, action) => {
 // update_quantity_in_cart("027dc63e-a824-418d-9f52-a956b8a2b8be", {productId: "76b55b9b-9143-4505-9c8f-216b953d4380", quantity : 5}, "remove");
 
 module.exports = {
+  get_all_cart,
+  get_limited_cart,
   get_user_cart,
   add_product_to_cart,
   update_quantity_in_cart,

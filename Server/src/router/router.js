@@ -23,6 +23,8 @@ router.get("/product/revenueReport", api.product.revenue_report);
 router.get("/product/arAgingReport", api.product.ar_aging_report);
 
 // for cart
+router.get("/cart/all/", api.cart.get_all_cart);
+router.get("/cart/limited/", api.cart.get_limited_cart);
 router.get("/cart/getCart/", api.cart.get_user_cart);
 router.post("/cart/addProductToCart", api.cart.add_product_to_cart);
 router.put("/cart/updateQuantityInCart", api.cart.update_quantity_in_cart);
