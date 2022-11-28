@@ -14,6 +14,10 @@ export const product = {
     method: "GET",
     url: "/product/getAll/",
   },
+  all: {
+    method: "GET",
+    url: " /product/limited/",
+  },
   one: {
     method: "GET",
     url: "/product/getOne/:productId",
