@@ -25,7 +25,9 @@ export const ImageWrapper = styled(Box)(() => ({}));
 export const ImageContainer = styled(Box)(() => ({
   width: "330px",
   height: "330px",
-  objectFit: "contain",
+  "& >img": {
+    objectFit: "contain",
+  },
 }));
 
 export const ImageControlsWrapper = styled(Box)(() => ({
