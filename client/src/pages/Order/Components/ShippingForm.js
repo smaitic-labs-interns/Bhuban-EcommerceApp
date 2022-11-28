@@ -1,35 +1,27 @@
 import React, { useEffect, useState } from "react";
-import {
-  Select,
-  MenuItem,
-  TextField,
-  Autocomplete,
-  Button,
-  InputLabel,
-} from "@mui/material";
+import { Select, MenuItem, TextField, Button, InputLabel } from "@mui/material";
 import {
   FormWrapper,
   FormContainer,
   OrderFormInputWrapper,
+  OrderFormSelectInputWrapper,
   PlaceOrderButtonWrapper,
 } from "../Styles/shippingFormStyle";
 
 import { useFormik } from "formik";
 import { axios_instance } from "../../../api/config/config";
-import { extra } from "../../../api/config/api-endpoints";
+import { address as addressEndpoint } from "../../../api/config/api-endpoints";
 import { useSelector, useDispatch } from "react-redux";
 import { place_order } from "../../../redux/actions/orderActions";
 import { fetch_user_Cart } from "../../../redux/actions/cartActions";
 import Swal from "sweetalert2";
 import { send_mail } from "../../../redux/actions/mail.actions";
-import { mail } from "../../../api/config/api-endpoints";
 import { placed_order_details } from "../../../redux/actions/orderActions";
 
 import { useNavigate } from "react-router-dom";
 
 export default function ShippingForm() {
   const placeOrder = useSelector((state) => state.placeOrder);
-  const sendMail = useSelector((state) => state.sendMail);
   const cart = useSelector((state) => state.userCart);
   const login = useSelector((state) => state.login);
   const dispatch = useDispatch();
@@ -97,12 +89,12 @@ export default function ShippingForm() {
 
   useEffect(() => {
     axios_instance({
-      endpoints: extra.countries,
+      endpoints: addressEndpoint.countries,
     })
       .then((response) => {
         let cAll = [];
         for (let c of response.data) {
-          cAll.push({ id: c.id, name: c.country });
+          cAll.push({ id: c.id, name: c.name });
         }
         setAddress((address) => ({
           ...address,
@@ -121,13 +113,13 @@ export default function ShippingForm() {
     let id = address.country.selected.id;
     if (id && id !== "") {
       axios_instance({
-        endpoints: extra.countryStates,
+        endpoints: addressEndpoint.countryStates,
         query: { id: id },
       })
         .then((response) => {
           let stats = [];
           for (let c of response.data) {
-            stats.push({ id: c.id, name: c.statename });
+            stats.push({ id: c.id, name: c.name });
           }
           setAddress((address) => ({
             ...address,
@@ -147,13 +139,13 @@ export default function ShippingForm() {
     let id = address.state.selected.id;
     if (id && id !== "") {
       axios_instance({
-        endpoints: extra.stateDistricts,
+        endpoints: addressEndpoint.stateDistricts,
         query: { id: id },
       })
         .then((response) => {
           let stats = [];
           for (let c of response.data) {
-            stats.push({ id: c.id, name: c.district });
+            stats.push({ id: c.id, name: c.name });
           }
           setAddress((address) => ({
             ...address,
@@ -173,7 +165,7 @@ export default function ShippingForm() {
     let id = address.district.selected.id;
     // if (id && id !== "") {
     //   axios_instance({
-    //     endpoints: extra.stateDistricts,
+    //     endpoints: address.stateDistricts,
     //     query: { id: id },
     //   })
     //     .then((response) => {
@@ -353,7 +345,7 @@ export default function ShippingForm() {
   return (
     <FormWrapper>
       <FormContainer component={"form"} onSubmit={handleSubmit}>
-        <OrderFormInputWrapper>
+        <OrderFormSelectInputWrapper>
           <InputLabel id="shipment-type-label">Shipment Type</InputLabel>
           <Select
             fullWidth
@@ -376,9 +368,9 @@ export default function ShippingForm() {
           <p style={shipment.style}>
             {`Cost for ${shipment.type} Shipment is : Rs. ${shipment.cost}`}
           </p>
-        </OrderFormInputWrapper>
+        </OrderFormSelectInputWrapper>
 
-        <OrderFormInputWrapper>
+        <OrderFormSelectInputWrapper>
           <label htmlFor="country">Select Country</label>
           <br />
           <select
@@ -396,9 +388,9 @@ export default function ShippingForm() {
               <option value={""}> {"Shipping Not Availabel"}</option>
             )}
           </select>
-        </OrderFormInputWrapper>
+        </OrderFormSelectInputWrapper>
 
-        <OrderFormInputWrapper>
+        <OrderFormSelectInputWrapper>
           <label htmlFor="states">Select Provience/state</label> <br />
           <select
             id="states"
@@ -417,9 +409,9 @@ export default function ShippingForm() {
               <option value={""}>{"Shipping Not Available"}</option>
             )}
           </select>
-        </OrderFormInputWrapper>
+        </OrderFormSelectInputWrapper>
 
-        <OrderFormInputWrapper>
+        <OrderFormSelectInputWrapper>
           <label htmlFor="districts">Select Provience/state</label> <br />
           <select
             id="districts"
@@ -438,9 +430,9 @@ export default function ShippingForm() {
               <option value={""}>{"Shipping Not Available"}</option>
             )}
           </select>
-        </OrderFormInputWrapper>
+        </OrderFormSelectInputWrapper>
 
-        <OrderFormInputWrapper>
+        <OrderFormSelectInputWrapper>
           <label id="cities">Select City/Local-level</label> <br />
           <select
             id="cities"
@@ -454,7 +446,7 @@ export default function ShippingForm() {
             <option value={"Godawari"}>{"Godawari"}</option>
             <option value={"Satdobato"}>{"Satdobato"}</option>
           </select>
-        </OrderFormInputWrapper>
+        </OrderFormSelectInputWrapper>
 
         <OrderFormInputWrapper>
           <TextField
