@@ -1,26 +1,20 @@
 // import theme from "../../../utils/theme";
 import { Box, styled } from "@mui/material";
+import { random_color } from "../../../utils/randomColor";
 
 export const BannerWrapper = styled(Box)(() => ({
   width: "100%",
-  //   border: "solid red 1px",
 }));
 
 export const BannerContainer = styled(Box)(() => ({
-  //   width: "189px",
-  //   padding: "1rem",
-  //   boxShadow: "5px 10px 18px #757575",
   position: "relative",
 }));
 
 export const ImageWrapper = styled(Box)(() => ({
   width: "100%",
-  //   position: "relative",
-  //   height: "189px",
-  //   objectFit: "cover",
-  background: "#D1A5D7",
+  background: random_color(),
   "&>img": {
-    // objectFit: "fill",
+    objectFit: "contain",
   },
 }));
 export const CircleWrapper = styled(Box)(() => ({
