@@ -199,8 +199,9 @@ const update_quantity_order = async (orderId, product, action) => {
 const update_address = async (orderId, newAddress) => {
   try {
     const order = await Store.order.read_order_from_id(orderId);
-    if (order.orderStatus !== "requested")
+    if (order.orderStatus !== "pending") {
       throw new Error("Cannot update quantity, order has passed from step1");
+    }
     const { error, value } = Validate.Updatable_address_validation(newAddress);
     if (error) throw error;
     const address = value;
