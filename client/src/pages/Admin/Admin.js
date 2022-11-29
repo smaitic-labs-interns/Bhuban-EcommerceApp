@@ -10,6 +10,7 @@ import {
 import {
   Home,
   Inventory,
+  Logout,
   People,
   ShoppingCartCheckout,
 } from "@mui/icons-material";
@@ -18,9 +19,12 @@ import Product from "./Components/Product";
 import Order from "./Components/Order";
 import User from "./Components/User";
 import Dashboard from "./Components/Dashboard";
+import { user_logout } from "../../redux/actions/userActions";
+import { useDispatch } from "react-redux";
 
 export default function Admin() {
   const [target, setTarget] = useState(1);
+  const dispatch = useDispatch();
 
   const selected = {
     background: "#fff",
@@ -30,6 +34,10 @@ export default function Admin() {
 
   const showContent = {
     display: "flex",
+  };
+
+  const handleLogout = () => {
+    dispatch(user_logout());
   };
 
   return (
@@ -60,6 +68,11 @@ export default function Admin() {
               title={"Users"}
               sx={target === 4 ? selected : null}
               onClick={() => setTarget(4)}
+            />
+            <LeftTabCard
+              icon={<Logout />}
+              title={"Logout"}
+              onClick={handleLogout}
             />
           </LeftTabContainer>
         </LeftWrapper>
