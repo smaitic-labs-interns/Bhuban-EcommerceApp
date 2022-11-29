@@ -16,6 +16,8 @@ import {
 import RightContent from "./Components/RightContent";
 import Product from "./Components/Product";
 import Order from "./Components/Order";
+import User from "./Components/User";
+import Dashboard from "./Components/Dashboard";
 
 export default function Admin() {
   const [target, setTarget] = useState(1);
@@ -37,7 +39,7 @@ export default function Admin() {
           <LeftTabContainer>
             <LeftTabCard
               icon={<Home />}
-              title={"Home"}
+              title={"Dashboard"}
               sx={target === 1 ? selected : null}
               onClick={() => setTarget(1)}
             />
@@ -57,14 +59,14 @@ export default function Admin() {
               icon={<People />}
               title={"Users"}
               sx={target === 4 ? selected : null}
-              onClick={() => setTarget(3)}
+              onClick={() => setTarget(4)}
             />
           </LeftTabContainer>
         </LeftWrapper>
         <RightWrapper>
           <RightContentContainer>
             <RightContent sx={target === 1 ? showContent : null}>
-              {"Contains Different Cards"}
+              <Dashboard />
             </RightContent>
             <RightContent sx={target === 2 ? showContent : null}>
               <Product />
@@ -73,7 +75,7 @@ export default function Admin() {
               <Order />
             </RightContent>
             <RightContent sx={target === 4 ? showContent : null}>
-              <Order />
+              <User />
             </RightContent>
           </RightContentContainer>
         </RightWrapper>
