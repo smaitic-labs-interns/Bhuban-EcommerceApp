@@ -32,26 +32,26 @@ const read_all_orders = async () => {
             shipAddRes.houseNo = shipAddRes[key];
             delete shipAddRes.houseno;
           }
-          const prdts = [];
-          for (item of ordProdRes) {
-            prdts.push({
-              productId: item.productid,
-              quantity: Number(item.quantity),
-            });
-          }
-          let ord = {
-            id: order.id,
-            userId: order.userid,
-            orderStatus: order.orderstatus,
-            totalBill: Number(order.totalbill),
-            products: prdts,
-            shippingAddress: shipAddRes,
-            payment: paymRes,
-            shipment: shipRes,
-            placedOn: order.createdat,
-          };
-          allOrders.push(ord);
         }
+        const prdts = [];
+        for (item of ordProdRes) {
+          prdts.push({
+            productId: item.productid,
+            quantity: Number(item.quantity),
+          });
+        }
+        let ord = {
+          id: order.id,
+          userId: order.userid,
+          orderStatus: order.orderstatus,
+          totalBill: Number(order.totalbill),
+          products: prdts,
+          shippingAddress: shipAddRes,
+          payment: paymRes,
+          shipment: shipRes,
+          placedOn: order.createdat,
+        };
+        allOrders.push(ord);
       }
 
       return allOrders;
@@ -118,27 +118,28 @@ const read_limited_orders = async ({ page, limit }) => {
             shipAddRes.houseNo = shipAddRes[key];
             delete shipAddRes.houseno;
           }
-          const prdts = [];
-          for (item of ordProdRes) {
-            prdts.push({
-              productId: item.productid,
-              quantity: Number(item.quantity),
-            });
-          }
-          let ord = {
-            id: order.id,
-            userId: order.userid,
-            orderStatus: order.orderstatus,
-            totalBill: Number(order.totalbill),
-            products: prdts,
-            shippingAddress: shipAddRes,
-            payment: paymRes,
-            shipment: shipRes,
-            placedOn: order.createdat,
-          };
-          allOrders.push(ord);
         }
+        const prdts = [];
+        for (item of ordProdRes) {
+          prdts.push({
+            productId: item.productid,
+            quantity: Number(item.quantity),
+          });
+        }
+        let ord = {
+          id: order.id,
+          userId: order.userid,
+          orderStatus: order.orderstatus,
+          totalBill: Number(order.totalbill),
+          products: prdts,
+          shippingAddress: shipAddRes,
+          payment: paymRes,
+          shipment: shipRes,
+          placedOn: order.createdat,
+        };
+        allOrders.push(ord);
       }
+
       result.data = allOrders;
       return result;
     }
