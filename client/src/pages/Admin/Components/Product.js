@@ -37,39 +37,43 @@ import {
 import { delete_product } from "../../../redux/actions/productActions";
 
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProducts } from "../../../redux/actions/productActions";
+import { fetch_limited_product } from "../../../redux/actions/productActions";
 import Swal from "sweetalert2";
 import AddProduct from "./modals/AddProduct";
 import ViewProduct from "./modals/ViewProduct";
 import EditProduct from "./modals/EditProduct";
 
 export default function Product() {
-  const products = useSelector((state) => state.allProducts.products);
+  const limitedProduct = useSelector((state) => state.limitedProduct);
   const deleteProduct = useSelector((state) => state.deleteProduct);
   const dispatch = useDispatch();
-  const [allProduct, setAllProduct] = useState([]);
+  const [product, setProduct] = useState({
+    all: [],
+    next: {},
+    previous: {},
+  });
+
+  const isEmpty = (obj) => {
+    return Object.keys(obj).length === 0 ? true : false;
+  };
+
+  let currentPage =
+    !isEmpty(product.next) && !isEmpty(product.previous)
+      ? product.next.page - 1
+      : !isEmpty(product.next)
+      ? product.next.page - 1
+      : !isEmpty(product.previous)
+      ? product.previous.page + 1
+      : 1;
 
   useEffect(() => {
-    dispatch(fetchProducts());
+    dispatch(
+      fetch_limited_product({ page: 1, limit: noOfProduct, action: "fetch" })
+    );
   }, []);
 
-  const [page, setPage] = useState(1);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [noOfProduct, setNoOfProduct] = useState(5);
+  const [noOfProduct, setNoOfProduct] = useState(1);
   const [addProductForm, setaddProductForm] = useState(false);
-
-  useEffect(() => {
-    setAllProduct(products);
-  }, [products]);
-
-  // Actions
-  const handleView = (id) => {
-    alert(id);
-  };
-
-  const handleEdit = (id) => {
-    alert(id);
-  };
 
   const handleDelete = (id) => {
     if (id && id !== " ") {
@@ -88,66 +92,11 @@ export default function Product() {
     }
   };
 
-  let productList = [];
-
-  const handleNextPage = () => {
-    if (currentPage * noOfProduct < allProduct.length) {
-      setCurrentPage(currentPage + 1);
-      setPage(noOfProduct * currentPage);
-    }
+  const handlePage = (page) => {
+    dispatch(
+      fetch_limited_product({ page: page, limit: noOfProduct, action: "fetch" })
+    );
   };
-
-  const handlePreviousPage = () => {
-    if (currentPage < allProduct.length / noOfProduct) {
-      setCurrentPage(currentPage - 1);
-      setPage(page - noOfProduct);
-    }
-  };
-
-  for (let i = page; i < noOfProduct * currentPage; i++) {
-    let {
-      id,
-      category,
-      model,
-      brand,
-      description,
-      price,
-      quantity,
-      rating,
-      images,
-    } = allProduct[i] ? allProduct[i] : [];
-
-    if (i < allProduct.length) {
-      productList.push(
-        <TableRow>
-          <TableCell>
-            <input type="checkbox" />
-          </TableCell>
-          <TableCell>{id}</TableCell>
-          <TableCell>{category}</TableCell>
-          <TableCell>{model}</TableCell>
-          <TableCell>{brand}</TableCell>
-          <TableCell>
-            <ViewProduct product={allProduct[i]} />
-          </TableCell>
-          <TableCell>
-            <EditProduct product={allProduct[i]} />
-          </TableCell>
-          <TableCell>
-            <Button
-              variant="outlined"
-              color="error"
-              onClick={() => {
-                handleDelete(id);
-              }}
-            >
-              <Delete sx={{ color: "red" }} />
-            </Button>
-          </TableCell>
-        </TableRow>
-      );
-    }
-  }
 
   useEffect(() => {
     if (deleteProduct.status === "success") {
@@ -157,7 +106,13 @@ export default function Product() {
         icon: "success",
         confirmButtonText: "Ok",
       });
-      dispatch(fetchProducts());
+      dispatch(
+        fetch_limited_product({
+          page: currentPage,
+          limit: noOfProduct,
+          action: "fetch",
+        })
+      );
     } else if (deleteProduct.status === "failed") {
       Swal.fire({
         title: "Error!",
@@ -176,6 +131,25 @@ export default function Product() {
       );
     }
   }, [deleteProduct]);
+
+  useEffect(() => {
+    setProduct((product) => ({
+      ...product,
+      all: limitedProduct.all,
+      next: limitedProduct.next,
+      previous: limitedProduct.previous,
+    }));
+  }, [limitedProduct]);
+
+  useEffect(() => {
+    dispatch(
+      fetch_limited_product({
+        page: currentPage,
+        limit: noOfProduct,
+        action: "fetch",
+      })
+    );
+  }, [noOfProduct]);
   return (
     <>
       <ProductWrapper>
@@ -209,6 +183,7 @@ export default function Product() {
                   setNoOfProduct(e.target.value);
                 }}
               >
+                <MenuItem value={1}>{1}</MenuItem>
                 <MenuItem value={5}>{5}</MenuItem>
                 <MenuItem value={10}>{10}</MenuItem>
                 <MenuItem value={20}>{20}</MenuItem>
@@ -249,7 +224,55 @@ export default function Product() {
                     <TableCell></TableCell>
                   </TableRow>
                 </TableHead>
-                <TableBody>{productList}</TableBody>
+                <TableBody>
+                  {product.all.length !== 0 ? (
+                    product.all.map((product) => {
+                      let {
+                        id,
+                        category,
+                        model,
+                        brand,
+                        description,
+                        price,
+                        quantity,
+                        rating,
+                        images,
+                      } = product;
+                      return (
+                        <TableRow key={id}>
+                          <TableCell>
+                            <input type="checkbox" />
+                          </TableCell>
+                          <TableCell>{id}</TableCell>
+                          <TableCell>{category}</TableCell>
+                          <TableCell>{model}</TableCell>
+                          <TableCell>{brand}</TableCell>
+                          <TableCell>
+                            <ViewProduct product={product} />
+                          </TableCell>
+                          <TableCell>
+                            <EditProduct product={product} />
+                          </TableCell>
+                          <TableCell>
+                            <Button
+                              variant="outlined"
+                              color="error"
+                              onClick={() => {
+                                handleDelete(id);
+                              }}
+                            >
+                              <Delete sx={{ color: "red" }} />
+                            </Button>
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })
+                  ) : (
+                    <TableRow>
+                      <TableCell>No Product Found</TableCell>
+                    </TableRow>
+                  )}
+                </TableBody>
               </Table>
             </TableContainer>
           </TableWrapper>
@@ -267,19 +290,19 @@ export default function Product() {
             <Button
               variant="outlined"
               color="primary"
-              onClick={() => handlePreviousPage()}
+              disabled={isEmpty(product.previous)}
+              onClick={() => handlePage(product.previous.page)}
             >
               Previous
             </Button>
             <Box>
-              <Typography>
-                {currentPage} of page {allProduct.length / noOfProduct}
-              </Typography>
+              <Typography>{`Page: ${currentPage}`}</Typography>
             </Box>
             <Button
               variant="outlined"
               color="success"
-              onClick={() => handleNextPage()}
+              disabled={isEmpty(product.next)}
+              onClick={() => handlePage(product.next.page)}
             >
               Next
             </Button>
