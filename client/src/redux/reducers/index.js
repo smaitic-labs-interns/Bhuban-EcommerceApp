@@ -35,6 +35,8 @@ import {
   payment_updates_reducer,
   update_order_status_reducer,
   placed_order_details_reducer,
+  fetch_limited_order_reducer,
+  fetch_limited_user_order_reducer,
 } from "./orderReducer";
 import {
   all_countries,
@@ -54,7 +56,9 @@ const persistConfig = {
     "addToCart",
     "updateCart",
     "allOrder",
+    "limitedOrder",
     "userOrders",
+    "limitedUserOrder",
     "oneOrder",
     "placeOrder",
     "updateOrderQuantity",
@@ -159,6 +163,22 @@ const persistedReducer = persistCombineReducers(persistConfig, {
       blacklist: ["message", "status"],
     },
     all_order_reducer
+  ),
+  limitedOrder: persistReducer(
+    {
+      key: "limitedOrder",
+      storage: storage,
+      blacklist: ["message", "status"],
+    },
+    fetch_limited_order_reducer
+  ),
+  limitedUserOrder: persistReducer(
+    {
+      key: "limitedUserOrder",
+      storage: storage,
+      blacklist: ["message", "status"],
+    },
+    fetch_limited_user_order_reducer
   ),
   userOrders: persistReducer(
     {

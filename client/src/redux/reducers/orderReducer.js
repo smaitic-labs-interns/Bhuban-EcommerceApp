@@ -47,6 +47,12 @@ import {
   PLACED_ORDER_DETAILS_REQUEST,
   PLACED_ORDER_DETAILS_SUCCESS,
   PLACED_ORDER_DETAILS_FAILED,
+  FETCH_LIMITED_ORDER_REQUEST,
+  FETCH_LIMITED_ORDER_SUCCESS,
+  FETCH_LIMITED_ORDER_FAILED,
+  FETCH_LIMITED_USER_ORDER_REQUEST,
+  FETCH_LIMITED_USER_ORDER_SUCCESS,
+  FETCH_LIMITED_USER_ORDER_FAILED,
 } from "../constants/orderConstants";
 
 const placeOrderInitialState = {
@@ -478,6 +484,72 @@ export const placed_order_details_reducer = (
         ...state,
         message: payload.message,
         status: "failed",
+      };
+    default:
+      return state;
+  }
+};
+
+const limitedOrderinitialState = {
+  status: null,
+  message: "",
+  all: [],
+  next: {},
+  previous: {},
+};
+
+export const fetch_limited_order_reducer = (
+  state = limitedOrderinitialState,
+  { type, payload }
+) => {
+  switch (type) {
+    case FETCH_LIMITED_ORDER_REQUEST:
+      return limitedOrderinitialState;
+
+    case FETCH_LIMITED_ORDER_SUCCESS:
+      console.log(payload);
+      return {
+        ...state,
+        status: "success",
+        message: "orders fetched successfully",
+        all: payload.data,
+        next: payload.next || {},
+        previous: payload.previous || {},
+      };
+    case FETCH_LIMITED_ORDER_FAILED:
+      return {
+        ...state,
+        status: "failed",
+        message: payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export const fetch_limited_user_order_reducer = (
+  state = limitedOrderinitialState,
+  { type, payload }
+) => {
+  switch (type) {
+    case FETCH_LIMITED_USER_ORDER_REQUEST:
+      return limitedOrderinitialState;
+
+    case FETCH_LIMITED_USER_ORDER_SUCCESS:
+      console.log(payload);
+      return {
+        ...state,
+        status: "success",
+        message: "orders fetched successfully",
+        all: payload.data,
+        next: payload.next || {},
+        previous: payload.previous || {},
+      };
+    case FETCH_LIMITED_USER_ORDER_FAILED:
+      return {
+        ...state,
+        status: "failed",
+        message: payload,
       };
     default:
       return state;

@@ -47,6 +47,12 @@ import {
   PLACED_ORDER_DETAILS_REQUEST,
   PLACED_ORDER_DETAILS_SUCCESS,
   PLACED_ORDER_DETAILS_FAILED,
+  FETCH_LIMITED_ORDER_REQUEST,
+  FETCH_LIMITED_ORDER_SUCCESS,
+  FETCH_LIMITED_ORDER_FAILED,
+  FETCH_LIMITED_USER_ORDER_REQUEST,
+  FETCH_LIMITED_USER_ORDER_SUCCESS,
+  FETCH_LIMITED_USER_ORDER_FAILED,
 } from "../constants/orderConstants";
 import { order } from "../../api/config/api-endpoints";
 import { axios_instance } from "../../api/config/config";
@@ -540,6 +546,52 @@ export const placed_order_details =
       dispatch({
         type: PLACED_ORDER_DETAILS_FAILED,
         payload: { message: "Error Occurs Try again Later" },
+      });
+    }
+  };
+
+export const fetch_limited_order =
+  ({ page, limit, action }) =>
+  async (dispatch) => {
+    try {
+      if (action === "clean")
+        return dispatch({ type: FETCH_LIMITED_ORDER_REQUEST });
+      dispatch({ type: FETCH_LIMITED_ORDER_REQUEST });
+      const response = await axios_instance({
+        endpoints: order.limited,
+        query: { page, limit },
+      });
+      dispatch({
+        type: FETCH_LIMITED_ORDER_SUCCESS,
+        payload: response.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: FETCH_LIMITED_ORDER_SUCCESS,
+        payload: err.response,
+      });
+    }
+  };
+
+export const fetch_limited_user_order =
+  ({ page, limit, action }) =>
+  async (dispatch) => {
+    try {
+      if (action === "clean")
+        return dispatch({ type: FETCH_LIMITED_USER_ORDER_REQUEST });
+      dispatch({ type: FETCH_LIMITED_USER_ORDER_REQUEST });
+      const response = await axios_instance({
+        endpoints: order.userLimited,
+        query: { page, limit },
+      });
+      dispatch({
+        type: FETCH_LIMITED_USER_ORDER_SUCCESS,
+        payload: response.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: FETCH_LIMITED_USER_ORDER_FAILED,
+        payload: err.response,
       });
     }
   };
