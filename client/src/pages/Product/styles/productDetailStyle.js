@@ -79,7 +79,7 @@ export const ContentCurrentPriceWrapper = styled(Box)(() => ({
 }));
 
 export const ContentPreviousPriceWrapper = styled(Box)(() => ({
-  "&: nth-child(1)": {
+  "&: nth-of-type(1)": {
     textDecoration: "through-line",
   },
 }));

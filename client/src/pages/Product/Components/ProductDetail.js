@@ -45,12 +45,14 @@ import {
   ShoppingCart,
   ShoppingCartCheckout,
 } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 export default function ProductDetail({ product }) {
   const addToCart = useSelector((state) => state.addToCart);
   const login = useSelector((state) => state.login);
   const userCart = useSelector((state) => state.userCart);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const {
     id,
     category,
@@ -105,7 +107,7 @@ export default function ProductDetail({ product }) {
         title: "Error!",
         text: `Try Login Firsts`,
         icon: "error",
-        confirmButtonText: "none",
+        confirmButtonText: "cancel",
         footer: "<a href = '/login' > LOGIN </a>",
       });
     }
@@ -119,7 +121,24 @@ export default function ProductDetail({ product }) {
         icon: "error",
         confirmButtonText: "Ok",
       });
+    } else if (login.isLogined) {
+      dispatch(
+        add_to_cart({
+          userId: userId,
+          productId: productId,
+          quantity: quty,
+          action: "add",
+        })
+      );
+      navigate("/cart");
     } else {
+      Swal.fire({
+        title: "Error!",
+        text: `Try Login Firsts`,
+        icon: "error",
+        confirmButtonText: "cancel",
+        footer: "<a href = '/login' > LOGIN </a>",
+      });
     }
   };
 
@@ -155,7 +174,7 @@ export default function ProductDetail({ product }) {
         })
       );
     }
-  }, [addToCart, userId]);
+  }, [addToCart]);
 
   // for displaying Images
   const [target, setTarget] = useState(1);
