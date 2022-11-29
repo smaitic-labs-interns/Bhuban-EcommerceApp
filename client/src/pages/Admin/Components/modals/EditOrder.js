@@ -28,6 +28,7 @@ import {
   update_order_status,
   fetch_all_order,
   update_order_address,
+  fetch_limited_order,
 } from "../../../../redux/actions/orderActions";
 import EditProductQuantity from "./EditProductQuantity";
 import UpdatePayment from "./UpdatePayment";
@@ -78,7 +79,7 @@ export default function EditOrder({ order }) {
         text: `${updateOrderStatus.message}`,
         icon: "success",
       });
-      dispatch(fetch_all_order());
+      dispatch(fetch_limited_order({ page: 1, limit: 5, action: "fetch" }));
     } else if (updateOrderStatus.status === "failed") {
       Swal.fire({
         title: "Failed!",
@@ -307,7 +308,7 @@ export default function EditOrder({ order }) {
         text: `${updateOrderAddress.message}`,
         icon: "success",
       });
-      dispatch(fetch_all_order());
+      dispatch(fetch_limited_order({ page: 1, limit: 5, action: "fetch" }));
     } else if (updateOrderAddress.status === "failed") {
       Swal.fire({
         title: "Error!",

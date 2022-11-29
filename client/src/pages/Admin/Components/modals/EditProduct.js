@@ -20,6 +20,7 @@ import {
   add_product,
   fetchProducts,
   update_product,
+  fetch_limited_product,
 } from "../../../../redux/actions/productActions";
 import { useSelector, useDispatch } from "react-redux";
 import Swal from "sweetalert2";
@@ -87,15 +88,24 @@ export default function EditProduct({ product }) {
         icon: "success",
       });
       dispatch(
-        update_product({ productId: "", userId: "", data: {}, action: "clean" })
+        fetch_limited_product({
+          page: 1,
+          limit: 5,
+          action: "fetch",
+        })
       );
-      dispatch(fetchProducts());
     } else if (updateProduct.status === "failed") {
       Swal.fire({
         title: "Error!",
         text: `${updateProduct.message}`,
         icon: "error",
       });
+    }
+
+    if (updateProduct.status !== null) {
+      dispatch(
+        update_product({ productId: "", userId: "", data: {}, action: "clean" })
+      );
     }
   }, [updateProduct]);
 

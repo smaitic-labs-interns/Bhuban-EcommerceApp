@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   update_order_quantity,
   fetch_all_order,
+  fetch_limited_order,
 } from "../../../../redux/actions/orderActions";
 
 const style = {
@@ -90,7 +91,7 @@ export default function EditProductQuantity({ product, orderId }) {
         icon: "success",
         confirmButtonText: "Ok",
       });
-      dispatch(fetch_all_order());
+      dispatch(fetch_limited_order({ page: 1, limit: 5, action: "fetch" }));
     } else if (updateOrderQuantity.status === "failed") {
       Swal.fire({
         title: "Error!",

@@ -41,7 +41,7 @@ export default function Order() {
     );
   }, []);
 
-  const [noOfOrder, setNoOforder] = useState(1);
+  const [noOfOrder, setNoOforder] = useState(5);
 
   const handlePage = (page) => {
     dispatch(
@@ -82,7 +82,6 @@ export default function Order() {
               setNoOforder(e.target.value);
             }}
           >
-            <MenuItem value={1}>{1}</MenuItem>
             <MenuItem value={5}>{5}</MenuItem>
             <MenuItem value={10}>{10}</MenuItem>
             <MenuItem value={20}>{20}</MenuItem>
