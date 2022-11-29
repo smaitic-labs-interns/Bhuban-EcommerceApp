@@ -48,6 +48,9 @@ export default function Product() {
   const limitedProduct = useSelector((state) => state.limitedProduct);
   const deleteProduct = useSelector((state) => state.deleteProduct);
   const dispatch = useDispatch();
+
+  const [noOfProduct, setNoOfProduct] = useState(5);
+  const [addProductForm, setaddProductForm] = useState(false);
   const [product, setProduct] = useState({
     all: [],
     next: {},
@@ -68,9 +71,6 @@ export default function Product() {
       fetch_limited_product({ page: 1, limit: noOfProduct, action: "fetch" })
     );
   }, []);
-
-  const [noOfProduct, setNoOfProduct] = useState(1);
-  const [addProductForm, setaddProductForm] = useState(false);
 
   const handleDelete = (id) => {
     if (id && id !== " ") {
@@ -180,7 +180,6 @@ export default function Product() {
                   setNoOfProduct(e.target.value);
                 }}
               >
-                <MenuItem value={1}>{1}</MenuItem>
                 <MenuItem value={5}>{5}</MenuItem>
                 <MenuItem value={10}>{10}</MenuItem>
                 <MenuItem value={20}>{20}</MenuItem>

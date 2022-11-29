@@ -14,7 +14,10 @@ import { useFormik } from "formik";
 
 import { TextField, Box, Modal, Button, TextareaAutosize } from "@mui/material";
 import addProduct from "../../../../public/images/addProduct.png";
-import { add_product } from "../../../../redux/actions/productActions";
+import {
+  add_product,
+  fetch_limited_product,
+} from "../../../../redux/actions/productActions";
 import { useSelector, useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import { PlusOne } from "@mui/icons-material";
@@ -86,13 +89,23 @@ export default function AddProduct() {
         text: `${addProduct.message}`,
         icon: "success",
       });
-      dispatch(add_product({ value: {}, action: "clean" }));
+      dispatch(
+        fetch_limited_product({
+          page: 1,
+          limit: 5,
+          action: "fetch",
+        })
+      );
     } else if (addProduct.status === "failed") {
       Swal.fire({
         title: "Error!",
         text: `${addProduct.message}`,
         icon: "error",
       });
+    }
+
+    if (addProduct.status !== null) {
+      dispatch(add_product({ value: {}, action: "clean" }));
     }
   }, [addProduct]);
 
