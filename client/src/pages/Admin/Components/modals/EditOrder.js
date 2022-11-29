@@ -7,6 +7,7 @@ import {
   Select,
   MenuItem,
   InputLabel,
+  TextField,
 } from "@mui/material";
 import { Close, Edit, Save } from "@mui/icons-material";
 import {
@@ -18,6 +19,7 @@ import {
   CustomTableCellValue,
   FormContainer,
   OrderFormInputWrapper,
+  OrderFormSelectInputWrapper,
 } from "../../styles/modals/editOrderStyle";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
@@ -25,12 +27,16 @@ import Swal from "sweetalert2";
 import {
   update_order_status,
   fetch_all_order,
+  update_order_address,
 } from "../../../../redux/actions/orderActions";
 import EditProductQuantity from "./EditProductQuantity";
 import UpdatePayment from "./UpdatePayment";
+import { axios_instance } from "../../../../api/config/config";
+import { address as addressEndpoint } from "../../../../api/config/api-endpoints";
 
 export default function EditOrder({ order }) {
   const updateOrderStatus = useSelector((state) => state.updateOrderStatus);
+  const updateOrderAddress = useSelector((state) => state.updateOrderAddress);
   const [open, setOpen] = useState(false);
   const [ordStatus, setOrdStatus] = useState(null);
   const prevOrdStatus = order.orderStatus;
@@ -65,43 +71,14 @@ export default function EditOrder({ order }) {
     "Partially Refunded",
   ];
 
-  const initialValues = {
-    // userId: userId,
-    // country: address.country,
-    // province: address.state,
-    // district: address.district,
-    // city: address.city,
-    // ward: "",
-    // tole: "",
-    // houseNo: "",
-    // shipmentType: "",
-    // paymentType: "",
-  };
-
-  const {
-    values,
-    errors,
-    setFieldValue,
-    touched,
-    handleBlur,
-    handleChange,
-    handleSubmit,
-  } = useFormik({
-    initialValues: initialValues,
-    // validationSchema: loginSchema, // for data validation
-    // onSubmit: (values) => {
-    //   dispatch(place_order({ ...values, action: "add" }));
-    // },
-  });
-
   useEffect(() => {
     if (updateOrderStatus.status === "success") {
-      dispatch(fetch_all_order());
       Swal.fire({
         title: "Success!",
         text: `${updateOrderStatus.message}`,
         icon: "success",
       });
+      dispatch(fetch_all_order());
     } else if (updateOrderStatus.status === "failed") {
       Swal.fire({
         title: "Failed!",
@@ -134,6 +111,222 @@ export default function EditOrder({ order }) {
   };
 
   let index = 0;
+
+  // for editing address
+  const [address, setAddress] = useState({
+    country: {
+      selected: {
+        id: "",
+        name: "",
+      },
+      all: [],
+    },
+    state: {
+      selected: {
+        id: "",
+        name: "",
+      },
+      all: [],
+    },
+    district: {
+      selected: {
+        id: "",
+        name: "",
+      },
+      all: [],
+    },
+  });
+
+  const handleChangeAddress = (type, value) => {
+    if (value === "") return;
+    switch (type) {
+      case "country":
+        const country = address.country.all.filter(
+          (country) => country.name === value
+        );
+        setAddress((address) => ({
+          ...address,
+          country: { ...address.country, selected: country[0] },
+        }));
+        break;
+      case "state":
+        const state = address.state.all.filter((state) => state.name === value);
+        setAddress((address) => ({
+          ...address,
+          state: { ...address.state, selected: state[0] },
+        }));
+        break;
+      case "district":
+        const district = address.district.all.filter(
+          (district) => district.name === value
+        );
+        setAddress((address) => ({
+          ...address,
+          district: { ...address.district, selected: district[0] },
+        }));
+      case "city":
+        break;
+      default:
+        break;
+    }
+  };
+
+  useEffect(() => {
+    axios_instance({
+      endpoints: addressEndpoint.countries,
+    })
+      .then((response) => {
+        let cAll = [];
+        for (let c of response.data) {
+          cAll.push({ id: c.id, name: c.name });
+        }
+        setAddress((address) => ({
+          ...address,
+          country: { ...address.country, all: cAll },
+        }));
+      })
+      .catch((err) => {
+        setAddress((address) => ({
+          ...address,
+          country: { ...address.country, all: [] },
+        }));
+      });
+  }, []);
+
+  useEffect(() => {
+    let id = address.country.selected.id;
+    if (id && id !== "") {
+      axios_instance({
+        endpoints: addressEndpoint.countryStates,
+        query: { id: id },
+      })
+        .then((response) => {
+          let stats = [];
+          for (let c of response.data) {
+            stats.push({ id: c.id, name: c.name });
+          }
+          setAddress((address) => ({
+            ...address,
+            state: { ...address.state, all: stats },
+          }));
+        })
+        .catch((err) => {
+          setAddress((address) => ({
+            ...address,
+            state: { ...address.state, all: [] },
+          }));
+        });
+    }
+  }, [address.country.selected.id]);
+
+  useEffect(() => {
+    let id = address.state.selected.id;
+    if (id && id !== "") {
+      axios_instance({
+        endpoints: addressEndpoint.stateDistricts,
+        query: { id: id },
+      })
+        .then((response) => {
+          let stats = [];
+          for (let c of response.data) {
+            stats.push({ id: c.id, name: c.name });
+          }
+          setAddress((address) => ({
+            ...address,
+            district: { ...address.district, all: stats },
+          }));
+        })
+        .catch((err) => {
+          setAddress((address) => ({
+            ...address,
+            district: { ...address.district, all: [] },
+          }));
+        });
+    }
+  }, [address.state.selected.id]);
+
+  useEffect(() => {
+    let id = address.district.selected.id;
+    // if (id && id !== "") {
+    //   axios_instance({
+    //     endpoints: address.stateDistricts,
+    //     query: { id: id },
+    //   })
+    //     .then((response) => {
+    //       let stats = [];
+    //       for (let c of response.data) {
+    //         stats.push({ id: c.id, name: c.districtname });
+    //       }
+    //       setAddress((address) => ({
+    //         ...address,
+    //         district: { ...address.district, all: stats },
+    //       }));
+    //     })
+    //     .catch((err) => {
+    //       setStates([]);
+    //     });
+    // }
+  }, [address.district.selected.id]);
+
+  const initialValues = {
+    city: "",
+    ward: "",
+    tole: "",
+    houseNo: "",
+  };
+
+  const {
+    values,
+    errors,
+    setFieldValue,
+    touched,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+  } = useFormik({
+    initialValues: initialValues,
+    // validationSchema: loginSchema, // for data validation
+    onSubmit: (values) => {
+      values.country = address.country.selected.name;
+      values.province = address.state.selected.name;
+      values.district = address.district.selected.name;
+      dispatch(
+        update_order_address({
+          orderId: order.id,
+          newAddress: values,
+          action: "update",
+        })
+      );
+    },
+  });
+
+  useEffect(() => {
+    if (updateOrderAddress.status === "success") {
+      Swal.fire({
+        title: "Success!",
+        text: `${updateOrderAddress.message}`,
+        icon: "success",
+      });
+      dispatch(fetch_all_order());
+    } else if (updateOrderAddress.status === "failed") {
+      Swal.fire({
+        title: "Error!",
+        text: `${updateOrderAddress.message}`,
+        icon: "error",
+      });
+    }
+
+    if (updateOrderAddress.status !== null) {
+      dispatch(
+        update_order_address({
+          orderId: "",
+          newAddress: {},
+          action: "clean",
+        })
+      );
+    }
+  }, [updateOrderAddress]);
+
   return (
     <div>
       <Button
@@ -221,138 +414,95 @@ export default function EditOrder({ order }) {
               <CustomTableRow>
                 <CustomTableCell>Shipping Address: </CustomTableCell>
                 <TableCell>
-                  {/* <FormContainer component={"form"} onSubmit={handleSubmit}>
-                    <OrderFormInputWrapper>
-                      <InputLabel id="country-label">Select Country</InputLabel>
-                      <Select
-                        fullWidth
-                        labelId="country-label"
+                  <FormContainer component={"form"} onSubmit={handleSubmit}>
+                    <OrderFormSelectInputWrapper>
+                      <label htmlFor="country">Select Country</label>
+                      <br />
+                      <select
                         id="country"
-                        name="country"
-                        label="Country Name"
-                        value={address.country}
-                        onChange={(e) => {
-                          handleChangeAddress({
-                            type: "country",
-                            value: e.target.value,
-                          });
-                        }}
-                        onBlur={handleBlur}
+                        onChange={(e) =>
+                          handleChangeAddress("country", e.target.value)
+                        }
                       >
-                        {countries.all.length !== 0 ? (
-                          countries.all.map((country) => {
-                            return (
-                              <MenuItem
-                                key={country.id}
-                                value={{ id: country.id, name: country.name }}
-                              >
-                                {country.name}
-                              </MenuItem>
-                            );
-                          })
+                        <option value={""}>{"Select Country"}</option>
+                        {address.country.all.length !== 0 ? (
+                          address.country.all.map((country) => (
+                            <option key={country.id} value={country.name}>
+                              {country.name}
+                            </option>
+                          ))
                         ) : (
-                          <MenuItem value={"Not Available"}>
-                            {"Not Available"}
-                          </MenuItem>
+                          <option value={""}>
+                            {" "}
+                            {"Shipping Not Availabel"}
+                          </option>
                         )}
-                      </Select>
-                    </OrderFormInputWrapper>
+                      </select>
+                    </OrderFormSelectInputWrapper>
 
-                    <OrderFormInputWrapper>
-                      <InputLabel id="province-label">
-                        Select Provience/state
-                      </InputLabel>
-                      <Select
-                        fullWidth
-                        labelId="province-label"
-                        id="province"
-                        name="province"
-                        value={values.province}
-                        label="Select Provience/state"
-                        onChange={(e) => {
-                          handleChangeAddress({
-                            type: "province",
-                            value: e.target.value,
-                          });
-                        }}
-                        onBlur={handleBlur}
+                    <OrderFormSelectInputWrapper>
+                      <label htmlFor="states">Select Provience/state</label>{" "}
+                      <br />
+                      <select
+                        id="states"
+                        onChange={(e) =>
+                          handleChangeAddress("state", e.target.value)
+                        }
                       >
+                        <option value={""}>{"Select Province/States"}</option>;
                         {address.state.all.length !== 0 ? (
                           address.state.all.map((state) => {
                             return (
-                              <MenuItem
-                                key={state.id}
-                                value={{ id: state.id, name: state.name }}
-                              >
-                                {state.statename}
-                              </MenuItem>
+                              <option key={state.id} value={state.name}>
+                                {state.name}
+                              </option>
                             );
                           })
                         ) : (
-                          <MenuItem value={"Not Available"}>
-                            {"Not Available"}
-                          </MenuItem>
+                          <option value={""}>{"Shipping Not Available"}</option>
                         )}
-                      </Select>
-                    </OrderFormInputWrapper>
+                      </select>
+                    </OrderFormSelectInputWrapper>
 
-                    <OrderFormInputWrapper>
-                      <InputLabel id="district-label">
-                        Select District
-                      </InputLabel>
-                      <Select
-                        fullWidth
-                        labelId="district-label"
-                        id="district"
-                        name="district"
-                        value={values.province}
-                        label="Select District"
-                        onChange={(e) => {
-                          handleChangeAddress({
-                            type: "district",
-                            value: e.target.value,
-                          });
-                        }}
-                        onBlur={handleBlur}
+                    <OrderFormSelectInputWrapper>
+                      <label htmlFor="districts">Select Provience/state</label>{" "}
+                      <br />
+                      <select
+                        id="districts"
+                        onChange={(e) =>
+                          handleChangeAddress("district", e.target.value)
+                        }
                       >
+                        <option value={""}>{"Select District"}</option>;
                         {address.district.all.length !== 0 ? (
                           address.district.all.map((district) => {
                             return (
-                              <MenuItem
-                                key={district.id}
-                                value={{ id: district.id, name: district.name }}
-                              >
+                              <option key={district.id} value={district.name}>
                                 {district.name}
-                              </MenuItem>
+                              </option>
                             );
                           })
                         ) : (
-                          <MenuItem value={"Not Available"}>
-                            {"Not Available"}
-                          </MenuItem>
+                          <option value={""}>{"Shipping Not Available"}</option>
                         )}
-                      </Select>
-                    </OrderFormInputWrapper>
+                      </select>
+                    </OrderFormSelectInputWrapper>
 
-                    <OrderFormInputWrapper>
-                      <InputLabel id="city-label">
-                        Select City/Local-level
-                      </InputLabel>
-                      <Select
-                        fullWidth
-                        labelId="city-label"
-                        id="city"
+                    <OrderFormSelectInputWrapper>
+                      <label id="cities">Select City/Local-level</label> <br />
+                      <select
+                        id="cities"
                         name="city"
                         value={values.city}
-                        label="Select City / local-level"
                         onChange={handleChange}
                         onBlur={handleBlur}
                       >
-                        <MenuItem value="Dhapakhel">{"Dhapakhel"}</MenuItem>
-                        <MenuItem value={"Godawari"}>{"Godawari"}</MenuItem>
-                        <MenuItem value={"Satdobato"}>{"Satdobato"}</MenuItem>
-                      </Select>
-                    </OrderFormInputWrapper>
+                        <option value={""}>{"Select Local Level"}</option>;
+                        <option value="Dhapakhel">{"Dhapakhel"}</option>
+                        <option value={"Godawari"}>{"Godawari"}</option>
+                        <option value={"Satdobato"}>{"Satdobato"}</option>
+                      </select>
+                    </OrderFormSelectInputWrapper>
 
                     <OrderFormInputWrapper>
                       <TextField
@@ -401,13 +551,14 @@ export default function EditOrder({ order }) {
                         //   error={errors.email && Boolean(errors.email)}
                       />
                     </OrderFormInputWrapper>
+
                     <OrderFormInputWrapper>
                       <Button variant="contained" color="success" type="submit">
                         <Save />
                         {"Update"}
                       </Button>
                     </OrderFormInputWrapper>
-                  </FormContainer> */}
+                  </FormContainer>
                 </TableCell>
               </CustomTableRow>
 
