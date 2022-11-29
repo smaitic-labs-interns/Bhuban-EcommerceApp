@@ -124,8 +124,9 @@ const shippingAddress = {
 const update_quantity_order = async (orderId, product, action) => {
   try {
     const order = await Store.order.read_order_from_id(orderId);
-    if (order.orderStatus !== "requested")
+    if (order.orderStatus !== "pending" && order.orderStatus !== "review") {
       throw new Error("Cannot update quantity, order has passed from step1");
+    }
     const product_res = await Store.product.find_product(product.productId);
 
     switch (action) {
