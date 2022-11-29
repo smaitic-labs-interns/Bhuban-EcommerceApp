@@ -16,6 +16,9 @@ import {
   UPDATE_PRODUCT_REQUEST,
   UPDATE_PRODUCT_SUCCESS,
   UPDATE_PRODUCT_FAILED,
+  FETCH_LIMITED_PRODUCT_REQUEST,
+  FETCH_LIMITED_PRODUCT_SUCCESS,
+  FETCH_LIMITED_PRODUCT_FAILED,
 } from "../constants/productConstants";
 
 import { axios_instance } from "../../api/config/config";
@@ -171,6 +174,29 @@ export const search_product =
     } catch (err) {
       dispatch({
         type: SEARCH_PRODUCT_FAILED,
+        payload: err.response,
+      });
+    }
+  };
+
+export const fetch_limited_product =
+  ({ page, limit, action }) =>
+  async (dispatch) => {
+    try {
+      if (action === "clean")
+        return dispatch({ type: FETCH_LIMITED_PRODUCT_REQUEST });
+      dispatch({ type: FETCH_LIMITED_PRODUCT_REQUEST });
+      const response = await axios_instance({
+        endpoints: product.limited,
+        query: { page, limit },
+      });
+      dispatch({
+        type: FETCH_LIMITED_PRODUCT_SUCCESS,
+        payload: response.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: FETCH_LIMITED_PRODUCT_FAILED,
         payload: err.response,
       });
     }

@@ -18,6 +18,9 @@ import {
   UPDATE_PRODUCT_REQUEST,
   UPDATE_PRODUCT_SUCCESS,
   UPDATE_PRODUCT_FAILED,
+  FETCH_LIMITED_PRODUCT_REQUEST,
+  FETCH_LIMITED_PRODUCT_SUCCESS,
+  FETCH_LIMITED_PRODUCT_FAILED,
 } from "../constants/productConstants";
 
 const initialState = {
@@ -160,6 +163,43 @@ export const search_product_reducer = (
       return {
         ...state,
         status: "failed",
+      };
+    default:
+      return state;
+  }
+};
+
+const limitedProductinitialState = {
+  status: null,
+  message: "",
+  all: [],
+  next: {},
+  previous: {},
+};
+
+export const fetch_limited_product_reducer = (
+  state = limitedProductinitialState,
+  { type, payload }
+) => {
+  switch (type) {
+    case FETCH_LIMITED_PRODUCT_REQUEST:
+      return limitedProductinitialState;
+
+    case FETCH_LIMITED_PRODUCT_SUCCESS:
+      console.log(payload);
+      return {
+        ...state,
+        status: "success",
+        message: "products fetched successfully",
+        all: payload.data,
+        next: payload.next || {},
+        previous: payload.previous || {},
+      };
+    case FETCH_LIMITED_PRODUCT_FAILED:
+      return {
+        ...state,
+        status: "failed",
+        message: payload,
       };
     default:
       return state;

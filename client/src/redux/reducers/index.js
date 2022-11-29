@@ -6,6 +6,7 @@ import {
   search_product_reducer,
   delete_product_reducer,
   update_product_reducer,
+  fetch_limited_product_reducer,
 } from "./productReducer";
 import {
   cartReducer,
@@ -85,6 +86,14 @@ const persistedReducer = persistCombineReducers(persistConfig, {
     loginReducer
   ),
   allProducts: productReducer,
+  limitedProduct: persistReducer(
+    {
+      key: "limitedProduct",
+      storage: storage,
+      blacklist: ["message", "status"],
+    },
+    fetch_limited_product_reducer
+  ),
   product: selectedProductReducer,
   addProduct: persistReducer(
     {
