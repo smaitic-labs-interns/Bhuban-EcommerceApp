@@ -27,7 +27,7 @@ const read_limited_cart = async ({ page, limit }) => {
       };
     }
 
-    if (startIndex < 0) {
+    if (startIndex > 0) {
       result.previous = {
         page: page - 1,
         limit: limit,

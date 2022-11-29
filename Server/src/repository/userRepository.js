@@ -28,7 +28,7 @@ const read_limited_user = async ({ page, limit }) => {
       };
     }
 
-    if (startIndex < 0) {
+    if (startIndex > 0) {
       result.previous = {
         page: page - 1,
         limit: limit,
@@ -36,7 +36,8 @@ const read_limited_user = async ({ page, limit }) => {
     }
 
     let users = await con.query(
-      "SELECT * FROM users ORDER BY createdAt DESC offset $1 LIMIT $2"
+      "SELECT * FROM users ORDER BY createdAt DESC offset $1 LIMIT $2",
+      [startIndex, endIndex]
     );
     result.data = users.rows;
     if (users.rowCount !== 0) return result;

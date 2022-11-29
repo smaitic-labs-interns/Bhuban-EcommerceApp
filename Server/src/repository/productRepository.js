@@ -43,7 +43,7 @@ const get_limited_product = async ({ page, limit }) => {
       };
     }
 
-    if (startIndex < 0) {
+    if (startIndex > 0) {
       result.previous = {
         page: page - 1,
         limit: limit,

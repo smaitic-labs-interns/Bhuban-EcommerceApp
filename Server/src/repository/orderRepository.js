@@ -79,7 +79,7 @@ const read_limited_orders = async ({ page, limit }) => {
       };
     }
 
-    if (startIndex < 0) {
+    if (startIndex > 0) {
       result.previous = {
         page: page - 1,
         limit: limit,
@@ -232,7 +232,7 @@ const read_user_order_limited = async ({ page, limit, userId }) => {
       };
     }
 
-    if (startIndex < 0) {
+    if (startIndex > 0) {
       result.previous = {
         page: page - 1,
         limit: limit,
