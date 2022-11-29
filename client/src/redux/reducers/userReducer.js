@@ -1,7 +1,7 @@
 import {
-  USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
+  USER_LOGIN_FAILED,
   USER_LOGOUT,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
@@ -21,11 +21,11 @@ const initialStateLogin = {
   address: "",
   email: "",
   isLogined: false,
-  message: "",
-  loading: true,
   role: null,
   imageUrl: "",
   imageAltText: "",
+  status: null,
+  message: "",
 };
 
 export const register_reducer = (
@@ -54,51 +54,39 @@ export const register_reducer = (
   }
 };
 
-export const loginReducer = (state = initialStateLogin, action) => {
-  switch (action.type) {
+export const loginReducer = (state = initialStateLogin, { type, payload }) => {
+  switch (type) {
     case USER_LOGIN_REQUEST:
       return {
         ...state,
-        loading: true,
+        status: null,
       };
-    case USER_LOGIN_FAIL:
-      return {
-        ...state,
-        loading: false,
-        isLogined: false,
-        message: action.payload.data,
-      };
+
     case USER_LOGIN_SUCCESS:
       return {
         ...state,
-        loading: false,
         isLogined: true,
-        userId: action.payload.id,
-        firstName: action.payload.firstname,
-        middleName: action.payload.middlename,
-        lastName: action.payload.lastname,
-        address: action.payload.address,
-        email: action.payload.email,
-        imageUrl: action.payload.imageurl,
-        imageAltText: action.payload.imagealttext,
+        userId: payload.id,
+        firstName: payload.firstname,
+        middleName: payload.middlename,
+        lastName: payload.lastname,
+        address: payload.address,
+        email: payload.email,
+        imageUrl: payload.imageurl,
+        imageAltText: payload.imagealttext,
+        role: payload.role,
         message: "login success",
-        role: action.payload.role,
+        status: "success",
+      };
+    case USER_LOGIN_FAILED:
+      return {
+        ...state,
+        isLogined: false,
+        message: payload.data,
+        status: "failed",
       };
     case USER_LOGOUT:
       return initialStateLogin;
-    default:
-      return state;
-  }
-};
-
-export const logout_reducer = (
-  state = initialStateLogin,
-  { type, payload }
-) => {
-  switch (type) {
-    case USER_LOGOUT:
-      return state;
-
     default:
       return state;
   }

@@ -9,22 +9,17 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { useDispatch, useSelector } from "react-redux";
 import { user_login } from "../../redux/actions/userActions";
-import { Route, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { loginSchema } from "../../schemas";
 import { useFormik } from "formik";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import Swal from "sweetalert2";
 
 export default function Login() {
-  const [email, setEmail] = useState(null);
-  const [password, setPassword] = useState(null);
   const login = useSelector((state) => state.login);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const navigateToProfile = () => {
-    navigate("/profile");
-  };
+  const adminRoles = ["superadmin", "admin"];
 
   const initialValues = {
     email: "",
@@ -36,23 +31,48 @@ export default function Login() {
       initialValues: initialValues,
       validationSchema: loginSchema,
       onSubmit: (values) => {
-        dispatch(user_login(values));
+        dispatch(user_login({ value: values, action: "login" }));
       },
     });
 
   useEffect(() => {
-    if (login.isLogined && login.loading === false) {
-      navigateToProfile();
-    } else if (login.isLogined === false && login.loading === false) {
-      toast.error("Invalid login Details");
+    if (login.isLogined && login.status === "success") {
+      adminRoles.includes(login.role)
+        ? navigate("/admin")
+        : navigate("/profile");
+
+      Swal.fire({
+        title: "success",
+        timer: 1000,
+        timerProgressBar: false,
+        text: `${login.message}`,
+      });
+    } else if (login.status === "failed") {
+      Swal.fire({
+        title: "Failed!",
+        text: `${login.message}`,
+        icon: "error",
+        confirmButtonText: "Ok",
+      });
+    }
+
+    if (login.status !== null) {
+      dispatch(
+        user_login({
+          value: {},
+          action: "clean",
+        })
+      );
     }
   }, [login]);
+
   return (
     <>
       <Box component={"div"}>
         <Box
           component={"div"}
-          sx={{ display: "flex", justifyContent: "center" }}>
+          sx={{ display: "flex", justifyContent: "center" }}
+        >
           <Box sx={{ maxWidth: "40%", marginTop: "50px" }}>
             <Box sx={{}}>
               <Typography component="h1" variant="h5">
@@ -95,7 +115,8 @@ export default function Login() {
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2 }}>
+                sx={{ mt: 3, mb: 2 }}
+              >
                 Sign In
               </Button>
               <Grid container>
@@ -114,7 +135,6 @@ export default function Login() {
           </Box>
         </Box>
       </Box>
-      <ToastContainer position="top-center" />
     </>
   );
 }
