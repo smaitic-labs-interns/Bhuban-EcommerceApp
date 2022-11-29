@@ -22,6 +22,7 @@ import { Star, StarHalf } from "@mui/icons-material";
 export default function ProductCard({ product }) {
   const {
     id,
+    name,
     category,
     model,
     brand,
@@ -35,7 +36,8 @@ export default function ProductCard({ product }) {
     <CardWrapper>
       <Link
         to={`/product/${id}`}
-        style={{ textDecoration: "none", color: "black" }}>
+        style={{ textDecoration: "none", color: "black" }}
+      >
         <CardContainer>
           <ImageWrapper>
             <img
@@ -52,7 +54,7 @@ export default function ProductCard({ product }) {
           <ContentWrapper>
             <ProductTitleWrapper>
               <Typography>
-                {brand + " - " + model + " - " + category}
+                {name || brand + " - " + model + " - " + category}
               </Typography>
             </ProductTitleWrapper>
             <ProductPriceWrapper>

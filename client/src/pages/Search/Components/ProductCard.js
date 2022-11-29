@@ -24,6 +24,7 @@ export default function ProductCard({ product }) {
 
   const {
     id,
+    name,
     category,
     model,
     brand,
@@ -55,7 +56,7 @@ export default function ProductCard({ product }) {
           <ContentWrapper>
             <ProductTitleWrapper>
               <Typography>
-                {brand + " - " + model + " - " + category}
+                {name || brand + " - " + model + " - " + category}
               </Typography>
             </ProductTitleWrapper>
             <ProductPriceWrapper>
