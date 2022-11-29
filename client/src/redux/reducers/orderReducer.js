@@ -88,7 +88,7 @@ export const place_order_reducer = (
 };
 
 const orderInitialState = {
-  data: {},
+  data: [],
   status: null,
 };
 export const track_order_reducer = (
@@ -122,7 +122,7 @@ export const all_order_reducer = (
 ) => {
   switch (type) {
     case FETCH_ALL_ORDER_REQUEST:
-      return { ...state, status: null };
+      return orderInitialState;
 
     case FETCH_ALL_ORDER_SUCCESS:
       return {
@@ -147,7 +147,7 @@ export const user_orders_reducer = (
 ) => {
   switch (type) {
     case USER_ORDERS_REQUEST:
-      return { ...state, status: null };
+      return orderInitialState;
 
     case USER_ORDERS_SUCCESS:
       return {
@@ -202,7 +202,7 @@ export const update_order_quantity_reducer = (
 ) => {
   switch (type) {
     case UPDATE_ORDER_QUANTITY_REQUEST:
-      return { ...state, status: null };
+      return updateOrderInitialState;
 
     case UPDATE_ORDER_QUANTITY_SUCCESS:
       return {
