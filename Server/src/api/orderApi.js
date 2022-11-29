@@ -114,7 +114,7 @@ const update_payment = async (req, resp) => {
 const update_status = async (req, resp) => {
   try {
     const orderId = req.query.id;
-    const status = req.body;
+    const status = req.body.status;
     const res = await Service.order.update_order_status(orderId, status);
     resp.status(200).send(res);
   } catch (err) {

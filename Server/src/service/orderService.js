@@ -275,7 +275,7 @@ const update_order_status = async (orderId, status) => {
     order.orderStatus = status;
 
     if (Store.order.update_order(orderId, order)) {
-      return `Order Status Updated Sucessfully. New Status: (${status}`;
+      return `Order Status Updated Sucessfully. New Status: (${status})`;
     }
     throw new Error("Error Occurs Updating Status");
 
