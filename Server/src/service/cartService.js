@@ -3,7 +3,7 @@ const Schema = require("../models/cartModel");
 
 const get_all_cart = async () => {
   try {
-    const carts = await Store.cart.get_all_cart();
+    const carts = await Store.cart.read_all_cart();
     if (carts) return carts;
   } catch (err) {
     throw err;
