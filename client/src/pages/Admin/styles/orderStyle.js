@@ -56,11 +56,6 @@ export const DisplaySearchWrapper = styled(Box)(() => ({
   background: "darkgray",
 }));
 
-export const DisplayProductsWrapper = styled(Box)(() => ({
-  display: "flex",
-  alignItems: "center",
-}));
-
 export const SearchBarWrapper = styled(Box)(() => ({
   display: "flex",
   alignItems: "center",
@@ -68,4 +63,9 @@ export const SearchBarWrapper = styled(Box)(() => ({
 
 export const TableWrapper = styled(Box)(() => ({
   //   ds
+}));
+
+export const DisplayOrderWrapper = styled(Box)(() => ({
+  display: "flex",
+  alignItems: "center",
 }));

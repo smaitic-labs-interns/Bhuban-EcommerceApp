@@ -42,6 +42,7 @@ import Swal from "sweetalert2";
 import AddProduct from "./modals/AddProduct";
 import ViewProduct from "./modals/ViewProduct";
 import EditProduct from "./modals/EditProduct";
+import { isEmpty } from "../../../utils/isEmpty";
 
 export default function Product() {
   const limitedProduct = useSelector((state) => state.limitedProduct);
@@ -52,10 +53,6 @@ export default function Product() {
     next: {},
     previous: {},
   });
-
-  const isEmpty = (obj) => {
-    return Object.keys(obj).length === 0 ? true : false;
-  };
 
   let currentPage =
     !isEmpty(product.next) && !isEmpty(product.previous)
