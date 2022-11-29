@@ -1,8 +1,8 @@
 import {
-  USER_LOGIN,
-  USER_REGISTER,
+  USER_REGISTER_REQUEST,
+  USER_REGISTER_SUCCESS,
+  USER_REGISTER_FAILED,
   USER_LOGOUT,
-  INVALID_LOGIN,
   USER_LOGIN_REQUEST,
   USER_LOGIN_FAIL,
   USER_LOGIN_SUCCESS,
@@ -10,46 +10,37 @@ import {
 import { axios_instance } from "../../api/config/config";
 import { user } from "../../api/config/api-endpoints";
 
-export const user_register = (data) => async (dispatch) => {
-  const payload = {
-    firstName: data.firstName,
-    middleName: data.middleName,
-    lastName: data.lastName,
-    address: data.address,
-    email: data.email,
-    password: data.password,
+export const user_register =
+  ({ data, action }) =>
+  async (dispatch) => {
+    try {
+      if (action === "clean") {
+        return dispatch({ type: USER_REGISTER_REQUEST });
+      }
+      dispatch({ type: USER_REGISTER_REQUEST });
+      const payload = {
+        firstName: data.firstName,
+        middleName: data.middleName,
+        lastName: data.lastName,
+        address: data.address,
+        email: data.email,
+        password: data.password,
+      };
+      const response = await axios_instance({
+        endpoints: user.register,
+        data: payload,
+      });
+      dispatch({
+        type: USER_REGISTER_SUCCESS,
+        payload: response.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: USER_REGISTER_FAILED,
+        payload: err.response,
+      });
+    }
   };
-  const response = await axios_instance({
-    endpoints: user.register,
-    data: payload,
-  });
-  dispatch({
-    type: USER_REGISTER,
-    payload: response.data,
-  });
-};
-
-// export const user_login = (value) => async (dispatch) => {
-//   try {
-//     const payload = {
-//       email: value.email,
-//       password: value.password,
-//     };
-//     const response = await axios_instance({
-//       endpoints: user.login,
-//       data: payload,
-//     });
-//     dispatch({
-//       type: USER_LOGIN,
-//       payload: { ...response.data, password: "" },
-//     });
-//   } catch (err) {
-//     dispatch({
-//       type: INVALID_LOGIN,
-//       payload: err.response,
-//     });
-//   }
-// };
 
 export const user_login = (value) => async (dispatch) => {
   try {
@@ -57,7 +48,7 @@ export const user_login = (value) => async (dispatch) => {
       email: value.email,
       password: value.password,
     };
-    dispatch({type: USER_LOGIN_REQUEST})
+    dispatch({ type: USER_LOGIN_REQUEST });
     const response = await axios_instance({
       endpoints: user.login,
       data: payload,

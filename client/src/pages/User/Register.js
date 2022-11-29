@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FormHelperText } from "@mui/material";
+
 import {
   Link,
   Grid,
@@ -9,16 +9,22 @@ import {
   FormControlLabel,
   TextField,
   Button,
+  FormHelperText,
 } from "@mui/material";
 import { useFormik } from "formik";
 import { registerSchema } from "../../schemas";
 import { user_register } from "../../redux/actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
-// import {toast} from "react-toastify"
-
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 export default function Register() {
   const register = useSelector((state) => state.register);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const navigateToLogin = () => {
+    navigate("/login");
+  };
   const initialValues = {
     firstName: "",
     middleName: "",
@@ -35,10 +41,32 @@ export default function Register() {
       initialValues: initialValues,
       validationSchema: registerSchema,
       onSubmit: (values) => {
-        console.log(values);
-        dispatch(user_register(values));
+        dispatch(user_register({ data: values, action: "register" }));
       },
     });
+
+  useEffect(() => {
+    if (register.status === "success") {
+      Swal.fire({
+        title: "Success!",
+        text: `${register.message}`,
+        icon: "success",
+        confirmButtonText: "Ok",
+      });
+      navigateToLogin();
+    } else if (register.status === "failed") {
+      Swal.fire({
+        title: "Failed!",
+        text: `${register.message}`,
+        icon: "error",
+        confirmButtonText: "Ok",
+      });
+    }
+
+    if (register.status !== null) {
+      dispatch(user_register({ data: values, action: "clean" }));
+    }
+  }, [register]);
 
   return (
     <>
@@ -52,7 +80,8 @@ export default function Register() {
             component="form"
             noValidate
             onSubmit={handleSubmit}
-            sx={{ mt: 3 }}>
+            sx={{ mt: 3 }}
+          >
             <Grid container spacing={2}>
               <Grid item xs={12} sm={4}>
                 <TextField
@@ -186,7 +215,8 @@ export default function Register() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}>
+              sx={{ mt: 3, mb: 2 }}
+            >
               Sign Up
             </Button>
             <Grid container justifyContent="flex-end">

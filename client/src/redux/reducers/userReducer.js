@@ -1,21 +1,16 @@
 import {
-  USER_REGISTER,
-  USER_LOGIN,
-  INVALID_LOGIN,
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
   USER_LOGOUT,
+  USER_REGISTER_REQUEST,
+  USER_REGISTER_SUCCESS,
+  USER_REGISTER_FAILED,
 } from "../constants/userConstants";
 
 const initialStateRegister = {
-  firstName: "",
-  middleName: "",
-  lastName: "",
-  address: "",
-  email: "",
-  password: "",
-  isRegistered: false,
+  status: null,
+  message: "",
 };
 
 const initialStateLogin = {
@@ -33,18 +28,25 @@ const initialStateLogin = {
   imageAltText: "",
 };
 
-export const registerReducer = (state = initialStateRegister, action) => {
-  switch (action.type) {
-    case USER_REGISTER:
+export const register_reducer = (
+  state = initialStateRegister,
+  { type, payload }
+) => {
+  switch (type) {
+    case USER_REGISTER_REQUEST:
+      return initialStateRegister;
+
+    case USER_REGISTER_SUCCESS:
       return {
         ...state,
-        firstName: action.payload.firstName,
-        middleName: action.payload.middleName,
-        lastName: action.payload.lastName,
-        address: action.payload.address,
-        email: action.payload.email,
-        password: action.payload.password,
-        isRegistered: true,
+        status: "success",
+        message: payload,
+      };
+    case USER_REGISTER_FAILED:
+      return {
+        ...state,
+        status: "failed",
+        message: payload,
       };
 
     default:

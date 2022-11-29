@@ -1,4 +1,4 @@
-import { registerReducer, loginReducer } from "./userReducer";
+import { register_reducer, loginReducer } from "./userReducer";
 import {
   productReducer,
   selectedProductReducer,
@@ -48,6 +48,7 @@ const persistConfig = {
   key: "persist-store",
   storage,
   blacklist: [
+    "register",
     "login",
     "searchProduct",
     "deleteProduct",
@@ -80,7 +81,14 @@ const persistConfig = {
   ],
 };
 const persistedReducer = persistCombineReducers(persistConfig, {
-  register: registerReducer,
+  register: persistReducer(
+    {
+      key: "register",
+      storage: storage,
+      blacklist: ["loading", "message"],
+    },
+    register_reducer
+  ),
   login: persistReducer(
     {
       key: "login",
