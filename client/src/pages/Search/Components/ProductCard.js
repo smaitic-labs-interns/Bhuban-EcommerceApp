@@ -20,8 +20,6 @@ import {
 import { Star, StarHalf } from "@mui/icons-material";
 
 export default function ProductCard({ product }) {
-  console.log(product);
-
   const {
     id,
     name,

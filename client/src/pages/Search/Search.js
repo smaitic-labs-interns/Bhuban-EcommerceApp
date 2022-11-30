@@ -24,33 +24,38 @@ export default function SearchPage() {
   const handleChange = (key) => {
     if (key && key !== "") {
       dispatch(search_product({ keyword: key, action: "search" }));
+    } else {
+      dispatch(search_product({ keyword: keyword, action: "clean" }));
     }
   };
 
   const handleSearch = () => {
-    setCallSearch(true);
+    // setCallSearch(true);
     dispatch(search_product({ keyword: keyword, action: "clean" }));
     if (keyword && keyword !== "") {
-      console.log("KeyWord: ", keyword);
+      // console.log("KeyWord: ", keyword);
       dispatch(search_product({ keyword: keyword, action: "search" }));
     }
   };
 
   useEffect(() => {
     if (products.status === "success") {
-      let labels = [];
-      for (var prdct of products.products) {
-        labels.push(prdct.model);
-      }
-      setProductsName(labels);
+      // let labels = [];
+      // for (var prdct of products.products) {
+      //   labels.push(prdct.model);
+      // }
+      // setProductsName(labels);
+      setAllProduct(products.products);
+    } else {
+      setAllProduct([]);
     }
   }, [products]);
 
-  useEffect(() => {
-    if (products.status === "success" && callSearch === true) {
-      setAllProduct(products.products);
-    }
-  }, [callSearch, products]);
+  // useEffect(() => {
+  //   if (products.status === "success" && callSearch === true) {
+  //     setAllProduct(products.products);
+  //   }
+  // }, [callSearch, products]);
   return (
     <SearchWrapper>
       <SearchBoxWrapper>
