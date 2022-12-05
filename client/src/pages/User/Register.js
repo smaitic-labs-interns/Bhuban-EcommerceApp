@@ -12,7 +12,7 @@ import {
   FormHelperText,
 } from "@mui/material";
 import { useFormik } from "formik";
-import { registerSchema } from "../../schemas";
+import { registerSchema } from "../../validation";
 import { user_register } from "../../redux/actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";

@@ -10,7 +10,7 @@ import Typography from "@mui/material/Typography";
 import { useDispatch, useSelector } from "react-redux";
 import { user_login } from "../../redux/actions/userActions";
 import { useNavigate } from "react-router-dom";
-import { loginSchema } from "../../schemas";
+import { loginSchema } from "../../validation";
 import { useFormik } from "formik";
 import Swal from "sweetalert2";
 
