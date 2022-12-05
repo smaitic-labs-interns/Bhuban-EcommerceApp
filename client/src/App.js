@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // routes
-import { PrivateRoute, ProtectedRoute, AdminRoute } from "./routes/index";
+import { PrivateRoute, ProtectedRoute, AdminRoute } from "./routes";
 
 // pages
 import Home from "./pages/Home/Home";
