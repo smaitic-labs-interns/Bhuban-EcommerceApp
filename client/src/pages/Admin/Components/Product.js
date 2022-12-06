@@ -26,14 +26,7 @@ import {
   TextField,
 } from "@mui/material";
 
-import {
-  RemoveRedEye,
-  Edit,
-  Delete,
-  PersonAddAltSharp,
-  Add,
-  Search,
-} from "@mui/icons-material";
+import { Delete, Add, Search } from "@mui/icons-material";
 import { delete_product } from "../../../redux/actions/productActions";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -42,7 +35,7 @@ import Swal from "sweetalert2";
 import AddProduct from "./modals/AddProduct";
 import ViewProduct from "./modals/ViewProduct";
 import EditProduct from "./modals/EditProduct";
-import { isEmpty } from "../../../utils/isEmpty";
+import { isEmpty } from "../../../utils";
 
 export default function Product() {
   const limitedProduct = useSelector((state) => state.limitedProduct);

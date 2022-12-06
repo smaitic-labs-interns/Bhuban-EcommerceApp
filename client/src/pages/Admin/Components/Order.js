@@ -14,7 +14,7 @@ import {
   fetch_limited_order,
 } from "../../../redux/actions/orderActions";
 import OrderTable from "./OrderTable";
-import { isEmpty } from "../../../utils/isEmpty";
+import { isEmpty } from "../../../utils";
 
 export default function Order() {
   const limitedOrder = useSelector((state) => state.limitedOrder);

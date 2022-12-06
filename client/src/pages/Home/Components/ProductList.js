@@ -8,9 +8,7 @@ import loading from "../../../public/images/loading.gif";
 import {
   ProductCardsWrapper,
   ProductsCardContainer,
-  HomeBannerWrapper,
 } from "../Styles/productListStyle";
-import Banner from "./Banner";
 
 export default function ProductList() {
   const products = useSelector((state) => state.allProducts.products);
@@ -22,9 +20,6 @@ export default function ProductList() {
 
   return (
     <ProductCardsWrapper>
-      <HomeBannerWrapper>
-        <Banner />
-      </HomeBannerWrapper>
       <ProductsCardContainer>
         {products.length === 0 ? (
           <img src={truck || loading} alt="Loading Truck" />
