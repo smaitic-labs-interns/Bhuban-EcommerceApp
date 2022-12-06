@@ -1,12 +1,5 @@
-import {
-  Box,
-  Button,
-  styled,
-  Table,
-  TableCell,
-  Typography,
-} from "@mui/material";
-import theme from "../../../utils/theme";
+import { Box, Button, styled, Table, Typography } from "@mui/material";
+// import theme from "../../../utils/theme";
 
 export const CloseButtonWrapper = styled(Button)(() => ({
   color: "red",

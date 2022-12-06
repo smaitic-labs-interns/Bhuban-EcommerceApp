@@ -1,4 +1,4 @@
-import { Box, styled } from "@mui/material";
+import { Box, styled, Typography } from "@mui/material";
 import theme from "../../../utils/theme";
 
 export const TrackWrapper = styled(Box)(() => ({
@@ -18,26 +18,30 @@ export const TrackFormContainer = styled(Box)(() => ({
   margin: "1rem 0",
   padding: "1rem",
   display: "flex",
-  justifyContent: "space-between",
-  flexWrap: "wrap",
-  gap: "0.5rem",
   alignItems: "center",
   boxShadow: "5px 10px 18px #888888",
 }));
 
 export const TrackFormInputWrapper = styled(Box)(() => ({
-  width: "45%",
+  width: "70%",
 }));
 
 export const TrackFormSubmitBtnWrapper = styled(Box)(() => ({
-  width: "100%",
-  display: "flex",
-  justifyContent: "flex-end",
+  width: "25%",
+  "&>button": {
+    padding: "1rem",
+    gap: "0.5rem"
+  }
 }));
 
 export const TrackResultWrapper = styled(Box)(() => ({
   width: "100%",
   display: "flex",
   justifyContent: "center",
-  padding: "2rem",
+  alignItems: "center",
+  gap: "1rem",
+}));
+export const ResultTitle = styled(Typography)(() => ({
+  fontWeight: 600,
+  fontSize: "30px",
 }));

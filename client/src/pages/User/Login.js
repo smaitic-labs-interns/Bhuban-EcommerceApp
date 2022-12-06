@@ -1,18 +1,11 @@
 import React, { useState, useEffect } from "react";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
+import {Button, TextField, FormControlLabel, Checkbox, Link, Grid, Box, Typography} from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { user_login } from "../../redux/actions/userActions";
 import { useNavigate } from "react-router-dom";
-import { loginSchema } from "../../validation";
 import { useFormik } from "formik";
+import { user_login } from "../../redux/actions/userActions";
 import Swal from "sweetalert2";
+import { loginSchema } from "../../validation";
 
 export default function Login() {
   const login = useSelector((state) => state.login);
@@ -35,8 +28,16 @@ export default function Login() {
       },
     });
 
-  useEffect(() => {
+  // useEffect(() => {
+    console.log("From login", login.isLogined)
+    // alert("login");
+    if(login.isLogined === false){
+      console.log("False condition")
+    }else{
+      alert("Login Success");
+    }
     if (login.isLogined && login.status === "success") {
+      // console.log(adminRoles.includes(login.role))
       adminRoles.includes(login.role)
         ? navigate("/admin")
         : navigate("/profile");
@@ -64,7 +65,7 @@ export default function Login() {
         })
       );
     }
-  }, [login]);
+  // }, [login]);
 
   return (
     <>

@@ -16,7 +16,7 @@ import {
   cancel_order,
   return_replace_order,
 } from "../../../redux/actions/orderActions";
-import ViewOrderModal from "./ViewOrderModal";
+import ViewOrder from "../../../components/modals/ViewOrder";
 import { CustomTableCell, TablePageWrapper } from "../styles/RightTableStyle";
 import { AssignmentReturn, Cancel, FindReplace } from "@mui/icons-material";
 import Swal from "sweetalert2";
@@ -157,7 +157,7 @@ export default function RightTable() {
                   <TableCell>{order.id}</TableCell>
                   <TableCell>{order.placedOn}</TableCell>
                   <TableCell>
-                    <ViewOrderModal order={order} />
+                    <ViewOrder order={order} />
                   </TableCell>
                   <TableCell>
                     <Button

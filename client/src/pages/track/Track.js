@@ -1,4 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { useFormik } from "formik";
+import { useDispatch, useSelector } from "react-redux";
+import {  TextField, Button} from "@mui/material";
+import { Search } from "@mui/icons-material";
+import Swal from "sweetalert2";
+import { fetch_one_order } from "../../redux/actions/orderActions";
+import ViewOrder from "../../components/modals/ViewOrder";
 import {
   TrackWrapper,
   TrackContainer,
@@ -6,18 +13,12 @@ import {
   TrackFormInputWrapper,
   TrackFormSubmitBtnWrapper,
   TrackResultWrapper,
+  ResultTitle
 } from "./styles/trackStyle";
-import { useFormik } from "formik";
-import { useDispatch, useSelector } from "react-redux";
-import { Select, MenuItem, TextField, InputLabel, Button } from "@mui/material";
-import { track_order } from "../../redux/actions/orderActions";
-import { Search } from "@mui/icons-material";
-import Swal from "sweetalert2";
-import TrackResult from "./Components/TrackResult";
 
 export default function Track() {
   const dispatch = useDispatch();
-  const trackOrder = useSelector((state) => state.trackOrder);
+  const order = useSelector((state) => state.oneOrder);
 
   const initialValues = {
     orderId: "",
@@ -37,32 +38,31 @@ export default function Track() {
     // validationSchema: loginSchema, // for data validation
     onSubmit: (values) => {
       dispatch(
-        track_order({
+        fetch_one_order({
           orderId: values.orderId,
-          track: values.trackType,
-          action: "search",
+          action: "fetch",
         })
       );
     },
   });
 
   useEffect(() => {
-    if (trackOrder.status === "failed") {
+    console.log(order);
+    if (order.status === "failed") {
       Swal.fire({
         title: "Failed!",
-        text: `${trackOrder.data}`,
+        text: `${order.data}`,
         icon: "error",
         confirmButtonText: "ok",
       });
       dispatch(
-        track_order({
+        fetch_one_order({
           orderId: "",
-          track: "",
           action: "clean",
         })
       );
     }
-  }, [trackOrder]);
+  }, [order]);
 
   return (
     <TrackWrapper>
@@ -83,32 +83,13 @@ export default function Track() {
               //   error={errors.email && Boolean(errors.email)}
             />
           </TrackFormInputWrapper>
-          <TrackFormInputWrapper>
-            <InputLabel id="track-type-label">Select to Track</InputLabel>
-            <Select
-              fullWidth
-              required
-              labelId="track-type-label"
-              id="trackType"
-              name="trackType"
-              value={values.trackType}
-              label="Track Type"
-              onChange={handleChange}
-              onBlur={handleBlur}
-            >
-              <MenuItem value={"order"} selected>
-                {"order"}
-              </MenuItem>
-              <MenuItem value={"refund"} selected>
-                {"refund"}
-              </MenuItem>
-            </Select>
-          </TrackFormInputWrapper>
+
           <TrackFormSubmitBtnWrapper>
             <Button
               type="submit"
               variant="contained"
-              sx={{ mt: 3, mb: 2, background: "green", gap: "0.5rem" }}
+              fullWidth
+              color="success"
             >
               <Search />
               Track
@@ -117,10 +98,11 @@ export default function Track() {
         </TrackFormContainer>
 
         <TrackResultWrapper>
-          {trackOrder.status === "success" ? (
-            <TrackResult result={trackOrder.data} />
-          ) : (
-            ""
+          {order.status === "success" && (
+            <>
+              <ResultTitle>{"Recent :  "}</ResultTitle>
+              <ViewOrder order={order.data} initially={true} />
+            </>
           )}
         </TrackResultWrapper>
       </TrackContainer>

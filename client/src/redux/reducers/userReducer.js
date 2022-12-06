@@ -85,8 +85,10 @@ export const loginReducer = (state = initialStateLogin, { type, payload }) => {
         message: payload.data,
         status: "failed",
       };
-    case USER_LOGOUT:
+    case USER_LOGOUT:{
+      localStorage.clear("persist:login")
       return initialStateLogin;
+    }
     default:
       return state;
   }
