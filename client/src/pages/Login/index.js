@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from "react";
-import {Button, TextField, FormControlLabel, Checkbox, Link, Grid, Box, Typography} from "@mui/material";
+import {
+  Button,
+  TextField,
+  FormControlLabel,
+  Checkbox,
+  Link,
+  Grid,
+  Box,
+  Typography,
+} from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
@@ -28,20 +37,8 @@ export default function Login() {
       },
     });
 
-  // useEffect(() => {
-    console.log("From login", login.isLogined)
-    // alert("login");
-    if(login.isLogined === false){
-      console.log("False condition")
-    }else{
-      alert("Login Success");
-    }
+  useEffect(() => {
     if (login.isLogined && login.status === "success") {
-      // console.log(adminRoles.includes(login.role))
-      adminRoles.includes(login.role)
-        ? navigate("/admin")
-        : navigate("/profile");
-
       Swal.fire({
         title: "success",
         timer: 1000,
@@ -65,7 +62,7 @@ export default function Login() {
         })
       );
     }
-  // }, [login]);
+  }, [login]);
 
   return (
     <>
