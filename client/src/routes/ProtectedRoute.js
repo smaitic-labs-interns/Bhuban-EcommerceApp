@@ -4,5 +4,15 @@ import { useSelector } from "react-redux";
 
 export default function ProtectedRoute({ children }) {
   const login = useSelector((state) => state.login);
-  return login.isLogined === false ? children : <Navigate to="/profile" />;
+  const roles = ["superadmin", "admin"];
+
+  return login.isLogined ? (
+    roles.includes(login.role) ? (
+      <Navigate to={"/admin"} />
+    ) : (
+      <Navigate to="/profile" />
+    )
+  ) : (
+    children
+  );
 }
