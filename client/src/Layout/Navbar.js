@@ -12,7 +12,6 @@ import {
 } from "./styles/navbarStyle";
 import CustomMenuItem from "./components/CustomMenuItem";
 
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
 export default function Navbar() {
   const login = useSelector((state) => state.login);
   const dispatch = useDispatch();

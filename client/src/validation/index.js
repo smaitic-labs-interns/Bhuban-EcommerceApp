@@ -9,7 +9,7 @@ export const registerSchema = Yup.object({
 
 })
 
-export const loginSchema = Yup.object({
+export const loginRules = Yup.object({
     email: Yup.string().min(2).max(25).required("Please Enter Valid email"),
     password: Yup.string().min(5).max(25).required("Please Enter Valid Psassword"),
 

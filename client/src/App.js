@@ -7,9 +7,9 @@ import { PrivateRoute, ProtectedRoute, AdminRoute } from "./routes";
 // pages
 import Home from "./pages/Home/Home";
 import ProductDetailContainer from "./pages/Product/ProductDetailContainer";
-import Register from "./pages/User/Register";
-import Login from "./pages/User/Login";
-import Logout from "./pages/Logout/index";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
+import Logout from "./pages/Logout";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound/NotFound";
 import Cart from "./pages/Cart/Cart";

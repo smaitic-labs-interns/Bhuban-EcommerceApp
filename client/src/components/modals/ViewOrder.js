@@ -1,28 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Button,
   Box,
   Modal,
-  TextField,
-  Typography,
   TableHead,
   TableRow,
   TableCell,
   TableBody,
 } from "@mui/material";
-import {
-  RemoveOutlined,
-  Add,
-  Update,
-  Cancel,
-  Edit,
-  Save,
-  RemoveRedEye,
-  Close,
-} from "@mui/icons-material";
-import Swal from "sweetalert2";
+import { RemoveRedEye, Close } from "@mui/icons-material";
 
-import { useDispatch, useSelector } from "react-redux";
 import {
   ViewOrderModalWrapper,
   CloseButtonWrapper,
@@ -31,14 +18,7 @@ import {
   ContentContainer,
   DetailsWrapper,
   ContentText,
-  EditButtonWrapper,
-} from "../styles/viewOrderModalStyle";
-import EditAddressModel from "./EditAddressModal";
-import EditProductModal from "./EditProductModal";
-import {
-  updatet_order_payment,
-  fetch_user_orders,
-} from "../../../redux/actions/orderActions";
+} from "./styles/viewOrder.style";
 
 const style = {
   position: "absolute",
@@ -53,82 +33,14 @@ const style = {
   overflowY: "scroll",
 };
 
-export default function ViewOrderModal({ order }) {
-  const updateOrderPayment = useSelector((state) => state.updateOrderPayment);
-  //   const login = useSelector((state) => state.login);
-  const dispatch = useDispatch();
-  //   const userId = login.isLogined ? login.userId : null;
-  const [open, setOpen] = useState(false);
+export default function ViewOrder({ order, initially }) {
+  const [open, setOpen] = useState(() => (initially ? true : false));
   const handleOpen = () => setOpen(true);
-  // const [editAddress, setEditAddress] = useState(false);
-  // const handleClose = () => setOpens(false);s
+  console.log(order);
+
   const { country, province, district, city, ward, tole, houseNo } =
     order.shippingAddress;
   var index = 0;
-
-  const handleUpdatePayment = async () => {
-    const { value: payment } = await Swal.fire({
-      title: "Pay Now",
-      input: "select",
-      inputOptions: {
-        CASH: "Cash on Delivery",
-        "E-sewa": "E-sewa",
-        Khalti: "khalti",
-        "Connect-Ips": "Connect -Ips",
-      },
-      inputPlaceholder: "Select Payment Method",
-      showCancelButton: true,
-      inputValidator: (value) => {
-        return new Promise((resolve) => {
-          if (value !== "") {
-            Swal.close();
-            dispatch(
-              updatet_order_payment({
-                orderId: order.id,
-                payment: value,
-                action: "update",
-              })
-            );
-          } else {
-            resolve("Please Select payment pethod :)");
-          }
-        });
-      },
-    });
-  };
-
-  useEffect(() => {
-    if (updateOrderPayment.status === "success") {
-      Swal.fire({
-        title: "Success!",
-        text: `${updateOrderPayment.message}`,
-        icon: "success",
-        confirmButtonText: "Ok",
-      });
-      dispatch(
-        updatet_order_payment({
-          orderId: "",
-          payment: "",
-          action: "clean",
-        })
-      );
-    } else if (updateOrderPayment.status === "failed") {
-      Swal.fire({
-        title: "Error!",
-        text: `${updateOrderPayment.message}`,
-        icon: "error",
-        confirmButtonText: "Ok",
-      });
-      dispatch(
-        updatet_order_payment({
-          orderId: "",
-          payment: "",
-          action: "clean",
-        })
-      );
-    }
-  }, [updateOrderPayment]);
-
   return (
     <div>
       <Button variant="outlined" color="info" onClick={handleOpen}>
@@ -137,7 +49,6 @@ export default function ViewOrderModal({ order }) {
       </Button>
       <Modal
         open={open}
-        // onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
@@ -169,9 +80,6 @@ export default function ViewOrderModal({ order }) {
                   House No.: <br /> <span>{houseNo}</span>
                 </ContentText>
               </DetailsWrapper>
-              {/* <EditButtonWrapper>
-                <EditAddressModel address={order.shippingAddress} />
-              </EditButtonWrapper> */}
             </ContentContainer>
             <ContentTitle>Order Details</ContentTitle>
             <ContentContainer>
@@ -206,16 +114,6 @@ export default function ViewOrderModal({ order }) {
                   Total Bill.: <br /> <span>{order.totalBill}</span>
                 </ContentText>
               </DetailsWrapper>
-              {/* <EditButtonWrapper>
-                <Button
-                  variant="outlined"
-                  color="primary"
-                  onClick={() => handleUpdatePayment()}
-                >
-                  <Edit />
-                  Edit
-                </Button>
-              </EditButtonWrapper> */}
             </ContentContainer>
             <ContentTitle>Products Details</ContentTitle>
             <ContentTable>
@@ -234,11 +132,6 @@ export default function ViewOrderModal({ order }) {
                       <TableCell>{index}</TableCell>
                       <TableCell>{product.productId}</TableCell>
                       <TableCell>{product.quantity}</TableCell>
-                      {/* <TableCell>
-                        <EditProductModal
-                          data={{ ...product, orderId: order.id }}
-                        />
-                      </TableCell> */}
                     </TableRow>
                   );
                 })}
