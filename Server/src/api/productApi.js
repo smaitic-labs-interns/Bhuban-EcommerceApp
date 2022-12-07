@@ -2,21 +2,16 @@ const express = require("express");
 const router = express.Router();
 router.use(express.json());
 const Service = require("../service/allService");
-const { logger } = require("../utils");
+const logger = require("../logger")("product");
 
 const get_all_product = async (req, resp) => {
   try {
     const res = await Service.product.get_all_product();
+    logger.log("info", "Sucessfully fetched all products");
     resp.status(200).send(res);
-    logger.log("info", "Sucessfully fetched all products", {
-      message: "From Product",
-    });
-    logger.log("info", "Sucessfully fetched all products", {
-      message: ":: Product",
-    });
   } catch (err) {
+    logger.error("error", err);
     resp.status(400).send(err.message);
-    logger.log("error", err.message, { message: ":: Product" });
   }
 };
 
@@ -25,17 +20,14 @@ const get_limited_product = async (req, resp) => {
     const page = req.query.page;
     const limit = req.query.limit;
     const res = await Service.product.get_limited_product({ page, limit });
-    resp.status(200).send(res);
     logger.log(
       "info",
-      `Sucessfully fetched ${limit} products from page ${page}`,
-      {
-        message: "::Product",
-      }
+      `Sucessfully fetched ${limit} products for page ${page}`
     );
+    resp.status(200).send(res);
   } catch (err) {
+    logger.log("error", err);
     resp.status(400).send(err.message);
-    logger.log("error", err.message, { message: ":: Product" });
   }
 };
 
@@ -43,13 +35,11 @@ const get_product_by_id = async (req, resp) => {
   try {
     const productId = req.params.productId;
     const res = await Service.product.get_product_by_id(productId);
+    logger.log("info", `Sucessfully fetched product on ID: ${productId}`);
     resp.status(200).send(res);
-    logger.log("info", "Sucessfully get product by id", {
-      message: "From Product",
-    });
   } catch (err) {
+    logger.log("error", err);
     resp.status(400).send(err.message);
-    logger.log("error", err.message, { message: ":: Product" });
   }
 };
 
@@ -68,13 +58,11 @@ const add_product = async (req, resp) => {
       data.addedBy,
       file
     );
+    logger.log("info", "Sucessfully added product");
     resp.status(200).send(res);
-    logger.log("info", "Sucessfully added product", {
-      message: ":: Product",
-    });
   } catch (err) {
+    logger.log("error", err);
     resp.status(400).send(err.message);
-    logger.log("error", err.message, { message: ":: Product" });
   }
 };
 
@@ -82,13 +70,11 @@ const remove_product = async (req, resp) => {
   try {
     const productId = req.query.id;
     const res = await Service.product.remove_product(productId);
+    logger.log("info", `Sucessfully removed product on ID: ${productId}`);
     resp.status(200).send(res);
-    logger.log("info", "Sucessfully removed product", {
-      message: ":: Product",
-    });
   } catch (err) {
+    logger.log("error", err);
     resp.status(400).send(err.message);
-    logger.log("error", err.message, { message: ":: Product" });
   }
 };
 
@@ -107,37 +93,31 @@ const update_product = async (req, resp) => {
       data.quantity,
       data.updatedBy
     );
+    logger.log("info", `Sucessfully updated product on Id: ${productId}`);
     resp.status(200).send(res);
-    logger.log("info", "Sucessfully updated", {
-      message: ":: Product",
-    });
   } catch (err) {
+    logger.log("error", err);
     resp.status(400).send(err.message);
-    logger.log("error", err.message, { message: ":: Product" });
   }
 };
 
 const revenue_report = async (req, resp) => {
   try {
+    logger.log("info", `Sucessfully generated revenue report`);
     resp.status(200).send("Working Good from revenue-report");
-    logger.log("info", "Sucessfully generated revenue report", {
-      message: ":: Product",
-    });
   } catch (err) {
+    logger.log("error", err);
     resp.status(400).send(err.message);
-    logger.log("error", err.message, { message: ":: Product" });
   }
 };
 
 const ar_aging_report = async (req, resp) => {
   try {
+    logger.log("info", `Sucessfully generated ar-aging report`);
     resp.status(200).send("Working good from Ar-aging");
-    logger.log("info", "Sucessfully generated ar-aging report", {
-      message: ":: Product",
-    });
   } catch (err) {
+    logger.log("error", err);
     resp.status(400).send(err.message);
-    logger.log("error", err.message, { message: ":: Product" });
   }
 };
 
@@ -145,13 +125,11 @@ const search_products = async (req, resp) => {
   try {
     const keyword = req.params.keyword;
     const res = await Service.product.search_products(keyword);
+    logger.log("info", `Fetched Products for Keyword : ${keyword}`);
     resp.status(200).send(res);
-    logger.log("info", "Searched Products Sucessfully", {
-      message: ":: Product",
-    });
   } catch (err) {
+    logger.log("error", err);
     resp.status(400).send(err.message);
-    logger.log("error", err.message, { message: ":: Product" });
   }
 };
 

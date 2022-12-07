@@ -1,14 +1,16 @@
 const express = require("express");
 const router = express.Router();
 router.use(express.json());
-
+const logger = require("../logger")("cart");
 const Service = require("../service/allService");
 
 const get_all_cart = async (req, resp) => {
   try {
     const res = await Service.cart.get_all_cart();
+    logger.log("info", `Sucessfully fetched all carts `);
     resp.status(200).send(res);
   } catch (err) {
+    logger.error("error", err);
     resp.status(400).send(err.message);
   }
 };
@@ -18,8 +20,10 @@ const get_limited_cart = async (req, resp) => {
     const page = req.query.page;
     const limit = req.query.limit;
     const res = await Service.cart.get_limited_cart({ page, limit });
+    logger.log("info", `Sucessfully fetched ${limit} carts for page ${page}`);
     resp.status(200).send(res);
   } catch (err) {
+    logger.error("error", err);
     resp.status(400).send(err.message);
   }
 };
@@ -28,8 +32,10 @@ const get_user_cart = async (req, resp) => {
   try {
     const userId = req.query.id;
     const res = await Service.cart.get_user_cart(userId);
+    logger.log("info", `Sucessfully fetched carts for user : ${userId}`);
     resp.status(200).send(res);
   } catch (err) {
+    logger.error("error", err);
     resp.status(400).send(err.message);
   }
 };
@@ -42,8 +48,10 @@ const add_product_to_cart = async (req, resp) => {
       productId: product.productId,
       quantity: product.quantity,
     });
+    logger.log("info", `Product added to cart sucessfully on ID: ${userId}`);
     resp.status(200).send(res);
   } catch (err) {
+    logger.error("error", err);
     resp.status(400).send(err.message);
   }
 };
@@ -57,8 +65,13 @@ const update_quantity_in_cart = async (req, resp) => {
       { productId: product.productId, quantity: product.quantity },
       product.action
     );
+    logger.log(
+      "info",
+      `Product quantity updated sucessfully for user: ${userId}`
+    );
     resp.status(200).send(res);
   } catch (err) {
+    logger.error("error", err);
     resp.status(400).send(err.message);
   }
 };
