@@ -17,6 +17,17 @@ import { user_register } from "../../redux/actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import {
+  RegisterWrapper,
+  RegisterContainer,
+  HeaderWrapper,
+  TitleWrapper,
+  FormWrapper,
+  FormInputWrapper,
+  FormInput,
+  LoginWrapper,
+} from "./indexStyle";
+
 export default function Register() {
   const register = useSelector((state) => state.register);
   const dispatch = useDispatch();
@@ -70,20 +81,15 @@ export default function Register() {
 
   return (
     <>
-      <Box component={"div"} sx={{ display: "flex", justifyContent: "center" }}>
-        <Box sx={{ maxWidth: "60%" }}>
-          <Typography component="h1" variant="h5">
-            Sign up
-          </Typography>
+      <RegisterWrapper>
+        <RegisterContainer>
+          <HeaderWrapper>
+            <TitleWrapper>{"Sign up"}</TitleWrapper>
+          </HeaderWrapper>
 
-          <Box
-            component="form"
-            noValidate
-            onSubmit={handleSubmit}
-            sx={{ mt: 3 }}
-          >
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={4}>
+          <FormWrapper component="form" noValidate onSubmit={handleSubmit}>
+            <FormInputWrapper>
+              <FormInput>
                 <TextField
                   autoComplete="given-name"
                   name="firstName"
@@ -101,8 +107,8 @@ export default function Register() {
                 {errors.firstName && touched.firstName ? (
                   <p>{errors.firstName}</p>
                 ) : null}
-              </Grid>
-              <Grid item xs={12} sm={4}>
+              </FormInput>
+              <FormInput>
                 <TextField
                   autoComplete="given-name"
                   name="middleName"
@@ -119,8 +125,8 @@ export default function Register() {
                 {touched.middleName && errors.middleName ? (
                   <p className="form-error">{errors.middleName}</p>
                 ) : null}
-              </Grid>
-              <Grid item xs={12} sm={4}>
+              </FormInput>
+              <FormInput>
                 <TextField
                   required
                   fullWidth
@@ -134,38 +140,40 @@ export default function Register() {
                   // error={errors.lastName}
                   // helperText={touched.lastName}
                 />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="address"
-                  label="Full Address"
-                  name="address"
-                  autoComplete="address"
-                  value={values.address}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  // error={errors.address}
-                  // helperText={touched.address}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                  value={values.email}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  // error={errors.email}
-                  // helperText={touched.email}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
+              </FormInput>
+            </FormInputWrapper>
+            <FormInputWrapper>
+              <TextField
+                required
+                fullWidth
+                id="address"
+                label="Full Address"
+                name="address"
+                autoComplete="address"
+                value={values.address}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                // error={errors.address}
+                // helperText={touched.address}
+              />
+            </FormInputWrapper>
+            <FormInputWrapper>
+              <TextField
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                value={values.email}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                // error={errors.email}
+                // helperText={touched.email}
+              />
+            </FormInputWrapper>
+            <FormInputWrapper>
+              <FormInput>
                 <TextField
                   required
                   fullWidth
@@ -180,8 +188,8 @@ export default function Register() {
                   // error={errors.password}
                   // helperText={touched.password}
                 />
-              </Grid>
-              <Grid item xs={12} sm={6}>
+              </FormInput>
+              <FormInput>
                 <TextField
                   required
                   fullWidth
@@ -196,21 +204,20 @@ export default function Register() {
                   // error={errors.confPassword}
                   // helperText={touched.confPassword}
                 />
-              </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={
-                    <Checkbox value="allowExtraEmails" color="primary" />
-                  }
-                  label="Agreed to all the terms and condition"
-                  // value={values.tnc}
-                  // onChange={handleChange}
-                  // onBlur={handleBlur}
-                  // error={errors.tnc}
-                  // helperText={touched.tnc}
-                />
-              </Grid>
-            </Grid>
+              </FormInput>
+            </FormInputWrapper>
+            <FormInputWrapper>
+              <FormControlLabel
+                control={<Checkbox value="allowExtraEmails" color="primary" />}
+                label="Agreed to all the terms and condition"
+                // value={values.tnc}
+                // onChange={handleChange}
+                // onBlur={handleBlur}
+                // error={errors.tnc}
+                // helperText={touched.tnc}
+              />
+            </FormInputWrapper>
+            {/* </Grid> */}
             <Button
               type="submit"
               fullWidth
@@ -219,16 +226,14 @@ export default function Register() {
             >
               Sign Up
             </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link href="/login" variant="body2">
-                  Already have an account? Sign in
-                </Link>
-              </Grid>
-            </Grid>
-          </Box>
-        </Box>
-      </Box>
+            <LoginWrapper>
+              <Link href="/login" variant="body2">
+                Already have an account? Sign in
+              </Link>
+            </LoginWrapper>
+          </FormWrapper>
+        </RegisterContainer>
+      </RegisterWrapper>
     </>
   );
 }
