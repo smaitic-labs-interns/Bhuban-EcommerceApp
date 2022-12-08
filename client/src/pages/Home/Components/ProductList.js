@@ -14,9 +14,7 @@ export default function ProductList() {
   const products = useSelector((state) => state.allProducts.products);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchProducts());
-  }, []);
+  dispatch(fetchProducts());
 
   return (
     <ProductCardsWrapper>

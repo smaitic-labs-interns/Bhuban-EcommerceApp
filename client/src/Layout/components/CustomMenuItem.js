@@ -1,16 +1,34 @@
 import React from "react";
-import { Link, MenuItem, Typography } from "@mui/material";
+import { Link } from "@mui/material";
+
+import {
+  MenuItemWrapper,
+  MenuItemContainer,
+  MenuItemTitle,
+  ImageWrapper,
+} from "../styles/customMenuItemStyle";
 
 export default function CustomMenuItem({ page }) {
   return (
-    <MenuItem key={page.name}>
+    <MenuItemWrapper>
       <Link
         underline="none"
         href={page.href}
         sx={{ textDecoration: "none", color: "#fff" }}
       >
-        <Typography textAlign="center">{page.name}</Typography>
+        <MenuItemContainer key={page.name}>
+          {page.icon}
+          <MenuItemTitle>{page.name}</MenuItemTitle>
+          {page.image && (
+            <ImageWrapper>
+              <img
+                src={`${process.env.REACT_APP_BACKEND_ENDPOINT}${page.image}`}
+                alt={page.imageAltText}
+              />
+            </ImageWrapper>
+          )}
+        </MenuItemContainer>
       </Link>
-    </MenuItem>
+    </MenuItemWrapper>
   );
 }
