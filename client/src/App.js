@@ -2,23 +2,23 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // routes
-import { PrivateRoute, ProtectedRoute, AdminRoute } from "./routes";
+import { PrivateRoute, ProtectedRoute, AdminRoute } from "Routes";
 
 // pages
-import Home from "./pages/Home/Home";
-import ProductDetailContainer from "./pages/Product/ProductDetailContainer";
-import Register from "./pages/Register";
-import Login from "./pages/Login";
-import Logout from "./pages/Logout";
-import Profile from "./pages/Profile";
-import NotFound from "./pages/NotFound/NotFound";
-import Cart from "./pages/Cart/Cart";
-import Admin from "./pages/Admin/Admin";
-import Order from "./pages/Order/Order";
-import Bill from "./pages/Bill/Bill";
-import Layout from "./Layout/Layout";
-import Track from "./pages/track/Track";
-import Search from "./pages/Search/Search";
+import Layout from "Layout";
+import Home from "Pages/Home";
+import ProductDetailContainer from "Pages/Product/ProductDetailContainer";
+import Register from "Pages/Register";
+import Login from "Pages/Login";
+import Logout from "Pages/Logout";
+import Profile from "Pages/Profile";
+import NotFound from "Pages/NotFound/NotFound";
+import Cart from "Pages/Cart/Cart";
+import Admin from "Pages/Admin/Admin";
+import Order from "Pages/Order/Order";
+import Bill from "Pages/Bill/Bill";
+import Track from "Pages/track/Track";
+import Search from "Pages/Search/Search";
 
 function App() {
   return (
