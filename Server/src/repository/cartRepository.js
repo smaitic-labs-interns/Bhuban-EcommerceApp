@@ -3,7 +3,12 @@ const con = require("../config/postGres");
 const read_all_cart = async () => {
   try {
     let carts = await con.query("SELECT * FROM carts");
-    if (carts.rowCount !== 0) return carts.rows;
+    if (carts.rowCount !== 0) {
+      for (let cart in carts) {
+        cart.totalbill /= 100;
+      }
+      return carts.rows;
+    }
     throw new Error(`No cart Found`);
   } catch (err) {
     throw err;
@@ -38,7 +43,12 @@ const read_limited_cart = async ({ page, limit }) => {
       "SELECT * FROM carts ORDER BY createdAt DESC offset $1 LIMIT $2",
       [startIndex, endIndex]
     );
-    result.data = products.rows;
+    if (carts.rowCount !== 0) {
+      for (let cart in carts) {
+        cart.totalbill /= 100;
+      }
+      return (result.data = products.rows);
+    }
     if (carts.rowCount !== 0) return result;
     throw new Error(`No cart Found`);
   } catch (err) {
@@ -50,7 +60,7 @@ const add_cart = async (cart) => {
   try {
     let addCartRes = await con.query(
       `INSERT INTO carts (id, userId, totalBill, status) VALUES ($1, $2, $3, $4)`,
-      [cart.id, cart.userId, cart.totalBill, cart.status]
+      [cart.id, cart.userId, cart.totalBill * 100, cart.status]
     );
     if (addCartRes.rowCount > 0) {
       for (product of cart.products) {
@@ -89,7 +99,7 @@ const find_cart = async (cartId) => {
       let cart2 = {
         id: cart.rows[0].id,
         userId: cart.rows[0].userid,
-        totalBill: Number(cart.rows[0].totalbill),
+        totalBill: Number(cart.rows[0].totalbill) / 100,
         status: cart.rows[0].status,
         products: prdts,
       };
@@ -108,7 +118,7 @@ const update_cart = async (newCart) => {
     // let updateCartRes = await con.query(text, values);
     let updateCartRes = await con.query(
       `UPDATE carts SET totalBill =$1 , status =$2 WHERE id =$3`,
-      [newCart.totalBill, newCart.status, newCart.id]
+      [newCart.totalBill * 100, newCart.status, newCart.id]
     );
     let res = false;
     if (updateCartRes.rowCount > 0) {
@@ -200,7 +210,7 @@ const find_active_cart = async (userId) => {
       let cart2 = {
         id: cart.rows[0].id,
         userId: cart.rows[0].userid,
-        totalBill: Number(cart.rows[0].totalbill),
+        totalBill: Number(cart.rows[0].totalbill) / 100,
         status: cart.rows[0].status,
         products: prdts,
       };

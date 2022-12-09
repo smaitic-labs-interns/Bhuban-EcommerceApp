@@ -6,6 +6,7 @@ const read_all_orders = async () => {
     const allOrders = [];
     if (orders.rowCount > 0) {
       for (let order of orders.rows) {
+        order.totalbill /= 100;
         let ordProdRes = await con.query(
           `SELECT productId, quantity FROM order_products WHERE orderId = $1`,
           [order.id]
@@ -92,6 +93,7 @@ const read_limited_orders = async ({ page, limit }) => {
     const allOrders = [];
     if (orders.rowCount > 0) {
       for (let order of orders.rows) {
+        order.totalbill /= 100;
         let ordProdRes = await con.query(
           `SELECT productId, quantity FROM order_products WHERE orderId = $1`,
           [order.id]
@@ -157,6 +159,7 @@ const read_user_orders = async (userId) => {
     const allOrders = [];
     if (orders.rowCount > 0) {
       for (let order of orders.rows) {
+        order.totalbill /= 100;
         let ordProdRes = await con.query(
           `SELECT productId, quantity FROM order_products WHERE orderId = $1`,
           [order.id]
@@ -244,6 +247,7 @@ const read_user_order_limited = async ({ page, limit, userId }) => {
     const allOrders = [];
     if (orders.rowCount > 0) {
       for (let order of orders.rows) {
+        order.totalbill /= 100;
         let ordProdRes = await con.query(
           `SELECT productId, quantity FROM order_products WHERE orderId = $1`,
           [order.id]
@@ -307,7 +311,7 @@ const place_order = async (order) => {
     const payment = order.payment;
     let placeOrder = await con.query(
       `INSERT INTO orders (id, userId,totalBill, orderStatus) VALUES ($1, $2, $3, $4)`,
-      [order.id, order.userId, order.totalBill, order.orderStatus]
+      [order.id, order.userId, order.totalBill * 100, order.orderStatus]
     );
     if (placeOrder.rowCount > 0) {
       for (let product of order.products) {
@@ -396,7 +400,7 @@ const read_order_from_id = async (orderId) => {
         id: order.id,
         userId: order.userid,
         orderStatus: order.orderstatus,
-        totalBill: Number(order.totalbill),
+        totalBill: Number(order.totalbill) / 100,
         products: prdts,
         shippingAddress: shipAddRes,
         payment: paymRes,
@@ -452,7 +456,7 @@ const update_order = async (orderId, newOrder) => {
       );
       let updOrdRes = await con.query(
         `UPDATE orders SET totalBill = $1, orderStatus = $2 WHERE id = $3`,
-        [newOrder.totalBill, newOrder.orderStatus, orderId]
+        [newOrder.totalBill * 100, newOrder.orderStatus, orderId]
       );
       if (
         updShipAddRes.rowCount > 0 &&

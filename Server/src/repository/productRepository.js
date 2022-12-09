@@ -91,7 +91,7 @@ const add_product = async (product) => {
         product.brand,
         product.name,
         product.description,
-        product.price / 100,
+        product.price * 100,
         product.quantity,
         product.addedBy,
       ]
@@ -155,7 +155,7 @@ const update_product = async (productId, newProduct) => {
           newProduct.brand,
           newProduct.name,
           newProduct.description,
-          newProduct.price / 100,
+          newProduct.price * 100,
           newProduct.quantity,
           newProduct.updatedBy,
           new Date(),
