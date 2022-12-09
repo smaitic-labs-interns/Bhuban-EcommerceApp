@@ -55,7 +55,7 @@ import {
   FETCH_LIMITED_USER_ORDER_FAILED,
 } from "../constants/orderConstants";
 import { order } from "../../api/config/api-endpoints";
-import { axios_instance } from "../../api/config/config";
+import { axios_instance } from "../../api/config/baseApi";
 
 export const place_order =
   ({

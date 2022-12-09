@@ -4,7 +4,7 @@ import {
   SEND_MAIL_FAILED,
 } from "../constants/mail.constants";
 
-import { axios_instance } from "../../api/config/config";
+import { axios_instance } from "../../api/config/baseApi";
 import { mail } from "../../api/config/api-endpoints";
 
 export const send_mail =

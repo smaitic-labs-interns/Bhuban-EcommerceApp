@@ -7,7 +7,7 @@ import {
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAILED,
 } from "../constants/userConstants";
-import { axios_instance } from "../../api/config/config";
+import { axios_instance } from "../../api/config/baseApi";
 import { user } from "../../api/config/api-endpoints";
 
 export const user_register =

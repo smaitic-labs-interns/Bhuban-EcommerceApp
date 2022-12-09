@@ -1,24 +1,26 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import App, { AdminApp } from "./App";
+import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import theme from "./utils/theme";
 
 // *** my changes
-import Layout from "./Layout/Layout";
 import { Provider } from "react-redux";
 import store, { persistor } from "./redux/store";
 import { PersistGate } from "redux-persist/integration/react";
+import { ThemeProvider } from "@mui/material";
 
-const adminPath = window.location.pathname.includes("/admin") ? true : false;
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <PersistGate persistor={persistor}>
-        <App />
-      </PersistGate>
-    </Provider>
+    <ThemeProvider theme={theme}>
+      <Provider store={store}>
+        <PersistGate persistor={persistor}>
+          <App />
+        </PersistGate>
+      </Provider>
+    </ThemeProvider>
   </React.StrictMode>
 );
 

@@ -21,7 +21,7 @@ import {
   FETCH_LIMITED_PRODUCT_FAILED,
 } from "../constants/productConstants";
 
-import { axios_instance } from "../../api/config/config";
+import { axios_instance } from "../../api/config/baseApi";
 import { product } from "../../api/config/api-endpoints";
 
 export const fetchProducts = () => async (dispatch) => {

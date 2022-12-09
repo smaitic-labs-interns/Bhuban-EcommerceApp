@@ -1,22 +1,20 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import ProductCard from "./ProductCard";
-import { fetchProducts } from "../../../redux/actions/productActions";
+import ProductCard from "Pages/Home/Components/ProductCard";
+import { fetchProducts } from "Actions/productActions";
 import truck from "../../../public/images/loading-truck.gif";
 import loading from "../../../public/images/loading.gif";
 
 import {
   ProductCardsWrapper,
   ProductsCardContainer,
-} from "../Styles/productListStyle";
+} from "../styles/productListStyle";
 
 export default function ProductList() {
   const products = useSelector((state) => state.allProducts.products);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchProducts());
-  }, []);
+  dispatch(fetchProducts());
 
   return (
     <ProductCardsWrapper>

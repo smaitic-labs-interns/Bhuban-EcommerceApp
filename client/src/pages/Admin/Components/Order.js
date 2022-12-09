@@ -8,13 +8,10 @@ import {
   OrderWrapper,
   OrderContainer,
   DisplayOrderWrapper,
-} from "../styles/orderStyle";
-import {
-  fetch_all_order,
-  fetch_limited_order,
-} from "../../../redux/actions/orderActions";
-import OrderTable from "./OrderTable";
-import { isEmpty } from "../../../utils";
+} from "Pages/Admin/styles/orderStyle";
+import { fetch_all_order, fetch_limited_order } from "Actions/orderActions";
+import OrderTable from "Pages/Admin/Components/OrderTable";
+import { isEmpty } from "Utils";
 
 export default function Order() {
   const limitedOrder = useSelector((state) => state.limitedOrder);

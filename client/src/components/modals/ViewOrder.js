@@ -18,7 +18,7 @@ import {
   ContentContainer,
   DetailsWrapper,
   ContentText,
-} from "./styles/viewOrder.style";
+} from "Components/modals/styles/viewOrder.style";
 
 const style = {
   position: "absolute",
