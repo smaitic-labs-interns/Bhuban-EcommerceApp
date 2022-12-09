@@ -3,14 +3,18 @@ const productionLogger = require("./productionLogger");
 const developmentLogger = require("./developmentLogger");
 
 const logger = (filename) => {
-  if (process.env.NODE_ENV === "production") {
-    return productionLogger(filename || "production");
-  } else if (process.env.NODE_ENV === "development") {
-    return developmentLogger(filename || "development");
-  } else if (process.env.NODE_ENV === "local") {
-    return localLogger(filename || "local");
-  } else {
-    return localLogger(filename || "local");
+  switch (process.env.NODE_ENV) {
+    case "production":
+      return productionLogger(filename || "production");
+
+    case "development":
+      return developmentLogger(filename || "development");
+
+    case "local":
+      return localLogger(filename || "local");
+
+    default:
+      return localLogger(filename || "local");
   }
 };
 
