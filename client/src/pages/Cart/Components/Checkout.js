@@ -6,7 +6,7 @@ import {
   CheckoutButtonWrapper,
   CheckoutTitleWrapper,
   CheckoutWrapper,
-} from "../styles/checkoutStyle";
+} from "Pages/Cart/styles/checkoutStyle";
 
 export default function Checkout({ cart }) {
   return (

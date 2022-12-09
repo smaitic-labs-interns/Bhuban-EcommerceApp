@@ -1,4 +1,4 @@
-// import theme from "../../../utils/theme";
+// import { theme } from "utils";
 import { Box, styled } from "@mui/material";
 
 export const CardWrapper = styled(Box)(() => ({

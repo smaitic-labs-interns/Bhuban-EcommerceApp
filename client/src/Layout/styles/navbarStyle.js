@@ -1,5 +1,5 @@
 import { Box, Button, styled } from "@mui/material";
-import { theme } from "../../utils";
+import { theme } from "Utils";
 
 export const NavbarWrapper = styled(Box)(() => ({
   background: "#1976D2",

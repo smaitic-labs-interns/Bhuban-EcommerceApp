@@ -1,5 +1,5 @@
 import { Box, MenuItem, styled, Typography } from "@mui/material";
-import { theme } from "../../utils";
+import { theme } from "Utils";
 
 export const MenuItemWrapper = styled(Box)(() => ({
   background: "#1976D2",

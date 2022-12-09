@@ -9,9 +9,9 @@ import {
   CustomTableRow,
   CustomTableCell,
   CustomStatusTableCell,
-} from "../styles/orderTableStyle";
-import EditOrder from "./modals/EditOrder";
-import ViewOrder from "./modals/ViewOrder";
+} from "Pages/Admin/styles/orderTableStyle";
+import EditOrder from "Pages/Admin/Components/modals/EditOrder";
+import ViewOrder from "Pages/Admin/Components/modals/ViewOrder";
 
 export default function OrderTable({ orders }) {
   let index = 0;

@@ -5,7 +5,7 @@ import {
   FooterContainer,
   FooterContent,
   CopyRightTitle,
-} from "../styles/footerStyle";
+} from "Layout/styles/footerStyle";
 
 export default function Footer() {
   return (

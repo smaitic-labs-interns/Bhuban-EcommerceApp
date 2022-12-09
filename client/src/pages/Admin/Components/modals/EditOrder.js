@@ -32,7 +32,7 @@ import {
 } from "../../../../redux/actions/orderActions";
 import EditProductQuantity from "./EditProductQuantity";
 import UpdatePayment from "./UpdatePayment";
-import { axios_instance } from "../../../../api/config/config";
+import { axios_instance } from "../../../../api/config/baseApi";
 import { address as addressEndpoint } from "../../../../api/config/api-endpoints";
 
 export default function EditOrder({ order }) {

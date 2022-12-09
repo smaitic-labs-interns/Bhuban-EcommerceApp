@@ -1,4 +1,4 @@
-import { imgList } from "./bannerImage";
-import { dashboardCard } from "./dashboardCard";
+import { imgList } from "Datas/bannerImage";
+import { dashboardCard } from "Datas/dashboardCard";
 
 export { imgList, dashboardCard };

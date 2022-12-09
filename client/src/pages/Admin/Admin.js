@@ -1,12 +1,6 @@
 import React, { useState } from "react";
-import LeftTabCard from "./Components/LeftTabCard";
-import {
-  AdminWrapper,
-  LeftWrapper,
-  LeftTabContainer,
-  RightWrapper,
-  RightContentContainer,
-} from "./styles/adminStyle";
+import { useDispatch } from "react-redux";
+import LeftTabCard from "Pages/Admin/Components/LeftTabCard";
 import {
   Home,
   Inventory,
@@ -14,13 +8,19 @@ import {
   People,
   ShoppingCartCheckout,
 } from "@mui/icons-material";
-import RightContent from "./Components/RightContent";
-import Product from "./Components/Product";
-import Order from "./Components/Order";
-import User from "./Components/User";
-import Dashboard from "./Components/Dashboard";
-import { user_logout } from "../../redux/actions/userActions";
-import { useDispatch } from "react-redux";
+import RightContent from "Pages/Admin/Components/RightContent";
+import Product from "Pages/Admin/Components/Product";
+import Order from "Pages/Admin/Components/Order";
+import User from "Pages/Admin/Components/User";
+import Dashboard from "Pages/Admin/Components/Dashboard";
+import { user_logout } from "Actions/userActions";
+import {
+  AdminWrapper,
+  LeftWrapper,
+  LeftTabContainer,
+  RightWrapper,
+  RightContentContainer,
+} from "Pages/Admin/styles/adminStyle";
 
 export default function Admin() {
   const [target, setTarget] = useState(1);

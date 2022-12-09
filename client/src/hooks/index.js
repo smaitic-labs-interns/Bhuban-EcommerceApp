@@ -1,4 +1,4 @@
-import useGetCardData from "./useGetCardData";
-import useGetAllCards from "./useGetAllCards";
+import useGetCardData from "Hooks/useGetCardData";
+import useGetAllCards from "Hooks/useGetAllCards";
 
 export { useGetCardData, useGetAllCards };

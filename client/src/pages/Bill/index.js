@@ -30,16 +30,15 @@ import {
   VerificationWrapper,
   VerificationContentContainer,
   VerifyerWrapper,
-} from "./Styles/billStyle";
+} from "Pages/Bill/Styles/billStyle";
 
 import company_logo from "../../public/images/company-logo.png";
 import sign_sample from "../../public/images/sign-sample.png";
 import QRCode from "qrcode";
 import ReactToPrint from "react-to-print";
 import { Print } from "@mui/icons-material";
-import { axios_instance } from "../../api/config/config";
-import { send_mail } from "../../redux/actions/mail.actions";
-import { mail } from "../../api/config/api-endpoints";
+import { axios_instance, mail } from "Api/config";
+import { send_mail } from "Actions/mail.actions";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function Bill() {

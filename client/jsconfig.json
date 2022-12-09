@@ -4,6 +4,11 @@
       "paths": {
         "Components/*": ["src/components/*"],
         "Pages/*": ["src/pages/*"],
+        "Routes/*": ["src/routes/*"],
+        "Hooks/*": ["src/hooks/*"],
+        "Utils/*": ["src/utils/*"],
+        "Api/*": ["src/api/*"],
+        "Datas/*": ["src/datas/*"],
       }
     },
     "include": ["src"],

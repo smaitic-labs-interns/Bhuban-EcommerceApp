@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import {
   LeftBarCardWrapper,
   LeftBarContainer,
-} from "../styles/LeftTabCardStyle";
+} from "Pages/Admin/styles/LeftTabCardStyle";
 import { Home, Inventory, People } from "@mui/icons-material";
 
 export default function LeftTabCard({ index = 1, icon, title, ...res }) {

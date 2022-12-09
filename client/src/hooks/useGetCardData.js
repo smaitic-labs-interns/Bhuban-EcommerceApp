@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { axios_instance } from "../api/config";
+import { axios_instance } from "Api/config";
 
 const useGetCardData = (endpoints, id, title, desc, bgColor, icon) => {
   const [datas, setData] = useState({ data: {}, error: null, loading: false });

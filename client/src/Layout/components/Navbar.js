@@ -2,18 +2,17 @@ import React, { useEffect, useState } from "react";
 import { Typography, Button, Link } from "@mui/material";
 import { AllInclusive, Close, Menu, ShoppingCart } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
-import { user_logout } from "../../redux/actions/userActions";
-import CustomMenuItem from "./CustomMenuItem";
-import { random_color } from "../../utils";
-import { generalMenue, withoutLoginMenu } from "../../datas/navBarMenuItem";
+import { user_logout } from "Actions/userActions";
+import CustomMenuItem from "Layout/components/CustomMenuItem";
+import { random_color, theme } from "Utils";
+import { generalMenue, withoutLoginMenu } from "Datas/navBarMenuItem";
 import {
   NavbarWrapper,
   NavbarContainer,
   HeaderWrapper,
   NavbarMenu,
   HamburgerWrapper,
-} from "../styles/navbarStyle";
-import { theme } from "../../utils";
+} from "Layout/styles/navbarStyle";
 
 export default function Navbar() {
   const login = useSelector((state) => state.login);

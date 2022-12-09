@@ -1,5 +1,5 @@
 import { Box, styled, Typography } from "@mui/material";
-// import { theme } from "../../utils";
+import { theme } from "Utils";
 
 export const FooterWrapper = styled(Box)(() => ({}));
 

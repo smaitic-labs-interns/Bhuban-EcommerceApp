@@ -1,5 +1,5 @@
 import { Box, Button, styled } from "@mui/material";
-import { theme } from "../../utils";
+import { theme } from "Utils";
 
 export const LayoutWrapper = styled(Box)(() => ({
   width: "100%",

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-
-import { DashboardWrapper, DashboardContainer } from "../styles/dashboardStyle";
-import Card from "./cards/Card";
-import { useGetAllCards } from "../../../hooks";
-import { dashboardCard } from "../../../datas";
+import {
+  DashboardWrapper,
+  DashboardContainer,
+} from "Pages/Admin/styles/dashboardStyle";
+import Card from "Pages/Admin/Components/cards/Card";
+import { useGetAllCards } from "Hooks";
+import { dashboardCard } from "Datas";
 
 export default function Dashboard() {
   const [datas, setDatas] = useState([]);

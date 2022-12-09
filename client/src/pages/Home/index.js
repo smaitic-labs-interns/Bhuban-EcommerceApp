@@ -1,8 +1,12 @@
 import React from "react";
-import ProductList from "./Components/ProductList";
-import { HomeWrapper, HomeContainer, BannerWrapper } from "./Styles/homeStyle";
-import Carousel from "../../components/Carousel";
-import { imgList } from "../../datas";
+import ProductList from "Pages/Home/Components/ProductList";
+import {
+  HomeWrapper,
+  HomeContainer,
+  BannerWrapper,
+} from "Pages/Home/styles/homeStyle";
+import Carousel from "Components/Carousel";
+import { imgList } from "Datas";
 
 export default function Home() {
   return (

@@ -10,7 +10,7 @@ import {
   GET_STATE_DISTRICTS_FAILED,
 } from "../constants/extra";
 
-import { axios_instance } from "../../api/config/config";
+import { axios_instance } from "../../api/config/baseApi";
 import { address } from "../../api/config/api-endpoints";
 
 export const read_all_countries = () => async (dispatch) => {

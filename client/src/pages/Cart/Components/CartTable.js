@@ -1,15 +1,19 @@
-import React, { useEffect, useState } from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import { Link, Typography, Box } from "@mui/material";
-import { DataCell } from "../styles/cartTableStyle";
-import { fetch_product } from "../../../redux/actions/productActions";
-import EditCartModal from "./EditCartModal";
+import React, { useState } from "react";
+import {
+  Link,
+  Typography,
+  Box,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  TableBody,
+  Table,
+} from "@mui/material";
+import { DataCell } from "Pages/Cart/styles/cartTableStyle";
+import { fetch_product } from "Actions/productActions";
+import EditCartModal from "Pages/Cart/Components/EditCartModal";
 
 export default function CartTable({ cart }) {
   const { message, noOfProducts, products, totalBill } = cart;

@@ -5,7 +5,7 @@ import {
   ImageWrapper,
   CircleWrapper,
   CircleContainer,
-} from "./styles/carouselStyle";
+} from "Components/styles/carouselStyle";
 
 import { Circle } from "@mui/icons-material";
 import { Box } from "@mui/system";

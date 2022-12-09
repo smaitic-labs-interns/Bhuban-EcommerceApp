@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { axios_instance } from "../api/config";
+import { axios_instance } from "Api/config";
 
 const useGetAllCards = ({ datas = [] }) => {
   console.log(datas);

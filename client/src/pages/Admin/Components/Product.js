@@ -1,16 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  ProductContainer,
-  ProductWrapper,
-  ProductActionWrapper,
-  AddProductButton,
-  AddProductCntntWrapper,
-  RightSideButtonsWrapper,
-  DisplaySearchWrapper,
-  DisplayProductsWrapper,
-  SearchBarWrapper,
-  TableWrapper,
-} from "../styles/productStyle";
+
 import {
   Button,
   Table,
@@ -25,17 +14,28 @@ import {
   Box,
   TextField,
 } from "@mui/material";
+import {
+  ProductContainer,
+  ProductWrapper,
+  ProductActionWrapper,
+  AddProductButton,
+  AddProductCntntWrapper,
+  RightSideButtonsWrapper,
+  DisplaySearchWrapper,
+  DisplayProductsWrapper,
+  SearchBarWrapper,
+  TableWrapper,
+} from "Pages/Admin/styles/productStyle";
 
 import { Delete, Add, Search } from "@mui/icons-material";
-import { delete_product } from "../../../redux/actions/productActions";
+import { delete_product, fetch_limited_product } from "Actions/productActions";
 
 import { useDispatch, useSelector } from "react-redux";
-import { fetch_limited_product } from "../../../redux/actions/productActions";
 import Swal from "sweetalert2";
-import AddProduct from "./modals/AddProduct";
-import ViewProduct from "./modals/ViewProduct";
-import EditProduct from "./modals/EditProduct";
-import { isEmpty } from "../../../utils";
+import AddProduct from "Pages/Admin/Components/modals/AddProduct";
+import ViewProduct from "Pages/Admin/Components/modals/ViewProduct";
+import EditProduct from "Pages/Admin/Components/modals/EditProduct";
+import { isEmpty } from "Utils";
 
 export default function Product() {
   const limitedProduct = useSelector((state) => state.limitedProduct);

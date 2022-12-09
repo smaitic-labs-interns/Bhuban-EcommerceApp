@@ -1,19 +1,18 @@
-import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
-import CartTable from "./Components/CartTable";
+import CartTable from "Pages/Cart/Components/CartTable";
 import {
   CartWrapper,
   CartLeftWrapper,
   CartLeftCardWrapper,
   CartRightWrapper,
   CartRightCardWrapper,
-} from "./styles/cartStyle";
+} from "Pages/Cart/styles/cartStyle";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetch_user_Cart,
   fetch_cart_products_details,
-} from "../../redux/actions/cartActions";
-import Checkout from "./Components/Checkout";
+} from "Actions/cartActions";
+import Checkout from "Pages/Cart/Components/Checkout";
 
 export default function Cart() {
   const userCart = useSelector((state) => state.userCart);
