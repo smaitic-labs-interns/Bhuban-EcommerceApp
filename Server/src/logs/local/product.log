@@ -20,5 +20,8 @@
     at Function.process_params (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/node_modules/express/lib/router/index.js:346:12)
     at next (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/node_modules/express/lib/router/index.js:280:10)
     at Function.handle (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/node_modules/express/lib/router/index.js:175:3)
-[[32minfo[39m] 2022/12/07 19:12:04  Sucessfully fetched all products
-[[32minfo[39m] 2022/12/07 19:12:06  Sucessfully fetched all products
+
+[[32minfo[39m] 12/9/2022, 2:46:44 PM  Sucessfully fetched all products
+[[32minfo[39m] 12/9/2022, 2:46:44 PM  Sucessfully fetched all products
+[[32minfo[39m] 12/9/2022, 2:48:32 PM  Sucessfully fetched all products
+[[32minfo[39m] 12/9/2022, 2:48:32 PM  Sucessfully fetched all products

@@ -5,10 +5,18 @@ const myFormat = printf(({ level, stack, message, timestamp }) => {
   return `[${level}] ${timestamp} ${stack || message}`;
 });
 
+const timezoned = () => {
+  return new Date().toISOString();
+};
+
 const productionLogger = (filename) => {
   return createLogger({
     level: "error",
-    format: combine(timestamp(), myFormat, errors({ stack: true })),
+    format: combine(
+      timestamp({ format: timezoned }),
+      myFormat,
+      errors({ stack: true })
+    ),
     transports: [
       new transports.File({
         filename: `./src/logs/production/${filename}.log`,

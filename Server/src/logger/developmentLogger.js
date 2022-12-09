@@ -5,15 +5,16 @@ const myFormat = printf(({ level, message, timestamp }) => {
   return `${timestamp} [${level}]  ${message}`;
 });
 
+const timezoned = () => {
+  return new Date().toLocaleString("en-US", {
+    timeZone: "Asia/Kathmandu",
+  });
+};
+
 const developmentLogger = (filename) => {
   return createLogger({
     level: "info",
-    format: combine(
-      colorize(),
-      timestamp({ format: "YYYY/MM/DD HH:MM:SS" }),
-      myFormat
-    ),
-    // defaultMeta: { service: "user-service" },
+    format: combine(colorize(), timestamp({ format: timezoned }), myFormat),
     transports: [
       new transports.File({
         filename: `./src/logs/development/ ${filename}.log`,
