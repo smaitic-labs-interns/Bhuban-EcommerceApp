@@ -6,6 +6,7 @@ const get_all_product = async () => {
     let products = await con.query("SELECT * FROM products");
     if (products.rowCount !== 0) {
       for (let product of products.rows) {
+        product.price /= 100;
         let image = await con.query(
           "SELECT * FROM product_images WHERE productId = $1",
           [product.id]
@@ -56,6 +57,7 @@ const get_limited_product = async ({ page, limit }) => {
     );
     if (products.rowCount !== 0) {
       for (let product of products.rows) {
+        product.price /= 100;
         let image = await con.query(
           "SELECT * FROM product_images WHERE productId = $1",
           [product.id]
@@ -89,7 +91,7 @@ const add_product = async (product) => {
         product.brand,
         product.name,
         product.description,
-        product.price,
+        product.price / 100,
         product.quantity,
         product.addedBy,
       ]
@@ -153,7 +155,7 @@ const update_product = async (productId, newProduct) => {
           newProduct.brand,
           newProduct.name,
           newProduct.description,
-          newProduct.price,
+          newProduct.price / 100,
           newProduct.quantity,
           newProduct.updatedBy,
           new Date(),
@@ -175,6 +177,7 @@ const find_product = async (productId) => {
       productId,
     ]);
     if (product.rowCount > 0) {
+      product.price /= 100;
       let image = await con.query(
         "SELECT * FROM product_images WHERE productId = $1",
         [productId]
@@ -203,6 +206,7 @@ const search_product = async (keyword) => {
     const allProduct = await con.query("SELECT * FROM products");
     const value = [];
     for (product of allProduct.rows) {
+      product.price /= 100;
       for (key in product) {
         if (key === "id") {
           continue;
