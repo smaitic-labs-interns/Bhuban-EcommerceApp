@@ -5,12 +5,11 @@ import {
 } from "Pages/Admin/styles/dashboardStyle";
 import Card from "Pages/Admin/Components/cards/Card";
 import { useGetAllCards } from "Hooks";
-import { dashboardCard } from "Datas";
 
 export default function Dashboard() {
   const [datas, setDatas] = useState([]);
 
-  const allCards = useGetAllCards({ datas: dashboardCard });
+  const allCards = useGetAllCards();
   useEffect(() => {
     if (allCards.loading && !allCards.error) {
       setDatas(allCards.data);

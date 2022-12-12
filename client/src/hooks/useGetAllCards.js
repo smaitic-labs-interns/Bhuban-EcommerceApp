@@ -1,15 +1,56 @@
+import React from "react";
 import { useEffect, useState } from "react";
 import { axios_instance } from "Api/config";
 
-const useGetAllCards = ({ datas = [] }) => {
-  console.log(datas);
+import {
+  Group,
+  ShoppingCart,
+  ShoppingCartCheckoutOutlined,
+  Store,
+} from "@mui/icons-material";
+
+import { order, cart, user, product } from "../api/config";
+import { random_color } from "../utils";
+
+const datas = [
+  {
+    endpoints: user.all,
+    title: "Total User",
+    desc: "All registered users",
+    bgColor: random_color(),
+    icon: <Group />,
+  },
+  {
+    endpoints: order.all,
+    title: "Total Orders",
+    desc: "Total order placed till now",
+    bgColor: random_color(),
+    icon: <ShoppingCartCheckoutOutlined />,
+  },
+  {
+    endpoints: product.all,
+    title: "Total Products",
+    desc: "Total product entered till now",
+    bgColor: random_color(),
+    icon: <Store />,
+  },
+  {
+    endpoints: cart.all,
+    title: "Total Carts",
+    desc: "Totaal carts (active/deactive) till now",
+    bgColor: random_color(),
+    icon: <ShoppingCart />,
+  },
+];
+
+const useGetAllCards = () => {
   const [result, setResult] = useState({
     data: [],
     error: null,
     loading: false,
   });
-  let index = 1;
-  datas.map((data) => {
+
+  datas.map((data, index) => {
     useEffect(() => {
       axios_instance({
         endpoints: data.endpoints,
@@ -39,7 +80,6 @@ const useGetAllCards = ({ datas = [] }) => {
           }));
         });
     }, []);
-    index++;
   });
   return result;
 };
