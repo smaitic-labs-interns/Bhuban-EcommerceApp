@@ -1,15 +1,15 @@
 const { createLogger, format, transports } = require("winston");
 const { combine, timestamp, printf, errors } = format;
 
-const myFormat = printf(({ level, stack, message, timestamp }) => {
-  return `[${level}] ${timestamp} ${stack || message}`;
-});
-
-const timezoned = () => {
-  return new Date().toISOString();
-};
-
 const productionLogger = (filename) => {
+  const myFormat = printf(({ level, stack, message, timestamp }) => {
+    return `[${level}] ${filename}: ${timestamp} ${stack || message}`;
+  });
+
+  const timezoned = () => {
+    return new Date().toISOString();
+  };
+
   return createLogger({
     level: "error",
     format: combine(

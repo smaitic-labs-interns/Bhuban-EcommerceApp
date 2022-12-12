@@ -1,6 +1,7 @@
-const localLogger = require("./localLogger");
+const stagingLogger = require("./stagingLogger");
 const productionLogger = require("./productionLogger");
 const developmentLogger = require("./developmentLogger");
+const localLogger = require("./localLogger");
 
 const logger = (filename) => {
   switch (process.env.NODE_ENV) {
@@ -10,8 +11,8 @@ const logger = (filename) => {
     case "development":
       return developmentLogger(filename || "development");
 
-    case "local":
-      return localLogger(filename || "local");
+    case "staging":
+      return stagingLogger(filename || "staging");
 
     default:
       return localLogger(filename || "local");

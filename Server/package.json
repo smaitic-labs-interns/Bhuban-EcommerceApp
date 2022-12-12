@@ -10,6 +10,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon ./src/index.js",
     "start:local": "NODE_ENV=local nodemon ./src/index.js",
+    "start:staging": "NODE_ENV=staging nodemon ./src/index.js",
     "start:development": "NODE_ENV=development nodemon ./src/index.js",
     "start:production": "NODE_ENV=production nodemon ./src/index.js"
   },

@@ -1,9 +1,9 @@
 const { createLogger, format, transports } = require("winston");
 const { combine, timestamp, colorize, printf, errors } = format;
 
-const localLogger = (filename) => {
+const stagingLogger = (filename) => {
   const myFormat = printf(({ level, stack, message, timestamp }) => {
-    return `[${level}] ${filename}: ${timestamp}  ${stack || message}`;
+    return `[${level}] ${filename} : ${timestamp}  ${stack || message}`;
   });
 
   const timezoned = () => {
@@ -11,7 +11,6 @@ const localLogger = (filename) => {
       timeZone: "Asia/Kathmandu",
     });
   };
-
   return createLogger({
     level: "debug",
     format: combine(
@@ -27,4 +26,4 @@ const localLogger = (filename) => {
   });
 };
 
-module.exports = localLogger;
+module.exports = stagingLogger;
