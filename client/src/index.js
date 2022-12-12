@@ -13,15 +13,15 @@ import { ThemeProvider } from "@mui/material";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <Provider store={store}>
-        <PersistGate persistor={persistor}>
-          <App />
-        </PersistGate>
-      </Provider>
-    </ThemeProvider>
-  </React.StrictMode>
+  // <React.StrictMode> // to prevent double loading
+  <ThemeProvider theme={theme}>
+    <Provider store={store}>
+      <PersistGate persistor={persistor}>
+        <App />
+      </PersistGate>
+    </Provider>
+  </ThemeProvider>
+  // </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
