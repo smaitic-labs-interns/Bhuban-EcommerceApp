@@ -18,6 +18,7 @@ const productionLogger = (filename) => {
       errors({ stack: true })
     ),
     transports: [
+      new transports.Console(),
       new transports.File({
         filename: `./src/logs/production/${filename}.log`,
       }),

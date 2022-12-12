@@ -16,6 +16,7 @@ const developmentLogger = (filename) => {
     level: "info",
     format: combine(colorize(), timestamp({ format: timezoned }), myFormat),
     transports: [
+      new transports.Console(),
       new transports.File({
         filename: `./src/logs/development/ ${filename}.log`,
       }),

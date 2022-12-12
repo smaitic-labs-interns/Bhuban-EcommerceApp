@@ -21,6 +21,7 @@ const localLogger = (filename) => {
       myFormat
     ),
     transports: [
+      new transports.Console(),
       new transports.File({ filename: `./src/logs/local/${filename}.log` }),
     ],
   });
