@@ -1,5 +1,5 @@
 import React from "react";
-import { RightContentWrapper } from "../styles/rightContentStyle";
+import { RightContentWrapper } from "Pages/Admin/styles/rightContentStyle";
 
 export default function RightContent({ children, ...res }) {
   return (

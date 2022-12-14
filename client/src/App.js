@@ -1,67 +1,44 @@
-import React, { useState, useEffect } from "react";
-import Home from "./pages/Home/Home";
-import ProductDetailContainer from "./pages/Product/ProductDetailContainer";
-import Register from "./pages/User/Register";
-import Login from "./pages/User/Login";
-import Logout from "./pages/Logout/index";
-import Profile from "./pages/Profile";
-import NotFound from "./pages/NotFound/NotFound";
-import Cart from "./pages/Cart/Cart";
-import Admin from "./pages/Admin/Admin";
-import Order from "./pages/Order/Order";
-import { useSelector } from "react-redux";
-import Bill from "./pages/Bill/Bill";
-// For routing
+import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-// import PublicRoute from "./routes/PublicRoute";
-import Layout from "./Layout/Layout";
-import Track from "./pages/track/Track";
-import Search from "./pages/Search/Search";
 
-import PrivateRoute from "./routes/PrivateRoute";
-import ProtectedRoute from "./routes/ProtectedRoute";
-import AdminRoute from "./routes/AdminRoute";
+// routes
+import { PrivateRoute, ProtectedRoute, AdminRoute } from "Routes";
+
+// pages
+import Layout from "Layout";
+import Home from "Pages/Home";
+import ProductDetailContainer from "Pages/Product/ProductDetailContainer";
+import Register from "Pages/Register";
+import Login from "Pages/Login";
+import Logout from "Pages/Logout";
+import Profile from "Pages/Profile";
+import NotFound from "Pages/NotFound/NotFound";
+import Cart from "Pages/Cart";
+import Admin from "Pages/Admin/Admin";
+import Order from "Pages/Order/Order";
+import Bill from "Pages/Bill";
+import Track from "Pages/track/Track";
+import Search from "Pages/Search/Search";
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const login = useSelector((state) => state.login);
-
-  useEffect(() => {
-    if (login.isLogined === true) setIsAuthenticated(true);
-  }, [login.isLogined]);
-
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
+          {/* For user Pages  */}
           <Route path="/" element={<Layout />}>
-            {/* <Routes> */}
             <Route index element={<Home />} />
             <Route
               path="profile"
-              element={
-                <PrivateRoute isAuthenticated={isAuthenticated}>
-                  <Profile />
-                </PrivateRoute>
-              }
+              element={<PrivateRoute children={<Profile />} />}
             />
             <Route
               path="login"
-              element={
-                <ProtectedRoute
-                  children={<Login />}
-                  isAuthenticated={isAuthenticated}
-                />
-              }
+              element={<ProtectedRoute children={<Login />} />}
             />
             <Route
               path="register"
-              element={
-                <ProtectedRoute
-                  children={<Register />}
-                  isAuthenticated={isAuthenticated}
-                />
-              }
+              element={<ProtectedRoute children={<Register />} />}
             />
             <Route path="logout" element={<Logout />}></Route>
             <Route
@@ -69,7 +46,6 @@ function App() {
               element={<ProductDetailContainer />}
             ></Route>
             <Route path="cart" element={<Cart />}></Route>
-            {/* <Route path="placeOrder" element={<Order />}></Route> */}
             <Route path="generateBill" element={<Bill />}></Route>
             <Route path="order" element={<Track />}></Route>
             <Route path="search" element={<Search />}></Route>
@@ -77,12 +53,15 @@ function App() {
             <Route
               path="placeOrder"
               element={<PrivateRoute children={<Order />} />}
-            ></Route>
+            />
           </Route>
 
+          {/* For admin route  */}
           <Route path="/admin">
             <Route index element={<AdminRoute children={<Admin />} />}></Route>
           </Route>
+
+          {/* for not found pages */}
           <Route path="*" element={<NotFound />}></Route>
         </Routes>
       </BrowserRouter>
@@ -90,7 +69,4 @@ function App() {
   );
 }
 
-// function App() {
-//   return <h1 className="text-3xl font-bold underline">Hello world!</h1>;
-// }
 export default App;

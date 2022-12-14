@@ -1,10 +1,7 @@
 import React from "react";
 import { createContext, useState, useMemo } from "react";
 import { createTheme } from "@mui/material/styles";
-
-export default function theme() {
-  return <div></div>;
-}
+import { orange } from "@mui/material/colors";
 
 // color design tokens
 export const tokens = (mode) => ({
@@ -125,96 +122,99 @@ export const tokens = (mode) => ({
       }),
 });
 
-// mui theme settings
-
-export const themeSettings = (mode) => {
-  const colors = tokens(mode);
-
-  return {
-    palette: {
-      mode: mode,
-      ...(mode === "dark"
-        ? {
-            primary: {
-              main: colors.primary[500],
-            },
-            secondary: {
-              main: colors.greenAccent[500],
-            },
-            neutral: {
-              dark: colors.grey[700],
-              main: colors.grey[500],
-              light: colors.grey[100],
-            },
-            background: {
-              default: colors.primary[500],
-            },
-          }
-        : {
-            primary: {
-              main: colors.primary[100],
-            },
-            secondary: {
-              main: colors.greenAccent[500],
-            },
-            neutral: {
-              dark: colors.grey[700],
-              main: colors.grey[500],
-              light: colors.grey[100],
-            },
-            background: {
-              default: "#fcfcfc",
-            },
-          }),
+const theme = createTheme({
+  palette: {
+    // primary: {
+    //   main: "#ff4400",
+    // },
+    secondary: {
+      light: "#0066ff",
+      main: "#0044ff",
+      contrastText: "#ffcc00",
     },
-    typography: {
-      fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
-      fontSize: 12,
-      h1: {
-        fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
-        fontSize: 40,
+    custom: {
+      light: "#ffa726",
+      main: "#f57c00",
+      dark: "#ef6c00",
+      contrastText: "rgba(0, 0, 0, 0.87)",
+    },
+  },
+  typography: {
+    fontFamily: [
+      "-apple-system",
+      "BlinkMacSystemFont",
+      '"Segoe UI"',
+      "Roboto",
+      '"Helvetica Neue"',
+      "Arial",
+      "sans-serif",
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(","),
+    mh1: {
+      fontSize: "40px",
+      fontFamily: "Robotos",
+      "@media (max-width: 900px)": {
+        fontSize: "30px",
       },
-      h2: {
-        fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
-        fontSize: 32,
-      },
-      h3: {
-        fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
-        fontSize: 24,
-      },
-      h4: {
-        fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
-        fontSize: 20,
-      },
-      h5: {
-        fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
-        fontSize: 16,
-      },
-      h6: {
-        fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
-        fontSize: 14,
+      "@media (max-width: 600px)": {
+        fontSize: "20px",
       },
     },
-  };
-};
-
-// context for color mode
-
-export const ColorModeContext = createContext({
-  toggleColorMode: () => {},
+    b1: {
+      fontSize: "10px",
+    },
+  },
+  // although by default is also present as xs, sm, md, lg, xl
+  breakpoints: {
+    values: {
+      mobile: 0,
+      tablet: 640,
+      laptop: 1024,
+      desktop: 1200,
+    },
+  },
+  transitions: {
+    duration: {
+      shortest: 150,
+      shorter: 200,
+      short: 250,
+      // most basic recommended timing
+      standard: 300,
+      // this is to be used in complex animations
+      complex: 375,
+      // recommended when something is entering screen
+      enteringScreen: 225,
+      // recommended when something is leaving screen
+      leavingScreen: 195,
+    },
+  },
+  // customizing default values of components
+  components: {
+    MuiButtonBase: {
+      defaultProps: {
+        disableRipple: true,
+      },
+    },
+    MuiButton: {
+      defaultProps: {
+        disableRipple: true,
+      },
+    },
+    //   MuiCssBaseline: {
+    //     styleOverrides: `
+    //       @font-face {
+    //         font-family: 'Raleway';
+    //         font-style: normal;
+    //         font-display: swap;
+    //         font-weight: 400;
+    //         src: local('Raleway'), local('Raleway-Regular'), url(${RalewayWoff2}) format('woff2');
+    //         unicodeRange: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF;
+    //       }
+    //     `,
+    //   },
+  },
 });
 
-export const useMode = () => {
-  const [mode, setMode] = useState("dark");
-  const colorMode = useMemo(
-    () => ({
-      toggleColorMode: () =>
-        setMode((prev) => (prev === "light" ? "dark" : "light")),
-    }),
-    []
-  );
-
-  const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
-
-  return [theme, colorMode];
-};
+export default theme;

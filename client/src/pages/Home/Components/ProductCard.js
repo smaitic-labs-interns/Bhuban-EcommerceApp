@@ -15,7 +15,7 @@ import {
   ProductRatingWrapper,
   ProductRatingStarWrapper,
   ProductUserRaterWrapper,
-} from "../Styles/productCardStyle";
+} from "Pages/Home/styles/productCardStyle";
 
 import { Star, StarHalf } from "@mui/icons-material";
 

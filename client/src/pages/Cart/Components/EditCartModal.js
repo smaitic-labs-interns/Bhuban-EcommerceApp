@@ -2,10 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Box, Modal, TextField, Typography } from "@mui/material";
 import { Edit, RemoveOutlined, Add, Update, Cancel } from "@mui/icons-material";
 import Swal from "sweetalert2";
-import {
-  fetch_user_Cart,
-  update_user_cart,
-} from "../../../redux/actions/cartActions";
+import { fetch_user_Cart, update_user_cart } from "Actions/cartActions";
 import { useDispatch, useSelector } from "react-redux";
 
 const style = {

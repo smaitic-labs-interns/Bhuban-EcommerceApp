@@ -13,7 +13,7 @@ import {
   CART_PRODUCTS_DETAILS_FAILED,
 } from "../constants/cartConstants";
 
-import { axios_instance } from "../../api/config/config";
+import { axios_instance } from "../../api/config/baseApi";
 import { cart, product } from "../../api/config/api-endpoints";
 
 export const fetch_user_Cart =

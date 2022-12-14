@@ -12,7 +12,6 @@ import {
   LowerWrapper,
 } from "../styles/RightWrapperStyle";
 import { Box, Link, Typography } from "@mui/material";
-import { Check } from "@mui/icons-material";
 import RightTable from "./RightTable";
 
 export default function RightWrapper({ userDetails }) {

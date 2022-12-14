@@ -1,5 +1,5 @@
 import { Box, Button, styled } from "@mui/material";
-// import theme from "../../../utils/theme";
+import { theme } from "Utils";
 
 export const NavbarWrapper = styled(Box)(() => ({
   background: "#1976D2",
@@ -13,20 +13,54 @@ export const NavbarContainer = styled(Box)(() => ({
   justifyContent: "space-around",
   alignItems: "center",
   padding: "1rem",
+  [theme.breakpoints.down("900")]: {
+    flexDirection: "column",
+  },
 }));
 
-export const NavbarTitle = styled(Box)(() => ({
-  display: "flex",
-  alignItems: "center",
-  gap: "1rem",
-  "& >p ": {
-    fonntWeight: 600,
-    fontSize: "28px",
+export const HeaderWrapper = styled(Box)(() => ({
+  "& >a ": {
+    textDecoration: "none",
+    color: "#fff",
+    display: "flex",
+    alignItems: "center",
+    gap: "1rem",
+    "& > svg": {
+      fontSize: "100px",
+    },
   },
 }));
 
 export const NavbarMenu = styled(Box)(() => ({
   display: "flex",
+  alignItems: "center",
+  [theme.breakpoints.down("900")]: {
+    flexDirection: "column",
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+  },
+}));
+
+export const HamburgerWrapper = styled(Box)(() => ({
+  display: "none",
+  [theme.breakpoints.down("900")]: {
+    display: "flex",
+    width: "100%",
+    padding: "1rem",
+    justifyContent: "flex-end",
+    position: "relative",
+  },
+  "& > button": {
+    position: "absolute",
+    bottom: "1rem",
+  },
+  "&> button >svg": {
+    fontSize: "40px",
+    color: "#fff",
+  },
+  "&> button >svg: nth-of-type(2)": {
+    background: "#f00",
+  },
 }));
 
 export const NavbarProfileWrapper = styled(Box)(() => ({
@@ -34,13 +68,4 @@ export const NavbarProfileWrapper = styled(Box)(() => ({
   flexDirection: "column",
   zIndex: 999,
 }));
-export const ImageWrapper = styled(Button)(() => ({
-  marginLeft: "1rem",
-  "& >img": {
-    width: "50px",
-    height: "50px",
-    borderRadius: "40%",
-    position: "relative",
-    objectfit: "contain",
-  },
-}));
+export const LogoutBtnWrapper = styled(Button)(() => ({}));

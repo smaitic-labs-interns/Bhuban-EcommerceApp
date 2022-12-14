@@ -9,7 +9,7 @@ import {
 } from "../Styles/shippingFormStyle";
 
 import { useFormik } from "formik";
-import { axios_instance } from "../../../api/config/config";
+import { axios_instance } from "../../../api/config/baseApi";
 import { address as addressEndpoint } from "../../../api/config/api-endpoints";
 import { useSelector, useDispatch } from "react-redux";
 import { place_order } from "../../../redux/actions/orderActions";
