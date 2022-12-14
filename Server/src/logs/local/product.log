@@ -1,0 +1,49 @@
+[[31merror[39m] 2022/12/07 19:12:54  TypeError: store.product.get_aall_product is not a function
+    at Object.get_all_product (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/productService.js:7:42)
+    at get_all_product (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/productApi.js:9:39)
+    at Layer.handle [as handle_request] (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/node_modules/express/lib/router/layer.js:95:5)
+    at next (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/node_modules/express/lib/router/route.js:144:13)
+    at Route.dispatch (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/node_modules/express/lib/router/route.js:114:3)
+    at Layer.handle [as handle_request] (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/node_modules/express/lib/router/layer.js:95:5)
+    at /media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/node_modules/express/lib/router/index.js:346:12)
+    at next (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/node_modules/express/lib/router/index.js:280:10)
+    at Function.handle (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/node_modules/express/lib/router/index.js:175:3)
+[[31merror[39m] 2022/12/07 19:12:54  TypeError: store.product.get_aall_product is not a function
+    at Object.get_all_product (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/productService.js:7:42)
+    at get_all_product (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/productApi.js:9:39)
+    at Layer.handle [as handle_request] (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/node_modules/express/lib/router/layer.js:95:5)
+    at next (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/node_modules/express/lib/router/route.js:144:13)
+    at Route.dispatch (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/node_modules/express/lib/router/route.js:114:3)
+    at Layer.handle [as handle_request] (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/node_modules/express/lib/router/layer.js:95:5)
+    at /media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/node_modules/express/lib/router/index.js:346:12)
+    at next (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/node_modules/express/lib/router/index.js:280:10)
+    at Function.handle (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/node_modules/express/lib/router/index.js:175:3)
+
+[[32minfo[39m] 12/9/2022, 2:46:44 PM  Sucessfully fetched all products
+[[32minfo[39m] 12/9/2022, 2:46:44 PM  Sucessfully fetched all products
+[[32minfo[39m] 12/9/2022, 2:48:32 PM  Sucessfully fetched all products
+[[32minfo[39m] 12/9/2022, 2:48:32 PM  Sucessfully fetched all products
+[[32minfo[39m] 12/12/2022, 6:13:03 PM  Sucessfully fetched all products
+[[32minfo[39m] [product] 12/12/2022, 6:13:03 PM  Sucessfully fetched all products
+[[32minfo[39m] 12/12/2022, 7:08:26 PM  Sucessfully fetched all products
+[[32minfo[39m] 12/12/2022, 7:08:27 PM  Sucessfully fetched all products
+[[32minfo[39m] 12/12/2022, 7:08:56 PM  Sucessfully fetched all products
+[[32minfo[39m] 12/12/2022, 7:08:56 PM  Sucessfully fetched all products
+[[32minfo[39m] 12/12/2022, 7:09:04 PM  Sucessfully fetched all products
+[[32minfo[39m] 12/12/2022, 7:09:04 PM  Sucessfully fetched all products
+[[32minfo[39m] 12/12/2022, 7:09:43 PM  Sucessfully fetched all products
+[[32minfo[39m] 12/12/2022, 7:09:43 PM  Sucessfully fetched all products
+[[32minfo[39m]: {undefined} 12/12/2022, 7:10:45 PM  Sucessfully fetched all products
+[[32minfo[39m]: {undefined} 12/12/2022, 7:10:45 PM  Sucessfully fetched all products
+[[32minfo[39m]: {undefined} 12/12/2022, 7:52:11 PM  Sucessfully fetched all products
+[[32minfo[39m]: {undefined} 12/12/2022, 7:52:11 PM  Sucessfully fetched all products
+[[32minfo[39m]: {undefined} 12/12/2022, 7:57:50 PM  Sucessfully fetched all products
+[[32minfo[39m]: {undefined} 12/12/2022, 7:57:50 PM  Sucessfully fetched all products
+[[32minfo[39m]: [product] 12/12/2022, 11:59:16 PM  Sucessfully fetched all products
+[[32minfo[39m]: [product] 12/12/2022, 11:59:16 PM  Sucessfully fetched all products
+[[32minfo[39m]: product 12/12/2022, 11:59:42 PM  Sucessfully fetched all products
+[[32minfo[39m]: product 12/12/2022, 11:59:42 PM  Sucessfully fetched all products
+[[32minfo[39m] product : 12/13/2022, 12:00:10 AM  Sucessfully fetched all products
+[[32minfo[39m] product : 12/13/2022, 12:00:10 AM  Sucessfully fetched all products

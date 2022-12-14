@@ -7,7 +7,12 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./src/index.js",
+    "start:local": "NODE_ENV=local nodemon ./src/index.js",
+    "start:staging": "NODE_ENV=staging nodemon ./src/index.js",
+    "start:development": "NODE_ENV=development nodemon ./src/index.js",
+    "start:production": "NODE_ENV=production nodemon ./src/index.js"
   },
   "repository": {
     "type": "git",
@@ -21,6 +26,7 @@
   "homepage": "https://github.com/smaitic-labs-interns/eCommerceApp#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "config": "^3.3.8",
     "cors": "^2.8.5",
     "create-react-app": "^1.2.1",
     "crypto": "^1.0.1",
@@ -38,6 +44,7 @@
     "pg": "^8.7.3",
     "react": "^18.2.0",
     "sync-sql": "^1.0.2",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "winston": "^3.8.2"
   }
 }

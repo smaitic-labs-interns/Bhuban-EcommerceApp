@@ -30,3 +30,11 @@ Phase 1:
 	Layered Architecture
 	Command line interface
 	File system as the database
+
+Phase 2: API (express)
+
+
+Phase 3: Frontend (React)
+
+
+Phase 4: Logger(Winston)
