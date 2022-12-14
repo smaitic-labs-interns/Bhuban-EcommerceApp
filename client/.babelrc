@@ -1,8 +1,9 @@
 {
-  "presets": [
-        "env",
-        "react"
-    ],
+  // "presets": [
+  //       "env",
+  //       "react"
+  //   ],
+  "presets": ["@babel/preset-env", "@babel/preset-react"],
     "plugins": [
       ["module-resolver", {
         "root": ["./src"],
@@ -17,6 +18,15 @@
           "Redux": "./src/redux",
           "Actions": "./src/redux/actions"
         }
-      }]
+      }],
+      [
+        "babel-plugin-transform-imports",
+        {
+          "@material-ui/core": {
+            "transform": "@material-ui/core/${member}",
+            "preventFullImport": true
+          }
+        }
+      ]
     ]
   }
