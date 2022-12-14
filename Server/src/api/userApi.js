@@ -2,12 +2,15 @@ const express = require("express");
 const router = express.Router();
 router.use(express.json());
 const Service = require("../service/allService");
+const logger = require("../logger")("user");
 
 const get_all_user = async (req, resp) => {
   try {
     const res = await Service.user.get_all_users();
+    logger.log("info", "Sucessfully fetched all users");
     resp.status(200).send(res);
   } catch (err) {
+    logger.error("error", err);
     resp.status(400).send(err.message);
   }
 };
@@ -17,8 +20,10 @@ const get_limited_user = async (req, resp) => {
     const page = req.query.page;
     const limit = req.query.limit;
     const res = await Service.user.get_limited_users({ page, limit });
+    logger.log("info", `Sucessfully fetched ${limit} users for page ${page}`);
     resp.status(200).send(res);
   } catch (err) {
+    logger.error("error", err);
     resp.status(400).send(err.message);
   }
 };
@@ -34,8 +39,10 @@ const user_register = async (req, resp) => {
       data.email,
       data.password
     );
+    logger.log("info", "User registered Sucessfully");
     resp.status(200).send(res);
   } catch (err) {
+    logger.error("error", err);
     resp.status(400).send(err.message);
   }
 };
@@ -43,10 +50,11 @@ const user_register = async (req, resp) => {
 const user_login = async (req, resp) => {
   try {
     const data = req.body;
-    console.log(req.headers);
     const res = await Service.user.user_signin(data.email, data.password);
+    logger.log("info", `User: ${data.email} login Sucessfully`);
     resp.status(200).send(res);
   } catch (err) {
+    logger.error("error", err);
     resp.status(400).send(err.message);
   }
 };
