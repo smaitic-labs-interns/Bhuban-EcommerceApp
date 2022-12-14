@@ -30,11 +30,12 @@
     "yup": "^0.32.11"
   },
   "scripts": {
+    "build": "webpack build",
     "start": "react-app-rewired start",
     "start:cra": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "build:cra": "react-scripts build",
+    "test:cra": "react-scripts test",
+    "eject:cra": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
