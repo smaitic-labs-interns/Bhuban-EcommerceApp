@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProductCard from "Pages/Home/Components/ProductCard";
 import { fetchProducts } from "Actions/productActions";
@@ -14,7 +14,14 @@ export default function ProductList() {
   const products = useSelector((state) => state.allProducts.products);
   const dispatch = useDispatch();
 
-  dispatch(fetchProducts());
+  // contineously hitting fetch products api, check it
+  useMemo(() => {
+    dispatch(fetchProducts());
+  }, []);
+
+  // useEffect(() => {
+  //   dispatch(fetchProducts());
+  // }, []);
 
   return (
     <ProductCardsWrapper>

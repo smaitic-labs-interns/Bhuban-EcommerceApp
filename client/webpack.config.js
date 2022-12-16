@@ -18,38 +18,29 @@ module.exports = {
   },
   module: {
     rules: [
-      // {
-      //   test: /\.?js|.json$/,
-      //   exclude: [/node_modules/],
-      //   use: {
-      //     loader: "babel-loader",
-      //     options: {
-      //       presets: ["@babel/preset-env", "@babel/preset-react"],
-      //     },
-      //   },
-      // },
-      // {
-      //   "no-restricted-imports": [
-      //     "error",
-      //     {
-      //       patterns: ["@material-ui/*/*/*"],
-      //     },
-      //   ],
-      // },
+      {
+        test: /\.?js$/,
+        exclude: [/node_modules/],
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/preset-env", "@babel/preset-react"],
+          },
+        },
+      },
       {
         test: /\.html$/i,
-        use: [
-          {
-            loader: "html-loader",
-            options: { interpolate: true },
-          },
-        ],
+        use: {
+          loader: "html-loader",
+          options: { interpolate: true },
+        },
       },
       {
-        test: /\.js$/,
-        loader: "babel-loader",
+        test: /\.(png|jp(e*)g|svg|gif|webp)$/,
+        use: "file-loader",
         exclude: /node_modules/,
       },
+
       {
         test: /\.json$/,
         use: {
@@ -60,17 +51,13 @@ module.exports = {
         test: /\.css$/i,
         use: [
           // MiniCssExtractPlugin.loader,
-          "style-loader",
-          { loader: "css-loader", options: { esModule: false } },
+          // "style-loader",
           // "css-to-mui-loader",
           // "postcss-loader",
+          "css-loader",
         ],
       },
-      {
-        test: /\.(png|jp(e*)g|svg|gif|webp)$/,
-        use: ["file-loader", "image-webpack-loader"],
-        exclude: /node_modules/,
-      },
+
       {
         test: /\.svg$/,
         use: ["@svgr/webpack"],
@@ -78,26 +65,13 @@ module.exports = {
     ],
   },
   plugins: [
-    // new ThemesGeneratorPlugin({
-    //   srcDir: "src",
-    //   // themesDir: "src/utils",
-    //   // outputDir: "dist/static/css",
-    //   defaultStyleName: "default.less",
-    // }),
-    // new MiniCssExtractPlugin(),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, "src", "index.js"),
     }),
-    // new webpack.ProgressPlugin(),
-    // new webpack.DefinePlugin({
-    //   PRODUCTION: JSON.stringify(true),
-    // }),
-    // new webpack.LoaderOptionsPlugin({
-    //   minimize: true,
-    // }),
-    // new webpack.ProvidePlugin({
-    //   L: "leaflet",
-    // }),
+    new MiniCssExtractPlugin({
+      filename: "[name].css",
+      chunkFilename: "[id].css",
+    }),
   ],
   devServer: {
     static: {

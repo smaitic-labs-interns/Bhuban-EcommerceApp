@@ -10,7 +10,6 @@ import Home from "Pages/Home";
 import ProductDetailContainer from "Pages/Product/ProductDetailContainer";
 import Register from "Pages/Register";
 import Login from "Pages/Login";
-import Logout from "Pages/Logout";
 import Profile from "Pages/Profile";
 import NotFound from "Pages/NotFound/NotFound";
 import Cart from "Pages/Cart";
@@ -40,7 +39,6 @@ function App() {
               path="register"
               element={<ProtectedRoute children={<Register />} />}
             />
-            <Route path="logout" element={<Logout />}></Route>
             <Route
               path="product/:productId"
               element={<ProductDetailContainer />}
