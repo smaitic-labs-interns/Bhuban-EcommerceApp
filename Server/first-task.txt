@@ -30,11 +30,21 @@ Phase 1:
 	Layered Architecture
 	Command line interface
 	File system as the database
+Phase 2:
+	Implement database
+	-> Mongodb/MySQl/PostGres
 
-Phase 2: API (express)
+Phase 3:
+ 	API Implementa	tion 
+ 	-> express
 
+Phase 4:
+	Frontend 
+	-> React
 
-Phase 3: Frontend (React)
-
-
-Phase 4: Logger(Winston)
+Phase 5: 
+	Logger Implementation
+	->  Winston
+	
+Phase 6: 
+	Docker Implementation
