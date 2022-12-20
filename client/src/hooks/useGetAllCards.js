@@ -1,43 +1,35 @@
-import React from "react";
-import { useState, useMemo } from "react";
-import { axios_instance } from "Api/config";
-
-import {
-  Group,
-  ShoppingCart,
-  ShoppingCartCheckoutOutlined,
-  Store,
-} from "@mui/icons-material";
-
-import { order, cart, user, product } from "../api/config";
-import { random_color } from "../utils";
+import React, { useState, useMemo } from 'react';
+import { Group, ShoppingCart, ShoppingCartCheckoutOutlined, Store } from '@mui/icons-material';
+import axiosInstance from 'Modules/api';
+import { random_color } from 'Utils';
+import { order, cart, user, product } from 'Api/endpoint';
 
 const datas = [
   {
     endpoints: user.all,
-    title: "Total User",
-    desc: "All registered users",
+    title: 'Total User',
+    desc: 'All registered users',
     bgColor: random_color(),
     icon: <Group />,
   },
   {
     endpoints: order.all,
-    title: "Total Orders",
-    desc: "Total order placed till now",
+    title: 'Total Orders',
+    desc: 'Total order placed till now',
     bgColor: random_color(),
     icon: <ShoppingCartCheckoutOutlined />,
   },
   {
     endpoints: product.all,
-    title: "Total Products",
-    desc: "Total product entered till now",
+    title: 'Total Products',
+    desc: 'Total product entered till now',
     bgColor: random_color(),
     icon: <Store />,
   },
   {
     endpoints: cart.all,
-    title: "Total Carts",
-    desc: "Totaal carts (active/deactive) till now",
+    title: 'Total Carts',
+    desc: 'Totaal carts (active/deactive) till now',
     bgColor: random_color(),
     icon: <ShoppingCart />,
   },
@@ -50,11 +42,9 @@ const useGetAllCards = () => {
     loading: false,
   });
 
-  // admin site is also rendering too much fix it
-
   useMemo(() => {
     datas.map((data, index) => {
-      axios_instance({
+      axiosInstance({
         endpoints: data.endpoints,
       })
         .then((response) => {

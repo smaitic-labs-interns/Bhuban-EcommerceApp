@@ -1,7 +1,7 @@
-const path = require('path')
-const webpack = require('webpack')
-const dotenv = require('dotenv')
-dotenv.config()
+const path = require('path');
+const webpack = require('webpack');
+const dotenv = require('dotenv');
+dotenv.config();
 
 module.exports = {
   mode: 'development',
@@ -13,7 +13,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.js|.json$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
       },
@@ -39,4 +39,4 @@ module.exports = {
     open: true,
     compress: true,
   },
-}
+};

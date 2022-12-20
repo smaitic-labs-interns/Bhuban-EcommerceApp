@@ -15,6 +15,9 @@ note.txt
 # production
 /build
 
+#webpack-build
+/dist
+
 # misc
 .DS_Store
 .env.local

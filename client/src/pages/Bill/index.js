@@ -1,13 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-import {
-  Button,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableRow,
-  Typography,
-} from "@mui/material";
+import React, { useEffect, useRef, useState } from 'react';
+import { Table, TableBody, TableCell, TableContainer, TableRow, Typography } from '@mui/material';
 import {
   BillWrapper,
   PrintBillWrapper,
@@ -30,16 +22,14 @@ import {
   VerificationWrapper,
   VerificationContentContainer,
   VerifyerWrapper,
-} from "Pages/Bill/Styles/billStyle";
+} from 'Pages/Bill/Styles/billStyle';
 
-import company_logo from "../../public/images/company-logo.png";
-import sign_sample from "../../public/images/sign-sample.png";
-import QRCode from "qrcode";
-import ReactToPrint from "react-to-print";
-import { Print } from "@mui/icons-material";
-import { axios_instance, mail } from "Api/config";
-import { send_mail } from "Actions/mail.actions";
-import { useDispatch, useSelector } from "react-redux";
+import company_logo from '../../public/images/company-logo.png';
+import sign_sample from '../../public/images/sign-sample.png';
+import QRCode from 'qrcode';
+import ReactToPrint from 'react-to-print';
+import { Print } from '@mui/icons-material';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function Bill() {
   const sendMail = useSelector((state) => state.sendMail);
@@ -49,22 +39,13 @@ export default function Bill() {
   const dispatch = useDispatch();
   let userFullName = login
     ? `${login.firstName} ${login.middleNmae} ${login.lastName}`
-    : "Undefined";
+    : 'Undefined';
 
-  let {
-    country,
-    province,
-    city,
-    ward,
-    tole,
-    houseNo,
-    shipmentType,
-    paymentType,
-    message,
-  } = placedOrderDetails;
+  let { country, province, city, ward, tole, houseNo, shipmentType, paymentType, message } =
+    placedOrderDetails;
 
   const componentRef = useRef();
-  const [qrcode, setQrcode] = useState("");
+  const [qrcode, setQrcode] = useState('');
   const text = userFullName;
 
   useEffect(() => {
@@ -74,8 +55,8 @@ export default function Bill() {
   }, [qrcode]);
 
   const printStyle = {
-    width: "100% !important",
-    padding: "0 !important",
+    width: '100% !important',
+    padding: '0 !important',
   };
 
   const [clicked, setClicked] = useState(false);
@@ -110,7 +91,7 @@ export default function Bill() {
     ward: ${ward}
     tole: ${tole}
     houseNo: ${houseNo}`
-    : "Undefined";
+    : 'Undefined';
 
   return (
     <BillWrapper>
@@ -118,7 +99,7 @@ export default function Bill() {
         <ReactToPrint
           trigger={() => (
             <PrintButtonWrapper>
-              <Print /> {" Print Invoice"}
+              <Print /> {' Print Invoice'}
             </PrintButtonWrapper>
           )}
           content={() => componentRef.current}
@@ -137,7 +118,7 @@ export default function Bill() {
           <ShopDetailWrapper>
             <Typography>Registration Number: MyShop-23242546</Typography>
             <DateWrapper>
-              Date: <span>{" " + new Date().toString()}</span>
+              Date: <span>{' ' + new Date().toString()}</span>
             </DateWrapper>
           </ShopDetailWrapper>
         </HeaderWrapper>
@@ -204,14 +185,12 @@ export default function Bill() {
                     <TableCell>1</TableCell>
                     <TableCell>P-343dd3</TableCell>
                     <TableCell>Radio</TableCell>
-                    <TableCell colSpan={3}>
-                      Dell-brand sm-232 model radio
-                    </TableCell>
+                    <TableCell colSpan={3}>Dell-brand sm-232 model radio</TableCell>
                     <TableCell>Rs. 600</TableCell>
                     <TableCell>5 </TableCell>
                     <TableCell>Rs. 3000</TableCell>
                   </TableRow>
-                  <TableRow sx={{ borderTop: "dashed" }}>
+                  <TableRow sx={{ borderTop: 'dashed' }}>
                     <TableCell colSpan={6}></TableCell>
                     <TableCellCustom>Total: </TableCellCustom>
                     <TableCell>6</TableCell>
@@ -227,9 +206,7 @@ export default function Bill() {
                     <TableCell colSpan={6}></TableCell>
                     <TableCellCustom>
                       Shipment Charge <br />
-                      <span style={{ fontWeight: 500 }}>
-                        (Outside Ring Road)
-                      </span>
+                      <span style={{ fontWeight: 500 }}>(Outside Ring Road)</span>
                     </TableCellCustom>
                     <TableCell></TableCell>
                     <TableCell>Rs. 544</TableCell>
@@ -263,13 +240,13 @@ export default function Bill() {
             <img src={qrcode} />
           </QrCodeWrapper>
           <VerifyerWrapper>
-            <img src={sign_sample} height={"150px"} width={"auto"} />
+            <img src={sign_sample} height={'150px'} width={'auto'} />
             <VerificationContentContainer>
               <Typography>XYZ NAME</Typography>
               <Typography>ABC ENTERPRISES</Typography>
               <Typography>Sales Manager</Typography>
             </VerificationContentContainer>
-            <img src={company_logo} height={"200px"} width={"auto"} />
+            <img src={company_logo} height={'200px'} width={'auto'} />
           </VerifyerWrapper>
         </VerificationWrapper>
       </BillContainer>

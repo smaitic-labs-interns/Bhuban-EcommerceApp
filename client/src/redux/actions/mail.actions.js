@@ -2,10 +2,10 @@ import {
   SEND_MAIL_REQUEST,
   SEND_MAIL_SUCCESS,
   SEND_MAIL_FAILED,
-} from "../constants/mail.constants";
+} from '../constants/mail.constants';
 
-import { axios_instance } from "../../api/config/baseApi";
-import { mail } from "../../api/config/api-endpoints";
+import axiosInstance from 'Modules/api';
+import { mail } from 'api/endpoint';
 
 export const send_mail =
   ({ from, to, subject, text, html, action }) =>
@@ -18,11 +18,11 @@ export const send_mail =
       html,
     };
     try {
-      if (action === "clean") {
+      if (action === 'clean') {
         return dispatch({ type: SEND_MAIL_REQUEST });
       }
       dispatch({ type: SEND_MAIL_REQUEST });
-      const response = await axios_instance({
+      const response = await axiosInstance({
         endpoints: mail.send,
         data: payload,
       });

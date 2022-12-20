@@ -1,17 +1,11 @@
-import { useEffect, useState } from "react";
-import { axios_instance } from "Api/config";
+import { useEffect, useState } from 'react';
+import axiosInstance from 'Modules/api';
 
-const useFetchApiData = ({
-  endpoints,
-  path = {},
-  query = {},
-  data = {},
-  headers = {},
-}) => {
+const useFetchApiData = ({ endpoints, path = {}, query = {}, data = {}, headers = {} }) => {
   const [datas, setData] = useState({ data: {}, error: null, loading: false });
 
   useEffect(() => {
-    axios_instance({
+    axiosInstance({
       endpoints,
       path,
       query,

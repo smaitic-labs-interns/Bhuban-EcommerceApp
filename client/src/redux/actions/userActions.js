@@ -6,15 +6,15 @@ import {
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAILED,
-} from "../constants/userConstants";
-import { axios_instance } from "../../api/config/baseApi";
-import { user } from "../../api/config/api-endpoints";
+} from '../constants/userConstants';
+import axiosInstance from 'Modules/api';
+import { user } from 'api/endpoint';
 
 export const user_register =
   ({ data, action }) =>
   async (dispatch) => {
     try {
-      if (action === "clean") {
+      if (action === 'clean') {
         return dispatch({ type: USER_REGISTER_REQUEST });
       }
       dispatch({ type: USER_REGISTER_REQUEST });
@@ -26,7 +26,7 @@ export const user_register =
         email: data.email,
         password: data.password,
       };
-      const response = await axios_instance({
+      const response = await axiosInstance({
         endpoints: user.register,
         data: payload,
       });
@@ -46,7 +46,7 @@ export const user_login =
   ({ value, action }) =>
   async (dispatch) => {
     try {
-      if (action === "clean") {
+      if (action === 'clean') {
         return dispatch({ type: USER_LOGIN_REQUEST });
       }
       const payload = {
@@ -54,13 +54,13 @@ export const user_login =
         password: value.password,
       };
       dispatch({ type: USER_LOGIN_REQUEST });
-      const response = await axios_instance({
+      const response = await axiosInstance({
         endpoints: user.login,
         data: payload,
       });
       dispatch({
         type: USER_LOGIN_SUCCESS,
-        payload: { ...response.data, password: "" },
+        payload: { ...response.data, password: '' },
       });
     } catch (err) {
       dispatch({
