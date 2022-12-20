@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useState, useMemo } from "react";
 import { axios_instance } from "Api/config";
 
 import {
@@ -50,8 +50,10 @@ const useGetAllCards = () => {
     loading: false,
   });
 
-  datas.map((data, index) => {
-    useEffect(() => {
+  // admin site is also rendering too much fix it
+
+  useMemo(() => {
+    datas.map((data, index) => {
       axios_instance({
         endpoints: data.endpoints,
       })
@@ -79,8 +81,8 @@ const useGetAllCards = () => {
             loading: true,
           }));
         });
-    }, []);
-  });
+    });
+  }, []);
   return result;
 };
 

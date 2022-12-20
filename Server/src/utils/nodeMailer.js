@@ -23,22 +23,10 @@ const send = async ({ from, to, subject, text, html }) => {
     if (res?.info?.response.includes("ok")) {
       return true;
     }
-    // throw new Error("Error occur sending mail");
+    throw new Error("Error occur sending mail");
   } catch (err) {
     throw err;
   }
 };
-
-// let from = "Ecommerce App <Bill Generation>";
-// let to = "bhuban.temp@gmail.com";
-// let subject = "Regarding Order Invoice";
-// let text = `Your order has been placed`;
-// let html = "";
-
-// send({ from: from, to: to, subject: subject, text: text, html: html }).then(
-//   (data) => {
-//     console.log(data);
-//   }
-// );
 
 module.exports = { send };
