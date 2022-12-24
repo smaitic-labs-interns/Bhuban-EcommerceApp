@@ -1,16 +1,10 @@
-import React, { useEffect } from "react";
-import {
-  Button,
-  TextField,
-  FormControlLabel,
-  Checkbox,
-  Link,
-} from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { useFormik } from "formik";
-import { user_login } from "../../redux/actions/userActions";
-import Swal from "sweetalert2";
-import { loginRules } from "../../validation";
+import React, { useMemo } from 'react';
+import { Button, TextField, FormControlLabel, Checkbox, Link } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import { useFormik } from 'formik';
+import { user_login } from '../../redux/actions/userActions';
+import Swal from 'sweetalert2';
+import { loginRules } from '../../validation';
 import {
   LoginWrapper,
   LoginContainer,
@@ -19,40 +13,39 @@ import {
   FormWrapper,
   ForgotPwdWrapper,
   CreateAccWrapper,
-} from "./indexStyle";
+} from './loginStyle';
 
 export default function Login() {
   const login = useSelector((state) => state.login);
   const dispatch = useDispatch();
 
   const initialValues = {
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   };
 
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
-    useFormik({
-      initialValues: initialValues,
-      validationSchema: loginRules,
-      onSubmit: (values) => {
-        dispatch(user_login({ value: values, action: "login" }));
-      },
-    });
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
+    initialValues: initialValues,
+    validationSchema: loginRules,
+    onSubmit: (values) => {
+      dispatch(user_login({ value: values, action: 'login' }));
+    },
+  });
 
-  useEffect(() => {
-    if (login.isLogined && login.status === "success") {
+  useMemo(() => {
+    if (login.isLogined && login.status === 'success') {
       Swal.fire({
-        title: "success",
+        title: 'success',
         timer: 1000,
         timerProgressBar: false,
         text: `${login.message}`,
       });
-    } else if (login.status === "failed") {
+    } else if (login.status === 'failed') {
       Swal.fire({
-        title: "Failed!",
+        title: 'Failed!',
         text: `${login.message}`,
-        icon: "error",
-        confirmButtonText: "Ok",
+        icon: 'error',
+        confirmButtonText: 'Ok',
       });
     }
 
@@ -60,8 +53,8 @@ export default function Login() {
       dispatch(
         user_login({
           value: {},
-          action: "clean",
-        })
+          action: 'clean',
+        }),
       );
     }
   }, [login]);
@@ -71,53 +64,51 @@ export default function Login() {
       <LoginWrapper>
         <LoginContainer>
           <HeaderWrapper>
-            <TitleWrapper>{"Sign in"}</TitleWrapper>
+            <TitleWrapper>{'Sign in'}</TitleWrapper>
           </HeaderWrapper>
-          <FormWrapper component="form" onSubmit={handleSubmit}>
+          <FormWrapper component='form' onSubmit={handleSubmit}>
             <TextField
-              margin="normal"
-              required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              id='email'
+              label='Email Address'
+              name='email'
+              autoComplete='email'
               value={values.email}
               onChange={handleChange}
               onBlur={handleBlur}
-              error={errors.email && Boolean(errors.email)}
+              error={touched.email && Boolean(errors.email)}
+              helperText={touched.email && errors.email}
             />
             <TextField
-              margin="normal"
-              required
               fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
+              name='password'
+              label='Password'
+              type='password'
+              id='password'
+              autoComplete='current-password'
               value={values.password}
               onChange={handleChange}
               onBlur={handleBlur}
-              error={errors.password && Boolean(errors.password)}
+              error={touched.password && Boolean(errors.password)}
+              helperText={touched.password && errors.password}
             />
 
             <ForgotPwdWrapper>
               <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
+                control={<Checkbox value='remember' color='primary' />}
+                label='Remember me'
               />
 
-              <Link href="#" variant="body2">
+              <Link href='#' variant='body2'>
                 Forgot password?
               </Link>
             </ForgotPwdWrapper>
 
-            <Button type="submit" fullWidth variant="contained">
+            <Button type='submit' fullWidth variant='contained'>
               Sign In
             </Button>
             <CreateAccWrapper>
-              <Link href="/register" variant="body2">
+              <Link href='/register' variant='body2'>
                 {"Don't have an account? Sign Up"}
               </Link>
             </CreateAccWrapper>

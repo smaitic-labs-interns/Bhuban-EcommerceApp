@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import {
   TableContainer,
   Paper,
@@ -8,18 +8,18 @@ import {
   TableRow,
   TableCell,
   Button,
-} from "@mui/material";
+} from '@mui/material';
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
 import {
   fetch_user_orders,
   cancel_order,
   return_replace_order,
-} from "../../../redux/actions/orderActions";
-import ViewOrder from "../../../components/modals/ViewOrder";
-import { CustomTableCell, TablePageWrapper } from "../styles/RightTableStyle";
-import { AssignmentReturn, Cancel, FindReplace } from "@mui/icons-material";
-import Swal from "sweetalert2";
+} from '../../../redux/actions/orderActions';
+import ViewOrder from '../../../components/Modals/ViewOrder';
+import { CustomTableCell, TablePageWrapper } from '../styles/RightTableStyle';
+import { AssignmentReturn, Cancel, FindReplace } from '@mui/icons-material';
+import Swal from 'sweetalert2';
 
 export default function RightTable() {
   const login = useSelector((state) => state.login);
@@ -32,118 +32,118 @@ export default function RightTable() {
   const [orders, setOrders] = useState([]);
 
   const handleCancelOrder = (id) => {
-    if (id && id !== " ") {
+    if (id && id !== ' ') {
       Swal.fire({
-        title: "Do you want to cancel this order?",
+        title: 'Do you want to cancel this order?',
         showDenyButton: true,
-        confirmButtonText: "Yes",
-        denyButtonText: "No",
+        confirmButtonText: 'Yes',
+        denyButtonText: 'No',
       }).then((result) => {
         if (result.isConfirmed) {
-          dispatch(cancel_order({ orderId: id, action: "cancel" }));
+          dispatch(cancel_order({ orderId: id, action: 'cancel' }));
         } else if (result.isDenied) {
-          Swal.fire("Changes are not saved", "", "info");
+          Swal.fire('Changes are not saved', '', 'info');
         }
       });
     }
   };
 
   const handleReturnReplace = (id, action) => {
-    if (id && id !== " " && action && action !== "") {
+    if (id && id !== ' ' && action && action !== '') {
       Swal.fire({
         title: `Do you want to ${action} this order?`,
         showDenyButton: true,
         showCancelButton: true,
-        confirmButtonText: "Yes",
-        denyButtonText: "No",
+        confirmButtonText: 'Yes',
+        denyButtonText: 'No',
         customClass: {
-          actions: "my-actions",
-          cancelButton: "order-1 right-gap",
-          confirmButton: "order-2",
-          denyButton: "order-3",
+          actions: 'my-actions',
+          cancelButton: 'order-1 right-gap',
+          confirmButton: 'order-2',
+          denyButton: 'order-3',
         },
       }).then((result) => {
         if (result.isConfirmed) {
           dispatch(return_replace_order({ orderId: id, action: action }));
         } else if (result.isDenied) {
-          Swal.fire("Changes are not saved", "", "info");
+          Swal.fire('Changes are not saved', '', 'info');
         }
       });
     }
   };
 
   useEffect(() => {
-    if (userId && userId !== " ") {
-      dispatch(fetch_user_orders({ userId: userId, action: "fetch" }));
+    if (userId && userId !== ' ') {
+      dispatch(fetch_user_orders({ userId: userId, action: 'fetch' }));
     }
   }, []);
 
   useEffect(() => {
-    if (userOrders.status === "success") setOrders(userOrders.data);
+    if (userOrders.status === 'success') setOrders(userOrders.data);
   }, [userOrders]);
 
   useEffect(() => {
-    if (cancelOrder.status === "success") {
+    if (cancelOrder.status === 'success') {
       Swal.fire({
-        title: "Order Cancelled Sucessfully",
+        title: 'Order Cancelled Sucessfully',
         text: `${cancelOrder.message}`,
-        icon: "success",
-        confirmButtonText: "Ok",
+        icon: 'success',
+        confirmButtonText: 'Ok',
       });
-      dispatch(fetch_user_orders({ userId: userId, action: "fetch" }));
-    } else if (cancelOrder.status === "failed") {
+      dispatch(fetch_user_orders({ userId: userId, action: 'fetch' }));
+    } else if (cancelOrder.status === 'failed') {
       Swal.fire({
-        title: "Error!",
+        title: 'Error!',
         text: `${cancelOrder.message}`,
-        icon: "error",
-        confirmButtonText: "Ok",
+        icon: 'error',
+        confirmButtonText: 'Ok',
       });
     }
     if (cancelOrder.status !== null) {
       dispatch(
         cancel_order({
-          orderId: "",
-          action: "clean",
-        })
+          orderId: '',
+          action: 'clean',
+        }),
       );
     }
   }, [cancelOrder]);
 
   useEffect(() => {
-    if (returnReplace.status === "success") {
+    if (returnReplace.status === 'success') {
       Swal.fire({
-        title: "Success!",
+        title: 'Success!',
         text: `${returnReplace.message}`,
-        icon: "success",
-        confirmButtonText: "Ok",
+        icon: 'success',
+        confirmButtonText: 'Ok',
       });
-      dispatch(fetch_user_orders({ userId: userId, action: "fetch" }));
-    } else if (returnReplace.status === "failed") {
+      dispatch(fetch_user_orders({ userId: userId, action: 'fetch' }));
+    } else if (returnReplace.status === 'failed') {
       Swal.fire({
-        title: "Error!",
+        title: 'Error!',
         text: `${returnReplace.message}`,
-        icon: "error",
-        confirmButtonText: "Ok",
+        icon: 'error',
+        confirmButtonText: 'Ok',
       });
     }
     if (returnReplace.status !== null) {
       dispatch(
         return_replace_order({
-          orderId: "",
-          action: "clean",
-        })
+          orderId: '',
+          action: 'clean',
+        }),
       );
     }
   }, [returnReplace]);
 
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 700 }} aria-label="customized table">
+      <Table sx={{ minWidth: 700 }} aria-label='customized table'>
         <TableHead>
-          <TableRow allign="right">
-            <TableCell sx={{ border: "none" }}>Recent Orders</TableCell>
+          <TableRow allign='right'>
+            <TableCell sx={{ border: 'none' }}>Recent Orders</TableCell>
           </TableRow>
-          <TableRow sx={{ background: "#fafafa" }}>
+          <TableRow sx={{ background: '#fafafa' }}>
             <CustomTableCell>Order #</CustomTableCell>
             <CustomTableCell>Placed On</CustomTableCell>
             <CustomTableCell colSpan={4}>Actions</CustomTableCell>
@@ -161,31 +161,31 @@ export default function RightTable() {
                   </TableCell>
                   <TableCell>
                     <Button
-                      variant="outlined"
-                      color="error"
+                      variant='outlined'
+                      color='error'
                       onClick={() => handleCancelOrder(order.id)}
                     >
-                      <Cancel sx={{ paddingRight: "0.5rem" }} />
+                      <Cancel sx={{ paddingRight: '0.5rem' }} />
                       Cancel
                     </Button>
                   </TableCell>
                   <TableCell>
                     <Button
-                      variant="outlined"
-                      color="secondary"
-                      onClick={() => handleReturnReplace(order.id, "return")}
+                      variant='outlined'
+                      color='secondary'
+                      onClick={() => handleReturnReplace(order.id, 'return')}
                     >
-                      <AssignmentReturn sx={{ paddingRight: "0.5rem" }} />
+                      <AssignmentReturn sx={{ paddingRight: '0.5rem' }} />
                       Retrn
                     </Button>
                   </TableCell>
                   <TableCell>
                     <Button
-                      variant="outlined"
-                      color="primary"
-                      onClick={() => handleReturnReplace(order.id, "replace")}
+                      variant='outlined'
+                      color='primary'
+                      onClick={() => handleReturnReplace(order.id, 'replace')}
                     >
-                      <FindReplace sx={{ paddingRight: "0.5rem" }} />
+                      <FindReplace sx={{ paddingRight: '0.5rem' }} />
                       Replace
                     </Button>
                   </TableCell>

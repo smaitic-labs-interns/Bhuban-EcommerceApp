@@ -1,18 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useMemo } from 'react';
 
-import {
-  Link,
-  Grid,
-  Box,
-  Typography,
-  Checkbox,
-  FormControlLabel,
-  TextField,
-  Button,
-  FormHelperText,
-} from '@mui/material';
+import { Link, Checkbox, FormControlLabel, TextField, Button } from '@mui/material';
 import { useFormik } from 'formik';
-import { registerSchema } from '../../validation';
+import { registerRules } from '../../validation';
 import { user_register } from '../../redux/actions/userActions';
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
@@ -44,18 +34,19 @@ export default function Register() {
     email: '',
     password: '',
     confPassword: '',
-    // tnc: false,
+    tnc: true,
   };
 
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
-    initialValues: initialValues,
-    validationSchema: registerSchema,
-    onSubmit: (values) => {
-      dispatch(user_register({ data: values, action: 'register' }));
-    },
-  });
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit, ErrorMessage } =
+    useFormik({
+      initialValues: initialValues,
+      validationSchema: registerRules,
+      onSubmit: (values) => {
+        dispatch(user_register({ data: values, action: 'register' }));
+      },
+    });
 
-  useEffect(() => {
+  useMemo(() => {
     if (register.status === 'success') {
       Swal.fire({
         title: 'Success!',
@@ -90,42 +81,36 @@ export default function Register() {
             <FormInputWrapper>
               <FormInput>
                 <TextField
-                  autoComplete='given-name'
+                  autoComplete='firstName'
                   name='firstName'
-                  required
                   fullWidth
                   id='firstName'
                   label='First Name'
-                  autoFocus
                   value={values.firstName}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  // error={errors.firstName && Boolean(errors.firstName)}
-                  // FormHelperText={touched.firstName}
+                  error={touched.firstName && Boolean(errors.firstName)}
+                  helperText={touched.firstName && errors.firstName}
                 />
-                {errors.firstName && touched.firstName ? <p>{errors.firstName}</p> : null}
               </FormInput>
+
               <FormInput>
                 <TextField
-                  autoComplete='given-name'
+                  autoComplete='middleName'
                   name='middleName'
                   fullWidth
                   id='middleName'
                   label='Middle Name'
-                  autoFocus
                   value={values.middleName}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  // error={errors.middleName}
-                  // helperText={touched.middleName}
+                  error={touched.middleName && Boolean(errors.middleName)}
+                  helperText={touched.middleName && errors.middleName}
                 />
-                {touched.middleName && errors.middleName ? (
-                  <p className='form-error'>{errors.middleName}</p>
-                ) : null}
               </FormInput>
+
               <FormInput>
                 <TextField
-                  required
                   fullWidth
                   id='lastName'
                   label='Last Name'
@@ -134,14 +119,13 @@ export default function Register() {
                   value={values.lastName}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  // error={errors.lastName}
-                  // helperText={touched.lastName}
+                  error={touched.lastName && Boolean(errors.lastName)}
+                  helperText={touched.lastName && errors.lastName}
                 />
               </FormInput>
             </FormInputWrapper>
             <FormInputWrapper>
               <TextField
-                required
                 fullWidth
                 id='address'
                 label='Full Address'
@@ -150,13 +134,12 @@ export default function Register() {
                 value={values.address}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                // error={errors.address}
-                // helperText={touched.address}
+                error={touched.address && Boolean(errors.address)}
+                helperText={touched.address && errors.address}
               />
             </FormInputWrapper>
             <FormInputWrapper>
               <TextField
-                required
                 fullWidth
                 id='email'
                 label='Email Address'
@@ -165,14 +148,13 @@ export default function Register() {
                 value={values.email}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                // error={errors.email}
-                // helperText={touched.email}
+                error={touched.email && Boolean(errors.email)}
+                helperText={touched.email && errors.email}
               />
             </FormInputWrapper>
             <FormInputWrapper>
               <FormInput>
                 <TextField
-                  required
                   fullWidth
                   name='password'
                   label='Password'
@@ -182,13 +164,12 @@ export default function Register() {
                   value={values.password}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  // error={errors.password}
-                  // helperText={touched.password}
+                  error={touched.password && Boolean(errors.password)}
+                  helperText={touched.password && errors.password}
                 />
               </FormInput>
               <FormInput>
                 <TextField
-                  required
                   fullWidth
                   name='confPassword'
                   label='Conform Password'
@@ -198,23 +179,23 @@ export default function Register() {
                   value={values.confPassword}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  // error={errors.confPassword}
-                  // helperText={touched.confPassword}
+                  error={touched.confPassword && Boolean(errors.confPassword)}
+                  helperText={touched.confPassword && errors.confPassword}
                 />
               </FormInput>
             </FormInputWrapper>
             <FormInputWrapper>
               <FormControlLabel
-                control={<Checkbox value='allowExtraEmails' color='primary' />}
+                control={<Checkbox color='primary' />}
                 label='Agreed to all the terms and condition'
+                name='tnc'
+                id='tnc'
+                // checked={values.tnc}
                 // value={values.tnc}
                 // onChange={handleChange}
                 // onBlur={handleBlur}
-                // error={errors.tnc}
-                // helperText={touched.tnc}
               />
             </FormInputWrapper>
-            {/* </Grid> */}
             <Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}>
               Sign Up
             </Button>
