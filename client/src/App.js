@@ -18,6 +18,7 @@ import Order from 'Pages/Order/Order';
 import Bill from 'Pages/Bill';
 import Track from 'Pages/track/Track';
 import Search from 'Pages/Search/Search';
+import Test from 'pages/Test';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           {/* For user Pages  */}
           <Route path='/' element={<Layout />}>
             <Route index element={<Home />} />
+            <Route path='test' element={<Test />} />
             <Route path='profile' element={<PrivateRoute children={<Profile />} />} />
             <Route path='login' element={<ProtectedRoute children={<Login />} />} />
             <Route path='register' element={<ProtectedRoute children={<Register />} />}></Route>
