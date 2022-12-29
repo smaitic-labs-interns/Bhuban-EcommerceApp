@@ -88,3 +88,61 @@ const add_districts = async () => {
 };
 
 // add_districts();
+
+const log_country = async () => {
+  try {
+    const actualData = await read_data("./final_world_data.json");
+    let idx = 1;
+    let str = "";
+    for (let dta of actualData) {
+      str += `(${idx}, '${dta.country}', '${dta.capital}', '${dta.cc_iso2}', '${dta.cc_iso3}'),\n`;
+      idx++;
+    }
+    console.log(str);
+    await write_data("./all_countries.txt", str);
+
+    // console.log("All Done !");
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+// log_country();
+
+const log_states = async () => {
+  try {
+    const actualData = await read_data("./final_province.json");
+    let idx = 1;
+    let str = "";
+    for (let dta of actualData) {
+      str += `(${idx}, '${dta.province_en}' , ${145}),\n`;
+      idx++;
+    }
+    console.log(str);
+    console.log("All Done !");
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+// log_states();
+
+const log_districts = async () => {
+  try {
+    const actualData = await read_data("./final_province.json");
+    let idx = 1;
+    let str = "";
+    for (let dta of actualData) {
+      for (let dis of dta.districts) {
+        str += `(${idx}, '${dis.district_en}' , ${dta.id}),\n`;
+        idx++;
+      }
+    }
+    console.log(str);
+    console.log("All Done !");
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+log_districts();
