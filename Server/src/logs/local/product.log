@@ -12410,3 +12410,13 @@
 [[32minfo[39m] product: 12/24/2022, 4:27:42 PM  Sucessfully fetched all products
 [[32minfo[39m] product: 12/24/2022, 4:43:33 PM  Sucessfully fetched all products
 [[32minfo[39m] product: 12/24/2022, 6:18:59 PM  Sucessfully fetched all products
+[[31merror[39m] product: 12/28/2022, 6:48:49 PM  error: relation "products" does not exist
+    at Parser.parseErrorMessage (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/node_modules/pg-protocol/dist/parser.js:287:98)
+    at Parser.handlePacket (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/node_modules/pg-protocol/dist/parser.js:126:29)
+    at Parser.parse (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/node_modules/pg-protocol/dist/parser.js:39:38)
+    at Socket.<anonymous> (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/node_modules/pg-protocol/dist/index.js:11:42)
+    at Socket.emit (node:events:513:28)
+    at addChunk (node:internal/streams/readable:315:12)
+    at readableAddChunk (node:internal/streams/readable:289:9)
+    at Socket.Readable.push (node:internal/streams/readable:228:10)
+    at TCP.onStreamRead (node:internal/stream_base_commons:190:23)
