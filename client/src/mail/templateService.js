@@ -5,7 +5,8 @@ export const prepareTemplateMsg = (template, msgData, table = {}) => {
   <table style="border-collapse: collapse; width: 100%">
     <thead style="color: #1976d2">
       <tr>`;
-  if (table) {
+  let tableLen = Object.keys(table).length;
+  if (tableLen) {
     for (let col of table.column) {
       genTable += `<th style="border: 3px solid #1976d2; padding: 8px">${col}</th>`;
     }

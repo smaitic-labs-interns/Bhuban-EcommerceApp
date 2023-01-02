@@ -27,7 +27,6 @@ function App() {
           {/* For user Pages  */}
           <Route path='/' element={<Layout />}>
             <Route index element={<Home />} />
-            <Route path='test' element={<Test />} />
             <Route path='profile' element={<PrivateRoute children={<Profile />} />} />
             <Route path='login' element={<ProtectedRoute children={<Login />} />} />
             <Route path='register' element={<ProtectedRoute children={<Register />} />}></Route>

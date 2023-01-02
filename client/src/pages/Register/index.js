@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 
 import { Link, Checkbox, FormControlLabel, TextField, Button } from '@mui/material';
 import { useFormik } from 'formik';
@@ -47,14 +47,14 @@ export default function Register() {
       },
     });
 
-  useMemo(() => {
-    sendRegisterationVerificationEmail(
-      values.email,
-      `${values.firstName} ${values.middleName} ${values.lastName}`,
-    ).then((res) => {
-      console.log(res);
-    });
+  useEffect(() => {
     if (register.status === 'success') {
+      sendRegisterationVerificationEmail(
+        values.email,
+        `${values.firstName} ${values.middleName} ${values.lastName}`,
+      ).then((res) => {
+        console.log(res);
+      });
       Swal.fire({
         title: 'Success!',
         text: `${register.message}`,
