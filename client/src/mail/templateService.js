@@ -1,37 +1,31 @@
 import Mustache from 'mustache';
 
-export const prepareTemplateMsg = (template, msgData) => {
-  let msg = {};
-  // msgData.jsonToTable = function () {
-  //   return function (text, render) {
-  //     let attr = text.replace(new RegExp(/[{}]/, 'g'), '');
-  //     return tableify(msgData[attr]);
-  //   };
-  // };
-  // msgData.jsonToCliTable = function () {
-  //   return function (text, render) {
-  //     let attr = text.replace(new RegExp(/[{}]/, 'g'), '');
-  //     console.log('attr ->', attr);
-  //     console.log('msgData ->', msgData);
-  //     let docs = msgData[attr];
-  //     let table = new Table(tableCellSeperators);
-  //     docs.forEach((doc) => table.push(doc));
-  //     return table.toString();
-  //   };
-  // };
-  // msgData.printOrderDetails = function () {
-  //   return function (text, render) {
-  //     let attr = text.replace(new RegExp(/[{}]/, 'g'), '');
-  //     return prepareOrderTables(msgData[attr]);
-  //   };
-  // };
+export const prepareTemplateMsg = (template, msgData, table = {}) => {
+  let genTable = `
+  <table style="border-collapse: collapse; width: 100%">
+    <thead style="color: #1976d2">
+      <tr>`;
+  if (table) {
+    for (let col of table.column) {
+      genTable += `<th style="border: 3px solid #1976d2; padding: 8px">${col}</th>`;
+    }
+    genTable += `
+      </tr>
+    </thead>
+    <tbody style="font-style: italic">`;
 
-  // msgData.printVendorOrderDetails = function () {
-  //   return function (text, render) {
-  //     let attr = text.replace(new RegExp(/[{}]/, 'g'), '');
-  //     return prepareVendorOrderTables(msgData[attr]);
-  //   };
-  // };
+    for (let row of table.rows) {
+      genTable += `<tr>`;
+      for (let data of row) {
+        genTable += `<td style="border: 1px solid #1976d2; padding: 8px">${data}</td>`;
+      }
+      genTable += `</tr>`;
+    }
+    genTable += ` 
+      </tbody>
+    </table>`;
+    msgData.table = genTable;
+  }
 
   template.content = Mustache.render(template.content, msgData);
   return template;

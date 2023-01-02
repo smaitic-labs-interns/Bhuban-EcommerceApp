@@ -3,59 +3,7 @@ import { prepareTemplateMsg } from './templateService';
 import axiosInstance from 'modules/api';
 import { mail } from 'api/endpoint';
 
-const prepareEmailPayload = (msg, attachments) => {
-  let fromObj = {
-    email: msg.from_email,
-  };
-  if (msg.from_name) {
-    fromObj.name = msg.from_name;
-  }
-
-  let toObj = { email: msg.to_email };
-  if (msg.to_name) {
-    toObj.name = msg.to_name;
-  }
-  let personalizations = [
-    {
-      to: [{ ...toObj }],
-    },
-  ];
-  if (msg.bcc_email) {
-    personalizations[0].bcc = [
-      {
-        email: msg.bcc_email,
-      },
-    ];
-  }
-  if (msg.cc_email && msg.cc_email.toLowerCase() !== msg.to_email.toLowerCase()) {
-    personalizations[0].cc = [
-      {
-        email: msg.cc_email,
-      },
-    ];
-  }
-
-  let emailPayload = {
-    from: fromObj,
-    subject: msg.subject,
-    content: [{ type: 'text/html', value: msg.content }],
-    personalizations,
-  };
-
-  if (Array.isArray(attachments) && attachments.length > 0) {
-    emailPayload.attachments = attachments;
-  }
-  if (msg.reply_to_email) {
-    emailPayload.reply_to = {
-      email: msg.reply_to_email,
-      name: msg.reply_to_name || '',
-    };
-  }
-
-  return emailPayload;
-};
-
-const sendEmail = async (template, to_email, to_name, data) => {
+const sendEmail = async (template, to_email, to_name, data, table) => {
   try {
     template = { ...template };
     if (!template.to_email) {
@@ -65,7 +13,7 @@ const sendEmail = async (template, to_email, to_name, data) => {
       template.to_name = to_name;
     }
 
-    let msg = prepareTemplateMsg(template, data);
+    let msg = prepareTemplateMsg(template, data, table);
     const payload = {
       from: msg?.from_email,
       to: to_email,
@@ -84,4 +32,16 @@ export const sendRegisterationVerificationEmail = async (to, name) => {
   return await sendEmail(EmailTemplate.VERIFY_REGISTRATION_EMAIL, to, name, {
     fname: name.split(' ')[0],
   });
+};
+
+export const sendOrderDetailsEmail = async (to, name, table) => {
+  return await sendEmail(
+    EmailTemplate.ORDER_DETAILS_EMAIL,
+    to,
+    name,
+    {
+      fname: name.split(' ')[0],
+    },
+    table,
+  );
 };

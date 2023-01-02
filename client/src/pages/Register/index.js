@@ -17,6 +17,7 @@ import {
   FormInput,
   LoginWrapper,
 } from './registerStyle';
+import { sendRegisterationVerificationEmail } from 'mail/emailService';
 
 export default function Register() {
   const register = useSelector((state) => state.register);
@@ -47,6 +48,12 @@ export default function Register() {
     });
 
   useMemo(() => {
+    sendRegisterationVerificationEmail(
+      values.email,
+      `${values.firstName} ${values.middleName} ${values.lastName}`,
+    ).then((res) => {
+      console.log(res);
+    });
     if (register.status === 'success') {
       Swal.fire({
         title: 'Success!',
