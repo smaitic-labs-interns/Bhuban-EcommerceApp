@@ -4,10 +4,10 @@ require("dotenv").config();
 const client = new Client({
   host: process.env.PGHOST,
   user: process.env.PGUSER,
-  database: process.env.PGDATABASE,
   password: process.env.PGPASSWORD,
-  port: process.env.PGPORT,
+  database: process.env.PGDATABASE,
 });
+
 client.connect((err) => {
   if (err) throw err;
 });

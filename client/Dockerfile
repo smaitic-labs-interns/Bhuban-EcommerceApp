@@ -8,6 +8,4 @@ COPY . .
 
 RUN npm install
 
-RUN echo "127.0.0.1 postgres" >> /etc/hosts
-
 CMD ["npm", "start"]
