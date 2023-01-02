@@ -14,11 +14,10 @@ import Profile from 'Pages/Profile';
 import NotFound from 'Pages/NotFound/NotFound';
 import Cart from 'Pages/Cart';
 import Admin from 'Pages/Admin/Admin';
-import Order from 'Pages/Order/Order';
+import Order from 'Pages/Order';
 import Bill from 'Pages/Bill';
 import Track from 'Pages/track/Track';
 import Search from 'Pages/Search/Search';
-import Test from 'pages/Test';
 
 function App() {
   return (
