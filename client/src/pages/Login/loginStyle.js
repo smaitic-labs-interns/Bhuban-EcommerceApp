@@ -14,12 +14,12 @@ export const LoginContainer = styled(Box)(() => ({
 export const HeaderWrapper = styled(Box)(() => ({}));
 export const TitleWrapper = styled(Typography)(() => ({}));
 export const FormWrapper = styled(Box)(() => ({}));
-export const FormInputWrapper = styled(Box)(() => ({
+
+export const FormInput = styled(Box)(() => ({
   padding: '1rem 0',
-  display: 'flex',
-  gap: '1rem',
-  alignItems: 'center',
+  width: '100%',
 }));
+
 export const ForgotPwdWrapper = styled(Box)(() => ({
   display: 'flex',
   justifyContent: 'space-between',
