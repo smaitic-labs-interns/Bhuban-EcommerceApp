@@ -50,11 +50,11 @@ router.get("/order/returnUpdates", api.order.send_return_updates);
 router.get("/order/paymentupdates", api.order.send_payment_updates);
 
 // for countries, states, districts
-router.get("address/countries", api.extra.read_all_countries);
-router.get("address/states", api.extra.read_all_states);
-router.get("address/districts", api.extra.read_all_districts);
-router.get("address/countryStates", api.extra.read_states_by_country_id);
-router.get("address/stateDistricts", api.extra.read_districts_by_state_id);
+router.get("/address/countries", api.extra.read_all_countries);
+router.get("/address/states", api.extra.read_all_states);
+router.get("/address/districts", api.extra.read_all_districts);
+router.get("/address/countryStates", api.extra.read_states_by_country_id);
+router.get("/address/stateDistricts", api.extra.read_districts_by_state_id);
 
 // send mail API
 router.post("/mail/send", api.mail.send);
