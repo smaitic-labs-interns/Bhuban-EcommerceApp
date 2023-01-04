@@ -1,12 +1,12 @@
 import React, { useMemo } from 'react';
-
 import { Link, Checkbox, FormControlLabel, TextField, Button } from '@mui/material';
 import { useFormik } from 'formik';
-import { registerRules } from '../../validation';
-import { user_register } from '../../redux/actions/userActions';
+import { registerRules } from 'validation';
+import { user_register } from 'redux/actions/userActions';
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
+import { sendRegisterationVerificationEmail } from 'mail/emailService';
 import {
   RegisterWrapper,
   RegisterContainer,
@@ -16,8 +16,7 @@ import {
   FormInputWrapper,
   FormInput,
   LoginWrapper,
-} from './registerStyle';
-import { sendRegisterationVerificationEmail } from 'mail/emailService';
+} from 'pages/Register/registerStyle';
 
 export default function Register() {
   const register = useSelector((state) => state.register);
