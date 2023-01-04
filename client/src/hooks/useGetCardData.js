@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
-import { axios_instance } from "Api/config";
+import { useEffect, useState } from 'react';
+import axiosInstance from 'Modules/api';
 
 const useGetCardData = (endpoints, id, title, desc, bgColor, icon) => {
   const [datas, setData] = useState({ data: {}, error: null, loading: false });
 
   useEffect(() => {
-    axios_instance({
+    axiosInstance({
       endpoints: endpoints,
     })
       .then((response) => {

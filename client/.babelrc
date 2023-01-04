@@ -15,7 +15,8 @@
           "Api": "./src/api",
           "Datas": "./src/datas",
           "Redux": "./src/redux",
-          "Actions": "./src/redux/actions"
+          "Actions": "./src/redux/actions",
+          "Modules": "./src/modules"
         }
       },
       "@babel/syntax-dynamic-import"

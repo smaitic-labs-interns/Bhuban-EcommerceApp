@@ -2,6 +2,17 @@ const db = require("../repository/dbRepository");
 const Schema = require("../models/userModel");
 const Validate = require("../utils/validations");
 
+/* 
+ * Read all users
+@params
+
+@returns
+    @if(user exists)
+        returns array of all user
+    @else
+        returns Error 
+*/
+
 const get_all_users = async () => {
   try {
     const users = await db.user.read_all_user();
@@ -10,6 +21,17 @@ const get_all_users = async () => {
     throw err;
   }
 };
+
+/* 
+ * Read limited users
+@params
+    1) page: number, limit:number
+@returns
+    @if(user exists)
+        returns array of users, with next and previous page(optional)
+    @else
+        returns Error 
+*/
 
 const get_limited_users = async ({ page, limit }) => {
   try {
@@ -25,7 +47,8 @@ const get_limited_users = async ({ page, limit }) => {
   }
 };
 
-/* Creating User 
+/* 
+ *Creating User 
 @params
     1) user_data: "User full details", userObject
 @returns
@@ -65,9 +88,8 @@ const user_register = async (
   }
 };
 
-// user_register("Bhuban","Prasad", "Yadav", "Dhapakhel-23", "abcd@smaitic.com", "bhubany")
-
-/* User SignIn
+/* 
+  *User SignIn
 @params
     1) sign_in_details : "username and password", signInObject
 @returns
@@ -86,14 +108,11 @@ const user_signin = async (email, password) => {
 
     const signinDetails = { ...value };
     const response = await db.user.find_user_from_credintals(signinDetails);
-    console.log(response);
     if (response) return { ...response, password: "" };
   } catch (err) {
     throw err;
   }
 };
-
-// user_signin("abc@smaitic.com", "bhubany");
 
 module.exports = {
   get_all_users,

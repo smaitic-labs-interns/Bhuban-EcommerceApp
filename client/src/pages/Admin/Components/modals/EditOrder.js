@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import {
   Button,
   Modal,
@@ -8,8 +8,8 @@ import {
   MenuItem,
   InputLabel,
   TextField,
-} from "@mui/material";
-import { Close, Edit, Save } from "@mui/icons-material";
+} from '@mui/material';
+import { Close, Edit, Save } from '@mui/icons-material';
 import {
   EditOrderWrapper,
   CloseButtonWrapper,
@@ -20,20 +20,20 @@ import {
   FormContainer,
   OrderFormInputWrapper,
   OrderFormSelectInputWrapper,
-} from "../../styles/modals/editOrderStyle";
-import { useDispatch, useSelector } from "react-redux";
-import { useFormik } from "formik";
-import Swal from "sweetalert2";
+} from '../../styles/modals/editOrderStyle';
+import { useDispatch, useSelector } from 'react-redux';
+import { useFormik } from 'formik';
+import Swal from 'sweetalert2';
 import {
   update_order_status,
   fetch_all_order,
   update_order_address,
   fetch_limited_order,
-} from "../../../../redux/actions/orderActions";
-import EditProductQuantity from "./EditProductQuantity";
-import UpdatePayment from "./UpdatePayment";
-import { axios_instance } from "../../../../api/config/baseApi";
-import { address as addressEndpoint } from "../../../../api/config/api-endpoints";
+} from '../../../../redux/actions/orderActions';
+import EditProductQuantity from './EditProductQuantity';
+import UpdatePayment from './UpdatePayment';
+import { address as addressEndpoint } from 'Api/endpoint';
+import axiosInstance from 'modules/api';
 
 export default function EditOrder({ order }) {
   const updateOrderStatus = useSelector((state) => state.updateOrderStatus);
@@ -56,57 +56,57 @@ export default function EditOrder({ order }) {
   } = order;
 
   const ordStatuses = [
-    "pending",
-    "Awaiting Payment",
-    "Awaiting Fulfillment",
-    "Awaiting Shipment",
-    "Awaiting Pickup",
-    "Partially Shipped",
-    "Completed",
-    "Shipped",
-    "Cancelled",
-    "Declined",
-    "Refunded",
-    "Disputed",
-    "Manual Verification Required",
-    "Partially Refunded",
+    'pending',
+    'Awaiting Payment',
+    'Awaiting Fulfillment',
+    'Awaiting Shipment',
+    'Awaiting Pickup',
+    'Partially Shipped',
+    'Completed',
+    'Shipped',
+    'Cancelled',
+    'Declined',
+    'Refunded',
+    'Disputed',
+    'Manual Verification Required',
+    'Partially Refunded',
   ];
 
   useEffect(() => {
-    if (updateOrderStatus.status === "success") {
+    if (updateOrderStatus.status === 'success') {
       Swal.fire({
-        title: "Success!",
+        title: 'Success!',
         text: `${updateOrderStatus.message}`,
-        icon: "success",
+        icon: 'success',
       });
-      dispatch(fetch_limited_order({ page: 1, limit: 5, action: "fetch" }));
-    } else if (updateOrderStatus.status === "failed") {
+      dispatch(fetch_limited_order({ page: 1, limit: 5, action: 'fetch' }));
+    } else if (updateOrderStatus.status === 'failed') {
       Swal.fire({
-        title: "Failed!",
+        title: 'Failed!',
         text: `${updateOrderStatus.message}`,
-        icon: "error",
-        confirmButtonText: "Ok",
+        icon: 'error',
+        confirmButtonText: 'Ok',
       });
     }
     if (updateOrderStatus.status !== null) {
       dispatch(
         update_order_status({
-          orderId: "",
-          status: "",
-          action: "clean",
-        })
+          orderId: '',
+          status: '',
+          action: 'clean',
+        }),
       );
     }
   }, [updateOrderStatus]);
 
   const handleUpdateStatus = () => {
-    if (ordStatus && ordStatus !== "") {
+    if (ordStatus && ordStatus !== '') {
       dispatch(
         update_order_status({
           orderId: order.id,
           status: ordStatus,
-          action: "update",
-        })
+          action: 'update',
+        }),
       );
     }
   };
@@ -117,55 +117,51 @@ export default function EditOrder({ order }) {
   const [address, setAddress] = useState({
     country: {
       selected: {
-        id: "",
-        name: "",
+        id: '',
+        name: '',
       },
       all: [],
     },
     state: {
       selected: {
-        id: "",
-        name: "",
+        id: '',
+        name: '',
       },
       all: [],
     },
     district: {
       selected: {
-        id: "",
-        name: "",
+        id: '',
+        name: '',
       },
       all: [],
     },
   });
 
   const handleChangeAddress = (type, value) => {
-    if (value === "") return;
+    if (value === '') return;
     switch (type) {
-      case "country":
-        const country = address.country.all.filter(
-          (country) => country.name === value
-        );
+      case 'country':
+        const country = address.country.all.filter((country) => country.name === value);
         setAddress((address) => ({
           ...address,
           country: { ...address.country, selected: country[0] },
         }));
         break;
-      case "state":
+      case 'state':
         const state = address.state.all.filter((state) => state.name === value);
         setAddress((address) => ({
           ...address,
           state: { ...address.state, selected: state[0] },
         }));
         break;
-      case "district":
-        const district = address.district.all.filter(
-          (district) => district.name === value
-        );
+      case 'district':
+        const district = address.district.all.filter((district) => district.name === value);
         setAddress((address) => ({
           ...address,
           district: { ...address.district, selected: district[0] },
         }));
-      case "city":
+      case 'city':
         break;
       default:
         break;
@@ -173,7 +169,7 @@ export default function EditOrder({ order }) {
   };
 
   useEffect(() => {
-    axios_instance({
+    axiosInstance({
       endpoints: addressEndpoint.countries,
     })
       .then((response) => {
@@ -196,8 +192,8 @@ export default function EditOrder({ order }) {
 
   useEffect(() => {
     let id = address.country.selected.id;
-    if (id && id !== "") {
-      axios_instance({
+    if (id && id !== '') {
+      axiosInstance({
         endpoints: addressEndpoint.countryStates,
         query: { id: id },
       })
@@ -222,8 +218,8 @@ export default function EditOrder({ order }) {
 
   useEffect(() => {
     let id = address.state.selected.id;
-    if (id && id !== "") {
-      axios_instance({
+    if (id && id !== '') {
+      axiosInstance({
         endpoints: addressEndpoint.stateDistricts,
         query: { id: id },
       })
@@ -249,7 +245,7 @@ export default function EditOrder({ order }) {
   useEffect(() => {
     let id = address.district.selected.id;
     // if (id && id !== "") {
-    //   axios_instance({
+    //   axiosInstance({
     //     endpoints: address.stateDistricts,
     //     query: { id: id },
     //   })
@@ -270,60 +266,53 @@ export default function EditOrder({ order }) {
   }, [address.district.selected.id]);
 
   const initialValues = {
-    city: "",
-    ward: "",
-    tole: "",
-    houseNo: "",
+    city: '',
+    ward: '',
+    tole: '',
+    houseNo: '',
   };
 
-  const {
-    values,
-    errors,
-    setFieldValue,
-    touched,
-    handleBlur,
-    handleChange,
-    handleSubmit,
-  } = useFormik({
-    initialValues: initialValues,
-    // validationSchema: loginSchema, // for data validation
-    onSubmit: (values) => {
-      values.country = address.country.selected.name;
-      values.province = address.state.selected.name;
-      values.district = address.district.selected.name;
-      dispatch(
-        update_order_address({
-          orderId: order.id,
-          newAddress: values,
-          action: "update",
-        })
-      );
-    },
-  });
+  const { values, errors, setFieldValue, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues: initialValues,
+      // validationSchema: loginSchema, // for data validation
+      onSubmit: (values) => {
+        values.country = address.country.selected.name;
+        values.province = address.state.selected.name;
+        values.district = address.district.selected.name;
+        dispatch(
+          update_order_address({
+            orderId: order.id,
+            newAddress: values,
+            action: 'update',
+          }),
+        );
+      },
+    });
 
   useEffect(() => {
-    if (updateOrderAddress.status === "success") {
+    if (updateOrderAddress.status === 'success') {
       Swal.fire({
-        title: "Success!",
+        title: 'Success!',
         text: `${updateOrderAddress.message}`,
-        icon: "success",
+        icon: 'success',
       });
-      dispatch(fetch_limited_order({ page: 1, limit: 5, action: "fetch" }));
-    } else if (updateOrderAddress.status === "failed") {
+      dispatch(fetch_limited_order({ page: 1, limit: 5, action: 'fetch' }));
+    } else if (updateOrderAddress.status === 'failed') {
       Swal.fire({
-        title: "Error!",
+        title: 'Error!',
         text: `${updateOrderAddress.message}`,
-        icon: "error",
+        icon: 'error',
       });
     }
 
     if (updateOrderAddress.status !== null) {
       dispatch(
         update_order_address({
-          orderId: "",
+          orderId: '',
           newAddress: {},
-          action: "clean",
-        })
+          action: 'clean',
+        }),
       );
     }
   }, [updateOrderAddress]);
@@ -331,8 +320,8 @@ export default function EditOrder({ order }) {
   return (
     <div>
       <Button
-        variant="outlined"
-        color="info"
+        variant='outlined'
+        color='info'
         onClick={() => {
           setOpen(true);
         }}
@@ -341,14 +330,14 @@ export default function EditOrder({ order }) {
       </Button>
       <Modal
         open={open}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+        aria-labelledby='modal-modal-title'
+        aria-describedby='modal-modal-description'
       >
         <EditOrderWrapper>
           <CloseButtonWrapper>
             <Button
-              variant="outlined"
-              color="error"
+              variant='outlined'
+              color='error'
               onClick={() => {
                 setOpen(false);
               }}
@@ -371,10 +360,10 @@ export default function EditOrder({ order }) {
                 <CustomTableCell>
                   <Select
                     fullWidth
-                    id="ordStatus"
-                    name="ordStatus"
+                    id='ordStatus'
+                    name='ordStatus'
                     value={ordStatus}
-                    label="Update Order Status"
+                    label='Update Order Status'
                     onChange={(e) => {
                       setOrdStatus(e.target.value);
                     }}
@@ -388,26 +377,22 @@ export default function EditOrder({ order }) {
                         );
                       })
                     ) : (
-                      <MenuItem value={"Not Available"}>
-                        {"Not Available"}
-                      </MenuItem>
+                      <MenuItem value={'Not Available'}>{'Not Available'}</MenuItem>
                     )}
                   </Select>
                 </CustomTableCell>
                 <TableCell>
                   <Button
-                    variant="outlined"
-                    color="success"
+                    variant='outlined'
+                    color='success'
                     onClick={() => {
                       handleUpdateStatus();
                     }}
                     disabled={
-                      orderStatus === "delivered" || orderStatus === "cancelled"
-                        ? true
-                        : false
+                      orderStatus === 'delivered' || orderStatus === 'cancelled' ? true : false
                     }
                   >
-                    <Save /> {" Update"}
+                    <Save /> {' Update'}
                   </Button>
                 </TableCell>
               </CustomTableRow>
@@ -415,17 +400,15 @@ export default function EditOrder({ order }) {
               <CustomTableRow>
                 <CustomTableCell>Shipping Address: </CustomTableCell>
                 <TableCell>
-                  <FormContainer component={"form"} onSubmit={handleSubmit}>
+                  <FormContainer component={'form'} onSubmit={handleSubmit}>
                     <OrderFormSelectInputWrapper>
-                      <label htmlFor="country">Select Country</label>
+                      <label htmlFor='country'>Select Country</label>
                       <br />
                       <select
-                        id="country"
-                        onChange={(e) =>
-                          handleChangeAddress("country", e.target.value)
-                        }
+                        id='country'
+                        onChange={(e) => handleChangeAddress('country', e.target.value)}
                       >
-                        <option value={""}>{"Select Country"}</option>
+                        <option value={''}>{'Select Country'}</option>
                         {address.country.all.length !== 0 ? (
                           address.country.all.map((country) => (
                             <option key={country.id} value={country.name}>
@@ -433,24 +416,18 @@ export default function EditOrder({ order }) {
                             </option>
                           ))
                         ) : (
-                          <option value={""}>
-                            {" "}
-                            {"Shipping Not Availabel"}
-                          </option>
+                          <option value={''}> {'Shipping Not Availabel'}</option>
                         )}
                       </select>
                     </OrderFormSelectInputWrapper>
 
                     <OrderFormSelectInputWrapper>
-                      <label htmlFor="states">Select Provience/state</label>{" "}
-                      <br />
+                      <label htmlFor='states'>Select Provience/state</label> <br />
                       <select
-                        id="states"
-                        onChange={(e) =>
-                          handleChangeAddress("state", e.target.value)
-                        }
+                        id='states'
+                        onChange={(e) => handleChangeAddress('state', e.target.value)}
                       >
-                        <option value={""}>{"Select Province/States"}</option>;
+                        <option value={''}>{'Select Province/States'}</option>;
                         {address.state.all.length !== 0 ? (
                           address.state.all.map((state) => {
                             return (
@@ -460,21 +437,18 @@ export default function EditOrder({ order }) {
                             );
                           })
                         ) : (
-                          <option value={""}>{"Shipping Not Available"}</option>
+                          <option value={''}>{'Shipping Not Available'}</option>
                         )}
                       </select>
                     </OrderFormSelectInputWrapper>
 
                     <OrderFormSelectInputWrapper>
-                      <label htmlFor="districts">Select Provience/state</label>{" "}
-                      <br />
+                      <label htmlFor='districts'>Select Provience/state</label> <br />
                       <select
-                        id="districts"
-                        onChange={(e) =>
-                          handleChangeAddress("district", e.target.value)
-                        }
+                        id='districts'
+                        onChange={(e) => handleChangeAddress('district', e.target.value)}
                       >
-                        <option value={""}>{"Select District"}</option>;
+                        <option value={''}>{'Select District'}</option>;
                         {address.district.all.length !== 0 ? (
                           address.district.all.map((district) => {
                             return (
@@ -484,36 +458,36 @@ export default function EditOrder({ order }) {
                             );
                           })
                         ) : (
-                          <option value={""}>{"Shipping Not Available"}</option>
+                          <option value={''}>{'Shipping Not Available'}</option>
                         )}
                       </select>
                     </OrderFormSelectInputWrapper>
 
                     <OrderFormSelectInputWrapper>
-                      <label id="cities">Select City/Local-level</label> <br />
+                      <label id='cities'>Select City/Local-level</label> <br />
                       <select
-                        id="cities"
-                        name="city"
+                        id='cities'
+                        name='city'
                         value={values.city}
                         onChange={handleChange}
                         onBlur={handleBlur}
                       >
-                        <option value={""}>{"Select Local Level"}</option>;
-                        <option value="Dhapakhel">{"Dhapakhel"}</option>
-                        <option value={"Godawari"}>{"Godawari"}</option>
-                        <option value={"Satdobato"}>{"Satdobato"}</option>
+                        <option value={''}>{'Select Local Level'}</option>;
+                        <option value='Dhapakhel'>{'Dhapakhel'}</option>
+                        <option value={'Godawari'}>{'Godawari'}</option>
+                        <option value={'Satdobato'}>{'Satdobato'}</option>
                       </select>
                     </OrderFormSelectInputWrapper>
 
                     <OrderFormInputWrapper>
                       <TextField
-                        margin="normal"
+                        margin='normal'
                         required
                         fullWidth
-                        id="tole"
-                        label="tole"
-                        name="tole"
-                        autoComplete="tole"
+                        id='tole'
+                        label='tole'
+                        name='tole'
+                        autoComplete='tole'
                         value={values.tole}
                         onChange={handleChange}
                         onBlur={handleBlur}
@@ -523,13 +497,13 @@ export default function EditOrder({ order }) {
 
                     <OrderFormInputWrapper>
                       <TextField
-                        margin="normal"
+                        margin='normal'
                         required
                         fullWidth
-                        id="ward"
-                        label="ward"
-                        name="ward"
-                        autoComplete="ward"
+                        id='ward'
+                        label='ward'
+                        name='ward'
+                        autoComplete='ward'
                         value={values.ward}
                         onChange={handleChange}
                         onBlur={handleBlur}
@@ -539,13 +513,13 @@ export default function EditOrder({ order }) {
 
                     <OrderFormInputWrapper>
                       <TextField
-                        margin="normal"
+                        margin='normal'
                         required
                         fullWidth
-                        id="houseNo"
-                        label="houseNo"
-                        name="houseNo"
-                        autoComplete="houseNo"
+                        id='houseNo'
+                        label='houseNo'
+                        name='houseNo'
+                        autoComplete='houseNo'
                         value={values.houseNo}
                         onChange={handleChange}
                         onBlur={handleBlur}
@@ -554,9 +528,9 @@ export default function EditOrder({ order }) {
                     </OrderFormInputWrapper>
 
                     <OrderFormInputWrapper>
-                      <Button variant="contained" color="success" type="submit">
+                      <Button variant='contained' color='success' type='submit'>
                         <Save />
-                        {"Update"}
+                        {'Update'}
                       </Button>
                     </OrderFormInputWrapper>
                   </FormContainer>
@@ -577,17 +551,10 @@ export default function EditOrder({ order }) {
                     return (
                       <CustomTableRow key={index}>
                         <CustomTableCell>{index}</CustomTableCell>
+                        <CustomTableCellValue>{product.productId}</CustomTableCellValue>
+                        <CustomTableCellValue>{product.quantity}</CustomTableCellValue>
                         <CustomTableCellValue>
-                          {product.productId}
-                        </CustomTableCellValue>
-                        <CustomTableCellValue>
-                          {product.quantity}
-                        </CustomTableCellValue>
-                        <CustomTableCellValue>
-                          <EditProductQuantity
-                            product={product}
-                            orderId={order.id}
-                          />
+                          <EditProductQuantity product={product} orderId={order.id} />
                         </CustomTableCellValue>
                       </CustomTableRow>
                     );
@@ -615,7 +582,7 @@ export default function EditOrder({ order }) {
                   <CustomTableCellValue>{shipment.type}</CustomTableCellValue>
                   <CustomTableCellValue>{shipment.status}</CustomTableCellValue>
                   <CustomTableCell>
-                    <Button variant="outlined" color="primary" disabled>
+                    <Button variant='outlined' color='primary' disabled>
                       <Edit />
                       Edit
                     </Button>
@@ -626,8 +593,8 @@ export default function EditOrder({ order }) {
           </OrderContentWrapper>
           <CloseButtonWrapper>
             <Button
-              variant="outlined"
-              color="error"
+              variant='outlined'
+              color='error'
               onClick={() => {
                 setOpen(false);
               }}

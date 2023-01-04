@@ -1,35 +1,35 @@
-import React, { useEffect, useState } from "react";
-import { Typography, Button, Link } from "@mui/material";
-import { AllInclusive, Close, Menu, ShoppingCart } from "@mui/icons-material";
-import { useDispatch, useSelector } from "react-redux";
-import { user_logout } from "Actions/userActions";
-import CustomMenuItem from "Layout/components/CustomMenuItem";
-import { random_color, theme } from "Utils";
-import { generalMenue, withoutLoginMenu } from "Datas/navBarMenuItem";
+import React, { useMemo, useState } from 'react';
+import { Typography, Button, Link } from '@mui/material';
+import { AllInclusive, Close, Menu, ShoppingCart } from '@mui/icons-material';
+import { useDispatch, useSelector } from 'react-redux';
+import { user_logout } from 'Actions/userActions';
+import CustomMenuItem from 'Layout/components/CustomMenuItem';
+import { random_color, theme } from 'Utils';
+import { generalMenue, withoutLoginMenu } from 'Datas/navBarMenuItem';
 import {
   NavbarWrapper,
   NavbarContainer,
   HeaderWrapper,
   NavbarMenu,
   HamburgerWrapper,
-} from "Layout/styles/navbarStyle";
+} from 'Layout/styles/navbarStyle';
 
 export default function Navbar() {
   const login = useSelector((state) => state.login);
   const dispatch = useDispatch();
-  const [animColor, setAnimColor] = useState("#0f0");
+  const [animColor, setAnimColor] = useState('#0f0');
   const [openMenue, setOpenMenue] = useState(false);
 
   let image =
-    login.imageUrl && login.imageUrl !== "" && login.imageUrl != null
+    login.imageUrl && login.imageUrl !== '' && login.imageUrl != null
       ? login.imageUrl
-      : "/images/user/user.webp";
+      : '/images/user/user.webp';
 
   const handleLogout = () => {
     dispatch(user_logout());
   };
 
-  useEffect(() => {
+  useMemo(() => {
     const var2 = setInterval(() => {
       setAnimColor(random_color());
     }, 100);
@@ -37,8 +37,8 @@ export default function Navbar() {
   }, []);
 
   const loginMenue = [
-    { id: 4, icon: <ShoppingCart sx={{ fontSize: "50px" }} />, href: "/cart" },
-    { id: 5, image: image, imageAltText: login.imageAltText, href: "/profile" },
+    { id: 4, icon: <ShoppingCart sx={{ fontSize: '50px' }} />, href: '/cart' },
+    { id: 5, image: image, imageAltText: login.imageAltText, href: '/profile' },
   ];
 
   const handleToggleMenue = () => {
@@ -46,8 +46,8 @@ export default function Navbar() {
   };
 
   const menuStyle = {
-    [theme.breakpoints.down("900")]: {
-      display: openMenue ? "flex" : "none",
+    [theme.breakpoints.down('900')]: {
+      display: openMenue ? 'flex' : 'none',
     },
   };
 
@@ -55,17 +55,17 @@ export default function Navbar() {
     <NavbarWrapper>
       <NavbarContainer>
         <HeaderWrapper>
-          <Link href="/">
+          <Link href='/'>
             <AllInclusive sx={{ color: animColor }} />
-            <Typography variant="mh1" sx={{ color: animColor }}>
+            <Typography variant='mh1' sx={{ color: animColor }}>
               INFINITY SHOP
             </Typography>
           </Link>
         </HeaderWrapper>
         <HamburgerWrapper>
           <Button onClick={handleToggleMenue}>
-            <Menu sx={{ display: openMenue ? "none" : "flex" }} />
-            <Close sx={{ display: openMenue ? "flex" : "none" }} />
+            <Menu sx={{ display: openMenue ? 'none' : 'flex' }} />
+            <Close sx={{ display: openMenue ? 'flex' : 'none' }} />
           </Button>
         </HamburgerWrapper>
         <NavbarMenu sx={menuStyle}>
@@ -80,7 +80,7 @@ export default function Navbar() {
               ))}
 
               <Button onClick={handleLogout}>
-                <Typography sx={{ color: "#fff" }}>{"Logout"}</Typography>
+                <Typography sx={{ color: '#fff' }}>{'Logout'}</Typography>
               </Button>
             </>
           ) : (

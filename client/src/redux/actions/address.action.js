@@ -8,10 +8,10 @@ import {
   GET_STATE_DISTRICTS_REQUEST,
   GET_STATE_DISTRICTS_SUCCESS,
   GET_STATE_DISTRICTS_FAILED,
-} from "../constants/extra";
+} from '../constants/extra';
 
-import { axios_instance } from "../../api/config/baseApi";
-import { address } from "../../api/config/api-endpoints";
+import { axios_instance } from '../../api/config/baseApi';
+import { address } from '../../api/config/api-endpoints';
 
 export const read_all_countries = () => async (dispatch) => {
   try {

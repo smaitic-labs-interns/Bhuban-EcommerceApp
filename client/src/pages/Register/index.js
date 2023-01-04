@@ -1,22 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useMemo } from 'react';
 
-import {
-  Link,
-  Grid,
-  Box,
-  Typography,
-  Checkbox,
-  FormControlLabel,
-  TextField,
-  Button,
-  FormHelperText,
-} from "@mui/material";
-import { useFormik } from "formik";
-import { registerSchema } from "../../validation";
-import { user_register } from "../../redux/actions/userActions";
-import { useDispatch, useSelector } from "react-redux";
-import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
+import { Link, Checkbox, FormControlLabel, TextField, Button } from '@mui/material';
+import { useFormik } from 'formik';
+import { registerRules } from '../../validation';
+import { user_register } from '../../redux/actions/userActions';
+import { useDispatch, useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 import {
   RegisterWrapper,
   RegisterContainer,
@@ -26,7 +16,7 @@ import {
   FormInputWrapper,
   FormInput,
   LoginWrapper,
-} from "./indexStyle";
+} from './registerStyle';
 
 export default function Register() {
   const register = useSelector((state) => state.register);
@@ -34,48 +24,48 @@ export default function Register() {
   const navigate = useNavigate();
 
   const navigateToLogin = () => {
-    navigate("/login");
+    navigate('/login');
   };
   const initialValues = {
-    firstName: "",
-    middleName: "",
-    lastName: "",
-    address: "",
-    email: "",
-    password: "",
-    confPassword: "",
-    // tnc: false,
+    firstName: '',
+    middleName: '',
+    lastName: '',
+    address: '',
+    email: '',
+    password: '',
+    confPassword: '',
+    tnc: true,
   };
 
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit, ErrorMessage } =
     useFormik({
       initialValues: initialValues,
-      validationSchema: registerSchema,
+      validationSchema: registerRules,
       onSubmit: (values) => {
-        dispatch(user_register({ data: values, action: "register" }));
+        dispatch(user_register({ data: values, action: 'register' }));
       },
     });
 
-  useEffect(() => {
-    if (register.status === "success") {
+  useMemo(() => {
+    if (register.status === 'success') {
       Swal.fire({
-        title: "Success!",
+        title: 'Success!',
         text: `${register.message}`,
-        icon: "success",
-        confirmButtonText: "Ok",
+        icon: 'success',
+        confirmButtonText: 'Ok',
       });
       navigateToLogin();
-    } else if (register.status === "failed") {
+    } else if (register.status === 'failed') {
       Swal.fire({
-        title: "Failed!",
+        title: 'Failed!',
         text: `${register.message}`,
-        icon: "error",
-        confirmButtonText: "Ok",
+        icon: 'error',
+        confirmButtonText: 'Ok',
       });
     }
 
     if (register.status !== null) {
-      dispatch(user_register({ data: values, action: "clean" }));
+      dispatch(user_register({ data: values, action: 'clean' }));
     }
   }, [register]);
 
@@ -84,150 +74,133 @@ export default function Register() {
       <RegisterWrapper>
         <RegisterContainer>
           <HeaderWrapper>
-            <TitleWrapper>{"Sign up"}</TitleWrapper>
+            <TitleWrapper>{'Sign up'}</TitleWrapper>
           </HeaderWrapper>
 
-          <FormWrapper component="form" noValidate onSubmit={handleSubmit}>
+          <FormWrapper component='form' noValidate onSubmit={handleSubmit}>
             <FormInputWrapper>
               <FormInput>
                 <TextField
-                  autoComplete="given-name"
-                  name="firstName"
-                  required
+                  autoComplete='firstName'
+                  name='firstName'
                   fullWidth
-                  id="firstName"
-                  label="First Name"
-                  autoFocus
+                  id='firstName'
+                  label='First Name'
                   value={values.firstName}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  // error={errors.firstName && Boolean(errors.firstName)}
-                  // FormHelperText={touched.firstName}
+                  error={touched.firstName && Boolean(errors.firstName)}
+                  helperText={touched.firstName && errors.firstName}
                 />
-                {errors.firstName && touched.firstName ? (
-                  <p>{errors.firstName}</p>
-                ) : null}
               </FormInput>
+
               <FormInput>
                 <TextField
-                  autoComplete="given-name"
-                  name="middleName"
+                  autoComplete='middleName'
+                  name='middleName'
                   fullWidth
-                  id="middleName"
-                  label="Middle Name"
-                  autoFocus
+                  id='middleName'
+                  label='Middle Name'
                   value={values.middleName}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  // error={errors.middleName}
-                  // helperText={touched.middleName}
+                  error={touched.middleName && Boolean(errors.middleName)}
+                  helperText={touched.middleName && errors.middleName}
                 />
-                {touched.middleName && errors.middleName ? (
-                  <p className="form-error">{errors.middleName}</p>
-                ) : null}
               </FormInput>
+
               <FormInput>
                 <TextField
-                  required
                   fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
+                  id='lastName'
+                  label='Last Name'
+                  name='lastName'
+                  autoComplete='family-name'
                   value={values.lastName}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  // error={errors.lastName}
-                  // helperText={touched.lastName}
+                  error={touched.lastName && Boolean(errors.lastName)}
+                  helperText={touched.lastName && errors.lastName}
                 />
               </FormInput>
             </FormInputWrapper>
             <FormInputWrapper>
               <TextField
-                required
                 fullWidth
-                id="address"
-                label="Full Address"
-                name="address"
-                autoComplete="address"
+                id='address'
+                label='Full Address'
+                name='address'
+                autoComplete='address'
                 value={values.address}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                // error={errors.address}
-                // helperText={touched.address}
+                error={touched.address && Boolean(errors.address)}
+                helperText={touched.address && errors.address}
               />
             </FormInputWrapper>
             <FormInputWrapper>
               <TextField
-                required
                 fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
+                id='email'
+                label='Email Address'
+                name='email'
+                autoComplete='email'
                 value={values.email}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                // error={errors.email}
-                // helperText={touched.email}
+                error={touched.email && Boolean(errors.email)}
+                helperText={touched.email && errors.email}
               />
             </FormInputWrapper>
             <FormInputWrapper>
               <FormInput>
                 <TextField
-                  required
                   fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete={"off"}
+                  name='password'
+                  label='Password'
+                  type='password'
+                  id='password'
+                  autoComplete={'off'}
                   value={values.password}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  // error={errors.password}
-                  // helperText={touched.password}
+                  error={touched.password && Boolean(errors.password)}
+                  helperText={touched.password && errors.password}
                 />
               </FormInput>
               <FormInput>
                 <TextField
-                  required
                   fullWidth
-                  name="confPassword"
-                  label="Conform Password"
-                  type="password"
-                  id="conformPassword"
-                  autoComplete={"off"}
+                  name='confPassword'
+                  label='Conform Password'
+                  type='password'
+                  id='conformPassword'
+                  autoComplete={'off'}
                   value={values.confPassword}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  // error={errors.confPassword}
-                  // helperText={touched.confPassword}
+                  error={touched.confPassword && Boolean(errors.confPassword)}
+                  helperText={touched.confPassword && errors.confPassword}
                 />
               </FormInput>
             </FormInputWrapper>
             <FormInputWrapper>
               <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="Agreed to all the terms and condition"
+                control={<Checkbox color='primary' />}
+                label='Agreed to all the terms and condition'
+                name='tnc'
+                id='tnc'
+                // checked={values.tnc}
                 // value={values.tnc}
                 // onChange={handleChange}
                 // onBlur={handleBlur}
-                // error={errors.tnc}
-                // helperText={touched.tnc}
               />
             </FormInputWrapper>
-            {/* </Grid> */}
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
+            <Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}>
               Sign Up
             </Button>
             <LoginWrapper>
-              <Link href="/login" variant="body2">
+              <Link href='/login' variant='body2'>
                 Already have an account? Sign in
               </Link>
             </LoginWrapper>

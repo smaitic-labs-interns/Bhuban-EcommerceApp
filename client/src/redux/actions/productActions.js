@@ -19,13 +19,13 @@ import {
   FETCH_LIMITED_PRODUCT_REQUEST,
   FETCH_LIMITED_PRODUCT_SUCCESS,
   FETCH_LIMITED_PRODUCT_FAILED,
-} from "../constants/productConstants";
+} from '../constants/productConstants';
 
-import { axios_instance } from "../../api/config/baseApi";
-import { product } from "../../api/config/api-endpoints";
+import axiosInstance from 'Modules/api';
+import { product } from 'api/endpoint';
 
 export const fetchProducts = () => async (dispatch) => {
-  const response = await axios_instance({
+  const response = await axiosInstance({
     endpoints: product.all,
   });
   dispatch({
@@ -42,7 +42,7 @@ export const fetch_product = (id) => async (dispatch) => {
     });
 
     let e = { ...product.one };
-    let response = await axios_instance({
+    let response = await axiosInstance({
       endpoints: e,
       path: { productId: id },
     });
@@ -68,16 +68,16 @@ export const add_product =
   ({ value, action }) =>
   async (dispatch) => {
     try {
-      if (action === "clean") {
+      if (action === 'clean') {
         return dispatch({ type: ADD_PRODUCT_REQUEST });
       }
       const payload = value; //since whole formData is received as argument so passing directly
       dispatch({ type: ADD_PRODUCT_REQUEST });
-      const response = await axios_instance({
+      const response = await axiosInstance({
         endpoints: product.add,
         data: payload,
         headers: {
-          "Content-Type": "multipart/form-data",
+          'Content-Type': 'multipart/form-data',
         },
       });
       dispatch({
@@ -96,13 +96,13 @@ export const delete_product =
   ({ productId, action }) =>
   async (dispatch) => {
     try {
-      if (action === "clean") {
+      if (action === 'clean') {
         return dispatch({ type: DELETE_PRODUCT_REQUEST });
       }
       dispatch({ type: DELETE_PRODUCT_REQUEST });
       const payload = { id: productId };
 
-      const response = await axios_instance({
+      const response = await axiosInstance({
         endpoints: product.remove,
         query: payload,
       });
@@ -123,7 +123,7 @@ export const update_product =
   ({ productId, userId, data, action }) =>
   async (dispatch) => {
     try {
-      if (action === "clean") {
+      if (action === 'clean') {
         return dispatch({ type: UPDATE_PRODUCT_REQUEST });
       }
       dispatch({ type: UPDATE_PRODUCT_REQUEST });
@@ -138,7 +138,7 @@ export const update_product =
         updatedBy: userId,
       };
 
-      const response = await axios_instance({
+      const response = await axiosInstance({
         endpoints: product.update,
         query: { id: productId },
         data: payload,
@@ -160,10 +160,10 @@ export const search_product =
   ({ keyword, action }) =>
   async (dispatch) => {
     try {
-      if (action === "clean") return dispatch({ type: SEARCH_PRODUCT_REQUEST });
+      if (action === 'clean') return dispatch({ type: SEARCH_PRODUCT_REQUEST });
       dispatch({ type: SEARCH_PRODUCT_REQUEST });
       const ep = { ...product.search };
-      const response = await axios_instance({
+      const response = await axiosInstance({
         endpoints: ep,
         path: { keyword: keyword },
       });
@@ -183,10 +183,9 @@ export const fetch_limited_product =
   ({ page, limit, action }) =>
   async (dispatch) => {
     try {
-      if (action === "clean")
-        return dispatch({ type: FETCH_LIMITED_PRODUCT_REQUEST });
+      if (action === 'clean') return dispatch({ type: FETCH_LIMITED_PRODUCT_REQUEST });
       dispatch({ type: FETCH_LIMITED_PRODUCT_REQUEST });
-      const response = await axios_instance({
+      const response = await axiosInstance({
         endpoints: product.limited,
         query: { page, limit },
       });

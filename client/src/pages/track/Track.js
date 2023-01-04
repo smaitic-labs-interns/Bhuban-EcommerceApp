@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
-import { useFormik } from "formik";
-import { useDispatch, useSelector } from "react-redux";
-import {  TextField, Button} from "@mui/material";
-import { Search } from "@mui/icons-material";
-import Swal from "sweetalert2";
-import { fetch_one_order } from "../../redux/actions/orderActions";
-import ViewOrder from "../../components/modals/ViewOrder";
+import React, { useEffect } from 'react';
+import { useFormik } from 'formik';
+import { useDispatch, useSelector } from 'react-redux';
+import { TextField, Button } from '@mui/material';
+import { Search } from '@mui/icons-material';
+import Swal from 'sweetalert2';
+import { fetch_one_order } from '../../redux/actions/orderActions';
+import ViewOrder from '../../components/Modals/ViewOrder';
 import {
   TrackWrapper,
   TrackContainer,
@@ -13,53 +13,46 @@ import {
   TrackFormInputWrapper,
   TrackFormSubmitBtnWrapper,
   TrackResultWrapper,
-  ResultTitle
-} from "./styles/trackStyle";
+  ResultTitle,
+} from './styles/trackStyle';
 
 export default function Track() {
   const dispatch = useDispatch();
   const order = useSelector((state) => state.oneOrder);
 
   const initialValues = {
-    orderId: "",
-    trackType: "",
+    orderId: '',
+    trackType: '',
   };
 
-  const {
-    values,
-    errors,
-    setFieldValue,
-    touched,
-    handleBlur,
-    handleChange,
-    handleSubmit,
-  } = useFormik({
-    initialValues: initialValues,
-    // validationSchema: loginSchema, // for data validation
-    onSubmit: (values) => {
-      dispatch(
-        fetch_one_order({
-          orderId: values.orderId,
-          action: "fetch",
-        })
-      );
-    },
-  });
+  const { values, errors, setFieldValue, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues: initialValues,
+      // validationSchema: loginSchema, // for data validation
+      onSubmit: (values) => {
+        dispatch(
+          fetch_one_order({
+            orderId: values.orderId,
+            action: 'fetch',
+          }),
+        );
+      },
+    });
 
   useEffect(() => {
     console.log(order);
-    if (order.status === "failed") {
+    if (order.status === 'failed') {
       Swal.fire({
-        title: "Failed!",
+        title: 'Failed!',
         text: `${order.data}`,
-        icon: "error",
-        confirmButtonText: "ok",
+        icon: 'error',
+        confirmButtonText: 'ok',
       });
       dispatch(
         fetch_one_order({
-          orderId: "",
-          action: "clean",
-        })
+          orderId: '',
+          action: 'clean',
+        }),
       );
     }
   }, [order]);
@@ -67,16 +60,16 @@ export default function Track() {
   return (
     <TrackWrapper>
       <TrackContainer>
-        <TrackFormContainer component={"form"} onSubmit={handleSubmit}>
+        <TrackFormContainer component={'form'} onSubmit={handleSubmit}>
           <TrackFormInputWrapper>
             <TextField
-              margin="normal"
+              margin='normal'
               required
               fullWidth
-              id="orderId"
-              label="Order Id"
-              name="orderId"
-              autoComplete="orderId"
+              id='orderId'
+              label='Order Id'
+              name='orderId'
+              autoComplete='orderId'
               value={values.orderId}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -85,12 +78,7 @@ export default function Track() {
           </TrackFormInputWrapper>
 
           <TrackFormSubmitBtnWrapper>
-            <Button
-              type="submit"
-              variant="contained"
-              fullWidth
-              color="success"
-            >
+            <Button type='submit' variant='contained' fullWidth color='success'>
               <Search />
               Track
             </Button>
@@ -98,9 +86,9 @@ export default function Track() {
         </TrackFormContainer>
 
         <TrackResultWrapper>
-          {order.status === "success" && (
+          {order.status === 'success' && (
             <>
-              <ResultTitle>{"Recent :  "}</ResultTitle>
+              <ResultTitle>{'Recent :  '}</ResultTitle>
               <ViewOrder order={order.data} initially={true} />
             </>
           )}
