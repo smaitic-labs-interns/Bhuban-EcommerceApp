@@ -20,7 +20,7 @@ const send = async ({ from, to, subject, text, html }) => {
       text: text,
       html: html,
     });
-    if (res?.info?.response.includes("ok")) {
+    if (res?.response?.includes("OK")) {
       return true;
     }
     throw new Error("Error occur sending mail");

@@ -2,7 +2,7 @@
 
 yarn.lock
 note.txt
-./scenes
+/temp
 
 # dependencies
 /node_modules
