@@ -7,7 +7,7 @@ import {
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAILED,
 } from '../constants/userConstants';
-import axiosInstance from 'Modules/api';
+import axiosInstance from 'modules/api';
 import { user } from 'api/endpoint';
 
 export const user_register =
@@ -30,6 +30,7 @@ export const user_register =
         endpoints: user.register,
         data: payload,
       });
+      console.log(response);
       dispatch({
         type: USER_REGISTER_SUCCESS,
         payload: response.data,
