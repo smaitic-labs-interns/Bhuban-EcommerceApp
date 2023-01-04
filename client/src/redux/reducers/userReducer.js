@@ -6,32 +6,29 @@ import {
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAILED,
-} from "../constants/userConstants";
+} from '../constants/userConstants';
 
 const initialStateRegister = {
   status: null,
-  message: "",
+  message: '',
 };
 
 const initialStateLogin = {
-  userId: "",
-  firstName: "",
-  middleName: "",
-  lastName: "",
-  address: "",
-  email: "",
+  userId: '',
+  firstName: '',
+  middleName: '',
+  lastName: '',
+  address: '',
+  email: '',
   isLogined: false,
   role: null,
-  imageUrl: "",
-  imageAltText: "",
+  imageUrl: '',
+  imageAltText: '',
   status: null,
-  message: "",
+  message: '',
 };
 
-export const register_reducer = (
-  state = initialStateRegister,
-  { type, payload }
-) => {
+export const register_reducer = (state = initialStateRegister, { type, payload }) => {
   switch (type) {
     case USER_REGISTER_REQUEST:
       return initialStateRegister;
@@ -39,14 +36,14 @@ export const register_reducer = (
     case USER_REGISTER_SUCCESS:
       return {
         ...state,
-        status: "success",
-        message: payload,
+        status: 'success',
+        message: payload.data,
       };
     case USER_REGISTER_FAILED:
       return {
         ...state,
-        status: "failed",
-        message: payload,
+        status: 'failed',
+        message: payload.data,
       };
 
     default:
@@ -75,18 +72,18 @@ export const loginReducer = (state = initialStateLogin, { type, payload }) => {
         imageUrl: payload.imageurl,
         imageAltText: payload.imagealttext,
         role: payload.role,
-        message: "login success",
-        status: "success",
+        message: 'login success',
+        status: 'success',
       };
     case USER_LOGIN_FAILED:
       return {
         ...state,
         isLogined: false,
         message: payload.data,
-        status: "failed",
+        status: 'failed',
       };
-    case USER_LOGOUT:{
-      localStorage.clear("persist:login")
+    case USER_LOGOUT: {
+      localStorage.clear('persist:login');
       return initialStateLogin;
     }
     default:

@@ -6,7 +6,7 @@ import {
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAILED,
-} from '../constants/userConstants';
+} from 'redux/constants/userConstants';
 import axiosInstance from 'modules/api';
 import { user } from 'api/endpoint';
 
