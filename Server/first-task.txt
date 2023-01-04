@@ -48,3 +48,7 @@ Phase 5:
 	
 Phase 6: 
 	Docker Implementation
+
+Phase 7: 
+	Unit Testing
+	-> Jest
