@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 
 import { Link, Checkbox, FormControlLabel, TextField, Button } from '@mui/material';
 import { useFormik } from 'formik';
@@ -24,9 +24,6 @@ export default function Register() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const navigateToLogin = () => {
-    navigate('/login');
-  };
   const initialValues = {
     firstName: '',
     middleName: '',
@@ -38,16 +35,15 @@ export default function Register() {
     tnc: true,
   };
 
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit, ErrorMessage } =
-    useFormik({
-      initialValues: initialValues,
-      validationSchema: registerRules,
-      onSubmit: (values) => {
-        dispatch(user_register({ data: values, action: 'register' }));
-      },
-    });
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
+    initialValues: initialValues,
+    validationSchema: registerRules,
+    onSubmit: (values) => {
+      dispatch(user_register({ data: values, action: 'register' }));
+    },
+  });
 
-  useEffect(() => {
+  useMemo(() => {
     if (register.status === 'success') {
       sendRegisterationVerificationEmail(
         values.email,
@@ -61,7 +57,7 @@ export default function Register() {
         icon: 'success',
         confirmButtonText: 'Ok',
       });
-      navigateToLogin();
+      navigate('/login');
     } else if (register.status === 'failed') {
       Swal.fire({
         title: 'Failed!',
@@ -74,7 +70,7 @@ export default function Register() {
     if (register.status !== null) {
       dispatch(user_register({ data: values, action: 'clean' }));
     }
-  }, [register]);
+  }, [register, dispatch, navigate, values]);
 
   return (
     <>
