@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Select, MenuItem, TextField, Button, InputLabel } from '@mui/material';
 import {
   FormWrapper,
@@ -15,10 +15,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { place_order } from '../../../redux/actions/orderActions';
 import { fetch_user_Cart } from '../../../redux/actions/cartActions';
 import Swal from 'sweetalert2';
-import { send_mail } from '../../../redux/actions/mail.actions';
 import { placed_order_details } from '../../../redux/actions/orderActions';
-
+import { sendOrderDetailsEmail } from 'mail/emailService';
 import { useNavigate } from 'react-router-dom';
+import { useFetchCountries } from 'hooks';
 
 export default function ShippingForm() {
   const placeOrder = useSelector((state) => state.placeOrder);
@@ -26,6 +26,7 @@ export default function ShippingForm() {
   const login = useSelector((state) => state.login);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const userFullName = `${login.firstNmae} ${login.middleNmae} ${login.lastNmae}`;
 
   const userId = login.isLogined ? login.userId : null;
 
@@ -83,32 +84,18 @@ export default function ShippingForm() {
     }
   };
 
-  useEffect(() => {
-    axios_instance({
-      endpoints: addressEndpoint.countries,
-    })
-      .then((response) => {
-        let cAll = [];
-        for (let c of response.data) {
-          cAll.push({ id: c.id, name: c.name });
-        }
-        setAddress((address) => ({
-          ...address,
-          country: { ...address.country, all: cAll },
-        }));
-      })
-      .catch((err) => {
-        setAddress((address) => ({
-          ...address,
-          country: { ...address.country, all: [] },
-        }));
-      });
-  }, []);
+  const response = useFetchCountries({ endpoints: addressEndpoint.countries });
+  useMemo(() => {
+    const { data, error, loading } = response;
+    if (!error && !loading) {
+      setAddress(data);
+    }
+  }, [response]);
 
   useEffect(() => {
     let id = address.country.selected.id;
     if (id && id !== '') {
-      axios_instance({
+      axiosInstance({
         endpoints: addressEndpoint.countryStates,
         query: { id: id },
       })
@@ -134,7 +121,7 @@ export default function ShippingForm() {
   useEffect(() => {
     let id = address.state.selected.id;
     if (id && id !== '') {
-      axios_instance({
+      axiosInstance({
         endpoints: addressEndpoint.stateDistricts,
         query: { id: id },
       })
@@ -160,7 +147,7 @@ export default function ShippingForm() {
   useEffect(() => {
     let id = address.district.selected.id;
     // if (id && id !== "") {
-    //   axios_instance({
+    //   axiosInstance({
     //     endpoints: address.stateDistricts,
     //     query: { id: id },
     //   })
@@ -236,82 +223,25 @@ export default function ShippingForm() {
         icon: 'success',
       });
 
-      let pDetails = '';
-      let index = 0;
+      const orderTable = {
+        column: ['S.N.', 'Product', 'Quantity', 'Price', 'Total'],
+        rows: [],
+      };
+      let index = 1;
       for (let pr of cart.products) {
+        tdata.rows.push([
+          index,
+          `${pr.pDetails.category} - ${pr.pDetails.model} - ${pr.pDetails.brand}`,
+          `${pr.quantity}`,
+          `${pr.pDetails.price}`,
+          `${pr.pDetails.price * pr.quantity}`,
+        ]);
         index++;
-        pDetails += `<tr>
-                      <td>${index}</td>
-                      <td>${pr.pDetails.category} - ${pr.pDetails.model} - ${pr.pDetails.brand}</td>
-                      <td>${pr.quantity}</td>
-                      <td>${pr.pDetails.price / 100}</td>
-                      <td>Rs: ${(pr.pDetails.price * pr.quantity) / 100}</td>
-                    </tr>`;
       }
-      pDetails += `<tr style = "border-top: solid black 5px">
-                    <td></td>
-                    <td style = "font-weight: 600;">Grand Total</td>
-                    <td></td>
-                    <td colSpan=2 style = "font-weight: 600;">Rs: ${cart.totalBill / 100}</td>
-                  </tr>`;
-
-      let mailCntnt = `      
-      <!DOCTYPE html>
-      <html>
-      <head>
-      <style>
-      table {
-        font-family: arial, sans-serif;
-        border-collapse: collapse;
-        width: 100%;
-      }
-
-      td, th {
-        border: 1px solid #dddddd;
-        text-align: left;
-        padding: 8px;
-      }
-
-      tr:nth-child(even) {
-        background-color: #dddddd;
-      }
-      </style>
-      </head>
-      <body>
-
-      <h2>Your Order Hasbeen Placed Sucessfully With The following Details:</h2>
-
-      <table>
-        <tr>
-          <th>S.N.</th>
-          <th>Product</th>
-          <th>Quantity</th>
-          <th>Price</th>
-          <th>Total</th>
-        </tr>
-        ${pDetails}
-      </table>
-      </body>
-      </html>
-      `;
-
-      let from = 'Ecommerce App <Bill Generation>';
-      let to = 'bhuban.temp@gmail.com';
-      let subject = 'Regarding Order Invoice';
-      let text = ``;
-      let html = mailCntnt;
-
-      // html: componentRef,
-      dispatch(
-        send_mail({
-          from: from,
-          to: to,
-          subject: subject,
-          text: text,
-          html: html,
-          action: 'send',
-        }),
-      );
+      tdata.rows.push(['', '', '', 'Grand Total', `${cart.totalBill}`]);
+      sendOrderDetailsEmail(login.email, userFullName, orderTable).then((data) => {
+        console.log(data);
+      });
       dispatch(placed_order_details({ order: values, cart: cart, action: 'fetch' }));
       dispatch(place_order({ ...initialValues, action: 'clean' }));
       dispatch(fetch_user_Cart({ userId: '', action: 'clean' }));
