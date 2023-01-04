@@ -1,18 +1,15 @@
-import React, { useEffect, useState } from "react";
-import CartTable from "Pages/Cart/Components/CartTable";
+import React, { useEffect, useState } from 'react';
+import CartTable from 'Pages/Cart/Components/CartTable';
 import {
   CartWrapper,
   CartLeftWrapper,
   CartLeftCardWrapper,
   CartRightWrapper,
   CartRightCardWrapper,
-} from "Pages/Cart/styles/cartStyle";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  fetch_user_Cart,
-  fetch_cart_products_details,
-} from "Actions/cartActions";
-import Checkout from "Pages/Cart/Components/Checkout";
+} from 'Pages/Cart/styles/cartStyle';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetch_user_Cart, fetch_cart_products_details } from 'Actions/cartActions';
+import Checkout from 'Pages/Cart/Components/Checkout';
 
 export default function Cart() {
   const userCart = useSelector((state) => state.userCart);
@@ -21,17 +18,16 @@ export default function Cart() {
   const dispatch = useDispatch();
   const userId = login.isLogined ? login.userId : null;
 
-  const [cartDetails, setCartDetails] = useState({});
   const [cart, setCart] = useState({});
 
   useEffect(() => {
-    if (userId && userId !== "") {
-      dispatch(fetch_user_Cart({ userId: userId, action: "fetch" }));
+    if (userId && userId !== '') {
+      dispatch(fetch_user_Cart({ userId: userId, action: 'fetch' }));
     }
-  }, [userId]);
+  }, [userId, dispatch]);
 
   useEffect(() => {
-    if (userCart.status === "success") {
+    if (userCart.status === 'success') {
       setCart(userCart);
       const pId = [];
       for (let product of userCart.products) {
@@ -39,11 +35,9 @@ export default function Cart() {
       }
 
       if (pId.length !== 0)
-        dispatch(
-          fetch_cart_products_details({ productId: pId, action: "fetch" })
-        );
+        dispatch(fetch_cart_products_details({ productId: pId, action: 'fetch' }));
     }
-  }, [userCart]);
+  }, [userCart, dispatch]);
 
   useEffect(() => {
     // if (cartProducts.status === "success") {
