@@ -24,6 +24,7 @@ import axiosInstance from 'modules/api';
 import { product } from 'api/endpoint';
 
 /**
+ * *fetch all products
  * @returns all productss
  */
 
@@ -38,6 +39,7 @@ export const fetchProducts = () => async (dispatch) => {
 };
 
 /**
+ * *fetch one product
  * @param {id}
  * @returns product
  */
@@ -66,6 +68,7 @@ export const fetch_product = (id) => async (dispatch) => {
 };
 
 /**
+ * *add product
  * @param {product-details, clean?}
  * @returns success message
  */
@@ -98,6 +101,12 @@ export const add_product =
     }
   };
 
+/**
+ * *delete product
+ * @param {productId, clean?}
+ * @returns success/failure message
+ */
+
 export const delete_product =
   ({ productId, action }) =>
   async (dispatch) => {
@@ -124,6 +133,12 @@ export const delete_product =
       });
     }
   };
+
+/**
+ * *update product
+ * @param {productId, userId, productDetails, clean?}
+ * @returns success/failure message
+ */
 
 export const update_product =
   ({ productId, userId, data, action }) =>
@@ -162,6 +177,12 @@ export const update_product =
     }
   };
 
+/**
+ * *search product
+ * @param {keyword, clean?}
+ * @returns product/error msg
+ */
+
 export const search_product =
   ({ keyword, action }) =>
   async (dispatch) => {
@@ -187,6 +208,12 @@ export const search_product =
       });
     }
   };
+
+/**
+ * *fetch limited products
+ * @param {page:Number, limit:Number, clean?}
+ * @returns products/ error message
+ */
 
 export const fetch_limited_product =
   ({ page, limit, action }) =>
