@@ -37,7 +37,7 @@ const get_limited_users = async ({ page, limit }) => {
   try {
     newPage = parseInt(page) === 0 ? 1 : parseInt(page);
     newLimit = parseInt(limit) === 0 ? 1 : parseInt(limit);
-    const users = await db.user.get_limited_users({
+    const users = await db.user.read_limited_user({
       page: newPage,
       limit: newLimit,
     });
