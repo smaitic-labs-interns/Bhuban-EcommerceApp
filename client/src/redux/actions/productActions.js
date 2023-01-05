@@ -189,8 +189,7 @@ export const search_product =
     try {
       if (action === 'clean') return dispatch({ type: SEARCH_PRODUCT_REQUEST });
       dispatch({ type: SEARCH_PRODUCT_REQUEST });
-      const ep = { ...product };
-      console.log(ep);
+      const ep = { ...product.search };
 
       const response = await axiosInstance({
         endpoints: ep,
