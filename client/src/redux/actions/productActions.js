@@ -1,6 +1,5 @@
 import {
   SET_PRODUCTS,
-  REMOVE_SELECTED_PRODUCT,
   FETCH_PRODUCT_REQUEST,
   FETCH_PRODUCT_SUCCESS,
   FETCH_PRODUCT_FAILED,
@@ -24,6 +23,10 @@ import {
 import axiosInstance from 'modules/api';
 import { product } from 'api/endpoint';
 
+/**
+ * @returns all productss
+ */
+
 export const fetchProducts = () => async (dispatch) => {
   const response = await axiosInstance({
     endpoints: product.all,
@@ -34,7 +37,11 @@ export const fetchProducts = () => async (dispatch) => {
   });
 };
 
-// for single product
+/**
+ * @param {id}
+ * @returns product
+ */
+
 export const fetch_product = (id) => async (dispatch) => {
   try {
     dispatch({
@@ -58,11 +65,10 @@ export const fetch_product = (id) => async (dispatch) => {
   }
 };
 
-export const removeSelectedProduct = () => {
-  return {
-    type: REMOVE_SELECTED_PRODUCT,
-  };
-};
+/**
+ * @param {product-details, clean?}
+ * @returns success message
+ */
 
 export const add_product =
   ({ value, action }) =>
@@ -162,11 +168,14 @@ export const search_product =
     try {
       if (action === 'clean') return dispatch({ type: SEARCH_PRODUCT_REQUEST });
       dispatch({ type: SEARCH_PRODUCT_REQUEST });
-      const ep = { ...product.search };
+      const ep = { ...product };
+      console.log(ep);
+
       const response = await axiosInstance({
         endpoints: ep,
         path: { keyword: keyword },
       });
+      console.log(response);
       dispatch({
         type: SEARCH_PRODUCT_SUCCESS,
         payload: response.data,
