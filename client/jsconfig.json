@@ -3,6 +3,7 @@
     "baseUrl": "src",
     "paths": {
       "Components/*": ["src/components/*"],
+      "public/*": ["src/public/*"],
       "Pages/*": ["src/pages/*"],
       "Routes/*": ["src/routes/*"],
       "Hooks/*": ["src/hooks/*"],
