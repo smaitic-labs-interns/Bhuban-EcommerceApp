@@ -14,9 +14,7 @@
 -- COMMIT;
 
 
--- Table: public.users
-
--- DROP TABLE IF EXISTS public.users;
+-- Create User Type Enum
 BEGIN;
 CREATE TYPE public.user_role AS ENUM (
     'superadmin',
@@ -24,7 +22,10 @@ CREATE TYPE public.user_role AS ENUM (
     'edito',
     'user'
 );
+COMMIT;
 
+-- Table: public.users
+-- DROP TABLE IF EXISTS public.users;
 BEGIN;
 CREATE TABLE IF NOT EXISTS public.users
 (

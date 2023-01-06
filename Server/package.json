@@ -13,7 +13,8 @@
     "start:staging": "NODE_ENV=staging nodemon ./src/index.js",
     "start:development": "NODE_ENV=development nodemon ./src/index.js",
     "start:production": "NODE_ENV=production nodemon ./src/index.js",
-    "migrate-db": "(db-migrate db:create eCommerceApp && db-migrate up eCommerceApp) || (db-migrate up eCommerceApp)"
+    "create-db": "(db-migrate db:create eCommerceApp && db-migrate up eCommerceApp) || (db-migrate up eCommerceApp)",
+    "remove-db": "db-migrate down eCommerceApp"
   },
   "jest": {
     "collectCoverage": true
