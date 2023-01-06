@@ -195,7 +195,7 @@ export const search_product =
         endpoints: ep,
         path: { keyword: keyword },
       });
-      console.log(response);
+
       dispatch({
         type: SEARCH_PRODUCT_SUCCESS,
         payload: response.data,

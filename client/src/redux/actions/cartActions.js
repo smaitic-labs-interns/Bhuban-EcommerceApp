@@ -15,7 +15,6 @@ import {
 
 import axiosInstance from 'Modules/api';
 import { cart, product } from 'api/endpoint';
-
 export const fetch_user_Cart =
   ({ userId, action }) =>
   async (dispatch) => {
@@ -25,7 +24,7 @@ export const fetch_user_Cart =
       }
       dispatch({ type: USER_CART_REQUEST });
       const response = await axiosInstance({
-        endpoints: cart.getCart,
+        endpoints: cart.one,
         query: { id: userId },
       });
       let prdcts = response.data;
@@ -64,7 +63,7 @@ export const add_to_cart =
       dispatch({ type: ADD_TO_CART_REQUEST });
       const payload = { productId, quantity };
       const response = await axiosInstance({
-        endpoints: cart.addTo,
+        endpoints: cart.addProduct,
         query: { id: userId },
         data: payload,
       });
@@ -131,7 +130,7 @@ export const update_user_cart =
 
       dispatch({ type: UPDATE_CART_REQUEST });
       const response = await axiosInstance({
-        endpoints: cart.update,
+        endpoints: cart.updateQuantity,
         query: { id: userId },
         data: payload,
       });
