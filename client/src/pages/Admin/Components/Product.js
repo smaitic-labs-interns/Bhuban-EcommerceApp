@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
 import {
   Button,
@@ -13,7 +13,7 @@ import {
   MenuItem,
   Box,
   TextField,
-} from "@mui/material";
+} from '@mui/material';
 import {
   ProductContainer,
   ProductWrapper,
@@ -25,17 +25,17 @@ import {
   DisplayProductsWrapper,
   SearchBarWrapper,
   TableWrapper,
-} from "Pages/Admin/styles/productStyle";
+} from 'Pages/Admin/styles/productStyle';
 
-import { Delete, Add, Search } from "@mui/icons-material";
-import { delete_product, fetch_limited_product } from "Actions/productActions";
+import { Delete, Add, Search } from '@mui/icons-material';
+import { delete_product, fetch_limited_product } from 'Actions/productActions';
 
-import { useDispatch, useSelector } from "react-redux";
-import Swal from "sweetalert2";
-import AddProduct from "Pages/Admin/Components/modals/AddProduct";
-import ViewProduct from "Pages/Admin/Components/modals/ViewProduct";
-import EditProduct from "Pages/Admin/Components/modals/EditProduct";
-import { isEmpty } from "Utils";
+import { useDispatch, useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
+import AddProduct from 'Pages/Admin/Components/modals/AddProduct';
+import ViewProduct from 'Pages/Admin/Components/modals/ViewProduct';
+import EditProduct from 'Pages/Admin/Components/modals/EditProduct';
+import { isEmpty } from 'Utils';
 
 export default function Product() {
   const limitedProduct = useSelector((state) => state.limitedProduct);
@@ -60,64 +60,60 @@ export default function Product() {
       : 1;
 
   useEffect(() => {
-    dispatch(
-      fetch_limited_product({ page: 1, limit: noOfProduct, action: "fetch" })
-    );
+    dispatch(fetch_limited_product({ page: 1, limit: noOfProduct, action: 'fetch' }));
   }, []);
 
   const handleDelete = (id) => {
-    if (id && id !== " ") {
+    if (id && id !== ' ') {
       Swal.fire({
-        title: "Do you want to remove this product?",
+        title: 'Do you want to remove this product?',
         showDenyButton: true,
-        confirmButtonText: "Yes",
-        denyButtonText: "No",
+        confirmButtonText: 'Yes',
+        denyButtonText: 'No',
       }).then((result) => {
         if (result.isConfirmed) {
-          dispatch(delete_product({ productId: id, action: "delete" }));
+          dispatch(delete_product({ productId: id, action: 'delete' }));
         } else if (result.isDenied) {
-          Swal.fire("Changes are not saved", "", "info");
+          Swal.fire('Changes are not saved', '', 'info');
         }
       });
     }
   };
 
   const handlePage = (page) => {
-    dispatch(
-      fetch_limited_product({ page: page, limit: noOfProduct, action: "fetch" })
-    );
+    dispatch(fetch_limited_product({ page: page, limit: noOfProduct, action: 'fetch' }));
   };
 
   useEffect(() => {
-    if (deleteProduct.status === "success") {
+    if (deleteProduct.status === 'success') {
       Swal.fire({
-        title: "Success!",
+        title: 'Success!',
         text: `${deleteProduct.message}`,
-        icon: "success",
-        confirmButtonText: "Ok",
+        icon: 'success',
+        confirmButtonText: 'Ok',
       });
       dispatch(
         fetch_limited_product({
           page: currentPage,
           limit: noOfProduct,
-          action: "fetch",
-        })
+          action: 'fetch',
+        }),
       );
-    } else if (deleteProduct.status === "failed") {
+    } else if (deleteProduct.status === 'failed') {
       Swal.fire({
-        title: "Error!",
+        title: 'Error!',
         text: `${deleteProduct.message}`,
-        icon: "error",
-        confirmButtonText: "Ok",
+        icon: 'error',
+        confirmButtonText: 'Ok',
       });
     }
 
     if (deleteProduct.status !== null) {
       dispatch(
         delete_product({
-          productId: "",
-          action: "clean",
-        })
+          productId: '',
+          action: 'clean',
+        }),
       );
     }
   }, [deleteProduct]);
@@ -136,8 +132,8 @@ export default function Product() {
       fetch_limited_product({
         page: currentPage,
         limit: noOfProduct,
-        action: "fetch",
-      })
+        action: 'fetch',
+      }),
     );
   }, [noOfProduct]);
   return (
@@ -146,29 +142,28 @@ export default function Product() {
         <ProductContainer>
           <ProductActionWrapper>
             <AddProductButton
-              onClick={() =>
-                setaddProductForm((addProductForm) => !addProductForm)
-              }
+              disableFocusRipple={true}
+              onClick={() => setaddProductForm((addProductForm) => !addProductForm)}
             >
-              <Add /> {" Add product "}
+              <Add /> {' Add product '}
             </AddProductButton>
             {addProductForm ? (
               <AddProductCntntWrapper>
                 <AddProduct />
               </AddProductCntntWrapper>
             ) : (
-              ""
+              ''
             )}
           </ProductActionWrapper>
           <DisplaySearchWrapper>
             <DisplayProductsWrapper>
               Display
               <Select
-                sx={{ height: "1.5rem", margin: "0.5rem" }}
-                id="noOfProduct"
-                name="noOfProduct"
+                sx={{ height: '1.5rem', margin: '0.5rem' }}
+                id='noOfProduct'
+                name='noOfProduct'
                 value={noOfProduct}
-                label="Shipment Type"
+                label='Shipment Type'
                 onChange={(e) => {
                   setNoOfProduct(e.target.value);
                 }}
@@ -184,17 +179,13 @@ export default function Product() {
             <SearchBarWrapper>
               <TextField
                 fullWidth
-                label="Enter keyword to search"
-                name="searchKeyword"
-                id="searchkeyword"
-                sx={{ background: "#fff" }}
+                label='Enter keyword to search'
+                name='searchKeyword'
+                id='searchkeyword'
+                sx={{ background: '#fff' }}
               />
-              <Button
-                variant="contained"
-                color="info"
-                sx={{ padding: "1rem 1.5rem" }}
-              >
-                <Search /> {" Search "}
+              <Button variant='contained' color='info' sx={{ padding: '1rem 1.5rem' }}>
+                <Search /> {' Search '}
               </Button>
             </SearchBarWrapper>
           </DisplaySearchWrapper>
@@ -230,7 +221,7 @@ export default function Product() {
                       return (
                         <TableRow key={id}>
                           <TableCell>
-                            <input type="checkbox" />
+                            <input type='checkbox' />
                           </TableCell>
                           <TableCell>{id}</TableCell>
                           <TableCell>{category}</TableCell>
@@ -244,13 +235,13 @@ export default function Product() {
                           </TableCell>
                           <TableCell>
                             <Button
-                              variant="outlined"
-                              color="error"
+                              variant='outlined'
+                              color='error'
                               onClick={() => {
                                 handleDelete(id);
                               }}
                             >
-                              <Delete sx={{ color: "red" }} />
+                              <Delete sx={{ color: 'red' }} />
                             </Button>
                           </TableCell>
                         </TableRow>
@@ -267,18 +258,18 @@ export default function Product() {
           </TableWrapper>
           <Box
             sx={{
-              display: "flex",
-              alignItems: "center",
-              width: "100%",
-              border: "solid green 2px",
-              margin: "2rem",
-              justifyContent: "space-between",
-              padding: "1rem",
+              display: 'flex',
+              alignItems: 'center',
+              width: '100%',
+              border: 'solid green 2px',
+              margin: '2rem',
+              justifyContent: 'space-between',
+              padding: '1rem',
             }}
           >
             <Button
-              variant="outlined"
-              color="primary"
+              variant='outlined'
+              color='primary'
               disabled={isEmpty(product.previous)}
               onClick={() => handlePage(product.previous.page)}
             >
@@ -288,8 +279,8 @@ export default function Product() {
               <Typography>{`Page: ${currentPage}`}</Typography>
             </Box>
             <Button
-              variant="outlined"
-              color="success"
+              variant='outlined'
+              color='success'
               disabled={isEmpty(product.next)}
               onClick={() => handlePage(product.next.page)}
             >

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import {
   AddProductContainer,
   AddProductFormWrapper,
@@ -8,70 +8,60 @@ import {
   AddProductWrapper,
   AddProductFormInputWrapper,
   AddProductButtonWrapper,
-} from "../../styles/modals/addProductStyle";
+} from '../../styles/modals/addProductStyle';
 
-import { useFormik } from "formik";
+import { useFormik } from 'formik';
 
-import { TextField, Box, Modal, Button, TextareaAutosize } from "@mui/material";
-import addProduct from "../../../../public/images/addProduct.png";
-import {
-  add_product,
-  fetch_limited_product,
-} from "../../../../redux/actions/productActions";
-import { useSelector, useDispatch } from "react-redux";
-import Swal from "sweetalert2";
-import { PlusOne } from "@mui/icons-material";
+import { TextField, Box, Modal, Button, TextareaAutosize } from '@mui/material';
+import addProduct from '../../../../public/images/addProduct.png';
+import { add_product, fetch_limited_product } from '../../../../redux/actions/productActions';
+import { useSelector, useDispatch } from 'react-redux';
+import Swal from 'sweetalert2';
+import { PlusOne } from '@mui/icons-material';
 
 export default function AddProduct() {
   const addProduct = useSelector((state) => state.addProduct);
   const dispatch = useDispatch();
   const [image, setImage] = useState([]);
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState('');
   const login = useSelector((state) => state.login);
   const userId = login.isLogined ? login.userId : null;
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
 
   const initialValues = {
-    brand: "",
-    category: "",
-    model: "",
-    name: "",
-    price: "",
-    quantity: "",
-    description: "",
+    brand: '',
+    category: '',
+    model: '',
+    name: '',
+    price: '',
+    quantity: '',
+    description: '',
   };
 
-  const {
-    values,
-    errors,
-    setFieldValue,
-    touched,
-    handleBlur,
-    handleChange,
-    handleSubmit,
-  } = useFormik({
-    initialValues: initialValues,
-    // validationSchema: loginSchema, // for data validation
-    onSubmit: (values) => {
-      const formData = new FormData();
-      var i = 1;
-      Array.from(image).map((item) => {
-        console.log(item);
-        formData.append(`image${index}`, item);
-        i++;
-      });
-      formData.append("brand", values.brand);
-      formData.append("category", values.category);
-      formData.append("model", values.model);
-      formData.append("name", values.name);
-      formData.append("price", values.price);
-      formData.append("quantity", values.quantity);
-      formData.append("description", values.description);
-      formData.append("addedBy", userId);
-      dispatch(add_product({ value: formData, action: "add" }));
-    },
-  });
+  const { values, errors, setFieldValue, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues: initialValues,
+      // validationSchema: loginSchema, // for data validation
+      onSubmit: (values) => {
+        const formData = new FormData();
+        var i = 1;
+        Array.from(image).map((item) => {
+          console.log(item);
+          formData.append(`image${index}`, item);
+          i++;
+        });
+        formData.append('brand', values.brand);
+        formData.append('category', values.category);
+        formData.append('model', values.model);
+        formData.append('name', values.name);
+        formData.append('price', values.price);
+        formData.append('quantity', values.quantity);
+        formData.append('description', values.description);
+        formData.append('addedBy', userId);
+        dispatch(add_product({ value: formData, action: 'add' }));
+      },
+    });
 
   // useEffect(() => {
   //   if (login.isLogined && login.loading === false) {
@@ -83,29 +73,29 @@ export default function AddProduct() {
   let index = 0;
 
   useEffect(() => {
-    if (addProduct.status === "success") {
+    if (addProduct.status === 'success') {
       Swal.fire({
-        title: "Success!",
+        title: 'Success!',
         text: `${addProduct.message}`,
-        icon: "success",
+        icon: 'success',
       });
       dispatch(
         fetch_limited_product({
           page: 1,
           limit: 5,
-          action: "fetch",
-        })
+          action: 'fetch',
+        }),
       );
-    } else if (addProduct.status === "failed") {
+    } else if (addProduct.status === 'failed') {
       Swal.fire({
-        title: "Error!",
+        title: 'Error!',
         text: `${addProduct.message}`,
-        icon: "error",
+        icon: 'error',
       });
     }
 
     if (addProduct.status !== null) {
-      dispatch(add_product({ value: {}, action: "clean" }));
+      dispatch(add_product({ value: {}, action: 'clean' }));
     }
   }, [addProduct]);
 
@@ -116,39 +106,33 @@ export default function AddProduct() {
           <img src={addProduct} />
         </AddProductImageWrapper>
         <AddProductFormWrapper>
-          <AddProductFormContainer component="form" onSubmit={handleSubmit}>
+          <AddProductFormContainer component='form' onSubmit={handleSubmit}>
             <Box>
               <input
                 onChange={(e) => {
                   setImage(e.target.files);
                 }}
-                type="file"
-                name="pImage"
-                id="pImage"
+                type='file'
+                name='pImage'
+                id='pImage'
                 multiple
               />
               <PreviewImageWrapper>
                 {Array.from(image).map((item) => {
                   index++;
-                  return (
-                    <img
-                      key={index}
-                      src={item ? URL.createObjectURL(item) : null}
-                      alt=""
-                    />
-                  );
+                  return <img key={index} src={item ? URL.createObjectURL(item) : null} alt='' />;
                 })}
               </PreviewImageWrapper>
             </Box>
             <AddProductFormInputWrapper>
               <TextField
-                margin="normal"
+                margin='normal'
                 required
                 fullWidth
-                id="brand"
-                label="Product Brand"
-                name="brand"
-                autoComplete="brand"
+                id='brand'
+                label='Product Brand'
+                name='brand'
+                autoComplete='brand'
                 value={values.brand}
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -157,13 +141,13 @@ export default function AddProduct() {
             </AddProductFormInputWrapper>
             <AddProductFormInputWrapper>
               <TextField
-                margin="normal"
+                margin='normal'
                 required
                 fullWidth
-                id="name"
-                label="Product Name"
-                name="name"
-                autoComplete="name"
+                id='name'
+                label='Product Name'
+                name='name'
+                autoComplete='name'
                 value={values.name}
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -172,14 +156,14 @@ export default function AddProduct() {
             </AddProductFormInputWrapper>
             <AddProductFormInputWrapper>
               <TextField
-                margin="normal"
+                margin='normal'
                 required
                 fullWidth
-                name="category"
-                label="category"
-                type="text"
-                id="category"
-                autoComplete="category"
+                name='category'
+                label='category'
+                type='text'
+                id='category'
+                autoComplete='category'
                 value={values.category}
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -188,14 +172,14 @@ export default function AddProduct() {
             </AddProductFormInputWrapper>
             <AddProductFormInputWrapper>
               <TextField
-                margin="normal"
+                margin='normal'
                 required
                 fullWidth
-                name="model"
-                label="model"
-                type="text"
-                id="model"
-                autoComplete="model"
+                name='model'
+                label='model'
+                type='text'
+                id='model'
+                autoComplete='model'
                 value={values.model}
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -204,14 +188,14 @@ export default function AddProduct() {
             </AddProductFormInputWrapper>
             <AddProductFormInputWrapper>
               <TextField
-                margin="normal"
+                margin='normal'
                 required
                 fullWidth
-                name="price"
-                label="price in paisa"
-                type="number"
-                id="price"
-                autoComplete="price"
+                name='price'
+                label='price (Mrp.)'
+                type='number'
+                id='price'
+                autoComplete='price'
                 value={values.price}
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -220,14 +204,14 @@ export default function AddProduct() {
             </AddProductFormInputWrapper>
             <AddProductFormInputWrapper>
               <TextField
-                margin="normal"
+                margin='normal'
                 required
                 fullWidth
-                name="quantity"
-                label="quantity"
-                type="text"
-                id="quantity"
-                autoComplete="quantity"
+                name='quantity'
+                label='quantity'
+                type='text'
+                id='quantity'
+                autoComplete='quantity'
                 value={values.quantity}
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -235,22 +219,18 @@ export default function AddProduct() {
               />
             </AddProductFormInputWrapper>
             <TextareaAutosize
-              aria-label="minimum height"
+              aria-label='minimum height'
               minRows={10}
-              placeholder="Product Description"
-              style={{ width: "100%" }}
-              id={"description"}
-              name={"description"}
+              placeholder='Product Description'
+              style={{ width: '100%' }}
+              id={'description'}
+              name={'description'}
               value={values.description}
               onChange={handleChange}
               onBlur={handleBlur}
             />
             <AddProductButtonWrapper>
-              <Button
-                type="submit"
-                variant="contained"
-                sx={{ mt: 3, mb: 2, background: "green" }}
-              >
+              <Button type='submit' variant='contained' sx={{ mt: 3, mb: 2, background: 'green' }}>
                 Add Product
               </Button>
             </AddProductButtonWrapper>

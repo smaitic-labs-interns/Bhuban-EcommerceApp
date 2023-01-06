@@ -1,5 +1,6 @@
-import React from "react";
-import { RightContentWrapper } from "Pages/Admin/styles/rightContentStyle";
+import React from 'react';
+import { RightContentWrapper } from 'Pages/Admin/styles/rightContentStyle';
+import PropTypes from 'prop-types';
 
 export default function RightContent({ children, ...res }) {
   return (
@@ -8,3 +9,7 @@ export default function RightContent({ children, ...res }) {
     </>
   );
 }
+
+RightContent.propTypes = {
+  children: PropTypes.any.isRequired,
+};
