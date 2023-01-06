@@ -1,21 +1,17 @@
-import React from "react";
-import { Link } from "@mui/material";
-
+import React from 'react';
+import { Link } from '@mui/material';
+import PropTypes from 'prop-types';
 import {
   MenuItemWrapper,
   MenuItemContainer,
   MenuItemTitle,
   ImageWrapper,
-} from "../styles/customMenuItemStyle";
+} from 'Layout/styles/customMenuItemStyle';
 
 export default function CustomMenuItem({ page }) {
   return (
     <MenuItemWrapper>
-      <Link
-        underline="none"
-        href={page.href}
-        sx={{ textDecoration: "none", color: "#fff" }}
-      >
+      <Link underline='none' href={page.href} sx={{ textDecoration: 'none', color: '#fff' }}>
         <MenuItemContainer key={page.name}>
           {page.icon}
           <MenuItemTitle>{page.name}</MenuItemTitle>
@@ -32,3 +28,7 @@ export default function CustomMenuItem({ page }) {
     </MenuItemWrapper>
   );
 }
+
+CustomMenuItem.propTypes = {
+  page: PropTypes.object.isRequired,
+};

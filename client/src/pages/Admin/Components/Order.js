@@ -1,17 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { Formik, useFormik } from "formik";
+import React, { useState, useEffect } from 'react';
+import { Formik, useFormik } from 'formik';
 
-import { Select, Box, Button, Typography, MenuItem } from "@mui/material";
-import { useSelector, useDispatch } from "react-redux";
-import Swal from "sweetalert2";
-import {
-  OrderWrapper,
-  OrderContainer,
-  DisplayOrderWrapper,
-} from "Pages/Admin/styles/orderStyle";
-import { fetch_all_order, fetch_limited_order } from "Actions/orderActions";
-import OrderTable from "Pages/Admin/Components/OrderTable";
-import { isEmpty } from "Utils";
+import { Select, Box, Button, Typography, MenuItem } from '@mui/material';
+import { useSelector, useDispatch } from 'react-redux';
+import Swal from 'sweetalert2';
+import { OrderWrapper, OrderContainer, DisplayOrderWrapper } from 'Pages/Admin/styles/orderStyle';
+import { fetch_limited_order } from 'Actions/orderActions';
+import OrderTable from 'Pages/Admin/Components/OrderTable';
+import { isEmpty } from 'Utils';
 
 export default function Order() {
   const limitedOrder = useSelector((state) => state.limitedOrder);
@@ -33,17 +29,13 @@ export default function Order() {
       : 1;
 
   useEffect(() => {
-    dispatch(
-      fetch_limited_order({ page: 1, limit: noOfOrder, action: "fetch" })
-    );
+    dispatch(fetch_limited_order({ page: 1, limit: noOfOrder, action: 'fetch' }));
   }, []);
 
   const [noOfOrder, setNoOforder] = useState(5);
 
   const handlePage = (page) => {
-    dispatch(
-      fetch_limited_order({ page: page, limit: noOfOrder, action: "fetch" })
-    );
+    dispatch(fetch_limited_order({ page: page, limit: noOfOrder, action: 'fetch' }));
   };
 
   useEffect(() => {
@@ -60,10 +52,10 @@ export default function Order() {
       fetch_limited_order({
         page: currentPage,
         limit: noOfOrder,
-        action: "fetch",
-      })
+        action: 'fetch',
+      }),
     );
-  }, [noOfOrder]);
+  }, [noOfOrder, currentPage, dispatch]);
 
   return (
     <OrderWrapper>
@@ -71,9 +63,9 @@ export default function Order() {
         <DisplayOrderWrapper>
           Display
           <Select
-            sx={{ height: "1.5rem", margin: "0.5rem" }}
-            id="noOfOrder"
-            name="noOfOrder"
+            sx={{ height: '1.5rem', margin: '0.5rem' }}
+            id='noOfOrder'
+            name='noOfOrder'
             value={noOfOrder}
             onChange={(e) => {
               setNoOforder(e.target.value);
@@ -92,18 +84,18 @@ export default function Order() {
             <OrderTable orders={order.all} />
             <Box
               sx={{
-                display: "flex",
-                alignItems: "center",
-                width: "100%",
-                border: "solid green 2px",
-                margin: "2rem",
-                justifyContent: "space-between",
-                padding: "1rem",
+                display: 'flex',
+                alignItems: 'center',
+                width: '100%',
+                border: 'solid green 2px',
+                margin: '2rem',
+                justifyContent: 'space-between',
+                padding: '1rem',
               }}
             >
               <Button
-                variant="outlined"
-                color="primary"
+                variant='outlined'
+                color='primary'
                 disabled={isEmpty(order.previous)}
                 onClick={() => handlePage(order.previous.page)}
               >
@@ -113,8 +105,8 @@ export default function Order() {
                 <Typography>{`Page: ${currentPage}`}</Typography>
               </Box>
               <Button
-                variant="outlined"
-                color="success"
+                variant='outlined'
+                color='success'
                 disabled={isEmpty(order.next)}
                 onClick={() => handlePage(order.next.page)}
               >
@@ -124,7 +116,7 @@ export default function Order() {
           </>
         ) : (
           <Box>
-            <Typography>{"No order Found"}</Typography>
+            <Typography>{'No order Found'}</Typography>
           </Box>
         )}
       </OrderContainer>

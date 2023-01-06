@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Modal, Typography } from '@mui/material';
+import { Modal, Typography } from '@mui/material';
 import { RemoveRedEye, Close } from '@mui/icons-material';
 
 import {
@@ -10,6 +10,7 @@ import {
   ModalContainer,
   ModalHeaderWrapper,
 } from './styles/modalStyle';
+import PropTypes from 'prop-types';
 
 export default function CustomModal({ name, initially, title }) {
   const [open, setOpen] = useState(() => (initially ? true : false));
@@ -42,3 +43,9 @@ export default function CustomModal({ name, initially, title }) {
     </ModalWrapper>
   );
 }
+
+CustomModal.propTypes = {
+  name: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  initially: PropTypes.bool.isRequired,
+};

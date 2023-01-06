@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Box, Modal, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 import { RemoveRedEye, Close } from '@mui/icons-material';
+import PropTypes from 'prop-types';
 
 import {
   ViewOrderModalWrapper,
@@ -60,6 +61,9 @@ export default function ViewOrder({ order, initially }) {
                 </ContentText>
                 <ContentText>
                   District: <br /> <span>{district}</span>
+                </ContentText>
+                <ContentText>
+                  City: <br /> <span>{city}</span>
                 </ContentText>
                 <ContentText>
                   Ward: <br /> <span>{ward}</span>
@@ -134,3 +138,8 @@ export default function ViewOrder({ order, initially }) {
     </div>
   );
 }
+
+ViewOrder.propTypes = {
+  order: PropTypes.object.isRequired,
+  initially: PropTypes.bool.isRequired,
+};

@@ -70,6 +70,7 @@ export default function ProductCard({ product }) {
     </CardWrapper>
   );
 }
+
 ProductCard.propTypes = {
   product: PropTypes.object.isRequired,
 };
