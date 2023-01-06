@@ -86,6 +86,14 @@ const place_order = async (
   try {
     const cart = await Store.cart.find_active_cart(userId);
     if (!cart) throw new Error(`No active cart Found for User Id: ${userId}`);
+    cart.products.map(async (product) => {
+      const res = await Store.product.find_product(product.productId);
+      if (product.quantity > res.quantity) {
+        throw new Error(
+          `Not sufficient quantity on the store for product ID : ${product.productId}`
+        );
+      }
+    });
     const address = AddressSchema.Address(shippingAddress);
     const order = Schema.Order(cart, address, paymentType, shipmentType);
 
@@ -101,7 +109,6 @@ const place_order = async (
           "decrease"
         );
       }
-      // Store.cart.delete_cart(cart.id);
       if (updCartSts) return `Your order has been placed`;
     }
     throw new Error("Error Occurs placing Order, Try again later!");
@@ -119,7 +126,13 @@ const shippingAddress = {
   houseNo: 12,
 };
 
-// place_order("027dc63e-a824-418d-9f52-a956b8a2b8be", shippingAddress, "CASH", "International");
+/**
+ * *Update Order Quantity
+ * @param {*} orderId
+ * @param {productId, quantity} product
+ * @param {add/remove} action
+ * @returns success/error message
+ */
 
 const update_quantity_order = async (orderId, product, action) => {
   try {
@@ -142,7 +155,6 @@ const update_quantity_order = async (orderId, product, action) => {
                 "decrease"
               );
               if (updRes && (await Store.order.update_order(orderId, order))) {
-                console.log("Quantity in order has been added sucessfully");
                 return "Quantity in order has been added sucessfully";
               }
               throw new Error(`Error Occurs while Placing Order`);
@@ -185,7 +197,6 @@ const update_quantity_order = async (orderId, product, action) => {
     throw err;
   }
 };
-// update_quantity_order("a596e5e0-4007-4092-b6a1-e3f035dd7732", {productId: "fed0f0e2-3a16-488a-bb23-a0fa7b2840f9", "quantity": 5}, "add")
 
 /* Update Address
 @params
@@ -220,17 +231,8 @@ const update_address = async (orderId, newAddress) => {
   }
 };
 
-const newAddress = {
-  country: "Nepal",
-  province: "Bagmati",
-  city: "Lalitpur",
-  ward: "23",
-  tole: "BanglaMukhi",
-  houseNo: 42,
-};
-// update_address("a596e5e0-4007-4092-b6a1-e3f035dd7732", newAddress);
-
-/* Update Payment 
+/**
+ * *Update Payment 
 @params
     1) orderId: Unique Id,
     2) new_payment: Object containing payment details, paymentObject

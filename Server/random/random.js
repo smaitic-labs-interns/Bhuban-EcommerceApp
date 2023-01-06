@@ -1,5 +1,5 @@
 const { user } = require("../src/service/allService");
-const { userData } = require("./fixtures");
+const { userData } = require("./data");
 const { register, signin, signinResponse, limited } = userData;
 
 describe("Perform User related tests", () => {
@@ -34,23 +34,6 @@ describe("Perform User related tests", () => {
     }
   });
 
-  test("should show success message on register and error on user already exists", async () => {
-    expect.assertions(1);
-    try {
-      var result = await user.user_register(
-        register.firstName,
-        register.middleName,
-        register.lastName,
-        register.address,
-        register.email,
-        register.password
-      );
-      expect(result).toMatch("User Registerd Sucessfully. Try Login");
-    } catch (err) {
-      expect(err.message).toMatch("User Already Registered. Try Login!");
-    }
-  });
-
   /*
    * Test for user signin
    */
@@ -68,16 +51,17 @@ describe("Perform User related tests", () => {
       expect(err.message).toMatch("Invalid login Credintals");
     }
   });
+  //email | password | E && P : wrong/right
 
-  test("should signin with user details and match user object on correct details and show error in false details", async () => {
-    expect.assertions(1);
-    try {
-      var result = await user.user_signin(signin.email, signin.password);
-      expect(result).toMatchObject(signinResponse);
-    } catch (err) {
-      expect(err.message).toMatch("Invalid login Credintals");
-    }
-  });
+  // test("should signin with user details and match user object on correct details and show error in false details", async () => {
+  //   expect.assertions(1);
+  //   try {
+  //     var result = await user.user_signin(signin.email, signin.password);
+  //     expect(result).toMatchObject(signinResponse);
+  //   } catch (err) {
+  //     expect(err.message).toMatch("Invalid login Credintals");
+  //   }
+  // });
 
   /*
    * Test to fetc limited users

@@ -4,11 +4,11 @@ const userData = {
     middleName: "Prasad",
     lastName: "Yadav",
     address: "Dhapakhel-23, Lalitpur nepal",
-    email: "bhubn@mymail.com",
+    email: "bhubn@mmail.com",
     password: "bhubany",
   },
   signin: {
-    email: "bhubn@mymail.com",
+    email: "bhubn@mmail.com",
     password: "bhubanay",
   },
   signinResponse: {
@@ -16,7 +16,7 @@ const userData = {
     middlename: "Prasad",
     lastname: "Yadav",
     address: "Dhapakhel-23, Lalitpur nepal",
-    email: "bhubn@mymail.com",
+    email: "bhubn@mmail.com",
     password: "",
   },
   limited: {
