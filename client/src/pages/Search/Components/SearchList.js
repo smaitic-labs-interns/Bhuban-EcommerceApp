@@ -1,8 +1,7 @@
 import React from 'react';
-import ProductCard from './ProductCard';
 import { Typography } from '@mui/material';
 import PropTypes from 'prop-types';
-
+import { ProductCard } from 'components';
 import {
   ProductCardsWrapper,
   ProductsCardContainer,
