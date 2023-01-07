@@ -105,23 +105,24 @@ export const track_order =
         return dispatch({ type: TRACK_ORDER_REQUEST });
       }
       dispatch({ type: TRACK_ORDER_REQUEST });
+      var response = {};
       switch (track.toLowerCase()) {
         case 'order':
-          var response = await axiosInstance({
+          response = await axiosInstance({
             endpoints: order.track,
             query: { id: orderId },
           });
           break;
 
         case 'refund':
-          var response = await axiosInstance({
+          response = await axiosInstance({
             endpoints: order.refund,
             query: { id: orderId },
           });
           break;
 
         default:
-          var response = await axiosInstance({
+          response = await axiosInstance({
             endpoints: order.track,
             query: { id: orderId },
           });

@@ -203,7 +203,7 @@ export const search_product =
     } catch (err) {
       dispatch({
         type: SEARCH_PRODUCT_FAILED,
-        payload: err.response,
+        payload: err.response.data,
       });
     }
   };
