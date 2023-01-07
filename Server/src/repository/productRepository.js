@@ -177,7 +177,7 @@ const find_product = async (productId) => {
       productId,
     ]);
     if (product.rowCount > 0) {
-      product.price /= 100;
+      product.rows[0].price /= 100;
       let image = await con.query(
         "SELECT * FROM product_images WHERE productId = $1",
         [productId]

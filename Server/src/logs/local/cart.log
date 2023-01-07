@@ -129,3 +129,52 @@
     at runMicrotasks (<anonymous>)
     at processTicksAndRejections (node:internal/process/task_queues:96:5)
     at async get_user_cart (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/cartApi.js:34:17)
+[[31merror[39m] cart: 1/7/2023, 9:54:58 PM  Error: Error occurs Try adding Product in cart.
+    at Object.get_user_cart (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/cartService.js:44:11)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async get_user_cart (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/cartApi.js:34:17)
+[[31merror[39m] cart: 1/7/2023, 9:54:58 PM  Error: Error occurs Try adding Product in cart.
+    at Object.get_user_cart (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/cartService.js:44:11)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async get_user_cart (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/cartApi.js:34:17)
+[[31merror[39m] cart: 1/7/2023, 9:55:23 PM  Error: Error occurs Try adding Product in cart.
+    at Object.get_user_cart (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/cartService.js:44:11)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async get_user_cart (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/cartApi.js:34:17)
+[[31merror[39m] cart: 1/7/2023, 9:56:09 PM  Error: Error occurs Try adding Product in cart.
+    at Object.get_user_cart (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/cartService.js:44:11)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async get_user_cart (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/cartApi.js:34:17)
+[[31merror[39m] cart: 1/7/2023, 9:56:09 PM  Error: Error occurs Try adding Product in cart.
+    at Object.get_user_cart (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/cartService.js:44:11)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async get_user_cart (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/cartApi.js:34:17)
+[[31merror[39m] cart: 1/7/2023, 9:56:12 PM  Error: Error occurs Try adding Product in cart.
+    at Object.get_user_cart (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/cartService.js:44:11)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async get_user_cart (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/cartApi.js:34:17)
+[[31merror[39m] cart: 1/7/2023, 9:56:13 PM  Error: Error occurs Try adding Product in cart.
+    at Object.get_user_cart (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/cartService.js:44:11)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async get_user_cart (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/cartApi.js:34:17)
+[[31merror[39m] cart: 1/7/2023, 9:57:42 PM  Error: Error occurs Try adding Product in cart.
+    at Object.get_user_cart (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/cartService.js:44:11)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async get_user_cart (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/cartApi.js:34:17)
+[[31merror[39m] cart: 1/7/2023, 9:57:42 PM  Error: Error occurs Try adding Product in cart.
+    at Object.get_user_cart (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/cartService.js:44:11)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async get_user_cart (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/cartApi.js:34:17)
+[[31merror[39m] cart: 1/7/2023, 9:59:31 PM  Error: Error occurs Try adding Product in cart.
+    at Object.get_user_cart (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/cartService.js:44:11)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async get_user_cart (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/cartApi.js:34:17)
