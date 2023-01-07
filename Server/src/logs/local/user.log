@@ -1,0 +1,63 @@
+[[31merror[39m] user: 1/7/2023, 4:01:03 PM  Error: Invalid login Credintals
+    at Object.find_user_from_credintals (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/repository/userRepository.js:98:11)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Object.user_signin (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/userService.js:110:22)
+    at async user_login (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/userApi.js:53:17)
+[[32minfo[39m] user: 1/7/2023, 4:01:12 PM  User: bhuban.smaitic@gmail.com login Sucessfully
+[[32minfo[39m] user: 1/7/2023, 4:01:12 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/7/2023, 4:20:30 PM  User: bhuban.smaitic@gmail.com login Sucessfully
+[[32minfo[39m] user: 1/7/2023, 4:20:30 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/7/2023, 4:21:17 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/7/2023, 4:24:41 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/7/2023, 4:26:07 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/7/2023, 4:27:09 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/7/2023, 4:32:02 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/7/2023, 4:34:09 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/7/2023, 4:36:43 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/7/2023, 4:36:44 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/7/2023, 4:41:49 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/7/2023, 4:59:39 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/7/2023, 5:00:47 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/7/2023, 5:01:32 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/7/2023, 5:02:10 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/7/2023, 5:03:20 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/7/2023, 5:04:27 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/7/2023, 5:04:59 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/7/2023, 5:15:05 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/7/2023, 5:23:22 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/7/2023, 5:24:10 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/7/2023, 5:24:47 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/7/2023, 5:25:36 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/7/2023, 5:26:18 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/7/2023, 5:27:02 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/7/2023, 5:27:24 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/7/2023, 5:27:51 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/7/2023, 5:28:33 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/7/2023, 5:28:51 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/7/2023, 5:35:56 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/7/2023, 5:37:56 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/7/2023, 5:40:29 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/7/2023, 5:40:54 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/7/2023, 5:41:15 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/7/2023, 5:42:06 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/7/2023, 5:44:22 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/7/2023, 5:47:34 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/7/2023, 5:49:04 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/7/2023, 5:57:15 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/7/2023, 5:57:26 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/7/2023, 5:58:36 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/7/2023, 6:11:03 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/7/2023, 6:11:03 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/7/2023, 6:11:10 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/7/2023, 6:11:13 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/7/2023, 6:11:44 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/7/2023, 6:11:44 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/7/2023, 6:11:54 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/7/2023, 6:12:24 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/7/2023, 6:16:23 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/7/2023, 6:17:29 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/7/2023, 6:18:04 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/7/2023, 6:19:50 PM  User: random@gmail.com login Sucessfully
+[[32minfo[39m] user: 1/7/2023, 8:14:47 PM  User: bhuban.smaitic@gmail.com login Sucessfully
+[[32minfo[39m] user: 1/7/2023, 8:14:48 PM  Sucessfully fetched all users

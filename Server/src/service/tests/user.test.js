@@ -2,19 +2,7 @@ const { user } = require("../allService");
 const { userData } = require("./data");
 const { register, signin, signinResponse, limited } = userData;
 
-const createUser = jest.fn();
-const getUser = jest.fn();
-
-const app = user({
-  createUser,
-  getUser,
-});
-
 describe("Perform User related tests", () => {
-  beforeEach(() => {
-    createUser.mockReset();
-    createUser.mockResolvedValue(0);
-  });
   /*
    * Test for user Register
    */

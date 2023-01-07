@@ -57,8 +57,8 @@ const product_validation = ({
     brand: Joi.string().required(),
     name: Joi.string(),
     description: Joi.string(),
-    price: Joi.number().required(),
-    quantity: Joi.number().required(),
+    price: Joi.number().precision(2).min(0.1).required(),
+    quantity: Joi.number().min(1).required(),
     addedBy: Joi.string().required(),
   });
   return product_rule.validate({
