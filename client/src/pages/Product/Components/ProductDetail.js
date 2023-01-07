@@ -1,9 +1,9 @@
 import { Box, Button, TextField, Typography } from '@mui/material';
 import React, { useMemo, useState } from 'react';
-import cart from '../../../public/images/cart.png';
+import cart from 'public/images/cart.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import { fetch_user_Cart, add_to_cart } from '../../../redux/actions/cartActions';
+import { fetch_user_Cart, add_to_cart } from 'redux/actions/cartActions';
 
 import Swal from 'sweetalert2';
 import PropTypes from 'prop-types';
@@ -11,6 +11,7 @@ import PropTypes from 'prop-types';
 import {
   ProductDetailWrapper,
   ProductDetailContainer,
+  ProductDetails,
   ImageWrapper,
   ImageContainer,
   ImageControlsWrapper,
@@ -34,6 +35,7 @@ import {
   ContentActionBtnWrapper,
   ProductSpecificationWrapper,
   ProductSpecificationContainer,
+  ProductDescriptionWrapper,
 } from '../styles/productDetailStyle';
 import {
   Star,
@@ -190,155 +192,162 @@ export default function ProductDetail({ product }) {
   return (
     <ProductDetailWrapper>
       <ProductDetailContainer>
-        <ImageWrapper>
-          <ImageContainer>
-            {images
-              ? images.map((item) => {
-                  index++;
-                  return (
-                    <Box key={item.id} sx={target === index ? imageStyle : { display: 'none' }}>
-                      <img
-                        src={`${process.env.REACT_APP_BACKEND_ENDPOINT}${item.imageurl}`}
-                        alt={item.alttext}
-                      />
-                    </Box>
-                  );
-                })
-              : ''}
-          </ImageContainer>
-          <ImageControlsWrapper>
-            <ImageControlsLeftArrowWrapper>
-              <Button variant='contained' onClick={handlePrevious}>
-                {' << '}
-              </Button>
-            </ImageControlsLeftArrowWrapper>
-            <ImageControlsImageWrapper>
-              <Typography>{`${target} of ${index}`}</Typography>
-            </ImageControlsImageWrapper>
-            <ImageControlsRightArrowWrapper>
-              <Button variant='contained' onClick={handleNext}>
-                {' >> '}
-              </Button>
-            </ImageControlsRightArrowWrapper>
-          </ImageControlsWrapper>
-        </ImageWrapper>
-        <ContentWrapper>
-          <ContentTitleWrapper>
-            <Typography variant='h3'>{model + '-' + category}</Typography>
-          </ContentTitleWrapper>
-          <ContentRatingWrapper>
-            <ContentRatingStarWrapper>
-              <Star />
-              <Star />
-              <Star />
-              <Star />
-              <StarHalf />
-              <ContentRatingDescWrapper>
-                <Typography>{'10 Ratings | '}</Typography>
-                <Typography>{'25 answered questions'}</Typography>
-              </ContentRatingDescWrapper>
-            </ContentRatingStarWrapper>
-          </ContentRatingWrapper>
-          <ContentBrandWrapper>
-            <Typography>{'Brand: '}</Typography>
-            <Typography>{brand}</Typography>
-            <Typography>{'| More From This Brand'}</Typography>
-          </ContentBrandWrapper>
-          <ContentPriceWrapper>
-            <ContentCurrentPriceWrapper>
-              <Typography variant='h5'>{`Rs. ${price}`}</Typography>
-            </ContentCurrentPriceWrapper>
-            <ContentPreviousPriceWrapper>
-              <Typography>{'Rs. 99999'}</Typography>
-              <ContentDiscountPercentWrapper>
-                <Typography>{'(40%)'}</Typography>
-              </ContentDiscountPercentWrapper>
-            </ContentPreviousPriceWrapper>
-          </ContentPriceWrapper>
-          <ContentPromotionWrapper>
-            <Typography>{'For Promotion'}</Typography>
-          </ContentPromotionWrapper>
-          <ContentQuantityWrapper>
-            <ContentQuantityActionWrapper>
-              <Button variant='outlined' color='error' onClick={handleDecrease}>
-                <RemoveOutlined />
-              </Button>
-              <TextField id='quantity' label='My Quantity' value={quty} />
-              <Button variant='outlined' color='success' onClick={handleIncrease}>
-                <Add />
-              </Button>
-            </ContentQuantityActionWrapper>
-            <ContentAvailableQuantityWrapper>
-              {`${quantity} items are available on the stock`}
-            </ContentAvailableQuantityWrapper>
-            <ContentActionBtnWrapper>
-              <Button
-                disabled={quantity <= 1}
-                variant='contained'
-                color='success'
-                onClick={handleBuyNow}
-              >
-                <ShoppingCartCheckout />
-                {' Buy Now'}
-              </Button>
-              <Button
-                disabled={quantity <= 0}
-                variant='contained'
-                color='primary'
-                onClick={handleAddToCart}
-              >
-                <ShoppingCart />
-                {' ADD to Cart'}
-              </Button>
-            </ContentActionBtnWrapper>
-          </ContentQuantityWrapper>
-        </ContentWrapper>
-        <Box>
-          <Link to={'/cart'} style={{ textDecoration: 'none' }}>
-            <Box
-              sx={{
-                position: 'absolute',
-                right: '10px',
-                top: '10px',
-                boxShadow: '0px 1px 16px 2px #1976d2',
-              }}
-            >
+        <ProductDetails>
+          <ImageWrapper>
+            <ImageContainer>
+              {images
+                ? images.map((item) => {
+                    index++;
+                    return (
+                      <Box key={item.id} sx={target === index ? imageStyle : { display: 'none' }}>
+                        <img
+                          src={`${process.env.REACT_APP_BACKEND_ENDPOINT}${item.imageurl}`}
+                          alt={item.alttext}
+                        />
+                      </Box>
+                    );
+                  })
+                : ''}
+            </ImageContainer>
+            <ImageControlsWrapper>
+              <ImageControlsLeftArrowWrapper>
+                <Button variant='contained' onClick={handlePrevious}>
+                  {' << '}
+                </Button>
+              </ImageControlsLeftArrowWrapper>
+              <ImageControlsImageWrapper>
+                <Typography>{`${target} of ${index}`}</Typography>
+              </ImageControlsImageWrapper>
+              <ImageControlsRightArrowWrapper>
+                <Button variant='contained' onClick={handleNext}>
+                  {' >> '}
+                </Button>
+              </ImageControlsRightArrowWrapper>
+            </ImageControlsWrapper>
+          </ImageWrapper>
+          <ContentWrapper>
+            <ContentTitleWrapper>
+              <Typography variant='h3'>{model + '-' + category}</Typography>
+            </ContentTitleWrapper>
+            <ContentRatingWrapper>
+              <ContentRatingStarWrapper>
+                <Star />
+                <Star />
+                <Star />
+                <Star />
+                <StarHalf />
+                <ContentRatingDescWrapper>
+                  <Typography>{'10 Ratings | '}</Typography>
+                  <Typography>{'25 answered questions'}</Typography>
+                </ContentRatingDescWrapper>
+              </ContentRatingStarWrapper>
+            </ContentRatingWrapper>
+            <ContentBrandWrapper>
+              <Typography>{'Brand: '}</Typography>
+              <Typography>{brand}</Typography>
+              <Typography>{'| More From This Brand'}</Typography>
+            </ContentBrandWrapper>
+            <ContentPriceWrapper>
+              <ContentCurrentPriceWrapper>
+                <Typography variant='h5'>{`Rs. ${price}`}</Typography>
+              </ContentCurrentPriceWrapper>
+              <ContentPreviousPriceWrapper>
+                <Typography>{'Rs. 99999'}</Typography>
+                <ContentDiscountPercentWrapper>
+                  <Typography>{'(40%)'}</Typography>
+                </ContentDiscountPercentWrapper>
+              </ContentPreviousPriceWrapper>
+            </ContentPriceWrapper>
+            <ContentPromotionWrapper>
+              <Typography>{'For Promotion'}</Typography>
+            </ContentPromotionWrapper>
+            <ContentQuantityWrapper>
+              <ContentQuantityActionWrapper>
+                <Button variant='outlined' color='error' onClick={handleDecrease}>
+                  <RemoveOutlined />
+                </Button>
+                <TextField id='quantity' label='My Quantity' value={quty} />
+                <Button variant='outlined' color='success' onClick={handleIncrease}>
+                  <Add />
+                </Button>
+              </ContentQuantityActionWrapper>
+              <ContentAvailableQuantityWrapper>
+                {`${quantity} items are available on the stock`}
+              </ContentAvailableQuantityWrapper>
+              <ContentActionBtnWrapper>
+                <Button
+                  disabled={quantity <= 1}
+                  variant='contained'
+                  color='success'
+                  onClick={handleBuyNow}
+                >
+                  <ShoppingCartCheckout />
+                  {' Buy Now'}
+                </Button>
+                <Button
+                  disabled={quantity <= 0}
+                  variant='contained'
+                  color='primary'
+                  onClick={handleAddToCart}
+                >
+                  <ShoppingCart />
+                  {' ADD to Cart'}
+                </Button>
+              </ContentActionBtnWrapper>
+            </ContentQuantityWrapper>
+          </ContentWrapper>
+          <Box>
+            <Link to={'/cart'} style={{ textDecoration: 'none' }}>
               <Box
                 sx={{
-                  background: 'red',
-                  padding: '4px 8px',
-                  borderRadius: '50%',
-                  color: 'white',
                   position: 'absolute',
-                  top: 0,
-                  right: '5px',
+                  right: '10px',
+                  top: '10px',
+                  boxShadow: '0px 1px 16px 2px #1976d2',
                 }}
               >
-                {userCart.noOfProducts}
+                <Box
+                  sx={{
+                    background: 'red',
+                    padding: '4px 8px',
+                    borderRadius: '50%',
+                    color: 'white',
+                    position: 'absolute',
+                    top: 0,
+                    right: '5px',
+                  }}
+                >
+                  {userCart.noOfProducts}
+                </Box>
+                <Box
+                  sx={{
+                    color: 'white',
+                    marginTop: '3px',
+                    boxShadow: '',
+                  }}
+                >
+                  <img src={cart} alt={'cart'} width={'60px'} height={'60px'}></img>
+                </Box>
               </Box>
-              <Box
-                sx={{
-                  color: 'white',
-                  marginTop: '3px',
-                  boxShadow: '',
-                }}
-              >
-                <img src={cart} alt={'cart'} width={'60px'} height={'60px'}></img>
-              </Box>
-            </Box>
-          </Link>
-        </Box>
-        <ProductSpecificationWrapper>
-          <ProductSpecificationContainer>
-            <Typography>Category: {category} </Typography>
-            <Typography>Model : {model}</Typography>
-            <Typography>Brand: {brand}</Typography>
-            <Typography>Price: Rs. {price / 100}</Typography>
-            <Typography>Rating: {rating}</Typography>
-            <Typography>Available Quantity: {quantity}</Typography>
-            <Typography>{description}</Typography>
-          </ProductSpecificationContainer>
-        </ProductSpecificationWrapper>
+            </Link>
+          </Box>
+          <ProductSpecificationWrapper>
+            <ProductSpecificationContainer>
+              <Typography>Category: {category} </Typography>
+              <Typography>Model : {model}</Typography>
+              <Typography>Brand: {brand}</Typography>
+              <Typography>Price: Rs. {price}</Typography>
+              <Typography>Rating: {rating}</Typography>
+              <Typography>Available Quantity: {quantity}</Typography>
+            </ProductSpecificationContainer>
+          </ProductSpecificationWrapper>
+        </ProductDetails>
+        <ProductDescriptionWrapper>
+          <Typography fontWeight={600} fontSize={'20px'}>
+            {'Description'}
+          </Typography>
+          <div dangerouslySetInnerHTML={{ __html: description }}></div>
+        </ProductDescriptionWrapper>
       </ProductDetailContainer>
     </ProductDetailWrapper>
   );
