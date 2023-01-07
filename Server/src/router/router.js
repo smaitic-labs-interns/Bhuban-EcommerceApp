@@ -27,6 +27,7 @@ router.get("/cart/all/", api.cart.get_all_cart);
 router.get("/cart/limited/", api.cart.get_limited_cart);
 router.get("/cart/one/", api.cart.get_user_cart);
 router.post("/cart/addProduct", api.cart.add_product_to_cart);
+router.delete("/cart/removeProduct", api.cart.remove_product_from_cart);
 router.put("/cart/updateQuantity", api.cart.update_quantity_in_cart);
 
 // for order

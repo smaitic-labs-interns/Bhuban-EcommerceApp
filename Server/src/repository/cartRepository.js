@@ -1,5 +1,10 @@
 const con = require("../config/postGres");
 
+/**
+ * * Read all carts
+ * @returns array of carts || error message
+ */
+
 const read_all_cart = async () => {
   try {
     let carts = await con.query("SELECT * FROM carts");
@@ -14,6 +19,12 @@ const read_all_cart = async () => {
     throw err;
   }
 };
+
+/**
+ * *Read cart from provided pagenumber to limit
+ * @param {page:number, limit:number} param0
+ * @returns aaray of cart || error message
+ */
 
 const read_limited_cart = async ({ page, limit }) => {
   try {
@@ -56,11 +67,22 @@ const read_limited_cart = async ({ page, limit }) => {
   }
 };
 
+/**
+ * * Create cart and add first product
+ * @param {*} cart
+ * @returns true || error message
+ */
+
 const add_cart = async (cart) => {
   try {
     let addCartRes = await con.query(
       `INSERT INTO carts (id, userId, totalBill, status) VALUES ($1, $2, $3, $4)`,
-      [cart.id, cart.userId, cart.totalBill * 100, cart.status]
+      [
+        cart.id,
+        cart.userId,
+        Math.round(cart.totalBill).toFixed(2) * 100,
+        cart.status,
+      ]
     );
     if (addCartRes.rowCount > 0) {
       for (product of cart.products) {
@@ -74,13 +96,44 @@ const add_cart = async (cart) => {
     }
     throw new Error(`Error occurs adding Cart`);
   } catch (err) {
-    console.log(`${err.name} => ${err.message}`);
     throw err;
   }
 };
 
+/**
+ * * Remove product from cart
+ * @param {UUID} cartId
+ * @param {UUID} productId
+ * @returns true || error message
+ */
+
+const remove_product_from_cart = async (cartId, productId) => {
+  try {
+    const cart = await con.query(
+      "SELECT * FROM cart_products WHERE cartId= $1 AND productId=$2",
+      [cartId, productId]
+    );
+    if (cart.rowCount > 0) {
+      const delcartProdRes = await con.query(
+        "DELETE FROM cart_products WHERE cartId= $1 AND productId=$2",
+        [cartId, productId]
+      );
+      if (delcartProdRes.rowCount > 0) return true;
+      throw new Error(`Error occur removing cart products`);
+    }
+    throw new Error(`No cart found for ID: ${cartId}`);
+  } catch (err) {
+    throw err;
+  }
+};
+
+/**
+ * * Find cart using cart ID
+ * @param {*} cartId
+ * @returns cart object
+ */
+
 const find_cart = async (cartId) => {
-  // find cart from id
   try {
     let cart = await con.query(`SELECT * FROM carts WHERE id =$1`, [cartId]);
     if (cart.rowCount > 0) {
@@ -111,43 +164,63 @@ const find_cart = async (cartId) => {
   }
 };
 
+/**
+ * * Update Old cart with new one
+ * @param {*} newCart
+ * @returns true || error message
+ */
+
 const update_cart = async (newCart) => {
   try {
+    // console.log(newCart);
     // const text = '`UPDATE carts SET totalBill =$1 , status =$2 WHERE id =$3` RETURNING *'
     // const values = [newCart.totalBill, newCart.status, cartId]
     // let updateCartRes = await con.query(text, values);
     let updateCartRes = await con.query(
       `UPDATE carts SET totalBill =$1 , status =$2 WHERE id =$3`,
-      [newCart.totalBill * 100, newCart.status, newCart.id]
+      [
+        Math.round(newCart.totalBill).toFixed(2) * 100,
+        newCart.status,
+        newCart.id,
+      ]
     );
     let res = false;
     if (updateCartRes.rowCount > 0) {
-      for (product of newCart.products) {
-        let productRes = await con.query(
-          `SELECT * FROM cart_products WHERE cartId = $1 AND productId = $2 `,
-          [newCart.id, product.productId]
-        );
-        if (productRes.rowCount > 0) {
-          let updateQuantityRes = await con.query(
-            `UPDATE cart_products SET quantity =$1 WHERE cartId =$2 AND productId = $3 `,
-            [product.quantity, newCart.id, product.productId]
+      if (newCart.products.length !== 0) {
+        for (product of newCart.products) {
+          let productRes = await con.query(
+            `SELECT * FROM cart_products WHERE cartId = $1 AND productId = $2 `,
+            [newCart.id, product.productId]
           );
-          if (updateQuantityRes.rowCount > 0) res = true;
-        } else {
-          let updateProduct = await con.query(
-            `INSERT INTO cart_products (cartId, productId, quantity) VALUES ($1, $2, $3)`,
-            [newCart.id, product.productId, product.quantity]
-          );
-          if (updateProduct.rowCount > 0) res = true;
+          if (productRes.rowCount > 0) {
+            let updateQuantityRes = await con.query(
+              `UPDATE cart_products SET quantity =$1 WHERE cartId =$2 AND productId = $3 `,
+              [product.quantity, newCart.id, product.productId]
+            );
+            if (updateQuantityRes.rowCount > 0) res = true;
+          } else {
+            let updateProduct = await con.query(
+              `INSERT INTO cart_products (cartId, productId, quantity) VALUES ($1, $2, $3)`,
+              [newCart.id, product.productId, product.quantity]
+            );
+            if (updateProduct.rowCount > 0) res = true;
+          }
         }
+        return res;
       }
-      return res;
+      return true;
     }
     throw new Error(`Error occur Updating Cart`);
   } catch (err) {
     throw err;
   }
 };
+
+/**
+ * * Delete cart
+ * @param {*} cartId
+ * @returns  true || error message
+ */
 
 const delete_cart = async (cartId) => {
   try {
@@ -171,6 +244,13 @@ const delete_cart = async (cartId) => {
   }
 };
 
+/**
+ * * Update Cart Status
+ * @param {*} cartId
+ * @param {*} status
+ * @returns true | error message
+ */
+
 const update_cart_status = async (cartId, status) => {
   try {
     const cart = await con.query("SELECT * FROM carts WHERE id= $1", [cartId]);
@@ -186,6 +266,12 @@ const update_cart_status = async (cartId, status) => {
     throw err;
   }
 };
+
+/**
+ * * Find Active user cart
+ * @param {*} userId
+ * @returns cart object || error message
+ */
 
 const find_active_cart = async (userId) => {
   try {
@@ -226,6 +312,7 @@ module.exports = {
   read_all_cart,
   read_limited_cart,
   add_cart,
+  remove_product_from_cart,
   find_cart,
   update_cart,
   delete_cart,

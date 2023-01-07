@@ -56,6 +56,19 @@ const add_product_to_cart = async (req, resp) => {
   }
 };
 
+const remove_product_from_cart = async (req, resp) => {
+  try {
+    const userId = req.query.id;
+    const productId = req.query.pid;
+    const res = await Service.cart.remove_product_from_cart(userId, productId);
+    logger.log("info", `Product removed sucessfully from cart: ${userId}`);
+    resp.status(200).send(res);
+  } catch (err) {
+    logger.error("error", err);
+    resp.status(400).send(err.message);
+  }
+};
+
 const update_quantity_in_cart = async (req, resp) => {
   try {
     const userId = req.query.id;
@@ -81,5 +94,6 @@ module.exports = {
   get_limited_cart,
   get_user_cart,
   add_product_to_cart,
+  remove_product_from_cart,
   update_quantity_in_cart,
 };
