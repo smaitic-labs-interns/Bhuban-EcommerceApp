@@ -174,7 +174,7 @@ export default function Bill() {
                   {cart.products.map((product, index) => {
                     return (
                       <TableRow key={product.productId}>
-                        <TableCell>{index}</TableCell>
+                        <TableCell>{index + 1}</TableCell>
                         <TableCell>{product.productId}</TableCell>
                         <TableCell>{product?.pDetails?.name}</TableCell>
                         <TableCell

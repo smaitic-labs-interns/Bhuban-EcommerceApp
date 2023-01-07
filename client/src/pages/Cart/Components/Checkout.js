@@ -11,7 +11,6 @@ import {
 import { LocalShipping } from '@mui/icons-material';
 
 export default function Checkout({ cart }) {
-  console.log(cart);
   return (
     <CheckoutWrapper>
       <CheckoutTitleWrapper>
