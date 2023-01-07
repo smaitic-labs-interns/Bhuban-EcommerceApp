@@ -15,13 +15,18 @@
 
 
 -- Create User Type Enum
+
 BEGIN;
-CREATE TYPE public.user_role AS ENUM (
-    'superadmin',
-    'admin',
-    'edito',
-    'user'
-);
+
+DO
+$$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'user_role') THEN
+        CREATE TYPE user_role AS ENUM ('superadmin', 'admin', 'editor', 'user');
+    END IF;
+END
+$$;
+
 COMMIT;
 
 -- Table: public.users
@@ -82,7 +87,15 @@ COMMIT;
 
 -- DROP TABLE IF EXISTS public.product_images;
 BEGIN;
-CREATE SEQUENCE product_images_id_seq;
+DO
+$$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_class WHERE relname = 'product_images_id_seq') THEN
+        CREATE SEQUENCE product_images_id_seq;
+    END IF;
+END
+$$;
+
 
 CREATE TABLE IF NOT EXISTS public.product_images
 (
@@ -133,7 +146,15 @@ COMMIT;
 
 -- DROP TABLE IF EXISTS public.cart_products;
 BEGIN;
-CREATE SEQUENCE cart_products_id_seq;
+
+DO
+$$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_class WHERE relname = 'cart_products_id_seq') THEN
+        CREATE SEQUENCE cart_products_id_seq;
+    END IF;
+END
+$$;
 
 CREATE TABLE IF NOT EXISTS public.cart_products
 (
@@ -189,7 +210,15 @@ COMMIT;
 
 -- DROP TABLE IF EXISTS public.order_products;
 BEGIN;
-CREATE SEQUENCE order_products_id_seq;
+DO
+$$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_class WHERE relname = 'order_products_id_seq') THEN
+        CREATE SEQUENCE order_products_id_seq;
+    END IF;
+END
+$$;
+
 
 CREATE TABLE IF NOT EXISTS public.order_products
 (
@@ -218,7 +247,15 @@ COMMIT;
 
 -- DROP TABLE IF EXISTS public.payment;
 BEGIN;
-CREATE SEQUENCE payment_id_seq;
+DO
+$$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_class WHERE relname = 'payment_id_seq') THEN
+        CREATE SEQUENCE payment_id_seq;
+    END IF;
+END
+$$;
+
 
 CREATE TABLE IF NOT EXISTS public.payment
 (
@@ -250,7 +287,15 @@ COMMIT;
 
 -- DROP TABLE IF EXISTS public.shipment;
 BEGIN;
-CREATE SEQUENCE shipment_id_seq;
+DO
+$$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_class WHERE relname = 'shipment_id_seq') THEN
+        CREATE SEQUENCE shipment_id_seq;
+    END IF;
+END
+$$;
+
 
 CREATE TABLE IF NOT EXISTS public.shipment
 (
@@ -281,7 +326,15 @@ COMMIT;
 
 -- DROP TABLE IF EXISTS public.shipment_address;
 BEGIN;
-CREATE SEQUENCE shipment_address_id_seq;
+DO
+$$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_class WHERE relname = 'shipment_address_id_seq') THEN
+        CREATE SEQUENCE shipment_address_id_seq;
+    END IF;
+END
+$$;
+
 
 CREATE TABLE IF NOT EXISTS public.shipment_address
 (
@@ -316,7 +369,14 @@ COMMIT;
 
 -- DROP TABLE IF EXISTS public.countries;
 BEGIN;
-CREATE SEQUENCE countries_id_seq;
+DO
+$$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_class WHERE relname = 'countries_id_seq') THEN
+        CREATE SEQUENCE countries_id_seq;
+    END IF;
+END
+$$;
 
 CREATE TABLE IF NOT EXISTS public.countries
 (
@@ -339,8 +399,18 @@ COMMIT;
 
 -- DROP TABLE IF EXISTS public.states;
 BEGIN;
-CREATE SEQUENCE states_id_seq;
-CREATE SEQUENCE states_countryid_seq;
+DO
+$$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_class WHERE relname = 'states_id_seq') THEN
+        CREATE SEQUENCE states_id_seq;
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM pg_class WHERE relname = 'states_countryid_seq') THEN
+        CREATE SEQUENCE states_countryid_seq;
+    END IF;
+END
+$$;
+
 
 CREATE TABLE IF NOT EXISTS public.states
 (
@@ -365,8 +435,17 @@ COMMIT;
 -- DROP TABLE IF EXISTS public.districts;
 
 BEGIN;
-CREATE SEQUENCE districts_id_seq;
-CREATE SEQUENCE districts_stateid_seq;
+DO
+$$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_class WHERE relname = 'districts_id_seq') THEN
+        CREATE SEQUENCE districts_id_seq;
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM pg_class WHERE relname = 'districts_stateid_seq') THEN
+        CREATE SEQUENCE districts_stateid_seq;
+    END IF;
+END
+$$;
 
 CREATE TABLE IF NOT EXISTS public.districts (
   id integer NOT NULL DEFAULT nextval('districts_id_seq'::regclass),

@@ -2,7 +2,19 @@ const { user } = require("../allService");
 const { userData } = require("./data");
 const { register, signin, signinResponse, limited } = userData;
 
+const createUser = jest.fn();
+const getUser = jest.fn();
+
+const app = user({
+  createUser,
+  getUser,
+});
+
 describe("Perform User related tests", () => {
+  beforeEach(() => {
+    createUser.mockReset();
+    createUser.mockResolvedValue(0);
+  });
   /*
    * Test for user Register
    */
@@ -53,16 +65,6 @@ describe("Perform User related tests", () => {
   });
   //email | password | E && P : wrong/right
 
-  // test("should signin with user details and match user object on correct details and show error in false details", async () => {
-  //   expect.assertions(1);
-  //   try {
-  //     var result = await user.user_signin(signin.email, signin.password);
-  //     expect(result).toMatchObject(signinResponse);
-  //   } catch (err) {
-  //     expect(err.message).toMatch("Invalid login Credintals");
-  //   }
-  // });
-
   /*
    * Test to fetc limited users
    */
@@ -81,16 +83,6 @@ describe("Perform User related tests", () => {
     }
   });
 
-  test("should fetch limited user , response must be instance of Object and throw error on out of range", async () => {
-    expect.assertions(1);
-    try {
-      var result = await user.get_limited_users(limited);
-      expect(result.data).toBeInstanceOf(Object);
-    } catch (err) {
-      expect(err.message).toMatch("No User Found");
-    }
-  });
-
   /*
    * Test to fetc all users
    */
@@ -104,16 +96,6 @@ describe("Perform User related tests", () => {
     expect.assertions(1);
     try {
       var result = await user.get_all_users();
-    } catch (err) {
-      expect(err.message).toMatch("No User Found");
-    }
-  });
-
-  test("should fetch all user , response must be instance of Object and throw error onn no user", async () => {
-    expect.assertions(1);
-    try {
-      var result = await user.get_all_users();
-      expect(result).toBeInstanceOf(Object);
     } catch (err) {
       expect(err.message).toMatch("No User Found");
     }

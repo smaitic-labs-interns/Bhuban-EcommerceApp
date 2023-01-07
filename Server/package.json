@@ -7,14 +7,15 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "jest",
+    "test": "NODE_ENV=test jest",
     "start": "node ./src/index.js",
     "start:local": "NODE_ENV=local nodemon ./src/index.js",
     "start:staging": "NODE_ENV=staging nodemon ./src/index.js",
     "start:development": "NODE_ENV=development nodemon ./src/index.js",
     "start:production": "NODE_ENV=production nodemon ./src/index.js",
     "create-db": "(db-migrate db:create eCommerceApp && db-migrate up eCommerceApp) || (db-migrate up eCommerceApp)",
-    "remove-db": "db-migrate down eCommerceApp"
+    "remove-db": "db-migrate down eCommerceApp",
+    "test:local": "NODE_ENV=test db-migrate db:create eCommerceAppTest && db-migrate up eCommerceAppTest && jest || db-migrate up eCommerceAppTest && jest"
   },
   "jest": {
     "collectCoverage": true
