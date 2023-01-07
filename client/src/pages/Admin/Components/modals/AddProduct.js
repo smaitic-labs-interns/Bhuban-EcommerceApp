@@ -3,6 +3,7 @@ import {
   AddProductContainer,
   AddProductFormWrapper,
   AddProductFormContainer,
+  AddProductFormSelectImageWrapper,
   PreviewImageWrapper,
   AddProductImageWrapper,
   AddProductWrapper,
@@ -12,22 +13,19 @@ import {
 
 import { useFormik } from 'formik';
 
-import { TextField, Box, Modal, Button, TextareaAutosize } from '@mui/material';
-import addProduct from '../../../../public/images/addProduct.png';
-import { add_product, fetch_limited_product } from '../../../../redux/actions/productActions';
+import { TextField, Button } from '@mui/material';
+import addProductImage from 'public/images/addProduct.png';
+import { add_product, fetch_limited_product } from 'redux/actions/productActions';
 import { useSelector, useDispatch } from 'react-redux';
+import { addProductRules } from 'validation';
 import Swal from 'sweetalert2';
-import { PlusOne } from '@mui/icons-material';
 
 export default function AddProduct() {
   const addProduct = useSelector((state) => state.addProduct);
   const dispatch = useDispatch();
   const [image, setImage] = useState([]);
-  const [category, setCategory] = useState('');
   const login = useSelector((state) => state.login);
   const userId = login.isLogined ? login.userId : null;
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
 
   const initialValues = {
     brand: '',
@@ -39,37 +37,26 @@ export default function AddProduct() {
     description: '',
   };
 
-  const { values, errors, setFieldValue, touched, handleBlur, handleChange, handleSubmit } =
-    useFormik({
-      initialValues: initialValues,
-      // validationSchema: loginSchema, // for data validation
-      onSubmit: (values) => {
-        const formData = new FormData();
-        var i = 1;
-        Array.from(image).map((item) => {
-          console.log(item);
-          formData.append(`image${index}`, item);
-          i++;
-        });
-        formData.append('brand', values.brand);
-        formData.append('category', values.category);
-        formData.append('model', values.model);
-        formData.append('name', values.name);
-        formData.append('price', values.price);
-        formData.append('quantity', values.quantity);
-        formData.append('description', values.description);
-        formData.append('addedBy', userId);
-        dispatch(add_product({ value: formData, action: 'add' }));
-      },
-    });
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
+    initialValues: initialValues,
+    validationSchema: addProductRules,
+    onSubmit: (values) => {
+      const formData = new FormData();
+      Array.from(image).map((item) => {
+        formData.append(`image${index}`, item);
+      });
+      formData.append('brand', values.brand);
+      formData.append('category', values.category);
+      formData.append('model', values.model);
+      formData.append('name', values.name);
+      formData.append('price', values.price);
+      formData.append('quantity', values.quantity);
+      formData.append('description', values.description);
+      formData.append('addedBy', userId);
+      dispatch(add_product({ value: formData, action: 'add' }));
+    },
+  });
 
-  // useEffect(() => {
-  //   if (login.isLogined && login.loading === false) {
-  //     navigateToProfile();
-  //   } else if (login.isLogined === false && login.loading === false) {
-  //     toast.error("Invalid login Details");
-  //   }
-  // }, [login]);
   let index = 0;
 
   useEffect(() => {
@@ -97,17 +84,17 @@ export default function AddProduct() {
     if (addProduct.status !== null) {
       dispatch(add_product({ value: {}, action: 'clean' }));
     }
-  }, [addProduct]);
+  }, [addProduct, dispatch]);
 
   return (
     <AddProductWrapper>
       <AddProductContainer>
         <AddProductImageWrapper>
-          <img src={addProduct} />
+          <img src={addProductImage} alt='product' />
         </AddProductImageWrapper>
         <AddProductFormWrapper>
-          <AddProductFormContainer component='form' onSubmit={handleSubmit}>
-            <Box>
+          <AddProductFormContainer component='form' noValidate onSubmit={handleSubmit}>
+            <AddProductFormSelectImageWrapper>
               <input
                 onChange={(e) => {
                   setImage(e.target.files);
@@ -123,27 +110,26 @@ export default function AddProduct() {
                   return <img key={index} src={item ? URL.createObjectURL(item) : null} alt='' />;
                 })}
               </PreviewImageWrapper>
-            </Box>
+            </AddProductFormSelectImageWrapper>
             <AddProductFormInputWrapper>
               <TextField
-                margin='normal'
-                required
                 fullWidth
+                required
+                autoComplete='brand'
+                name='brand'
                 id='brand'
                 label='Product Brand'
-                name='brand'
-                autoComplete='brand'
                 value={values.brand}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                //   error={errors.email && Boolean(errors.email)}
+                error={touched.brand && Boolean(errors.brand)}
+                helperText={touched.brand && errors.brand}
               />
             </AddProductFormInputWrapper>
             <AddProductFormInputWrapper>
               <TextField
-                margin='normal'
-                required
                 fullWidth
+                required
                 id='name'
                 label='Product Name'
                 name='name'
@@ -151,14 +137,14 @@ export default function AddProduct() {
                 value={values.name}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                //   error={errors.email && Boolean(errors.email)}
+                error={touched.name && Boolean(errors.name)}
+                helperText={touched.name && errors.name}
               />
             </AddProductFormInputWrapper>
             <AddProductFormInputWrapper>
               <TextField
-                margin='normal'
-                required
                 fullWidth
+                required
                 name='category'
                 label='category'
                 type='text'
@@ -167,14 +153,14 @@ export default function AddProduct() {
                 value={values.category}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                //   error={errors.password && Boolean(errors.password)}
+                error={touched.category && Boolean(errors.category)}
+                helperText={touched.category && errors.category}
               />
             </AddProductFormInputWrapper>
             <AddProductFormInputWrapper>
               <TextField
-                margin='normal'
-                required
                 fullWidth
+                required
                 name='model'
                 label='model'
                 type='text'
@@ -183,14 +169,14 @@ export default function AddProduct() {
                 value={values.model}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                //   error={errors.password && Boolean(errors.password)}
+                error={touched.model && Boolean(errors.model)}
+                helperText={touched.model && errors.model}
               />
             </AddProductFormInputWrapper>
             <AddProductFormInputWrapper>
               <TextField
-                margin='normal'
-                required
                 fullWidth
+                required
                 name='price'
                 label='price (Mrp.)'
                 type='number'
@@ -199,35 +185,40 @@ export default function AddProduct() {
                 value={values.price}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                //   error={errors.password && Boolean(errors.password)}
+                error={touched.price && Boolean(errors.price)}
+                helperText={touched.price && errors.price}
               />
             </AddProductFormInputWrapper>
             <AddProductFormInputWrapper>
               <TextField
-                margin='normal'
-                required
                 fullWidth
+                required
                 name='quantity'
                 label='quantity'
-                type='text'
+                type='number'
                 id='quantity'
                 autoComplete='quantity'
                 value={values.quantity}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                //   error={errors.password && Boolean(errors.password)}
+                error={touched.quantity && Boolean(errors.quantity)}
+                helperText={touched.quantity && errors.quantity}
               />
             </AddProductFormInputWrapper>
-            <TextareaAutosize
-              aria-label='minimum height'
+            <TextField
+              label='Product description'
+              fullWidth
+              required
+              id='description'
+              name='description'
+              autoComplete='description'
+              multiline
               minRows={10}
-              placeholder='Product Description'
-              style={{ width: '100%' }}
-              id={'description'}
-              name={'description'}
               value={values.description}
               onChange={handleChange}
               onBlur={handleBlur}
+              error={touched.description && Boolean(errors.description)}
+              helperText={touched.description && errors.description}
             />
             <AddProductButtonWrapper>
               <Button type='submit' variant='contained' sx={{ mt: 3, mb: 2, background: 'green' }}>

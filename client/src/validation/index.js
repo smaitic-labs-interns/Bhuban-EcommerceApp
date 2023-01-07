@@ -1,19 +1,6 @@
-import * as Yup from 'yup';
+import { registerRules } from './userRules/register.rules';
+import { loginRules } from './userRules/login.rules';
+import { addProductRules } from './adminRules/addProduct';
+import { shippingRules } from './userRules/shipping.rules';
 
-export const registerRules = Yup.object({
-  firstName: Yup.string().min(2).max(25).required('Please Enter first name'),
-  middleName: Yup.string().min(2).max(25).nullable('Please Enter middle name'),
-  lastName: Yup.string().min(2).max(25).required('Please Enter last name'),
-  address: Yup.string().min(5).required('Please Enter Your Full address'),
-  email: Yup.string().email('Please Enter ValidEmail').required('Email is required'),
-  password: Yup.string().min(5).max(25).required('Please Enter Valid Password'),
-  confPassword: Yup.string()
-    .required()
-    .oneOf([Yup.ref('password'), null], 'Confirm Password does not match'),
-  tnc: Yup.bool().oneOf([true], 'Please accept our terms and conditions'),
-});
-
-export const loginRules = Yup.object({
-  email: Yup.string().email('Please Enter ValidEmail').required('Email is required'),
-  password: Yup.string().min(5).max(25).required('Please Enter Valid Psassword'),
-});
+export { registerRules, loginRules, addProductRules, shippingRules };

@@ -68,7 +68,7 @@ function App() {
                 </PrivateRoute>
               }
             />
-            <Route path='order' element={<Track />} />
+            <Route path='track' element={<Track />} />
             <Route path='search' element={<Search />} />
 
             <Route
@@ -94,7 +94,9 @@ function App() {
           </Route>
 
           {/* for not found pages */}
-          <Route path='*' element={<NotFound />}></Route>
+          <Route path='*' element={<Layout />}>
+            <Route path='*' element={<NotFound />}></Route>
+          </Route>
         </Routes>
       </BrowserRouter>
     </div>

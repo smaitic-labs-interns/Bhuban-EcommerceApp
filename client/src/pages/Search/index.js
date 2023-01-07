@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { TextField } from '@mui/material';
+import { TextField, Typography } from '@mui/material';
 import SearchList from 'pages/Search/Components/SearchList';
 import {
   SearchWrapper,
@@ -7,6 +7,7 @@ import {
   SearchInputWrapper,
   SearchButtonWrapper,
   SearchButton,
+  SearchResultWrapper,
 } from 'pages/Search/Styles/searchStyle';
 import { Search } from '@mui/icons-material';
 import { search_product } from 'redux/actions/productActions';
@@ -15,23 +16,33 @@ import { useSelector, useDispatch } from 'react-redux';
 export default function SearchPage() {
   const products = useSelector((state) => state.searchProduct);
   const dispatch = useDispatch();
-  const [allProduct, setAllProduct] = useState([]);
+  const [allProduct, setAllProduct] = useState({ message: '', products: [] });
+  const [searchKey, setSearchKey] = useState('');
 
-  const handleChange = (key) => {
-    if (key && key !== '') {
-      dispatch(search_product({ keyword: key, action: 'search' }));
-    } else {
-      dispatch(search_product({ keyword: key, action: 'clean' }));
+  const handleSearch = () => {
+    if (searchKey && searchKey !== '') {
+      dispatch(search_product({ keyword: searchKey, action: 'search' }));
     }
   };
 
   useMemo(() => {
     if (products.status === 'success') {
-      setAllProduct(products.products);
-    } else {
-      setAllProduct([]);
+      setAllProduct((allProduct) => ({
+        ...allProduct,
+        message: products.message,
+        products: products.products,
+      }));
+    } else if (products.status === 'failed') {
+      setAllProduct((allProduct) => ({
+        ...allProduct,
+        message: products.message,
+        products: [],
+      }));
     }
-  }, [products]);
+    if (products.status !== null) {
+      dispatch(search_product({ keyword: '', action: 'clean' }));
+    }
+  }, [products, dispatch]);
 
   return (
     <SearchWrapper>
@@ -40,17 +51,20 @@ export default function SearchPage() {
           <TextField
             fullWidth
             label='Enter Search Keyword'
-            onChange={(e) => handleChange(e.target.value)}
+            onChange={(e) => setSearchKey(e.target.value)}
           />
         </SearchInputWrapper>
         <SearchButtonWrapper>
-          <SearchButton>
+          <SearchButton onClick={() => handleSearch()}>
             <Search />
             Search
           </SearchButton>
         </SearchButtonWrapper>
       </SearchBoxWrapper>
-      {allProduct.length !== 0 && <SearchList products={allProduct} />}
+      <SearchResultWrapper>
+        {allProduct.message && <Typography>Search Result: {allProduct.message}</Typography>}
+      </SearchResultWrapper>
+      {allProduct.products.length !== 0 && <SearchList products={allProduct.products} />}
     </SearchWrapper>
   );
 }

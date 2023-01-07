@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Select, MenuItem, TextField, Button, InputLabel } from '@mui/material';
+import { Select, MenuItem, TextField, Button, InputLabel, FormHelperText } from '@mui/material';
 import {
   FormWrapper,
   FormContainer,
@@ -12,13 +12,13 @@ import { useFormik } from 'formik';
 import axiosInstance from 'modules/api';
 import { address as addressEndpoint } from 'api/endpoint';
 import { useSelector, useDispatch } from 'react-redux';
-import { place_order } from '../../../redux/actions/orderActions';
-import { fetch_user_Cart } from '../../../redux/actions/cartActions';
+import { place_order, placed_order_details } from 'redux/actions/orderActions';
+import { fetch_user_Cart } from 'redux/actions/cartActions';
 import Swal from 'sweetalert2';
-import { placed_order_details } from '../../../redux/actions/orderActions';
 import { sendOrderDetailsEmail } from 'mail/emailService';
 import { useNavigate } from 'react-router-dom';
 import { useFetchCountries } from 'hooks';
+import { shippingRules } from 'validation';
 
 export default function ShippingForm() {
   const placeOrder = useSelector((state) => state.placeOrder);
@@ -57,26 +57,30 @@ export default function ShippingForm() {
   const handleChangeAddress = (type, value) => {
     if (value === '') return;
     switch (type) {
-      case 'country':
+      case 'country': {
         const country = address.country.all.filter((country) => country.name === value);
         setAddress((address) => ({
           ...address,
           country: { ...address.country, selected: country[0] },
         }));
         break;
-      case 'state':
+      }
+      case 'state': {
         const state = address.state.all.filter((state) => state.name === value);
         setAddress((address) => ({
           ...address,
           state: { ...address.state, selected: state[0] },
         }));
         break;
-      case 'district':
+      }
+      case 'district': {
         const district = address.district.all.filter((district) => district.name === value);
         setAddress((address) => ({
           ...address,
           district: { ...address.district, selected: district[0] },
         }));
+        break;
+      }
       case 'city':
         break;
       default:
@@ -145,7 +149,7 @@ export default function ShippingForm() {
   }, [address.state.selected.id]);
 
   useEffect(() => {
-    let id = address.district.selected.id;
+    // let id = address.district.selected.id;
     // if (id && id !== "") {
     //   axiosInstance({
     //     endpoints: address.stateDistricts,
@@ -177,23 +181,23 @@ export default function ShippingForm() {
     paymentType: '',
   };
 
-  const { values, errors, setFieldValue, touched, handleBlur, handleChange, handleSubmit } =
-    useFormik({
-      initialValues: initialValues,
-      // validationSchema: loginSchema, // for data validation
-      onSubmit: (values) => {
-        values.country = address.country.selected.name;
-        values.province = address.state.selected.name;
-        values.district = address.district.selected.name;
-        dispatch(place_order({ ...values, action: 'add' }));
-      },
-    });
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
+    initialValues: initialValues,
+    validationSchema: shippingRules,
+    onSubmit: (values) => {
+      values.country = address.country.selected.name;
+      values.province = address.state.selected.name;
+      values.district = address.district.selected.name;
+      dispatch(place_order({ ...values, action: 'add' }));
+    },
+  });
 
   const [shipment, setShipment] = useState({
     style: { display: 'none' },
     type: 'none',
     cost: 0,
   });
+
   const SHIPMENT_TYPES = [
     { name: 'International', charge: 500 },
     { name: 'Outside Valley', charge: 300 },
@@ -229,7 +233,7 @@ export default function ShippingForm() {
       };
       let index = 1;
       for (let pr of cart.products) {
-        tdata.rows.push([
+        orderTable.rows.push([
           index,
           `${pr.pDetails.category} - ${pr.pDetails.model} - ${pr.pDetails.brand}`,
           `${pr.quantity}`,
@@ -238,10 +242,12 @@ export default function ShippingForm() {
         ]);
         index++;
       }
-      tdata.rows.push(['', '', '', 'Grand Total', `${cart.totalBill}`]);
+
+      orderTable.rows.push(['', '', '', 'Grand Total', `${cart.totalBill}`]);
       sendOrderDetailsEmail(login.email, userFullName, orderTable).then((data) => {
         console.log(data);
       });
+
       dispatch(placed_order_details({ order: values, cart: cart, action: 'fetch' }));
       dispatch(place_order({ ...initialValues, action: 'clean' }));
       dispatch(fetch_user_Cart({ userId: '', action: 'clean' }));
@@ -257,7 +263,7 @@ export default function ShippingForm() {
 
   return (
     <FormWrapper>
-      <FormContainer component={'form'} onSubmit={handleSubmit}>
+      <FormContainer component={'form'} noValidate onSubmit={handleSubmit}>
         <OrderFormSelectInputWrapper>
           <InputLabel id='shipment-type-label'>Shipment Type</InputLabel>
           <Select
@@ -269,6 +275,7 @@ export default function ShippingForm() {
             label='Shipment Type'
             onChange={handleChange}
             onBlur={handleBlur}
+            error={touched.shipmentType && Boolean(errors.shipmentType)}
           >
             {SHIPMENT_TYPES.map((shipment) => {
               return (
@@ -339,7 +346,7 @@ export default function ShippingForm() {
         <OrderFormSelectInputWrapper>
           <label id='cities'>Select City/Local-level</label> <br />
           <select
-            id='cities'
+            id='city'
             name='city'
             value={values.city}
             onChange={handleChange}
@@ -350,13 +357,13 @@ export default function ShippingForm() {
             <option value={'Godawari'}>{'Godawari'}</option>
             <option value={'Satdobato'}>{'Satdobato'}</option>
           </select>
+          {errors.city && <FormHelperText sx={{ color: '#d32f2f' }}>{errors.city}</FormHelperText>}
         </OrderFormSelectInputWrapper>
 
         <OrderFormInputWrapper>
           <TextField
-            margin='normal'
-            required
             fullWidth
+            required
             id='tole'
             label='tole'
             name='tole'
@@ -364,13 +371,13 @@ export default function ShippingForm() {
             value={values.tole}
             onChange={handleChange}
             onBlur={handleBlur}
-            //   error={errors.email && Boolean(errors.email)}
+            error={touched.tole && Boolean(errors.tole)}
+            helperText={touched.tole && errors.tole}
           />
         </OrderFormInputWrapper>
 
         <OrderFormInputWrapper>
           <TextField
-            margin='normal'
             required
             fullWidth
             id='ward'
@@ -380,13 +387,13 @@ export default function ShippingForm() {
             value={values.ward}
             onChange={handleChange}
             onBlur={handleBlur}
-            //   error={errors.email && Boolean(errors.email)}
+            error={touched.ward && Boolean(errors.ward)}
+            helperText={touched.ward && errors.ward}
           />
         </OrderFormInputWrapper>
 
         <OrderFormInputWrapper>
           <TextField
-            margin='normal'
             required
             fullWidth
             id='houseNo'
@@ -396,7 +403,8 @@ export default function ShippingForm() {
             value={values.houseNo}
             onChange={handleChange}
             onBlur={handleBlur}
-            //   error={errors.email && Boolean(errors.email)}
+            error={touched.houseNo && Boolean(errors.houseNo)}
+            helperText={touched.houseNo && errors.houseNo}
           />
         </OrderFormInputWrapper>
 
@@ -411,12 +419,16 @@ export default function ShippingForm() {
             label='Payment Type'
             onChange={handleChange}
             onBlur={handleBlur}
+            error={touched.paymentType && Boolean(errors.paymentType)}
           >
             <MenuItem value='CASH'>{'Cash on Delivery'}</MenuItem>
             <MenuItem value={'E-sewa'}>{'E-sewa'}</MenuItem>
             <MenuItem value={'Khalti'}>{'Khalti'}</MenuItem>
             <MenuItem value={'CONNECT-IPS'}>{'CONNECT-IPS'}</MenuItem>
           </Select>
+          {errors.paymentType && (
+            <FormHelperText sx={{ color: '#d32f2f' }}>{errors.paymentType}</FormHelperText>
+          )}
         </OrderFormInputWrapper>
 
         <PlaceOrderButtonWrapper>

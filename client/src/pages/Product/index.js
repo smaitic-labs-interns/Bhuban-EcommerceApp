@@ -34,7 +34,7 @@ export default function ProductDetailContainer() {
           <img src={noProductImg} alt='LoadingProduct' />
         </Box>
       ) : (
-        <ProductDetail product={product}></ProductDetail>
+        <ProductDetail product={product} />
       )}
     </>
   );

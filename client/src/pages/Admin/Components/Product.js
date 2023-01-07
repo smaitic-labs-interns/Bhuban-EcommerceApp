@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 
 import {
   Button,
@@ -18,17 +18,18 @@ import {
   ProductContainer,
   ProductWrapper,
   ProductActionWrapper,
-  AddProductButton,
+  OpenCloseBtnWrapper,
+  OpenAddProductButton,
+  CloseAddProductButton,
   AddProductCntntWrapper,
-  RightSideButtonsWrapper,
   DisplaySearchWrapper,
   DisplayProductsWrapper,
   SearchBarWrapper,
   TableWrapper,
 } from 'Pages/Admin/styles/productStyle';
 
-import { Delete, Add, Search } from '@mui/icons-material';
-import { delete_product, fetch_limited_product } from 'Actions/productActions';
+import { Delete, Add, Search, Close } from '@mui/icons-material';
+import { delete_product, fetch_limited_product, search_product } from 'Actions/productActions';
 
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
@@ -40,9 +41,11 @@ import { isEmpty } from 'Utils';
 export default function Product() {
   const limitedProduct = useSelector((state) => state.limitedProduct);
   const deleteProduct = useSelector((state) => state.deleteProduct);
+  const searchProduct = useSelector((state) => state.searchProduct);
   const dispatch = useDispatch();
 
   const [noOfProduct, setNoOfProduct] = useState(5);
+  const [searchKey, setSearchKey] = useState('');
   const [addProductForm, setaddProductForm] = useState(false);
   const [product, setProduct] = useState({
     all: [],
@@ -61,7 +64,7 @@ export default function Product() {
 
   useEffect(() => {
     dispatch(fetch_limited_product({ page: 1, limit: noOfProduct, action: 'fetch' }));
-  }, []);
+  }, [noOfProduct, dispatch]);
 
   const handleDelete = (id) => {
     if (id && id !== ' ') {
@@ -82,6 +85,12 @@ export default function Product() {
 
   const handlePage = (page) => {
     dispatch(fetch_limited_product({ page: page, limit: noOfProduct, action: 'fetch' }));
+  };
+
+  const handleSearch = () => {
+    if (searchKey && searchKey !== '') {
+      dispatch(search_product({ keyword: searchKey, action: 'search' }));
+    }
   };
 
   useEffect(() => {
@@ -116,7 +125,17 @@ export default function Product() {
         }),
       );
     }
-  }, [deleteProduct]);
+  }, [deleteProduct, dispatch, noOfProduct, currentPage]);
+
+  useEffect(() => {
+    dispatch(
+      fetch_limited_product({
+        page: currentPage,
+        limit: noOfProduct,
+        action: 'fetch',
+      }),
+    );
+  }, [noOfProduct, dispatch, currentPage]);
 
   useEffect(() => {
     setProduct((product) => ({
@@ -127,26 +146,48 @@ export default function Product() {
     }));
   }, [limitedProduct]);
 
-  useEffect(() => {
-    dispatch(
-      fetch_limited_product({
-        page: currentPage,
-        limit: noOfProduct,
-        action: 'fetch',
-      }),
-    );
-  }, [noOfProduct]);
+  useMemo(() => {
+    if (searchProduct.status === 'success') {
+      setProduct((product) => ({
+        ...product,
+        all: searchProduct.products,
+        next: {},
+        previous: {},
+      }));
+    } else if (searchProduct.status === 'failed') {
+      Swal.fire({
+        title: 'Error!',
+        text: `${searchProduct.message}`,
+        icon: 'error',
+        confirmButtonText: 'Ok',
+      });
+    } else if (searchProduct.status !== null) {
+      dispatch(search_product({ keyword: '', action: 'clean' }));
+    }
+  }, [searchProduct, dispatch]);
+
   return (
     <>
       <ProductWrapper>
         <ProductContainer>
           <ProductActionWrapper>
-            <AddProductButton
-              disableFocusRipple={true}
-              onClick={() => setaddProductForm((addProductForm) => !addProductForm)}
-            >
-              <Add /> {' Add product '}
-            </AddProductButton>
+            <OpenCloseBtnWrapper>
+              <OpenAddProductButton
+                sx={{ display: addProductForm ? 'none' : 'flex' }}
+                key={1}
+                onClick={() => setaddProductForm((addProductForm) => !addProductForm)}
+              >
+                <Add /> {' Add product '}
+              </OpenAddProductButton>
+              <CloseAddProductButton
+                sx={{ display: addProductForm ? 'flex' : 'none' }}
+                key={2}
+                onClick={() => setaddProductForm((addProductForm) => !addProductForm)}
+              >
+                <Close /> {' Close '}
+              </CloseAddProductButton>
+            </OpenCloseBtnWrapper>
+
             {addProductForm ? (
               <AddProductCntntWrapper>
                 <AddProduct />
@@ -183,8 +224,14 @@ export default function Product() {
                 name='searchKeyword'
                 id='searchkeyword'
                 sx={{ background: '#fff' }}
+                onChange={(e) => setSearchKey(e.target.value)}
               />
-              <Button variant='contained' color='info' sx={{ padding: '1rem 1.5rem' }}>
+              <Button
+                variant='contained'
+                color='info'
+                sx={{ padding: '1rem 1.5rem' }}
+                onClick={() => handleSearch()}
+              >
                 <Search /> {' Search '}
               </Button>
             </SearchBarWrapper>
@@ -199,6 +246,7 @@ export default function Product() {
                     <TableCell>Category</TableCell>
                     <TableCell>Model</TableCell>
                     <TableCell>Brand</TableCell>
+                    <TableCell>Quantity</TableCell>
                     <TableCell></TableCell>
                     <TableCell>Actions</TableCell>
                     <TableCell></TableCell>
@@ -207,17 +255,7 @@ export default function Product() {
                 <TableBody>
                   {product.all.length !== 0 ? (
                     product.all.map((product) => {
-                      let {
-                        id,
-                        category,
-                        model,
-                        brand,
-                        description,
-                        price,
-                        quantity,
-                        rating,
-                        images,
-                      } = product;
+                      let { id, category, model, brand, quantity } = product;
                       return (
                         <TableRow key={id}>
                           <TableCell>
@@ -227,6 +265,7 @@ export default function Product() {
                           <TableCell>{category}</TableCell>
                           <TableCell>{model}</TableCell>
                           <TableCell>{brand}</TableCell>
+                          <TableCell>{quantity}</TableCell>
                           <TableCell>
                             <ViewProduct product={product} />
                           </TableCell>

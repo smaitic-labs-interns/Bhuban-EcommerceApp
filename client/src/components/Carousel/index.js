@@ -68,5 +68,5 @@ export default function Carousel({ imgList, interval }) {
 
 Carousel.propTypes = {
   imgList: PropTypes.array.isRequired,
-  interval: PropTypes.string,
+  interval: PropTypes.number,
 };

@@ -1,4 +1,4 @@
-import { Button, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -8,6 +8,7 @@ import {
   CheckoutTitleWrapper,
   CheckoutWrapper,
 } from 'Pages/Cart/styles/checkoutStyle';
+import { LocalShipping } from '@mui/icons-material';
 
 export default function Checkout({ cart }) {
   console.log(cart);
@@ -20,14 +21,9 @@ export default function Checkout({ cart }) {
         to={Object.keys(cart).length === 0 ? '#' : '/placeOrder'}
         style={{ textDecoration: 'none' }}
       >
-        <CheckoutButtonWrapper>
-          <Button
-            disabled={cart?.noOfProducts || Object.keys(cart).length === 0}
-            variant='outlined'
-            color='success'
-          >
-            <Typography>Proceed To Checkout</Typography>
-          </Button>
+        <CheckoutButtonWrapper disabled={Object.keys(cart).length === 0}>
+          <LocalShipping />
+          <Typography>{' Proceed To Checkout '}</Typography>
         </CheckoutButtonWrapper>
       </Link>
     </CheckoutWrapper>
