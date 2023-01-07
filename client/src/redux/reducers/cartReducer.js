@@ -11,14 +11,17 @@ import {
   CART_PRODUCTS_DETAILS_REQUEST,
   CART_PRODUCTS_DETAILS_SUCCESS,
   CART_PRODUCTS_DETAILS_FAILED,
-} from "../constants/cartConstants";
+  REMOVE_FROM_CART_REQUEST,
+  REMOVE_FROM_CART_SUCCESS,
+  REMOVE_FROM_CART_FAILED,
+} from '../constants/cartConstants';
 
 const initialState = {
   products: [],
   totalBill: 0,
   noOfProducts: 0,
   status: null,
-  message: "",
+  message: '',
 };
 
 export const cartReducer = (state = initialState, action) => {
@@ -31,13 +34,13 @@ export const cartReducer = (state = initialState, action) => {
         products: action.payload.products,
         totalBill: action.payload.totalBill,
         noOfProducts: action.payload.products.length,
-        status: "success",
+        status: 'success',
       };
     case USER_CART_FAILED:
       return {
         ...state,
         message: action.payload,
-        status: "failed",
+        status: 'failed',
       };
     default:
       return state;
@@ -46,14 +49,11 @@ export const cartReducer = (state = initialState, action) => {
 
 const addToCartInitialState = {
   products: [],
-  message: "",
+  message: '',
   status: null,
 };
 
-export const add_to_cart_reducer = (
-  state = addToCartInitialState,
-  { type, payload }
-) => {
+export const add_to_cart_reducer = (state = addToCartInitialState, { type, payload }) => {
   switch (type) {
     case ADD_TO_CART_REQUEST:
       return { ...state, status: null };
@@ -61,13 +61,35 @@ export const add_to_cart_reducer = (
       return {
         ...state,
         message: payload,
-        status: "success",
+        status: 'success',
       };
     case ADD_TO_CART_FAILED:
       return {
         ...state,
         message: payload,
-        status: "failed",
+        status: 'failed',
+      };
+
+    default:
+      return state;
+  }
+};
+
+export const remove_from_cart_reducer = (state = updateCartInitialState, { type, payload }) => {
+  switch (type) {
+    case REMOVE_FROM_CART_REQUEST:
+      return updateCartInitialState;
+    case REMOVE_FROM_CART_SUCCESS:
+      return {
+        ...state,
+        message: payload,
+        status: 'success',
+      };
+    case REMOVE_FROM_CART_FAILED:
+      return {
+        ...state,
+        message: payload,
+        status: 'failed',
       };
 
     default:
@@ -77,26 +99,23 @@ export const add_to_cart_reducer = (
 
 const updateCartInitialState = {
   status: null,
-  message: "",
+  message: '',
 };
 
-export const update_cart_reducer = (
-  state = updateCartInitialState,
-  { type, payload }
-) => {
+export const update_cart_reducer = (state = updateCartInitialState, { type, payload }) => {
   switch (type) {
     case UPDATE_CART_REQUEST:
       return { ...state, status: null };
     case UPDATE_CART_SUCCESS:
       return {
         ...state,
-        status: "success",
+        status: 'success',
         message: payload,
       };
     case UPDATE_CART_FAILED:
       return {
         ...state,
-        status: "failed",
+        status: 'failed',
         message: payload,
       };
     default:
@@ -106,13 +125,13 @@ export const update_cart_reducer = (
 
 const cartProductsInitialState = {
   status: null,
-  message: "",
+  message: '',
   details: [],
 };
 
 export const cart_products_details_reducer = (
-  state = updateCartInitialState,
-  { type, payload }
+  state = cartProductsInitialState,
+  { type, payload },
 ) => {
   switch (type) {
     case CART_PRODUCTS_DETAILS_REQUEST:
@@ -120,13 +139,13 @@ export const cart_products_details_reducer = (
     case CART_PRODUCTS_DETAILS_SUCCESS:
       return {
         ...state,
-        status: "success",
+        status: 'success',
         details: payload,
       };
     case CART_PRODUCTS_DETAILS_FAILED:
       return {
         ...state,
-        status: "failed",
+        status: 'failed',
         details: payload,
       };
     default:

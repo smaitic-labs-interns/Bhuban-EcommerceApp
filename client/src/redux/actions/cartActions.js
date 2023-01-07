@@ -11,6 +11,9 @@ import {
   CART_PRODUCTS_DETAILS_REQUEST,
   CART_PRODUCTS_DETAILS_SUCCESS,
   CART_PRODUCTS_DETAILS_FAILED,
+  REMOVE_FROM_CART_REQUEST,
+  REMOVE_FROM_CART_SUCCESS,
+  REMOVE_FROM_CART_FAILED,
 } from '../constants/cartConstants';
 
 import axiosInstance from 'Modules/api';
@@ -76,6 +79,31 @@ export const add_to_cart =
       dispatch({
         type: ADD_TO_CART_FAILED,
         payload: err.response,
+      });
+    }
+  };
+
+export const remove_from_cart =
+  ({ userId, productId, action }) =>
+  async (dispatch) => {
+    try {
+      if (action === 'clean') {
+        return dispatch({ type: REMOVE_FROM_CART_REQUEST });
+      }
+      dispatch({ type: REMOVE_FROM_CART_REQUEST });
+      const response = await axiosInstance({
+        endpoints: cart.removeProduct,
+        query: { id: userId, pid: productId },
+      });
+
+      dispatch({
+        type: REMOVE_FROM_CART_SUCCESS,
+        payload: response.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: REMOVE_FROM_CART_FAILED,
+        payload: err.response.data,
       });
     }
   };

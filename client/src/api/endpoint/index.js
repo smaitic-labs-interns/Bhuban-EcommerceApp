@@ -37,6 +37,7 @@ cartEndpoint.get('all');
 cartEndpoint.get('limited');
 cartEndpoint.get('one');
 cartEndpoint.post('addProduct');
+cartEndpoint.delete('removeProduct');
 cartEndpoint.put('updateQuantity');
 
 export const cart = cartEndpoint.getEndpoints();
