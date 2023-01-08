@@ -88,6 +88,32 @@ const user_register = async (
   }
 };
 
+const update_user = async (
+  userId,
+  firstName,
+  middleName,
+  lastName,
+  address,
+  updatedBy
+) => {
+  try {
+    const user = Schema.UpdateUser({
+      firstName,
+      middleName,
+      lastName,
+      address,
+    });
+    if (!(await db.user.find_user_from_id(userId))) {
+      throw new Error(`User doesnot exists on ID: ${userId}`);
+    }
+    if (db.user.update_user(userId, user, updatedBy)) {
+      return "User Registerd Sucessfully. Try Login";
+    }
+  } catch (err) {
+    throw err;
+  }
+};
+
 /* 
   *User SignIn
 @params
@@ -118,5 +144,6 @@ module.exports = {
   get_all_users,
   get_limited_users,
   user_register,
+  update_user,
   user_signin,
 };

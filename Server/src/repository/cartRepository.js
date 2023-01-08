@@ -268,7 +268,7 @@ const update_cart_status = async (cartId, status) => {
 };
 
 /**
- * * Find Active user cart
+ * * Find User active cart
  * @param {*} userId
  * @returns cart object || error message
  */

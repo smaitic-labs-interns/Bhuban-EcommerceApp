@@ -47,6 +47,27 @@ const user_register = async (req, resp) => {
   }
 };
 
+const update_user = async (req, resp) => {
+  try {
+    const userId = req.query.userId;
+    const updatedBy = req.query.updatedBy;
+    const data = req.body;
+    const res = await Service.user.update_user(
+      userId,
+      data.firstName,
+      data.middleName,
+      data.lastName,
+      data.address,
+      updatedBy
+    );
+    logger.log("info", `User details Updated Sucessfully for ID: ${userId}`);
+    resp.status(200).send(res);
+  } catch (err) {
+    logger.error("error", err);
+    resp.status(400).send(err.message);
+  }
+};
+
 const user_login = async (req, resp) => {
   try {
     const data = req.body;
@@ -63,5 +84,6 @@ module.exports = {
   get_all_user,
   get_limited_user,
   user_register,
+  update_user,
   user_login,
 };

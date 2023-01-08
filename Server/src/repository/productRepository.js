@@ -145,7 +145,6 @@ const update_product = async (productId, newProduct) => {
     const result = await con.query("SELECT * FROM products WHERE id= $1", [
       productId,
     ]);
-    console.log(newProduct);
     if (result.rowCount > 0) {
       const updRes = await con.query(
         "UPDATE products SET category =$1, model =$2, brand =$3, name= $4, description =$5, price =$6, quantity =$7, updatedBy = $8, updatedAt=$9 WHERE id= $10",

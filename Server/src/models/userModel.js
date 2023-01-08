@@ -18,4 +18,11 @@ const User = ({firstName, middleName, lastName, address, email, password}) =>{
     }
 }
 
-module.exports = {User};
+const UpdateUser = ({firstName, middleName, lastName, address}) =>{
+    const {error, value} = validation.update_user_validation({firstName, middleName, lastName, address});
+    if(error) throw error;
+    
+    return value;
+}
+
+module.exports = {User,UpdateUser};

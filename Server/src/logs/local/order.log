@@ -164,3 +164,36 @@
     at runMicrotasks (<anonymous>)
     at processTicksAndRejections (node:internal/process/task_queues:96:5)
     at async place_order (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/orderApi.js:79:17)
+[[32minfo[39m] order: 1/8/2023, 11:01:23 AM  Sucessfully fetched orders for ID:  0bf0348b-fdec-4ddb-92ec-ba8c690af37f
+[[32minfo[39m] order: 1/8/2023, 11:02:39 AM  Sucessfully fetched orders of user: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] order: 1/8/2023, 11:03:05 AM  Order cancelled sucessfully for ID : b137b4ae-12f5-47ab-8048-dfd98576da83
+[[32minfo[39m] order: 1/8/2023, 11:03:05 AM  Sucessfully fetched orders of user: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] order: 1/8/2023, 11:03:10 AM  Order cancelled sucessfully for ID : 6ead83ec-ce83-4094-bf2a-5c88c2fbfee6
+[[32minfo[39m] order: 1/8/2023, 11:03:10 AM  Sucessfully fetched orders of user: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] order: 1/8/2023, 11:03:23 AM  Sucessfully fetched orders of user: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[31merror[39m] order: 1/8/2023, 11:03:26 AM  Error: Already Placed for cancelled. Id: b137b4ae-12f5-47ab-8048-dfd98576da83
+    at Object.cancel_order (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/orderService.js:388:13)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async cancel_order (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/orderApi.js:186:17)
+[[31merror[39m] order: 1/8/2023, 11:03:34 AM  Error: Order is already Placed for cancellation. Id: b137b4ae-12f5-47ab-8048-dfd98576da83
+    at Object.return_replace_order (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/orderService.js:429:13)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async return_replace_order (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/orderApi.js:199:17)
+[[31merror[39m] order: 1/8/2023, 11:03:40 AM  Error: Order is already Placed for cancellation. Id: b137b4ae-12f5-47ab-8048-dfd98576da83
+    at Object.return_replace_order (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/orderService.js:429:13)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async return_replace_order (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/orderApi.js:199:17)
+[[32minfo[39m] order: 1/8/2023, 11:15:47 AM  Sucessfully fetched orders of user: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] order: 1/8/2023, 11:16:25 AM  Sucessfully fetched orders of user: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] order: 1/8/2023, 11:16:55 AM  Sucessfully fetched orders of user: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] order: 1/8/2023, 11:18:03 AM  Sucessfully fetched orders of user: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] order: 1/8/2023, 11:20:24 AM  Sucessfully fetched orders of user: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] order: 1/8/2023, 11:29:34 AM  Sucessfully fetched orders of user: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] order: 1/8/2023, 11:30:30 AM  Sucessfully fetched orders of user: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] order: 1/8/2023, 11:31:03 AM  Sucessfully fetched orders of user: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] order: 1/8/2023, 11:32:05 AM  Sucessfully fetched orders of user: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] order: 1/8/2023, 11:33:09 AM  Sucessfully fetched orders of user: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] order: 1/8/2023, 11:34:58 AM  Sucessfully fetched orders of user: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c

@@ -1,6 +1,10 @@
 const bcrypt = require("bcrypt");
 const con = require("../config/postGres");
 
+/**
+ * * Read all users
+ * @returns Array of user objects || error message
+ */
 const read_all_user = async () => {
   try {
     let users = await con.query("SELECT * FROM users");
@@ -10,6 +14,12 @@ const read_all_user = async () => {
     throw err;
   }
 };
+
+/**
+ * * Read from page(number) to limit(number)
+ * @param {page, limit} param0
+ * @returns Array of user object || error message
+ */
 
 const read_limited_user = async ({ page, limit }) => {
   try {
@@ -47,11 +57,15 @@ const read_limited_user = async ({ page, limit }) => {
   }
 };
 
+/**
+ * * Create user with user details
+ * @param {id, firstname, middlename, lastName, address, email, password} user
+ * @returns true || error message
+ */
 const add_user = async (user) => {
-  //add user
   try {
     const result = await con.query(
-      "INSERT INTO users (id, firstname, middlename, lastname, address, email, password) VALUES ($1, $2, $3, $4, $5, $6, $7)",
+      "INSERT INTO users (id, firstname, middlename, lastname, address, email, password, createdAt) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)",
       [
         user.id,
         user.firstName,
@@ -60,6 +74,7 @@ const add_user = async (user) => {
         user.address,
         user.email,
         user.password,
+        new Date().toISOString(),
       ]
     );
     if (result.rowCount > 0) return true;
@@ -69,8 +84,61 @@ const add_user = async (user) => {
   }
 };
 
+/**
+ * *Update user Details
+ * @param {*} userId
+ * @param {firstName, middlename, lastName, address} details
+ * @param {userId} updatedBy
+ * @returns true || error message
+ */
+
+const update_user = async (userId, details, updatedBy) => {
+  try {
+    const result = await con.query(
+      "UPDATE users  SET firstname =$1, middlename=$2, lastname=$3, address=$4, updatedAt=$5, updatedBy=$6  WHERE id=$7 ",
+      [
+        details.firstName,
+        details.middleName,
+        details.lastName,
+        details.address,
+        new Date().toISOString(),
+        updatedBy,
+        userId,
+      ]
+    );
+    if (result.rowCount > 0) return true;
+    throw new Error("Error occurs Updating user. Try again Later");
+  } catch (err) {
+    throw err;
+  }
+};
+
+/**
+ * *Update user display picture
+ * @param {*} userId
+ * @param {imageurl} image
+ * @param {userId} updatedBy
+ * @returns true ||error message
+ */
+const update_user_image = async (userId, image, updatedBy) => {
+  try {
+    const result = await con.query(
+      "UPDATE users  SET imageUrl =$1, imageAltText=$2, updatedAt=$3, updatedBy=$4  WHERE id=$5 ",
+      [image, `User DP `, new Date().toISOString(), updatedBy, userId]
+    );
+    if (result.rowCount > 0) return true;
+    throw new Error("Error occurs Updating user image. Try again Later");
+  } catch (err) {
+    throw err;
+  }
+};
+/**
+ * * Find User using Email
+ * @param {*} email
+ * @returns user Object || error message
+ */
+
 const find_user_from_email = async (email) => {
-  //find user from email
   try {
     let user = await con.query("SELECT * FROM users WHERE email= $1", [email]);
     if (user.rowCount > 0) {
@@ -83,8 +151,12 @@ const find_user_from_email = async (email) => {
   }
 };
 
+/**
+ * * Find user using login credintals
+ * @param {email, password} login
+ * @returns user object || error message
+ */
 const find_user_from_credintals = async (login) => {
-  // find user from credintals
   try {
     let user = await con.query("SELECT * FROM users WHERE email= $1", [
       login.email,
@@ -101,6 +173,11 @@ const find_user_from_credintals = async (login) => {
   }
 };
 
+/**
+ * *FInd User using userId
+ * @param {*} userId
+ * @returns user object || error message
+ */
 const find_user_from_id = async (userId) => {
   try {
     let user = await con.query("SELECT * FROM users WHERE id= $1", [userId]);
@@ -118,6 +195,8 @@ module.exports = {
   read_all_user,
   read_limited_user,
   add_user,
+  update_user,
+  update_user_image,
   find_user_from_email,
   find_user_from_credintals,
   find_user_from_id,
