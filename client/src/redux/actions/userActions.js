@@ -6,6 +6,9 @@ import {
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAILED,
+  UPDATE_USER_REQUEST,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_FAILED,
 } from 'redux/constants/userConstants';
 import axiosInstance from 'modules/api';
 import { user } from 'api/endpoint';
@@ -30,7 +33,6 @@ export const user_register =
         endpoints: user.register,
         data: payload,
       });
-      console.log(response);
       dispatch({
         type: USER_REGISTER_SUCCESS,
         payload: response.data,
@@ -38,7 +40,38 @@ export const user_register =
     } catch (err) {
       dispatch({
         type: USER_REGISTER_FAILED,
-        payload: err.response,
+        payload: err.response.data,
+      });
+    }
+  };
+
+export const update_user =
+  ({ userId, data, updatedBy, action }) =>
+  async (dispatch) => {
+    try {
+      if (action === 'clean') {
+        return dispatch({ type: UPDATE_USER_REQUEST });
+      }
+      dispatch({ type: UPDATE_USER_REQUEST });
+      const payload = {
+        firstName: data.firstName,
+        middleName: data.middleName,
+        lastName: data.lastName,
+        address: data.address,
+      };
+      const response = await axiosInstance({
+        endpoints: user.update,
+        query: { userId: userId, updatedBy: updatedBy },
+        data: payload,
+      });
+      dispatch({
+        type: UPDATE_USER_SUCCESS,
+        payload: response.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: UPDATE_USER_FAILED,
+        payload: err.response.data,
       });
     }
   };
@@ -66,7 +99,7 @@ export const user_login =
     } catch (err) {
       dispatch({
         type: USER_LOGIN_FAILED,
-        payload: err.response,
+        payload: err.response.data,
       });
     }
   };

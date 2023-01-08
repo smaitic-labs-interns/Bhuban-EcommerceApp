@@ -6,6 +6,9 @@ import {
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAILED,
+  UPDATE_USER_REQUEST,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_FAILED,
 } from '../constants/userConstants';
 
 const initialStateRegister = {
@@ -40,6 +43,29 @@ export const register_reducer = (state = initialStateRegister, { type, payload }
         message: payload.data,
       };
     case USER_REGISTER_FAILED:
+      return {
+        ...state,
+        status: 'failed',
+        message: payload.data,
+      };
+
+    default:
+      return state;
+  }
+};
+
+export const update_user_reducer = (state = initialStateRegister, { type, payload }) => {
+  switch (type) {
+    case UPDATE_USER_REQUEST:
+      return initialStateRegister;
+
+    case UPDATE_USER_SUCCESS:
+      return {
+        ...state,
+        status: 'success',
+        message: payload.data,
+      };
+    case UPDATE_USER_FAILED:
       return {
         ...state,
         status: 'failed',

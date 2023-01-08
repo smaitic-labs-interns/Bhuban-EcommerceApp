@@ -8,6 +8,7 @@ userEndpoint.get('all');
 userEndpoint.post('limited');
 userEndpoint.post('login');
 userEndpoint.post('register');
+userEndpoint.put('update');
 
 export const user = userEndpoint.getEndpoints();
 
