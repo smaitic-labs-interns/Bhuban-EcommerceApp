@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import CartTable from 'Pages/Cart/Components/CartTable';
 import {
   CartWrapper,
@@ -13,20 +13,20 @@ import Checkout from 'Pages/Cart/Components/Checkout';
 
 export default function Cart() {
   const userCart = useSelector((state) => state.userCart);
-  const cartProducts = useSelector((state) => state.cartProductsDetails);
+  // const cartProducts = useSelector((state) => state.cartProductsDetails);
   const login = useSelector((state) => state.login);
   const dispatch = useDispatch();
   const userId = login.isLogined ? login.userId : null;
 
   const [cart, setCart] = useState({});
 
-  useEffect(() => {
+  useMemo(() => {
     if (userId && userId !== '') {
       dispatch(fetch_user_Cart({ userId: userId, action: 'fetch' }));
     }
   }, [userId, dispatch]);
 
-  useEffect(() => {
+  useMemo(() => {
     if (userCart.status === 'success') {
       setCart(userCart);
       const pId = [];
@@ -39,21 +39,21 @@ export default function Cart() {
     }
   }, [userCart, dispatch]);
 
-  useEffect(() => {
-    // if (cartProducts.status === "success") {
-    //   const details = cartProducts.details;
-    //   const prdcts = [];
-    //   for (let index in cart.products) {
-    //     // delete details[index].id;
-    //     console.log(details[index]);
-    //     prdcts.push({
-    //       ...cart.products[index],
-    //       ...details[index],
-    //     });
-    //   }
-    //   console.log(prdcts);
-    // }
-  }, [cartProducts]);
+  // useEffect(() => {
+  // if (cartProducts.status === "success") {
+  //   const details = cartProducts.details;
+  //   const prdcts = [];
+  //   for (let index in cart.products) {
+  //     // delete details[index].id;
+  //     console.log(details[index]);
+  //     prdcts.push({
+  //       ...cart.products[index],
+  //       ...details[index],
+  //     });
+  //   }
+  //   console.log(prdcts);
+  // }
+  // }, [cartProducts]);
 
   return (
     <>

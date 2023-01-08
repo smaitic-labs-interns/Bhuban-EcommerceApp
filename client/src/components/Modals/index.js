@@ -1,29 +1,44 @@
 import React, { useState } from 'react';
 import { Modal, Typography } from '@mui/material';
-import { RemoveRedEye, Close } from '@mui/icons-material';
+import { Close } from '@mui/icons-material';
 
 import {
   ModalWrapper,
   OpenModalButton,
   CloseButton,
   ModalTitleWrapper,
+  ModalTitleDescWrapper,
   ModalContainer,
   ModalHeaderWrapper,
+  ModalBodyWrapper,
+  ModalBodyContainer,
+  ModalFooterWrapper,
+  ModalFooterContainer,
 } from './styles/modalStyle';
 import PropTypes from 'prop-types';
 
-export default function CustomModal({ name, initially, title }) {
+export default function CustomModal({
+  name,
+  openIcon,
+  openBtnColor,
+  openBtnVariant,
+  initially,
+  title,
+  titleDesc,
+  body,
+  footer,
+}) {
   const [open, setOpen] = useState(() => (initially ? true : false));
   return (
     <ModalWrapper>
       <OpenModalButton
-        variant='outlined'
-        color='info'
+        variant={openBtnVariant}
+        color={openBtnColor}
         onClick={() => setOpen(true)}
         autoCapitalize={false}
       >
-        <RemoveRedEye />
-        <Typography>{name || 'custom modal'}</Typography>
+        {openIcon}
+        <Typography>{name}</Typography>
       </OpenModalButton>
       <Modal
         open={open}
@@ -33,11 +48,27 @@ export default function CustomModal({ name, initially, title }) {
       >
         <ModalContainer>
           <ModalHeaderWrapper>
-            <ModalTitleWrapper>Shipping Address</ModalTitleWrapper>
+            <ModalTitleWrapper>
+              <Typography fontWeight={600} fontSize={'24px'} color={'#1976D2'}>
+                {title}
+              </Typography>
+            </ModalTitleWrapper>
+            {titleDesc && <ModalTitleDescWrapper>{titleDesc}</ModalTitleDescWrapper>}
             <CloseButton onClick={() => setOpen(false)}>
               <Close />
             </CloseButton>
           </ModalHeaderWrapper>
+          {body && (
+            <ModalBodyWrapper>
+              <ModalBodyContainer>{body}</ModalBodyContainer>
+            </ModalBodyWrapper>
+          )}
+
+          {footer && (
+            <ModalFooterWrapper>
+              <ModalFooterContainer>{footer}</ModalFooterContainer>
+            </ModalFooterWrapper>
+          )}
         </ModalContainer>
       </Modal>
     </ModalWrapper>

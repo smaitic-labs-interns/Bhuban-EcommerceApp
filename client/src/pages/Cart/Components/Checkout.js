@@ -16,6 +16,7 @@ export default function Checkout({ cart }) {
       <CheckoutTitleWrapper>
         <Typography>{'Order Summary'}</Typography>
       </CheckoutTitleWrapper>
+      <Typography p={1}>Total Bill: {cart.totalBill}</Typography>
       <Link
         to={Object.keys(cart).length === 0 ? '#' : '/placeOrder'}
         style={{ textDecoration: 'none' }}
