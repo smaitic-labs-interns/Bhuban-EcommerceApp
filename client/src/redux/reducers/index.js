@@ -1,4 +1,4 @@
-import { register_reducer, loginReducer } from './userReducer';
+import { register_reducer, update_user_reducer, loginReducer } from './userReducer';
 import {
   productReducer,
   selectedProductReducer,
@@ -46,6 +46,7 @@ const persistConfig = {
   storage,
   blacklist: [
     'register',
+    'updateUser',
     'login',
     'searchProduct',
     'deleteProduct',
@@ -86,6 +87,14 @@ const persistedReducer = persistCombineReducers(persistConfig, {
       blacklist: ['loading', 'message'],
     },
     register_reducer,
+  ),
+  updateUser: persistReducer(
+    {
+      key: 'updateUser',
+      storage: storage,
+      blacklist: ['message', 'status'],
+    },
+    update_user_reducer,
   ),
   login: persistReducer(
     {

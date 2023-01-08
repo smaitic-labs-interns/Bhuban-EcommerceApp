@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import {
   EditUserWrapper,
   EditUserContainer,
@@ -7,14 +7,18 @@ import {
   FormInput,
 } from '../styles/edituserFormStyle';
 import { TextField, Button } from '@mui/material';
-// import { useDispatch, useSelector } from 'react-redux';
-// import Swal from 'sweetalert2';
+import { useDispatch, useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
 import { useFormik } from 'formik';
 import { updateUserRules } from 'validation';
+import { update_user, user_login } from 'redux/actions/userActions';
 
 export default function EditUserForm({ userDetails }) {
-  //   const register = useSelector((state) => state.register);
-  //   const dispatch = useDispatch();
+  const login = useSelector((state) => state.login);
+  const updateUser = useSelector((state) => state.updateUser);
+
+  const userId = login.isLogined ? login.userId : '';
+  const dispatch = useDispatch();
   const initialValues = {
     firstName: userDetails.firstName,
     middleName: userDetails.middleName,
@@ -26,10 +30,43 @@ export default function EditUserForm({ userDetails }) {
     initialValues: initialValues,
     validationSchema: updateUserRules,
     onSubmit: (values) => {
-      alert(values);
-      //   dispatch(user_register({ data: values, action: 'register' }));
+      dispatch(
+        update_user({ userId: userId, data: values, updatedBy: userId, action: 'register' }),
+      );
     },
   });
+
+  useMemo(() => {
+    if (updateUser.status === 'success') {
+      Swal.fire({
+        title: 'success',
+        text: `${updateUser.message}`,
+        icon: 'success',
+        confirmButtonText: 'Ok',
+      });
+      dispatch(
+        user_login({ value: { userId: userId }, action: 'login', isLogined: login.isLogined }),
+      );
+    } else if (updateUser.status === 'failed') {
+      Swal.fire({
+        title: 'Failed!',
+        text: `${updateUser.message}`,
+        icon: 'error',
+        confirmButtonText: 'Ok',
+      });
+    }
+
+    if (updateUser.status !== null) {
+      dispatch(
+        update_user({
+          userId: '',
+          data: '',
+          updatedBy: '',
+          action: 'clean',
+        }),
+      );
+    }
+  }, [updateUser, dispatch, login, userId]);
   return (
     <EditUserWrapper>
       <EditUserContainer>

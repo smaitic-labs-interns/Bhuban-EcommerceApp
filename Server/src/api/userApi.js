@@ -15,6 +15,18 @@ const get_all_user = async (req, resp) => {
   }
 };
 
+const get_one_user = async (req, resp) => {
+  try {
+    const userId = req.query.id;
+    const res = await Service.user.get_user_by_id(userId);
+    logger.log("info", `Sucessfully fetched user on ID: ${userId}`);
+    resp.status(200).send(res);
+  } catch (err) {
+    logger.error("error", err);
+    resp.status(400).send(err.message);
+  }
+};
+
 const get_limited_user = async (req, resp) => {
   try {
     const page = req.query.page;
@@ -82,6 +94,7 @@ const user_login = async (req, resp) => {
 
 module.exports = {
   get_all_user,
+  get_one_user,
   get_limited_user,
   user_register,
   update_user,

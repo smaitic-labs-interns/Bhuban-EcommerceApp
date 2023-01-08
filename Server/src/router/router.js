@@ -7,6 +7,7 @@ router.get("/", async (req, resp) => {
 
 // for user
 router.get("/user/all", api.user.get_all_user);
+router.get("/user/one", api.user.get_one_user);
 router.get("/user/limited", api.user.get_limited_user);
 router.post("/user/register", api.user.user_register);
 router.put("/user/update", api.user.update_user);

@@ -61,3 +61,40 @@
 [[32minfo[39m] user: 1/7/2023, 6:19:50 PM  User: random@gmail.com login Sucessfully
 [[32minfo[39m] user: 1/7/2023, 8:14:47 PM  User: bhuban.smaitic@gmail.com login Sucessfully
 [[32minfo[39m] user: 1/7/2023, 8:14:48 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/8/2023, 12:23:08 PM  User details Updated Sucessfully for ID: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] user: 1/8/2023, 12:25:58 PM  User details Updated Sucessfully for ID: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] user: 1/8/2023, 12:26:39 PM  User details Updated Sucessfully for ID: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] user: 1/8/2023, 12:27:51 PM  User details Updated Sucessfully for ID: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] user: 1/8/2023, 12:27:54 PM  User details Updated Sucessfully for ID: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] user: 1/8/2023, 12:27:59 PM  User details Updated Sucessfully for ID: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] user: 1/8/2023, 12:28:08 PM  User details Updated Sucessfully for ID: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] user: 1/8/2023, 12:28:45 PM  User details Updated Sucessfully for ID: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] user: 1/8/2023, 12:30:40 PM  User details Updated Sucessfully for ID: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] user: 1/8/2023, 1:02:29 PM  User details Updated Sucessfully for ID: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] user: 1/8/2023, 1:05:22 PM  User details Updated Sucessfully for ID: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] user: 1/8/2023, 1:06:07 PM  User details Updated Sucessfully for ID: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[31merror[39m] user: 1/8/2023, 1:06:07 PM  ValidationError: "email" is required
+[[32minfo[39m] user: 1/8/2023, 1:06:55 PM  User: bhuban.smaitic@gmail.com login Sucessfully
+[[32minfo[39m] user: 1/8/2023, 1:06:55 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/8/2023, 1:07:23 PM  User details Updated Sucessfully for ID: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[31merror[39m] user: 1/8/2023, 1:07:23 PM  ValidationError: "email" is required
+[[32minfo[39m] user: 1/8/2023, 1:08:31 PM  User: bhuban.smaitic@gmail.com login Sucessfully
+[[32minfo[39m] user: 1/8/2023, 1:08:31 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/8/2023, 1:08:43 PM  User details Updated Sucessfully for ID: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] user: 1/8/2023, 1:08:43 PM  Sucessfully fetched user on ID: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] user: 1/8/2023, 1:09:44 PM  User details Updated Sucessfully for ID: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] user: 1/8/2023, 1:09:44 PM  Sucessfully fetched user on ID: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] user: 1/8/2023, 1:10:00 PM  User details Updated Sucessfully for ID: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] user: 1/8/2023, 1:10:00 PM  Sucessfully fetched user on ID: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] user: 1/8/2023, 1:12:27 PM  User details Updated Sucessfully for ID: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] user: 1/8/2023, 1:12:27 PM  Sucessfully fetched user on ID: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] user: 1/8/2023, 1:25:55 PM  User details Updated Sucessfully for ID: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] user: 1/8/2023, 1:25:55 PM  Sucessfully fetched user on ID: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] user: 1/8/2023, 1:26:32 PM  User details Updated Sucessfully for ID: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] user: 1/8/2023, 1:26:32 PM  Sucessfully fetched user on ID: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] user: 1/8/2023, 1:26:43 PM  User details Updated Sucessfully for ID: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] user: 1/8/2023, 1:26:43 PM  Sucessfully fetched user on ID: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] user: 1/8/2023, 1:26:55 PM  User details Updated Sucessfully for ID: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] user: 1/8/2023, 1:26:55 PM  Sucessfully fetched user on ID: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] user: 1/8/2023, 1:27:01 PM  User: bhuban.smaitic@gmail.com login Sucessfully
+[[32minfo[39m] user: 1/8/2023, 1:27:01 PM  Sucessfully fetched all users

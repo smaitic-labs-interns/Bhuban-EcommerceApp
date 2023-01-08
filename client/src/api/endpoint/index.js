@@ -5,6 +5,7 @@ import { apiEndpoint } from 'modules/api';
  */
 const userEndpoint = apiEndpoint('user');
 userEndpoint.get('all');
+userEndpoint.get('one');
 userEndpoint.post('limited');
 userEndpoint.post('login');
 userEndpoint.post('register');

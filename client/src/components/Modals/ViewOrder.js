@@ -29,7 +29,6 @@ const style = {
 export default function ViewOrder({ order, initially }) {
   const [open, setOpen] = useState(() => (initially ? true : false));
   const handleOpen = () => setOpen(true);
-  console.log(order);
 
   const { country, province, district, city, ward, tole, houseNo } = order.shippingAddress;
   var index = 0;

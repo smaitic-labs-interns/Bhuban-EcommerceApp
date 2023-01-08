@@ -107,8 +107,25 @@ const update_user = async (
       throw new Error(`User doesnot exists on ID: ${userId}`);
     }
     if (db.user.update_user(userId, user, updatedBy)) {
-      return "User Registerd Sucessfully. Try Login";
+      return `User Updated Sucessfully for Id:${userId}`;
     }
+  } catch (err) {
+    throw err;
+  }
+};
+
+/**
+ * * Find user using ID
+ * @param {*} userId
+ * @returns user object ||error message
+ */
+const get_user_by_id = async (userId) => {
+  try {
+    const user = await db.user.find_user_from_id(userId);
+    if (Object.keys(user).length > 0) {
+      return user;
+    }
+    throw new Error(`User doesnot exists on ID: ${userId}`);
   } catch (err) {
     throw err;
   }
@@ -145,5 +162,6 @@ module.exports = {
   get_limited_users,
   user_register,
   update_user,
+  get_user_by_id,
   user_signin,
 };
