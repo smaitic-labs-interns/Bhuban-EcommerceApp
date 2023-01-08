@@ -15,14 +15,13 @@ import {
   ModalFooterWrapper,
   ModalFooterContainer,
 } from './styles/modalStyle';
-import PropTypes from 'prop-types';
 
 export default function CustomModal({
   name,
   openIcon,
   openBtnColor,
   openBtnVariant,
-  initially,
+  initially = false,
   title,
   titleDesc,
   body,
@@ -31,12 +30,7 @@ export default function CustomModal({
   const [open, setOpen] = useState(() => (initially ? true : false));
   return (
     <ModalWrapper>
-      <OpenModalButton
-        variant={openBtnVariant}
-        color={openBtnColor}
-        onClick={() => setOpen(true)}
-        autoCapitalize={false}
-      >
+      <OpenModalButton variant={openBtnVariant} color={openBtnColor} onClick={() => setOpen(true)}>
         {openIcon}
         <Typography>{name}</Typography>
       </OpenModalButton>
@@ -74,9 +68,3 @@ export default function CustomModal({
     </ModalWrapper>
   );
 }
-
-CustomModal.propTypes = {
-  name: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  initially: PropTypes.bool.isRequired,
-};

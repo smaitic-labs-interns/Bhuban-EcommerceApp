@@ -52,7 +52,7 @@ const orderEndpoint = apiEndpoint('order');
 orderEndpoint.get('all');
 orderEndpoint.get('limited');
 orderEndpoint.get('one');
-orderEndpoint.get('user/limited');
+orderEndpoint.get('userLimited');
 orderEndpoint.get('user');
 orderEndpoint.post('place');
 orderEndpoint.put('updateQuantity');

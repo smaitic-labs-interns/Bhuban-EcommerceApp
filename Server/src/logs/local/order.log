@@ -239,3 +239,101 @@
 [[32minfo[39m] order: 1/8/2023, 8:06:44 PM  Sucessfully fetched orders of user: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
 [[32minfo[39m] order: 1/8/2023, 8:07:20 PM  Sucessfully fetched orders of user: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
 [[32minfo[39m] order: 1/8/2023, 8:08:00 PM  Sucessfully fetched orders of user: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] order: 1/8/2023, 8:09:36 PM  Sucessfully fetched orders of user: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] order: 1/8/2023, 8:09:47 PM  Sucessfully fetched orders of user: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] order: 1/8/2023, 8:09:57 PM  Sucessfully fetched orders of user: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] order: 1/8/2023, 8:10:17 PM  Sucessfully fetched orders of user: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] order: 1/8/2023, 8:10:38 PM  Sucessfully fetched orders of user: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[31merror[39m] order: 1/8/2023, 8:27:17 PM  error: column "createdat" does not exist
+    at Parser.parseErrorMessage (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/node_modules/pg-protocol/dist/parser.js:287:98)
+    at Parser.handlePacket (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/node_modules/pg-protocol/dist/parser.js:126:29)
+    at Parser.parse (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/node_modules/pg-protocol/dist/parser.js:39:38)
+    at Socket.<anonymous> (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/node_modules/pg-protocol/dist/index.js:11:42)
+    at Socket.emit (node:events:513:28)
+    at addChunk (node:internal/streams/readable:315:12)
+    at readableAddChunk (node:internal/streams/readable:289:9)
+    at Socket.Readable.push (node:internal/streams/readable:228:10)
+    at TCP.onStreamRead (node:internal/stream_base_commons:190:23)
+[[31merror[39m] order: 1/8/2023, 8:28:13 PM  error: column "createdat" does not exist
+    at Parser.parseErrorMessage (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/node_modules/pg-protocol/dist/parser.js:287:98)
+    at Parser.handlePacket (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/node_modules/pg-protocol/dist/parser.js:126:29)
+    at Parser.parse (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/node_modules/pg-protocol/dist/parser.js:39:38)
+    at Socket.<anonymous> (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/node_modules/pg-protocol/dist/index.js:11:42)
+    at Socket.emit (node:events:513:28)
+    at addChunk (node:internal/streams/readable:315:12)
+    at readableAddChunk (node:internal/streams/readable:289:9)
+    at Socket.Readable.push (node:internal/streams/readable:228:10)
+    at TCP.onStreamRead (node:internal/stream_base_commons:190:23)
+[[32minfo[39m] order: 1/8/2023, 8:33:10 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/8/2023, 8:34:35 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/8/2023, 8:37:30 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/8/2023, 8:40:09 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/8/2023, 8:40:19 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/8/2023, 8:43:51 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/8/2023, 8:44:08 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/8/2023, 8:45:39 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/8/2023, 8:45:45 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/8/2023, 8:46:13 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/8/2023, 8:46:40 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/8/2023, 8:47:55 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/8/2023, 8:48:04 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/8/2023, 8:48:22 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/8/2023, 8:48:25 PM  Sucessfully fetched 10 user orders for page 1
+[[31merror[39m] order: 1/8/2023, 8:48:29 PM  Error: Already Placed for cancelled. Id: b137b4ae-12f5-47ab-8048-dfd98576da83
+    at Object.cancel_order (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/orderService.js:388:13)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async cancel_order (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/orderApi.js:186:17)
+[[31merror[39m] order: 1/8/2023, 8:48:35 PM  Error: Already Placed for cancelled. Id: 6ead83ec-ce83-4094-bf2a-5c88c2fbfee6
+    at Object.cancel_order (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/orderService.js:388:13)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async cancel_order (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/orderApi.js:186:17)
+[[32minfo[39m] order: 1/8/2023, 8:49:05 PM  Sucessfully order placed for user : 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] order: 1/8/2023, 8:49:25 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/8/2023, 8:49:31 PM  Order cancelled sucessfully for ID : b255596d-1848-4d64-8280-550d6db6967c
+[[31merror[39m] order: 1/8/2023, 8:49:31 PM  error: invalid input syntax for type bigint: "NaN"
+    at Parser.parseErrorMessage (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/node_modules/pg-protocol/dist/parser.js:287:98)
+    at Parser.handlePacket (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/node_modules/pg-protocol/dist/parser.js:126:29)
+    at Parser.parse (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/node_modules/pg-protocol/dist/parser.js:39:38)
+    at Socket.<anonymous> (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/node_modules/pg-protocol/dist/index.js:11:42)
+    at Socket.emit (node:events:513:28)
+    at addChunk (node:internal/streams/readable:315:12)
+    at readableAddChunk (node:internal/streams/readable:289:9)
+    at Socket.Readable.push (node:internal/streams/readable:228:10)
+    at TCP.onStreamRead (node:internal/stream_base_commons:190:23)
+[[32minfo[39m] order: 1/8/2023, 8:49:54 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/8/2023, 8:50:37 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/8/2023, 8:50:40 PM  Order cancelled sucessfully for ID : b255596d-1848-4d64-8280-550d6db6967c
+[[31merror[39m] order: 1/8/2023, 8:50:41 PM  error: invalid input syntax for type bigint: "NaN"
+    at Parser.parseErrorMessage (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/node_modules/pg-protocol/dist/parser.js:287:98)
+    at Parser.handlePacket (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/node_modules/pg-protocol/dist/parser.js:126:29)
+    at Parser.parse (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/node_modules/pg-protocol/dist/parser.js:39:38)
+    at Socket.<anonymous> (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/node_modules/pg-protocol/dist/index.js:11:42)
+    at Socket.emit (node:events:513:28)
+    at addChunk (node:internal/streams/readable:315:12)
+    at readableAddChunk (node:internal/streams/readable:289:9)
+    at Socket.Readable.push (node:internal/streams/readable:228:10)
+    at TCP.onStreamRead (node:internal/stream_base_commons:190:23)
+[[32minfo[39m] order: 1/8/2023, 8:51:57 PM  Sucessfully fetched 10 user orders for page 1
+[[31merror[39m] order: 1/8/2023, 8:52:03 PM  Error: Order is already Placed for cancellation. Id: b255596d-1848-4d64-8280-550d6db6967c
+    at Object.return_replace_order (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/orderService.js:429:13)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async return_replace_order (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/orderApi.js:199:17)
+[[32minfo[39m] order: 1/8/2023, 8:52:09 PM  Order placed for return sucessfully on ID  : 6ead83ec-ce83-4094-bf2a-5c88c2fbfee6
+[[32minfo[39m] order: 1/8/2023, 8:52:09 PM  Sucessfully fetched 1 user orders for page 1
+[[32minfo[39m] order: 1/8/2023, 8:52:12 PM  Sucessfully fetched 1 user orders for page 2
+[[32minfo[39m] order: 1/8/2023, 8:52:15 PM  Sucessfully fetched 1 user orders for page 3
+[[32minfo[39m] order: 1/8/2023, 8:52:17 PM  Sucessfully fetched 1 user orders for page 2
+[[32minfo[39m] order: 1/8/2023, 8:52:20 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/8/2023, 8:52:52 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/8/2023, 8:53:16 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/8/2023, 8:53:32 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/8/2023, 8:54:45 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/8/2023, 8:55:24 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/8/2023, 8:56:01 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/8/2023, 8:56:26 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/8/2023, 8:56:31 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/8/2023, 8:58:13 PM  Sucessfully order placed for user : 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] order: 1/8/2023, 8:59:13 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/8/2023, 8:59:23 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/8/2023, 8:59:28 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/8/2023, 9:00:13 PM  Sucessfully fetched 10 user orders for page 1

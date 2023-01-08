@@ -563,14 +563,14 @@ export const fetch_limited_order =
   };
 
 export const fetch_limited_user_order =
-  ({ page, limit, action }) =>
+  ({ userId, page, limit, action }) =>
   async (dispatch) => {
     try {
       if (action === 'clean') return dispatch({ type: FETCH_LIMITED_USER_ORDER_REQUEST });
       dispatch({ type: FETCH_LIMITED_USER_ORDER_REQUEST });
       const response = await axiosInstance({
         endpoints: order.userLimited,
-        query: { page, limit },
+        query: { id: userId, page, limit },
       });
       dispatch({
         type: FETCH_LIMITED_USER_ORDER_SUCCESS,
@@ -579,7 +579,7 @@ export const fetch_limited_user_order =
     } catch (err) {
       dispatch({
         type: FETCH_LIMITED_USER_ORDER_FAILED,
-        payload: err.response,
+        payload: err.response.data,
       });
     }
   };

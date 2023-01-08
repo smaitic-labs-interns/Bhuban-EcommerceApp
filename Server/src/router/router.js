@@ -36,7 +36,7 @@ router.put("/cart/updateQuantity", api.cart.update_quantity_in_cart);
 router.get("/order/all", api.order.read_all_orders);
 router.get("/order/limited", api.order.read_limited_orders);
 router.get("/order/user", api.order.read_user_orders);
-router.get("/order/user/limited", api.order.read_user_order_limited);
+router.get("/order/userLimited", api.order.read_user_order_limited);
 router.get("/order/one", api.order.read_order_by_id);
 router.post("/order/place", api.order.place_order);
 router.put("/order/updateQuantity", api.order.update_quantity_order);

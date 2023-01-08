@@ -300,3 +300,21 @@
 [[32minfo[39m] address: 1/8/2023, 1:27:02 PM  All countries fetched  sucessfully
 [[32minfo[39m] address: 1/8/2023, 1:27:02 PM  All countries fetched  sucessfully
 [[32minfo[39m] address: 1/8/2023, 1:27:02 PM  All countries fetched  sucessfully
+[[32minfo[39m] address: 1/8/2023, 8:48:44 PM  All countries fetched  sucessfully
+[[32minfo[39m] address: 1/8/2023, 8:48:49 PM  All states fetched  sucessfully for country on ID: 145
+[[32minfo[39m] address: 1/8/2023, 8:48:52 PM  All districts fetched  sucessfully for state on ID: 2
+[[32minfo[39m] address: 1/8/2023, 8:57:49 PM  All countries fetched  sucessfully
+[[31merror[39m] address: 1/8/2023, 8:57:53 PM  Error: Error occur fetching states by country Id
+    at Object.read_states_by_country_id (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/repository/address.repository.js:39:11)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Object.read_states_by_country_id (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/address.service.js:35:20)
+    at async read_states_by_country_id (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/address.js:44:20)
+[[31merror[39m] address: 1/8/2023, 8:57:55 PM  Error: Error occur fetching states by country Id
+    at Object.read_states_by_country_id (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/repository/address.repository.js:39:11)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Object.read_states_by_country_id (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/address.service.js:35:20)
+    at async read_states_by_country_id (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/address.js:44:20)
+[[32minfo[39m] address: 1/8/2023, 8:57:55 PM  All states fetched  sucessfully for country on ID: 145
+[[32minfo[39m] address: 1/8/2023, 8:57:57 PM  All districts fetched  sucessfully for state on ID: 3

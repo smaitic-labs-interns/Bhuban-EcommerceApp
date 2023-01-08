@@ -702,3 +702,54 @@
 [[32minfo[39m] cart: 1/8/2023, 1:06:55 PM  Sucessfully fetched all carts 
 [[32minfo[39m] cart: 1/8/2023, 1:08:31 PM  Sucessfully fetched all carts 
 [[32minfo[39m] cart: 1/8/2023, 1:27:01 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/8/2023, 8:48:42 PM  Sucessfully fetched carts for user : 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[31merror[39m] cart: 1/8/2023, 8:49:05 PM  Error: No user Found for ID: 
+    at Object.get_user_cart (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/cartService.js:41:26)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async get_user_cart (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/cartApi.js:34:17)
+[[31merror[39m] cart: 1/8/2023, 8:56:52 PM  Error: Error occurs Try adding Product in cart.
+    at Object.get_user_cart (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/cartService.js:44:11)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async get_user_cart (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/cartApi.js:34:17)
+[[31merror[39m] cart: 1/8/2023, 8:56:52 PM  Error: Error occurs Try adding Product in cart.
+    at Object.get_user_cart (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/cartService.js:44:11)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async get_user_cart (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/cartApi.js:34:17)
+[[32minfo[39m] cart: 1/8/2023, 8:56:54 PM  Product added to cart sucessfully on ID: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] cart: 1/8/2023, 8:56:54 PM  Sucessfully fetched carts for user : 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] cart: 1/8/2023, 8:57:00 PM  Sucessfully fetched carts for user : 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] cart: 1/8/2023, 8:57:00 PM  Sucessfully fetched carts for user : 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] cart: 1/8/2023, 8:57:02 PM  Product added to cart sucessfully on ID: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] cart: 1/8/2023, 8:57:02 PM  Sucessfully fetched carts for user : 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] cart: 1/8/2023, 8:57:06 PM  Sucessfully fetched carts for user : 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] cart: 1/8/2023, 8:57:06 PM  Sucessfully fetched carts for user : 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] cart: 1/8/2023, 8:57:07 PM  Product added to cart sucessfully on ID: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] cart: 1/8/2023, 8:57:07 PM  Sucessfully fetched carts for user : 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] cart: 1/8/2023, 8:57:11 PM  Sucessfully fetched carts for user : 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] cart: 1/8/2023, 8:57:11 PM  Sucessfully fetched carts for user : 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] cart: 1/8/2023, 8:57:17 PM  Sucessfully fetched carts for user : 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] cart: 1/8/2023, 8:57:17 PM  Sucessfully fetched carts for user : 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] cart: 1/8/2023, 8:57:18 PM  Product added to cart sucessfully on ID: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] cart: 1/8/2023, 8:57:18 PM  Sucessfully fetched carts for user : 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] cart: 1/8/2023, 8:57:23 PM  Sucessfully fetched carts for user : 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] cart: 1/8/2023, 8:57:23 PM  Sucessfully fetched carts for user : 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] cart: 1/8/2023, 8:57:24 PM  Product added to cart sucessfully on ID: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] cart: 1/8/2023, 8:57:24 PM  Sucessfully fetched carts for user : 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] cart: 1/8/2023, 8:57:29 PM  Sucessfully fetched carts for user : 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] cart: 1/8/2023, 8:57:29 PM  Sucessfully fetched carts for user : 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] cart: 1/8/2023, 8:57:31 PM  Product added to cart sucessfully on ID: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] cart: 1/8/2023, 8:57:31 PM  Sucessfully fetched carts for user : 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] cart: 1/8/2023, 8:57:36 PM  Sucessfully fetched carts for user : 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] cart: 1/8/2023, 8:57:36 PM  Sucessfully fetched carts for user : 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] cart: 1/8/2023, 8:57:38 PM  Product added to cart sucessfully on ID: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] cart: 1/8/2023, 8:57:38 PM  Sucessfully fetched carts for user : 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] cart: 1/8/2023, 8:57:42 PM  Sucessfully fetched carts for user : 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] cart: 1/8/2023, 8:57:43 PM  Sucessfully fetched carts for user : 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] cart: 1/8/2023, 8:57:44 PM  Product added to cart sucessfully on ID: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] cart: 1/8/2023, 8:57:44 PM  Sucessfully fetched carts for user : 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] cart: 1/8/2023, 8:57:46 PM  Sucessfully fetched carts for user : 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[31merror[39m] cart: 1/8/2023, 8:58:13 PM  Error: No user Found for ID: 
+    at Object.get_user_cart (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/cartService.js:41:26)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async get_user_cart (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/cartApi.js:34:17)

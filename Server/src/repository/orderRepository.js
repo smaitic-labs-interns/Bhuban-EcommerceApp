@@ -241,9 +241,10 @@ const read_user_order_limited = async ({ page, limit, userId }) => {
         limit: limit,
       };
     }
-    let orders = await con.query(`SELECT * FROM orders WHERE userId = $1`, [
-      userId,
-    ]);
+    let orders = await con.query(
+      `SELECT * FROM orders WHERE userId = $1 ORDER BY createdAt DESC offset $2 LIMIT $3`,
+      [userId, startIndex, endIndex]
+    );
     const allOrders = [];
     if (orders.rowCount > 0) {
       for (let order of orders.rows) {
@@ -253,8 +254,8 @@ const read_user_order_limited = async ({ page, limit, userId }) => {
           [order.id]
         );
         let shipAddRes = await con.query(
-          `SELECT country, province, city, ward, tole, houseNo FROM shipment_address WHERE orderId = $1 ORDER BY createdAt DESC offset $2 LIMIT $3`,
-          [order.id, startIndex, endIndex]
+          `SELECT country, province, city, ward, tole, houseNo FROM shipment_address WHERE orderId = $1 `,
+          [order.id]
         );
         let shipRes = await con.query(
           `SELECT type , status FROM shipment WHERE orderId = $1`,
