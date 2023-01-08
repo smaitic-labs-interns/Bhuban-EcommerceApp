@@ -23,6 +23,12 @@ import {
   UPDATE_ORDER_ADDRESS_REQUEST,
   UPDATE_ORDER_ADDRESS_SUCCESS,
   UPDATE_ORDER_ADDRESS_FAILED,
+  UPDATE_ORDER_STATUS_REQUEST,
+  UPDATE_ORDER_STATUS_SUCCESS,
+  UPDATE_ORDER_STATUS_FAILED,
+  UPDATE_ORDER_SHIPMENT_REQUEST,
+  UPDATE_ORDER_SHIPMENT_SUCCESS,
+  UPDATE_ORDER_SHIPMENT_FAILED,
   CANCEL_ORDER_REQUEST,
   CANCEL_ORDER_SUCCESS,
   CANCEL_ORDER_FAILED,
@@ -41,9 +47,6 @@ import {
   PAYMENT_UPDATES_REQUEST,
   PAYMENT_UPDATES_SUCCESS,
   PAYMENT_UPDATES_FAILED,
-  UPDATE_ORDER_STATUS_REQUEST,
-  UPDATE_ORDER_STATUS_SUCCESS,
-  UPDATE_ORDER_STATUS_FAILED,
   PLACED_ORDER_DETAILS_REQUEST,
   PLACED_ORDER_DETAILS_SUCCESS,
   PLACED_ORDER_DETAILS_FAILED,
@@ -82,8 +85,6 @@ export const place_order =
         query: { id: userId },
         data: payload,
       });
-
-      console.log(response);
 
       dispatch({
         type: PLACE_ORDER_SUCCESS,
@@ -302,6 +303,60 @@ export const updatet_order_payment =
     }
   };
 
+export const update_order_status =
+  ({ orderId, status, action }) =>
+  async (dispatch) => {
+    try {
+      if (action === 'clean') {
+        return dispatch({ type: UPDATE_ORDER_STATUS_REQUEST });
+      }
+
+      dispatch({ type: UPDATE_ORDER_STATUS_REQUEST });
+      const response = await axiosInstance({
+        endpoints: order.updateStatus,
+        query: { id: orderId },
+        data: { status: status },
+      });
+
+      dispatch({
+        type: UPDATE_ORDER_STATUS_SUCCESS,
+        payload: response.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: UPDATE_ORDER_STATUS_FAILED,
+        payload: err.response,
+      });
+    }
+  };
+
+export const update_order_shipment =
+  ({ orderId, shipment, action }) =>
+  async (dispatch) => {
+    try {
+      if (action === 'clean') {
+        return dispatch({ type: UPDATE_ORDER_SHIPMENT_REQUEST });
+      }
+
+      dispatch({ type: UPDATE_ORDER_SHIPMENT_REQUEST });
+      const response = await axiosInstance({
+        endpoints: order.updateShipment,
+        query: { id: orderId },
+        data: { shipment: shipment },
+      });
+
+      dispatch({
+        type: UPDATE_ORDER_SHIPMENT_SUCCESS,
+        payload: response.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: UPDATE_ORDER_SHIPMENT_FAILED,
+        payload: err.response,
+      });
+    }
+  };
+
 export const cancel_order =
   ({ orderId, action }) =>
   async (dispatch) => {
@@ -332,7 +387,6 @@ export const return_replace_order =
   ({ orderId, action }) =>
   async (dispatch) => {
     try {
-      console.log(orderId, action);
       if (action === 'clean') {
         return dispatch({ type: RETURN_REPLACE_ORDER_REQUEST });
       }
@@ -360,7 +414,6 @@ export const refund_updates =
   ({ orderId, action }) =>
   async (dispatch) => {
     try {
-      console.log(orderId, action);
       if (action === 'clean') {
         return dispatch({ type: REFUND_UPDATES_REQUEST });
       }
@@ -387,7 +440,6 @@ export const shipment_updates =
   ({ orderId, action }) =>
   async (dispatch) => {
     try {
-      console.log(orderId, action);
       if (action === 'clean') {
         return dispatch({ type: SHIPMENT_UPDATES_REQUEST });
       }
@@ -414,7 +466,6 @@ export const return_updates =
   ({ orderId, action }) =>
   async (dispatch) => {
     try {
-      console.log(orderId, action);
       if (action === 'clean') {
         return dispatch({ type: RETURN_UPDATES_REQUEST });
       }
@@ -441,7 +492,6 @@ export const payment_updates =
   ({ orderId, action }) =>
   async (dispatch) => {
     try {
-      console.log(orderId, action);
       if (action === 'clean') {
         return dispatch({ type: PAYMENT_UPDATES_REQUEST });
       }
@@ -459,33 +509,6 @@ export const payment_updates =
     } catch (err) {
       dispatch({
         type: PAYMENT_UPDATES_FAILED,
-        payload: err.response,
-      });
-    }
-  };
-
-export const update_order_status =
-  ({ orderId, status, action }) =>
-  async (dispatch) => {
-    try {
-      if (action === 'clean') {
-        return dispatch({ type: UPDATE_ORDER_STATUS_REQUEST });
-      }
-
-      dispatch({ type: UPDATE_ORDER_STATUS_REQUEST });
-      const response = await axiosInstance({
-        endpoints: order.updateStatus,
-        query: { id: orderId },
-        data: { status: status },
-      });
-
-      dispatch({
-        type: UPDATE_ORDER_STATUS_SUCCESS,
-        payload: response.data,
-      });
-    } catch (err) {
-      dispatch({
-        type: UPDATE_ORDER_STATUS_FAILED,
         payload: err.response,
       });
     }

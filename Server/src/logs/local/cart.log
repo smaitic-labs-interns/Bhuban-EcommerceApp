@@ -753,3 +753,6 @@
     at runMicrotasks (<anonymous>)
     at processTicksAndRejections (node:internal/process/task_queues:96:5)
     at async get_user_cart (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/cartApi.js:34:17)
+[[32minfo[39m] cart: 1/8/2023, 10:08:02 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/8/2023, 10:11:30 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/8/2023, 10:38:39 PM  Sucessfully fetched all carts 

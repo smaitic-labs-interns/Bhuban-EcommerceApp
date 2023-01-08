@@ -1,14 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Button,
-  Modal,
-  Table,
-  TableCell,
-  Select,
-  MenuItem,
-  InputLabel,
-  TextField,
-} from '@mui/material';
+import { Button, Modal, Table, TableCell, Select, MenuItem, TextField } from '@mui/material';
 import { Close, Edit, Save } from '@mui/icons-material';
 import {
   EditOrderWrapper,
@@ -26,10 +17,10 @@ import { useFormik } from 'formik';
 import Swal from 'sweetalert2';
 import {
   update_order_status,
-  fetch_all_order,
   update_order_address,
   fetch_limited_order,
-} from '../../../../redux/actions/orderActions';
+  update_order_shipment,
+} from 'redux/actions/orderActions';
 import EditProductQuantity from './EditProductQuantity';
 import UpdatePayment from './UpdatePayment';
 import { address as addressEndpoint } from 'Api/endpoint';
@@ -141,26 +132,30 @@ export default function EditOrder({ order }) {
   const handleChangeAddress = (type, value) => {
     if (value === '') return;
     switch (type) {
-      case 'country':
+      case 'country': {
         const country = address.country.all.filter((country) => country.name === value);
         setAddress((address) => ({
           ...address,
           country: { ...address.country, selected: country[0] },
         }));
         break;
-      case 'state':
+      }
+      case 'state': {
         const state = address.state.all.filter((state) => state.name === value);
         setAddress((address) => ({
           ...address,
           state: { ...address.state, selected: state[0] },
         }));
         break;
-      case 'district':
+      }
+      case 'district': {
         const district = address.district.all.filter((district) => district.name === value);
         setAddress((address) => ({
           ...address,
           district: { ...address.district, selected: district[0] },
         }));
+        break;
+      }
       case 'city':
         break;
       default:
@@ -243,7 +238,7 @@ export default function EditOrder({ order }) {
   }, [address.state.selected.id]);
 
   useEffect(() => {
-    let id = address.district.selected.id;
+    // let id = address.district.selected.id;
     // if (id && id !== "") {
     //   axiosInstance({
     //     endpoints: address.stateDistricts,
@@ -272,23 +267,22 @@ export default function EditOrder({ order }) {
     houseNo: '',
   };
 
-  const { values, errors, setFieldValue, touched, handleBlur, handleChange, handleSubmit } =
-    useFormik({
-      initialValues: initialValues,
-      // validationSchema: loginSchema, // for data validation
-      onSubmit: (values) => {
-        values.country = address.country.selected.name;
-        values.province = address.state.selected.name;
-        values.district = address.district.selected.name;
-        dispatch(
-          update_order_address({
-            orderId: order.id,
-            newAddress: values,
-            action: 'update',
-          }),
-        );
-      },
-    });
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
+    initialValues: initialValues,
+    // validationSchema: loginSchema, // for data validation
+    onSubmit: (values) => {
+      values.country = address.country.selected.name;
+      values.province = address.state.selected.name;
+      values.district = address.district.selected.name;
+      dispatch(
+        update_order_address({
+          orderId: order.id,
+          newAddress: values,
+          action: 'update',
+        }),
+      );
+    },
+  });
 
   useEffect(() => {
     if (updateOrderAddress.status === 'success') {
@@ -582,7 +576,13 @@ export default function EditOrder({ order }) {
                   <CustomTableCellValue>{shipment.type}</CustomTableCellValue>
                   <CustomTableCellValue>{shipment.status}</CustomTableCellValue>
                   <CustomTableCell>
-                    <Button variant='outlined' color='primary' disabled>
+                    <Button
+                      variant='outlined'
+                      color='primary'
+                      onClick={() => {
+                        handleUpdateShipment();
+                      }}
+                    >
                       <Edit />
                       Edit
                     </Button>

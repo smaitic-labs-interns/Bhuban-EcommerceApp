@@ -28,13 +28,14 @@ import {
   update_order_quantity_reducer,
   update_order_address_reducer,
   update_order_payment_reducer,
+  update_order_status_reducer,
+  update_order_shipment_reducer,
   cancel_order_reducer,
   return_replace_ord_reducer,
   refund_updates_reducer,
   shipment_updates_reducer,
   return_updates_reducer,
   payment_updates_reducer,
-  update_order_status_reducer,
   placed_order_details_reducer,
   fetch_limited_order_reducer,
   fetch_limited_user_order_reducer,
@@ -65,6 +66,7 @@ const persistConfig = {
     'updateOrderAddress',
     'updateOrderPayment',
     'updateOrderStatus',
+    'updateOrderShipment',
     'cancelOrder',
     'returnReplace',
     'refundUpdates',
@@ -273,6 +275,14 @@ const persistedReducer = persistCombineReducers(persistConfig, {
       blacklist: ['data', 'status'],
     },
     update_order_status_reducer,
+  ),
+  updateOrderShipment: persistReducer(
+    {
+      key: 'updateOrderShipment',
+      storage: storage,
+      blacklist: ['data', 'status'],
+    },
+    update_order_shipment_reducer,
   ),
   cancelOrder: persistReducer(
     {

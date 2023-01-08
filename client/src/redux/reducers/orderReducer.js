@@ -23,6 +23,12 @@ import {
   UPDATE_ORDER_ADDRESS_REQUEST,
   UPDATE_ORDER_ADDRESS_SUCCESS,
   UPDATE_ORDER_ADDRESS_FAILED,
+  UPDATE_ORDER_STATUS_REQUEST,
+  UPDATE_ORDER_STATUS_SUCCESS,
+  UPDATE_ORDER_STATUS_FAILED,
+  UPDATE_ORDER_SHIPMENT_REQUEST,
+  UPDATE_ORDER_SHIPMENT_SUCCESS,
+  UPDATE_ORDER_SHIPMENT_FAILED,
   CANCEL_ORDER_REQUEST,
   CANCEL_ORDER_SUCCESS,
   CANCEL_ORDER_FAILED,
@@ -41,9 +47,6 @@ import {
   PAYMENT_UPDATES_REQUEST,
   PAYMENT_UPDATES_SUCCESS,
   PAYMENT_UPDATES_FAILED,
-  UPDATE_ORDER_STATUS_REQUEST,
-  UPDATE_ORDER_STATUS_SUCCESS,
-  UPDATE_ORDER_STATUS_FAILED,
   PLACED_ORDER_DETAILS_REQUEST,
   PLACED_ORDER_DETAILS_SUCCESS,
   PLACED_ORDER_DETAILS_FAILED,
@@ -262,6 +265,53 @@ export const update_order_payment_reducer = (
   }
 };
 
+export const update_order_status_reducer = (state = updateOrderInitialState, { type, payload }) => {
+  switch (type) {
+    case UPDATE_ORDER_STATUS_REQUEST:
+      return { ...state, status: null };
+
+    case UPDATE_ORDER_STATUS_SUCCESS:
+      return {
+        ...state,
+        message: payload,
+        status: 'success',
+      };
+    case UPDATE_ORDER_STATUS_FAILED:
+      return {
+        ...state,
+        message: payload.data,
+        status: 'failed',
+      };
+    default:
+      return state;
+  }
+};
+
+export const update_order_shipment_reducer = (
+  state = updateOrderInitialState,
+  { type, payload },
+) => {
+  switch (type) {
+    case UPDATE_ORDER_SHIPMENT_REQUEST:
+      return { ...state, status: null };
+
+    case UPDATE_ORDER_SHIPMENT_SUCCESS:
+      return {
+        ...state,
+        message: payload,
+        status: 'success',
+      };
+    case UPDATE_ORDER_SHIPMENT_FAILED:
+      return {
+        ...state,
+        message: payload.data,
+        status: 'failed',
+      };
+    default:
+      return state;
+  }
+};
+
 export const cancel_order_reducer = (state = updateOrderInitialState, { type, payload }) => {
   switch (type) {
     case CANCEL_ORDER_REQUEST:
@@ -384,28 +434,6 @@ export const payment_updates_reducer = (state = updateOrderInitialState, { type,
         status: 'success',
       };
     case PAYMENT_UPDATES_FAILED:
-      return {
-        ...state,
-        message: payload.data,
-        status: 'failed',
-      };
-    default:
-      return state;
-  }
-};
-
-export const update_order_status_reducer = (state = updateOrderInitialState, { type, payload }) => {
-  switch (type) {
-    case UPDATE_ORDER_STATUS_REQUEST:
-      return { ...state, status: null };
-
-    case UPDATE_ORDER_STATUS_SUCCESS:
-      return {
-        ...state,
-        message: payload,
-        status: 'success',
-      };
-    case UPDATE_ORDER_STATUS_FAILED:
       return {
         ...state,
         message: payload.data,

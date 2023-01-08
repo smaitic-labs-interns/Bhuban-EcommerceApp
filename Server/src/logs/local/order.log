@@ -337,3 +337,21 @@
 [[32minfo[39m] order: 1/8/2023, 8:59:23 PM  Sucessfully fetched 10 user orders for page 1
 [[32minfo[39m] order: 1/8/2023, 8:59:28 PM  Sucessfully fetched 10 user orders for page 1
 [[32minfo[39m] order: 1/8/2023, 9:00:13 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/8/2023, 10:07:51 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/8/2023, 10:08:02 PM  Sucessfully fetched all orders
+[[32minfo[39m] order: 1/8/2023, 10:08:02 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/8/2023, 10:08:02 PM  Sucessfully fetched 5 orders for page 1
+[[31merror[39m] order: 1/8/2023, 10:08:42 PM  Error: Invalid Order Status
+    at Object.update_order_status (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/orderService.js:305:13)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async update_status (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/orderApi.js:143:17)
+[[31merror[39m] order: 1/8/2023, 10:08:51 PM  Error: Invalid Order Status
+    at Object.update_order_status (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/orderService.js:305:13)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async update_status (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/orderApi.js:143:17)
+[[32minfo[39m] order: 1/8/2023, 10:11:30 PM  Sucessfully fetched all orders
+[[32minfo[39m] order: 1/8/2023, 10:11:30 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/8/2023, 10:11:30 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/8/2023, 10:38:39 PM  Sucessfully fetched all orders
+[[32minfo[39m] order: 1/8/2023, 10:38:39 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/8/2023, 10:38:39 PM  Sucessfully fetched 5 orders for page 1
