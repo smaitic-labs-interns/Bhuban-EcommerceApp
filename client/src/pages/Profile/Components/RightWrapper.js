@@ -17,17 +17,7 @@ import { CustomModal } from 'components';
 import EditUserForm from './EditUserForm';
 
 export default function RightWrapper({ userDetails }) {
-  const {
-    // userId,
-    firstName,
-    middleName,
-    lastName,
-    address,
-    email,
-    // isLogined,
-    // loading,
-    // message,
-  } = userDetails;
+  const { firstName, middleName, lastName, address, email } = userDetails;
 
   const fullName = `
     ${firstName ? firstName : ''} 
@@ -93,9 +83,7 @@ export default function RightWrapper({ userDetails }) {
                 <Typography sx={{ fontSize: '12px' }}>{address}</Typography>
               </Box>
               <Box>
-                <Typography sx={{ fontSize: '12px' }}>
-                  Bagmati Province - Lalitpur Outside Ring Road - Lalitpur
-                </Typography>
+                <Typography sx={{ fontSize: '12px' }}>{address}</Typography>
               </Box>
               <Box>
                 <Typography sx={{ fontSize: '12px' }}>- Dhapakhel Area</Typography>
@@ -114,18 +102,16 @@ export default function RightWrapper({ userDetails }) {
                 <Typography sx={{ fontSize: '14px', fontWeight: '700' }}>{fullName}</Typography>
               </Box>
               <Box>
-                <Typography sx={{ fontSize: '12px' }}>BANGLAMUKHI TOLE ,HOUSE no:-38</Typography>
+                <Typography sx={{ fontSize: '12px' }}>{address}</Typography>
               </Box>
               <Box>
-                <Typography sx={{ fontSize: '12px' }}>
-                  Bagmati Province - Lalitpur Outside Ring Road - Lalitpur - Dhapakhel Area
-                </Typography>
+                <Typography sx={{ fontSize: '12px' }}>{address}</Typography>
               </Box>
               <Box>
                 <Typography sx={{ fontSize: '12px' }}>- Dhapakhel Area</Typography>
               </Box>
               <Box>
-                <Typography sx={{ fontSize: '12px' }}>(+977) 9808888909</Typography>
+                <Typography sx={{ fontSize: '12px' }}>{email}</Typography>
               </Box>
             </RightCardRightContentWrapper>
           </RightCardWrapper>

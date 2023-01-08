@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import {
   EditUserWrapper,
   EditUserContainer,
@@ -16,6 +16,7 @@ import { update_user, user_login } from 'redux/actions/userActions';
 export default function EditUserForm({ userDetails }) {
   const login = useSelector((state) => state.login);
   const updateUser = useSelector((state) => state.updateUser);
+  const [isUserUpdated, setIsUserUpdated] = useState(false);
 
   const userId = login.isLogined ? login.userId : '';
   const dispatch = useDispatch();
@@ -44,6 +45,7 @@ export default function EditUserForm({ userDetails }) {
         icon: 'success',
         confirmButtonText: 'Ok',
       });
+      setIsUserUpdated(true);
       dispatch(
         user_login({ value: { userId: userId }, action: 'login', isLogined: login.isLogined }),
       );
@@ -74,6 +76,7 @@ export default function EditUserForm({ userDetails }) {
           <FormInputWrapper>
             <FormInput>
               <TextField
+                disabled={isUserUpdated}
                 autoComplete='firstName'
                 name='firstName'
                 fullWidth
@@ -90,6 +93,7 @@ export default function EditUserForm({ userDetails }) {
           <FormInputWrapper>
             <FormInput>
               <TextField
+                disabled={isUserUpdated}
                 autoComplete='middleName'
                 name='middleName'
                 fullWidth
@@ -106,6 +110,7 @@ export default function EditUserForm({ userDetails }) {
           <FormInputWrapper>
             <FormInput>
               <TextField
+                disabled={isUserUpdated}
                 fullWidth
                 id='lastName'
                 label='Last Name'
@@ -121,6 +126,7 @@ export default function EditUserForm({ userDetails }) {
           </FormInputWrapper>
           <FormInputWrapper>
             <TextField
+              disabled={isUserUpdated}
               fullWidth
               id='address'
               label='Full Address'
