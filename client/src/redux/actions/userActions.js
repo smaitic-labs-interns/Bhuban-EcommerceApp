@@ -93,7 +93,6 @@ export const user_login =
           endpoints: user.one,
           query: { id: value.userId },
         });
-        console.log(response);
       } else {
         const payload = {
           email: value.email,

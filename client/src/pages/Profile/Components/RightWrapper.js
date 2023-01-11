@@ -83,9 +83,6 @@ export default function RightWrapper({ userDetails }) {
                 <Typography sx={{ fontSize: '12px' }}>{address}</Typography>
               </Box>
               <Box>
-                <Typography sx={{ fontSize: '12px' }}>{address}</Typography>
-              </Box>
-              <Box>
                 <Typography sx={{ fontSize: '12px' }}>- Dhapakhel Area</Typography>
               </Box>
               <Box>
@@ -100,9 +97,6 @@ export default function RightWrapper({ userDetails }) {
               </Box>
               <Box>
                 <Typography sx={{ fontSize: '14px', fontWeight: '700' }}>{fullName}</Typography>
-              </Box>
-              <Box>
-                <Typography sx={{ fontSize: '12px' }}>{address}</Typography>
               </Box>
               <Box>
                 <Typography sx={{ fontSize: '12px' }}>{address}</Typography>

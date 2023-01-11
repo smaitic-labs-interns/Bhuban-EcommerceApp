@@ -287,6 +287,13 @@ const update_payment = async (orderId, newPayment) => {
   }
 };
 
+/**
+ * *Update Order Status
+ * @param {*} orderId
+ * @param {*} status
+ * @returns success || error message
+ */
+
 const update_order_status = async (orderId, status) => {
   try {
     const order = await Store.order.read_order_from_id(orderId);
@@ -304,18 +311,90 @@ const update_order_status = async (orderId, status) => {
     if (!ORDER_STATUS.includes(status)) {
       throw new Error("Invalid Order Status");
     } else if (status === "cancelled") {
-      if (order.orderStatus === "shipped") {
-        throw new Error(
-          "Order has been shipped,  Cannot be cancelled from here, visit nearest center"
-        );
-      } else if (order.orderStatus === "delivered") {
-        throw new Error(
-          "Order has been Delivered,  Cannot be cancelled from here, visit nearest center"
-        );
-      } else if (order.orderStatus === "completed") {
-        throw new Error(
-          "Order has been Completed,  Cannot be cancelled from here, visit nearest center"
-        );
+      switch (order.orderStatus) {
+        case "shipped":
+          throw new Error(
+            "Order has been shipped,  Cannot be cancelled from here, visit nearest center"
+          );
+
+        case "delivered":
+          throw new Error(
+            "Order has been Delivered,  Cannot be cancelled from here, visit nearest center"
+          );
+        case "completed":
+          throw new Error(
+            "Order has been Completed,  Cannot be cancelled from here, visit nearest center"
+          );
+
+        default:
+          break;
+      }
+    } else if (status === "delivered") {
+      switch (order.shipment.status) {
+        case "pending":
+          throw new Error(
+            "Shipment is in pending state,  Cannot marked as delivered"
+          );
+        case "pre-transit":
+          throw new Error(
+            "Shipment is in pre-transit state,  Cannot marked as delivered"
+          );
+        case "in-transit":
+          throw new Error(
+            "Shipment is in in-transit state,  Cannot marked as delivered"
+          );
+        case "waiting-for-delivery":
+          throw new Error(
+            "Shipment is in waiting-for-delivery state,  Cannot marked as delivered"
+          );
+        case "out-of-delivery":
+          throw new Error(
+            "Shipment is in out-of-delivery state,  Cannot marked as delivered"
+          );
+
+        case "failed-attempt":
+          throw new Error(
+            "Shipment is in failed-attempt state,  Cannot marked as delivered"
+          );
+        default:
+          break;
+      }
+    } else if (status === "completed") {
+      switch (order.shipment.status) {
+        case "pending":
+          throw new Error(
+            "Shipment is in pending state,  Cannot marked as completed"
+          );
+        case "pre-transit":
+          throw new Error(
+            "Shipment is in pre-transit state,  Cannot marked as completed"
+          );
+        case "in-transit":
+          throw new Error(
+            "Shipment is in in-transit state,  Cannot marked as completed"
+          );
+        case "waiting-for-delivery":
+          throw new Error(
+            "Shipment is in waiting-for-delivery state,  Cannot marked as completed"
+          );
+        case "out-of-delivery":
+          throw new Error(
+            "Shipment is in out-of-delivery state,  Cannot marked as completed"
+          );
+        case "returned":
+          throw new Error(
+            "Shipment is in returned state,  Cannot marked as completed"
+          );
+        case "replaced":
+          throw new Error(
+            "Shipment is in replaced state,  Cannot marked as completed"
+          );
+        case "failed-attempt":
+          throw new Error(
+            "Shipment is in failed-attempt state,  Cannot marked as completed"
+          );
+        default:
+          break;
       }
     }
 
@@ -329,6 +408,12 @@ const update_order_status = async (orderId, status) => {
   }
 };
 
+/**
+ * *Update Shipment Status
+ * @param {*} orderId
+ * @param {*} shipment
+ * @returns success || error message
+ */
 const update_shipment = async (orderId, shipment) => {
   try {
     const order = await Store.order.read_order_from_id(orderId);
@@ -340,6 +425,7 @@ const update_shipment = async (orderId, shipment) => {
       "out-of-delivery",
       "delivered",
       "returned",
+      "replaced",
       "failed-attempt",
     ];
 
@@ -418,7 +504,6 @@ const cancel_order = async (orderId) => {
     order.orderStatus = "cancelled";
 
     if (Store.order.update_order(orderId, order)) {
-      console.log("Order has been placed for cancellation");
       return "Order has been placed for cancellation";
     }
   } catch (err) {
@@ -450,7 +535,7 @@ const return_replace_order = async (orderId, action) => {
       throw new Error(`Already Placed for return. Id: ${orderId}`);
     }
 
-    if (action === "return") {
+    if (action === "returned") {
       for (product of order.products) {
         Store.product.update_quantity(
           product.productId,
@@ -459,10 +544,7 @@ const return_replace_order = async (orderId, action) => {
         );
       }
     }
-
-    order.orderStatus = action;
-    if (Store.order.update_order(orderId, order)) {
-      console.log(`Your order has been placed for ${action} Sucessfully`);
+    if (await update_shipment(orderId, { ...order.shipment, status: action })) {
       return `Your order has been placed for ${action} Sucessfully`;
     }
   } catch (err) {

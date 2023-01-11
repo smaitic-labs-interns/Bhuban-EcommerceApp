@@ -140,7 +140,13 @@ export default function EditUserForm({ userDetails }) {
             />
           </FormInputWrapper>
 
-          <Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}>
+          <Button
+            disabled={isUserUpdated}
+            type='submit'
+            fullWidth
+            variant='contained'
+            sx={{ mt: 3, mb: 2 }}
+          >
             Update
           </Button>
         </FormWrapper>

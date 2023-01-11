@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   TableContainer,
   Paper,
@@ -97,7 +97,7 @@ export default function RightTable() {
     }
   }, [limitedUserOrder]);
 
-  useMemo(() => {
+  useEffect(() => {
     if (cancelOrder.status === 'success') {
       Swal.fire({
         title: 'Order Cancelled Sucessfully',
@@ -186,6 +186,50 @@ export default function RightTable() {
     }
   };
 
+  const validateCancelStatus = (orderId) => {
+    const cancelledCondition = ['shipped', 'delivered', 'completed', 'cancelled', 'failed'];
+
+    for (const order of orders.all) {
+      if (order.id === orderId && cancelledCondition.includes(order.orderStatus)) {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  const validateRetRepStatus = (orderId) => {
+    const RetRepFailedOrderCondition = [
+      'pending',
+      'accepted',
+      'in-progress',
+      'shipped',
+      'completed',
+      'cancelled',
+      'failed',
+    ];
+
+    const RetRepFailedShipCondition = [
+      'pre-transit',
+      'in-transit',
+      'waiting-for-delivery',
+      'out-of-delivery',
+      'returned',
+      'replaced',
+      'failed-attempt',
+    ];
+
+    for (const order of orders.all) {
+      if (
+        order.id === orderId &&
+        (RetRepFailedOrderCondition.includes(order.orderStatus) ||
+          RetRepFailedShipCondition.includes(order.shipment['status']))
+      ) {
+        return true;
+      }
+    }
+    return false;
+  };
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label='customized table'>
@@ -211,6 +255,7 @@ export default function RightTable() {
                   </TableCell>
                   <TableCell>
                     <Button
+                      disabled={validateCancelStatus(order.id)}
                       variant='outlined'
                       color='error'
                       onClick={() => handleCancelOrder(order.id)}
@@ -221,9 +266,10 @@ export default function RightTable() {
                   </TableCell>
                   <TableCell>
                     <Button
+                      disabled={validateRetRepStatus(order.id)}
                       variant='outlined'
                       color='secondary'
-                      onClick={() => handleReturnReplace(order.id, 'return')}
+                      onClick={() => handleReturnReplace(order.id, 'returned')}
                     >
                       <AssignmentReturn sx={{ paddingRight: '0.5rem' }} />
                       Retrn
@@ -231,9 +277,10 @@ export default function RightTable() {
                   </TableCell>
                   <TableCell>
                     <Button
+                      disabled={validateRetRepStatus(order.id)}
                       variant='outlined'
                       color='primary'
-                      onClick={() => handleReturnReplace(order.id, 'replace')}
+                      onClick={() => handleReturnReplace(order.id, 'replaced')}
                     >
                       <FindReplace sx={{ paddingRight: '0.5rem' }} />
                       Replace

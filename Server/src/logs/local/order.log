@@ -355,3 +355,363 @@
 [[32minfo[39m] order: 1/8/2023, 10:38:39 PM  Sucessfully fetched all orders
 [[32minfo[39m] order: 1/8/2023, 10:38:39 PM  Sucessfully fetched 5 orders for page 1
 [[32minfo[39m] order: 1/8/2023, 10:38:39 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/10/2023, 5:47:16 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/10/2023, 5:47:57 PM  Order cancelled sucessfully for ID : b137b4ae-12f5-47ab-8048-dfd98576da83
+[[32minfo[39m] order: 1/10/2023, 5:52:11 PM  Sucessfully fetched 10 user orders for page 1
+[[31merror[39m] order: 1/10/2023, 5:52:19 PM  Error: Already Placed for cancelled. Id: b137b4ae-12f5-47ab-8048-dfd98576da83
+    at Object.cancel_order (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/orderService.js:410:13)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async cancel_order (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/orderApi.js:186:17)
+[[31merror[39m] order: 1/10/2023, 5:52:37 PM  Error: Order is already Placed for cancellation. Id: b137b4ae-12f5-47ab-8048-dfd98576da83
+    at Object.return_replace_order (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/orderService.js:450:13)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async return_replace_order (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/orderApi.js:199:17)
+[[31merror[39m] order: 1/10/2023, 5:52:41 PM  Error: Order is already Placed for cancellation. Id: b137b4ae-12f5-47ab-8048-dfd98576da83
+    at Object.return_replace_order (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/orderService.js:450:13)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async return_replace_order (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/orderApi.js:199:17)
+[[32minfo[39m] order: 1/10/2023, 5:55:00 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/10/2023, 5:55:02 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/10/2023, 5:55:44 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/10/2023, 5:55:47 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/10/2023, 5:55:53 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/10/2023, 5:56:24 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/10/2023, 5:56:32 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/10/2023, 5:56:40 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/10/2023, 5:57:49 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/10/2023, 5:57:50 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/10/2023, 5:58:01 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/10/2023, 5:58:08 PM  Sucessfully fetched 10 user orders for page 1
+[[31merror[39m] order: 1/10/2023, 5:58:18 PM  Error: Order is already Placed for cancellation. Id: b137b4ae-12f5-47ab-8048-dfd98576da83
+    at Object.return_replace_order (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/orderService.js:450:13)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async return_replace_order (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/orderApi.js:199:17)
+[[32minfo[39m] order: 1/10/2023, 5:58:25 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/10/2023, 5:58:49 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/10/2023, 5:58:51 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/10/2023, 5:59:06 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/10/2023, 5:59:07 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/10/2023, 8:02:28 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/11/2023, 3:56:02 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:04:29 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:06:16 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:06:46 PM  Order placed for return sucessfully on ID  : e2f4ec0d-bc3e-482b-b2d7-388bcae562ee
+[[32minfo[39m] order: 1/11/2023, 4:06:46 PM  Sucessfully fetched 10 user orders for page 1
+[[31merror[39m] order: 1/11/2023, 4:06:58 PM  Error: Already Placed for return. Id: e2f4ec0d-bc3e-482b-b2d7-388bcae562ee
+    at Object.return_replace_order (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/orderService.js:468:13)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async return_replace_order (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/orderApi.js:199:17)
+[[31merror[39m] order: 1/11/2023, 4:07:06 PM  Error: Already Placed for return. Id: e2f4ec0d-bc3e-482b-b2d7-388bcae562ee
+    at Object.return_replace_order (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/orderService.js:468:13)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async return_replace_order (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/orderApi.js:199:17)
+[[32minfo[39m] order: 1/11/2023, 4:09:55 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:11:42 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:11:42 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:11:43 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:11:49 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:12:56 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:13:01 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:13:16 PM  Order cancelled sucessfully for ID : 6ead83ec-ce83-4094-bf2a-5c88c2fbfee6
+[[32minfo[39m] order: 1/11/2023, 4:13:38 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:14:37 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:14:37 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:16:32 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:18:04 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:18:05 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:18:17 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:18:27 PM  Sucessfully fetched 10 user orders for page 1
+[[31merror[39m] order: 1/11/2023, 4:18:30 PM  Error: Already Placed for return. Id: e2f4ec0d-bc3e-482b-b2d7-388bcae562ee
+    at Object.return_replace_order (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/orderService.js:468:13)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async return_replace_order (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/orderApi.js:199:17)
+[[31merror[39m] order: 1/11/2023, 4:18:40 PM  Error: Already Placed for return. Id: e2f4ec0d-bc3e-482b-b2d7-388bcae562ee
+    at Object.return_replace_order (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/orderService.js:468:13)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async return_replace_order (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/orderApi.js:199:17)
+[[32minfo[39m] order: 1/11/2023, 4:19:15 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:19:22 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:29:01 PM  Sucessfully fetched 10 user orders for page 1
+[[31merror[39m] order: 1/11/2023, 4:29:09 PM  Error: Already Placed for return. Id: e2f4ec0d-bc3e-482b-b2d7-388bcae562ee
+    at Object.return_replace_order (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/orderService.js:471:13)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async return_replace_order (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/orderApi.js:199:17)
+[[32minfo[39m] order: 1/11/2023, 4:30:26 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:30:52 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:38:40 PM  Sucessfully fetched 10 user orders for page 1
+[[31merror[39m] order: 1/11/2023, 4:38:49 PM  Error: Already Placed for return. Id: e2f4ec0d-bc3e-482b-b2d7-388bcae562ee
+    at Object.return_replace_order (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/orderService.js:469:13)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async return_replace_order (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/orderApi.js:199:17)
+[[32minfo[39m] order: 1/11/2023, 4:39:44 PM  Sucessfully fetched 10 user orders for page 1
+[[31merror[39m] order: 1/11/2023, 4:40:20 PM  Error: Already Placed for return. Id: e2f4ec0d-bc3e-482b-b2d7-388bcae562ee
+    at Object.return_replace_order (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/orderService.js:469:13)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async return_replace_order (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/orderApi.js:199:17)
+[[32minfo[39m] order: 1/11/2023, 4:40:25 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:40:33 PM  Order cancelled sucessfully for ID : b255596d-1848-4d64-8280-550d6db6967c
+[[32minfo[39m] order: 1/11/2023, 4:40:37 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:41:01 PM  Sucessfully fetched all orders
+[[32minfo[39m] order: 1/11/2023, 4:41:01 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:41:01 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:41:14 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:41:14 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:41:14 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:41:16 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:41:16 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:41:16 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:41:16 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:41:16 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:41:16 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:41:16 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:41:17 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:41:17 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:41:17 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:41:17 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:41:17 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:41:17 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:41:17 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:41:18 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:41:18 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:41:18 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:41:18 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:41:18 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:41:18 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:41:18 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:41:18 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:41:18 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:41:18 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:41:18 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:41:18 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:41:19 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:41:19 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:41:19 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:41:19 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:41:19 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:41:20 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:41:20 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:41:20 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:41:20 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:41:20 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:41:24 PM  Sucessfully fetched 10 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:41:29 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:41:31 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:41:31 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:41:32 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:41:34 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:41:35 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:41:35 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:41:38 PM  Sucessfully fetched 10 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:41:42 PM  Sucessfully fetched all orders
+[[32minfo[39m] order: 1/11/2023, 4:41:42 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:41:43 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:42:24 PM  Sucessfully fetched 10 user orders for page 1
+[[31merror[39m] order: 1/11/2023, 4:42:33 PM  TypeError: this.update_shipment is not a function
+    at Object.return_replace_order (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/orderService.js:482:20)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async return_replace_order (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/orderApi.js:199:17)
+[[31merror[39m] order: 1/11/2023, 4:45:05 PM  Error: Invalid Shipment Status
+    at update_shipment (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/orderService.js:366:13)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Object.return_replace_order (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/orderService.js:481:9)
+    at async return_replace_order (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/orderApi.js:199:17)
+[[32minfo[39m] order: 1/11/2023, 4:45:09 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:45:17 PM  Sucessfully fetched all orders
+[[32minfo[39m] order: 1/11/2023, 4:45:17 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:45:17 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:45:57 PM  Sucessfully updated payment for order : ae4fe062-3185-4898-a61b-8b50f2da3ad7
+[[32minfo[39m] order: 1/11/2023, 4:45:57 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:03 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:04 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:04 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:04 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:04 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:04 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:04 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:05 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:05 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:05 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:05 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:05 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:05 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:05 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:06 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:06 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:06 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:06 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:06 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:06 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:06 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:06 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:06 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:06 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:06 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:07 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:07 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:07 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:07 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:07 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:08 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:08 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:08 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:08 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:08 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:08 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:09 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:09 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:09 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:09 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:09 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:09 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:09 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:09 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:09 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:09 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:09 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:09 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:09 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:09 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:09 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:09 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:10 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:10 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:10 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:10 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:10 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:10 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:10 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:10 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:10 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:10 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:10 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:11 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:11 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:11 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:11 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:11 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:11 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:11 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:11 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:11 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:11 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:11 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:11 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:11 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:11 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:11 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:11 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:11 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:11 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:11 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:11 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:12 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:12 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:12 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:12 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:12 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:12 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:12 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:12 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:12 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:18 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:18 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:20 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:20 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:20 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:20 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:20 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:20 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:21 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:21 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:22 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:22 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:22 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:22 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:22 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:22 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:22 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:23 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:23 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:23 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:23 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:23 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:23 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:23 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:23 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:24 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:24 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:24 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:24 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:24 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:24 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:24 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:24 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:24 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:46:25 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:25 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 4:46:25 PM  Sucessfully fetched 5 orders for page 1
+[[31merror[39m] order: 1/11/2023, 4:49:58 PM  Error: Invalid Shipment Status
+    at update_shipment (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/orderService.js:366:13)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Object.return_replace_order (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/orderService.js:482:9)
+    at async return_replace_order (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/orderApi.js:199:17)
+[[31merror[39m] order: 1/11/2023, 4:50:42 PM  Error: Invalid Shipment Status
+    at update_shipment (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/orderService.js:366:13)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Object.return_replace_order (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/orderService.js:482:9)
+    at async return_replace_order (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/orderApi.js:199:17)
+[[32minfo[39m] order: 1/11/2023, 4:51:30 PM  Order placed for replaced sucessfully on ID  : 6ead83ec-ce83-4094-bf2a-5c88c2fbfee6
+[[32minfo[39m] order: 1/11/2023, 4:51:30 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:51:39 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:52:00 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/11/2023, 4:52:03 PM  Sucessfully fetched 10 user orders for page 1
+[[31merror[39m] order: 1/11/2023, 4:52:11 PM  Error: Already Placed for return. Id: e2f4ec0d-bc3e-482b-b2d7-388bcae562ee
+    at Object.return_replace_order (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/orderService.js:468:13)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async return_replace_order (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/orderApi.js:199:17)
+[[31merror[39m] order: 1/11/2023, 4:52:17 PM  Error: Already Placed for return. Id: e2f4ec0d-bc3e-482b-b2d7-388bcae562ee
+    at Object.return_replace_order (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/orderService.js:468:13)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async return_replace_order (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/orderApi.js:199:17)
+[[32minfo[39m] order: 1/11/2023, 4:52:22 PM  Sucessfully fetched 10 user orders for page 1
+[[31merror[39m] order: 1/11/2023, 5:08:20 PM  Error: Already Placed for return. Id: e2f4ec0d-bc3e-482b-b2d7-388bcae562ee
+    at Object.return_replace_order (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/orderService.js:535:13)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async return_replace_order (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/orderApi.js:199:17)
+[[32minfo[39m] order: 1/11/2023, 5:13:00 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/11/2023, 5:13:00 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/11/2023, 5:13:02 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/11/2023, 5:13:06 PM  Order cancelled sucessfully for ID : e2f4ec0d-bc3e-482b-b2d7-388bcae562ee
+[[32minfo[39m] order: 1/11/2023, 5:13:06 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/11/2023, 5:13:12 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/11/2023, 5:13:17 PM  Order cancelled sucessfully for ID : b137b4ae-12f5-47ab-8048-dfd98576da83
+[[32minfo[39m] order: 1/11/2023, 5:13:17 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/11/2023, 5:13:21 PM  Sucessfully fetched 10 user orders for page 1
+[[32minfo[39m] order: 1/11/2023, 5:13:56 PM  Sucessfully fetched orders for ID:  0bf0348b-fdec-4ddb-92ec-ba8c690af37f
+[[31merror[39m] order: 1/11/2023, 5:14:07 PM  Error: No Order Found for ID: abcd
+    at Object.read_order_from_id (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/repository/orderRepository.js:413:11)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Object.read_order_by_id (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/orderService.js:86:19)
+    at async read_order_by_id (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/orderApi.js:66:17)
+[[32minfo[39m] order: 1/11/2023, 5:14:30 PM  Sucessfully fetched all orders
+[[32minfo[39m] order: 1/11/2023, 5:14:30 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 5:14:30 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 5:14:39 PM  Sucessfully fetched all orders
+[[32minfo[39m] order: 1/11/2023, 5:14:39 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 5:14:39 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 5:14:56 PM  Sucessfully fetched all orders
+[[32minfo[39m] order: 1/11/2023, 5:14:56 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 5:14:56 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 5:15:04 PM  Sucessfully fetched all orders
+[[32minfo[39m] order: 1/11/2023, 5:15:04 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 5:15:04 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 5:15:09 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 5:15:09 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 5:15:09 PM  Sucessfully fetched 5 orders for page 1
+[[32minfo[39m] order: 1/11/2023, 5:15:09 PM  Sucessfully fetched 5 orders for page 2
+[[32minfo[39m] order: 1/11/2023, 5:15:09 PM  Sucessfully fetched 5 orders for page 1
