@@ -133,7 +133,7 @@ const update_user_image = async (userId, image, updatedBy) => {
   }
 };
 /**
- * * Find User using Email
+ * * Find User by Email
  * @param {*} email
  * @returns user Object || error message
  */
@@ -152,7 +152,7 @@ const find_user_from_email = async (email) => {
 };
 
 /**
- * * Find user using login credintals
+ * * Find user by login credintals
  * @param {email, password} login
  * @returns user object || error message
  */
@@ -174,7 +174,7 @@ const find_user_from_credintals = async (login) => {
 };
 
 /**
- * *FInd User using userId
+ * *Find User by userId
  * @param {*} userId
  * @returns user object || error message
  */
@@ -191,6 +191,22 @@ const find_user_from_id = async (userId) => {
   }
 };
 
+/**
+ * *Remove User by UserId
+ * @param {*} userId
+ * @returns true || error message
+ */
+const remove_user_from_id = async (userId) => {
+  try {
+    let user = await con.query("DELETE FROM users WHERE id= $1", [userId]);
+    console.log(user);
+    if (user.rowCount > 0) return true;
+    return false;
+  } catch (err) {
+    throw err;
+  }
+};
+
 module.exports = {
   read_all_user,
   read_limited_user,
@@ -200,4 +216,5 @@ module.exports = {
   find_user_from_email,
   find_user_from_credintals,
   find_user_from_id,
+  remove_user_from_id,
 };

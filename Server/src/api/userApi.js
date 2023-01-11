@@ -92,6 +92,18 @@ const user_login = async (req, resp) => {
   }
 };
 
+const remove_user_by_id = async (req, resp) => {
+  try {
+    const userId = req.query.id;
+    const res = await Service.user.remove_user_by_id(userId);
+    logger.log("info", `User Removed Sucessfully presented on ID: ${userId}`);
+    resp.status(200).send(res);
+  } catch (err) {
+    logger.error("error", err);
+    resp.status(400).send(err.message);
+  }
+};
+
 module.exports = {
   get_all_user,
   get_one_user,
@@ -99,4 +111,5 @@ module.exports = {
   user_register,
   update_user,
   user_login,
+  remove_user_by_id,
 };

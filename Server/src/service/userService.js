@@ -88,6 +88,16 @@ const user_register = async (
   }
 };
 
+/**
+ * *Update User Details
+ * @param {*} userId
+ * @param {*} firstName
+ * @param {*} middleName
+ * @param {*} lastName
+ * @param {*} address
+ * @param {*} updatedBy
+ * @returns success || error message
+ */
 const update_user = async (
   userId,
   firstName,
@@ -107,7 +117,7 @@ const update_user = async (
       throw new Error(`User doesnot exists on ID: ${userId}`);
     }
     if (db.user.update_user(userId, user, updatedBy)) {
-      return `User Updated Sucessfully for Id:${userId}`;
+      return `User Updated Sucessfully for ID:${userId}`;
     }
   } catch (err) {
     throw err;
@@ -119,6 +129,7 @@ const update_user = async (
  * @param {*} userId
  * @returns user object ||error message
  */
+
 const get_user_by_id = async (userId) => {
   try {
     const user = await db.user.find_user_from_id(userId);
@@ -157,6 +168,21 @@ const user_signin = async (email, password) => {
   }
 };
 
+const remove_user_by_id = async (userId) => {
+  try {
+    const user = await db.user.find_user_from_id(userId);
+    if (
+      Object.keys(user).length > 0 &&
+      (await db.user.remove_user_from_id(userId))
+    ) {
+      return `User removed sucessfully presented on ID: ${userId}`;
+    }
+    throw new Error(`User doesnot exists on ID: ${userId}`);
+  } catch (err) {
+    throw err;
+  }
+};
+
 module.exports = {
   get_all_users,
   get_limited_users,
@@ -164,4 +190,5 @@ module.exports = {
   update_user,
   get_user_by_id,
   user_signin,
+  remove_user_by_id,
 };

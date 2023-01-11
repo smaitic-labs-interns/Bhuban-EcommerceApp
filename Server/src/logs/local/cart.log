@@ -767,3 +767,63 @@
 [[32minfo[39m] cart: 1/11/2023, 5:14:39 PM  Sucessfully fetched all carts 
 [[32minfo[39m] cart: 1/11/2023, 5:14:56 PM  Sucessfully fetched all carts 
 [[32minfo[39m] cart: 1/11/2023, 5:15:04 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/11/2023, 5:18:41 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/11/2023, 5:18:41 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/11/2023, 5:18:50 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/11/2023, 5:26:32 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/11/2023, 5:26:32 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/11/2023, 5:28:24 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/11/2023, 5:29:55 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/11/2023, 5:30:26 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/11/2023, 5:31:02 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/11/2023, 5:32:27 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/11/2023, 5:34:24 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/11/2023, 5:35:50 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/11/2023, 5:36:49 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/11/2023, 5:46:34 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/11/2023, 5:47:55 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/11/2023, 5:49:01 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/11/2023, 5:49:40 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/11/2023, 5:51:44 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/11/2023, 5:53:52 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/11/2023, 5:54:01 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/11/2023, 5:54:32 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/11/2023, 5:54:54 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/11/2023, 5:55:05 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/11/2023, 5:55:52 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/11/2023, 5:58:47 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/11/2023, 5:58:51 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/11/2023, 5:59:43 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/11/2023, 5:59:48 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/11/2023, 6:06:16 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/11/2023, 6:11:39 PM  Sucessfully fetched all carts 
+[[31merror[39m] cart: 1/11/2023, 6:14:55 PM  Error: Error occurs Try adding Product in cart.
+    at Object.get_user_cart (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/cartService.js:44:11)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async get_user_cart (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/cartApi.js:34:17)
+[[31merror[39m] cart: 1/11/2023, 6:15:03 PM  Error: Error occurs Try adding Product in cart.
+    at Object.get_user_cart (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/cartService.js:44:11)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async get_user_cart (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/cartApi.js:34:17)
+[[31merror[39m] cart: 1/11/2023, 6:15:03 PM  Error: Error occurs Try adding Product in cart.
+    at Object.get_user_cart (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/cartService.js:44:11)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async get_user_cart (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/cartApi.js:34:17)
+[[32minfo[39m] cart: 1/11/2023, 6:15:05 PM  Product added to cart sucessfully on ID: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] cart: 1/11/2023, 6:15:05 PM  Sucessfully fetched carts for user : 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] cart: 1/11/2023, 6:15:12 PM  Sucessfully fetched carts for user : 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] cart: 1/11/2023, 6:15:12 PM  Sucessfully fetched carts for user : 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] cart: 1/11/2023, 6:15:13 PM  Product added to cart sucessfully on ID: 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] cart: 1/11/2023, 6:15:13 PM  Sucessfully fetched carts for user : 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] cart: 1/11/2023, 6:15:15 PM  Sucessfully fetched carts for user : 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] cart: 1/11/2023, 6:15:44 PM  Sucessfully fetched carts for user : 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] cart: 1/11/2023, 6:18:20 PM  Sucessfully fetched carts for user : 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] cart: 1/11/2023, 6:19:18 PM  Sucessfully fetched carts for user : 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] cart: 1/11/2023, 6:23:57 PM  Sucessfully fetched carts for user : 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] cart: 1/11/2023, 6:27:51 PM  Sucessfully fetched carts for user : 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] cart: 1/11/2023, 6:29:01 PM  Sucessfully fetched carts for user : 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] cart: 1/11/2023, 6:34:15 PM  Sucessfully fetched carts for user : 19c67528-a30c-4bb5-9ea4-1dc7bd65e31c
+[[32minfo[39m] cart: 1/11/2023, 6:35:21 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/11/2023, 6:35:26 PM  Sucessfully fetched all carts 

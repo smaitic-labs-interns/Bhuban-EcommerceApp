@@ -128,3 +128,48 @@
 [[32minfo[39m] user: 1/11/2023, 5:14:39 PM  Sucessfully fetched all users
 [[32minfo[39m] user: 1/11/2023, 5:14:56 PM  Sucessfully fetched all users
 [[32minfo[39m] user: 1/11/2023, 5:15:04 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/11/2023, 5:18:41 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/11/2023, 5:18:41 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/11/2023, 5:18:50 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/11/2023, 5:26:32 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/11/2023, 5:26:32 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/11/2023, 5:28:24 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/11/2023, 5:29:55 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/11/2023, 5:30:26 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/11/2023, 5:31:02 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/11/2023, 5:32:27 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/11/2023, 5:34:24 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/11/2023, 5:35:50 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/11/2023, 5:36:49 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/11/2023, 5:46:34 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/11/2023, 5:47:55 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/11/2023, 5:49:01 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/11/2023, 5:49:40 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/11/2023, 5:51:44 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/11/2023, 5:53:52 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/11/2023, 5:54:01 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/11/2023, 5:54:32 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/11/2023, 5:54:54 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/11/2023, 5:55:05 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/11/2023, 5:55:52 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/11/2023, 5:58:47 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/11/2023, 5:58:51 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/11/2023, 5:59:43 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/11/2023, 5:59:48 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/11/2023, 6:06:16 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/11/2023, 6:11:39 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/11/2023, 6:35:21 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/11/2023, 6:35:26 PM  Sucessfully fetched all users
+[[32minfo[39m] user: 1/11/2023, 7:33:24 PM  User Removed Sucessfully presented on ID: 90a111f9-9f33-4039-8b72-2381d4d57c8d
+[[31merror[39m] user: 1/11/2023, 7:33:29 PM  Error: User doesnot exists on ID: 90a111f9-9f33-4039-8b72-2381d4d57c8d
+    at Object.remove_user_by_id (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/userService.js:180:11)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async remove_user_by_id (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/userApi.js:98:17)
+[[31merror[39m] user: 1/11/2023, 7:33:30 PM  Error: User doesnot exists on ID: 90a111f9-9f33-4039-8b72-2381d4d57c8d
+    at Object.remove_user_by_id (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/userService.js:180:11)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async remove_user_by_id (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/userApi.js:98:17)
+[[31merror[39m] user: 1/11/2023, 7:33:31 PM  Error: User doesnot exists on ID: 90a111f9-9f33-4039-8b72-2381d4d57c8d
+    at Object.remove_user_by_id (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/userService.js:180:11)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async remove_user_by_id (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/userApi.js:98:17)

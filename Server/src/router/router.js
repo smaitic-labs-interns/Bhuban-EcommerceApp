@@ -2,7 +2,7 @@ const router = require("express").Router();
 const api = require("../api/api");
 
 router.get("/", async (req, resp) => {
-  resp.send("Hello!, This is from API.");
+  resp.send("Hello!, This is from API Route.");
 });
 
 // for user
@@ -12,6 +12,7 @@ router.get("/user/limited", api.user.get_limited_user);
 router.post("/user/register", api.user.user_register);
 router.put("/user/update", api.user.update_user);
 router.post("/user/login", api.user.user_login);
+router.delete("/user/remove", api.user.remove_user_by_id);
 
 // for product
 router.get("/product/all", api.product.get_all_product);
