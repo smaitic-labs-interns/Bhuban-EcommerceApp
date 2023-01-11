@@ -7,12 +7,13 @@ export const axiosInstance = async ({
   data = {},
   headers = {},
 }) => {
+  const temp = { ...endpoints };
   Object.entries(path).map((data) => {
-    endpoints.url = endpoints.url.replace(`:${data[0]}`, data[1]);
+    temp.url = temp.url.replace(`:${data[0]}`, data[1]);
   });
   const config = {
-    method: endpoints.method,
-    url: endpoints.url,
+    method: temp.method,
+    url: temp.url,
     params: query,
     data: data,
   };

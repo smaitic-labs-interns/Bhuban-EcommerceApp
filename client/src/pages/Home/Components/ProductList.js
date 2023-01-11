@@ -15,6 +15,7 @@ import {
 } from 'pages/Home/styles/productListStyle';
 import { Typography } from '@mui/material';
 import { SkipNext, SkipPrevious } from '@mui/icons-material';
+// import { isEmpty } from 'Utils';
 
 export default function ProductList() {
   const products = useSelector((state) => state.limitedProduct);

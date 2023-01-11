@@ -190,6 +190,52 @@ export const fetch_user_orders =
     }
   };
 
+export const fetch_limited_order =
+  ({ page, limit, action }) =>
+  async (dispatch) => {
+    try {
+      if (action === 'clean') {
+        return dispatch({ type: FETCH_LIMITED_ORDER_REQUEST });
+      }
+      dispatch({ type: FETCH_LIMITED_ORDER_REQUEST });
+      const response = await axiosInstance({
+        endpoints: order.limited,
+        query: { page, limit },
+      });
+      dispatch({
+        type: FETCH_LIMITED_ORDER_SUCCESS,
+        payload: response.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: FETCH_LIMITED_ORDER_FAILED,
+        payload: err.response,
+      });
+    }
+  };
+
+export const fetch_limited_user_order =
+  ({ userId, page, limit, action }) =>
+  async (dispatch) => {
+    try {
+      if (action === 'clean') return dispatch({ type: FETCH_LIMITED_USER_ORDER_REQUEST });
+      dispatch({ type: FETCH_LIMITED_USER_ORDER_REQUEST });
+      const response = await axiosInstance({
+        endpoints: order.userLimited,
+        query: { id: userId, page, limit },
+      });
+      dispatch({
+        type: FETCH_LIMITED_USER_ORDER_SUCCESS,
+        payload: response.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: FETCH_LIMITED_USER_ORDER_FAILED,
+        payload: err.response.data,
+      });
+    }
+  };
+
 export const fetch_one_order =
   ({ orderId, action }) =>
   async (dispatch) => {
@@ -559,50 +605,6 @@ export const placed_order_details =
       dispatch({
         type: PLACED_ORDER_DETAILS_FAILED,
         payload: { message: 'Error Occurs Try again Later' },
-      });
-    }
-  };
-
-export const fetch_limited_order =
-  ({ page, limit, action }) =>
-  async (dispatch) => {
-    try {
-      if (action === 'clean') return dispatch({ type: FETCH_LIMITED_ORDER_REQUEST });
-      dispatch({ type: FETCH_LIMITED_ORDER_REQUEST });
-      const response = await axiosInstance({
-        endpoints: order.limited,
-        query: { page, limit },
-      });
-      dispatch({
-        type: FETCH_LIMITED_ORDER_SUCCESS,
-        payload: response.data,
-      });
-    } catch (err) {
-      dispatch({
-        type: FETCH_LIMITED_ORDER_FAILED,
-        payload: err.response,
-      });
-    }
-  };
-
-export const fetch_limited_user_order =
-  ({ userId, page, limit, action }) =>
-  async (dispatch) => {
-    try {
-      if (action === 'clean') return dispatch({ type: FETCH_LIMITED_USER_ORDER_REQUEST });
-      dispatch({ type: FETCH_LIMITED_USER_ORDER_REQUEST });
-      const response = await axiosInstance({
-        endpoints: order.userLimited,
-        query: { id: userId, page, limit },
-      });
-      dispatch({
-        type: FETCH_LIMITED_USER_ORDER_SUCCESS,
-        payload: response.data,
-      });
-    } catch (err) {
-      dispatch({
-        type: FETCH_LIMITED_USER_ORDER_FAILED,
-        payload: err.response.data,
       });
     }
   };

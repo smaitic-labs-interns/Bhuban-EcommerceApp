@@ -18,6 +18,7 @@ import {
 
 import axiosInstance from 'Modules/api';
 import { cart, product } from 'api/endpoint';
+
 export const fetch_user_Cart =
   ({ userId, action }) =>
   async (dispatch) => {
@@ -33,16 +34,11 @@ export const fetch_user_Cart =
       let prdcts = response.data;
       if (response.status === 200) {
         for (let pr of prdcts.products) {
-          //TODO: FIX(): Value of endpoint is not changing according to loop;
-
-          let e = { ...product.one };
           let productRes = await axiosInstance({
-            endpoints: e,
+            endpoints: product.one,
             path: { productId: pr.productId },
           });
-          e.url = e.url.slice(0, e.url.lastIndexOf('/'));
-          console.log(product.one);
-          console.log(productRes.data);
+
           if (productRes.status === 200) {
             pr.pDetails = productRes.data;
           }

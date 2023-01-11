@@ -19,7 +19,7 @@ import {
   update_order_status,
   update_order_address,
   fetch_limited_order,
-  update_order_shipment,
+  // update_order_shipment,
 } from 'redux/actions/orderActions';
 import EditProductQuantity from './EditProductQuantity';
 import UpdatePayment from './UpdatePayment';
@@ -31,36 +31,40 @@ export default function EditOrder({ order }) {
   const updateOrderAddress = useSelector((state) => state.updateOrderAddress);
   const [open, setOpen] = useState(false);
   const [ordStatus, setOrdStatus] = useState(null);
-  const prevOrdStatus = order.orderStatus;
+  // const prevOrdStatus = order.orderStatus;
   const dispatch = useDispatch();
 
   const {
     id,
-    userId,
     orderStatus,
-    totalBill,
     products,
-    shippingAddress,
+    // shippingAddress,
     payment,
     shipment,
-    placedOn,
+    // placedOn,
   } = order;
 
-  const ordStatuses = [
+  const ORDER_STATUS = [
     'pending',
-    'Awaiting Payment',
-    'Awaiting Fulfillment',
-    'Awaiting Shipment',
-    'Awaiting Pickup',
-    'Partially Shipped',
-    'Completed',
-    'Shipped',
-    'Cancelled',
-    'Declined',
-    'Refunded',
-    'Disputed',
-    'Manual Verification Required',
-    'Partially Refunded',
+    'accepted',
+    'in-progress',
+    'shipped',
+    'delivered',
+    'completed',
+    'cancelled',
+    'failed',
+  ];
+
+  const SHIPMENT_STATUS = [
+    'pending',
+    'pre-transit',
+    'in-transit',
+    'waiting-for-delivery',
+    'out-of-delivery',
+    'delivered',
+    'returned',
+    'replaced',
+    'failed-attempt',
   ];
 
   useEffect(() => {
@@ -356,14 +360,14 @@ export default function EditOrder({ order }) {
                     fullWidth
                     id='ordStatus'
                     name='ordStatus'
-                    value={ordStatus}
+                    value={ORDER_STATUS}
                     label='Update Order Status'
                     onChange={(e) => {
                       setOrdStatus(e.target.value);
                     }}
                   >
-                    {ordStatuses.length !== 0 ? (
-                      ordStatuses.map((status) => {
+                    {ORDER_STATUS.length !== 0 ? (
+                      ORDER_STATUS.map((status) => {
                         return (
                           <MenuItem key={status} value={status}>
                             {status}

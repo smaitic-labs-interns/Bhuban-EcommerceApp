@@ -1,39 +1,33 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import LeftTabCard from "Pages/Admin/Components/LeftTabCard";
-import {
-  Home,
-  Inventory,
-  Logout,
-  People,
-  ShoppingCartCheckout,
-} from "@mui/icons-material";
-import RightContent from "Pages/Admin/Components/RightContent";
-import Product from "Pages/Admin/Components/Product";
-import Order from "Pages/Admin/Components/Order";
-import User from "Pages/Admin/Components/User";
-import Dashboard from "Pages/Admin/Components/Dashboard";
-import { user_logout } from "Actions/userActions";
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import LeftTabCard from 'Pages/Admin/Components/LeftTabCard';
+import { Home, Inventory, Logout, People, ShoppingCartCheckout } from '@mui/icons-material';
+import RightContent from 'Pages/Admin/Components/RightContent';
+import Product from 'Pages/Admin/Components/Product';
+import Order from 'Pages/Admin/Components/Order';
+import User from 'Pages/Admin/Components/User';
+import Dashboard from 'Pages/Admin/Components/Dashboard';
+import { user_logout } from 'Actions/userActions';
 import {
   AdminWrapper,
   LeftWrapper,
   LeftTabContainer,
   RightWrapper,
   RightContentContainer,
-} from "Pages/Admin/styles/adminStyle";
+} from 'Pages/Admin/styles/adminStyle';
 
 export default function Admin() {
   const [target, setTarget] = useState(1);
   const dispatch = useDispatch();
 
   const selected = {
-    background: "#fff",
-    borderRadius: "1rem",
-    color: "#000",
+    background: '#fff',
+    borderRadius: '1rem',
+    color: '#000',
   };
 
   const showContent = {
-    display: "flex",
+    display: 'flex',
   };
 
   const handleLogout = () => {
@@ -47,33 +41,29 @@ export default function Admin() {
           <LeftTabContainer>
             <LeftTabCard
               icon={<Home />}
-              title={"Dashboard"}
+              title={'Dashboard'}
               sx={target === 1 ? selected : null}
               onClick={() => setTarget(1)}
             />
             <LeftTabCard
               icon={<Inventory />}
-              title={"Product"}
+              title={'Product'}
               sx={target === 2 ? selected : null}
               onClick={() => setTarget(2)}
             />
             <LeftTabCard
               icon={<ShoppingCartCheckout />}
-              title={"Order"}
+              title={'Order'}
               sx={target === 3 ? selected : null}
               onClick={() => setTarget(3)}
             />
             <LeftTabCard
               icon={<People />}
-              title={"Users"}
+              title={'Users'}
               sx={target === 4 ? selected : null}
               onClick={() => setTarget(4)}
             />
-            <LeftTabCard
-              icon={<Logout />}
-              title={"Logout"}
-              onClick={handleLogout}
-            />
+            <LeftTabCard icon={<Logout />} title={'Logout'} onClick={handleLogout} />
           </LeftTabContainer>
         </LeftWrapper>
         <RightWrapper>
