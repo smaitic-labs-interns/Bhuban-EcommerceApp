@@ -904,3 +904,24 @@
 [[32minfo[39m] cart: 1/13/2023, 12:20:45 AM  Sucessfully fetched carts for user : b75b7675-694a-4402-8873-41716d6538a2
 [[32minfo[39m] cart: 1/13/2023, 12:20:50 AM  Sucessfully fetched carts for user : b75b7675-694a-4402-8873-41716d6538a2
 [[32minfo[39m] cart: 1/13/2023, 12:20:58 AM  Sucessfully fetched carts for user : b75b7675-694a-4402-8873-41716d6538a2
+[[32minfo[39m] cart: 1/13/2023, 12:23:41 AM  Sucessfully fetched carts for user : b75b7675-694a-4402-8873-41716d6538a2
+[[32minfo[39m] cart: 1/13/2023, 12:23:55 AM  Sucessfully fetched carts for user : b75b7675-694a-4402-8873-41716d6538a2
+[[32minfo[39m] cart: 1/13/2023, 12:24:23 AM  Sucessfully fetched carts for user : b75b7675-694a-4402-8873-41716d6538a2
+[[32minfo[39m] cart: 1/13/2023, 12:24:44 AM  Sucessfully fetched carts for user : b75b7675-694a-4402-8873-41716d6538a2
+[[32minfo[39m] cart: 1/13/2023, 12:25:00 AM  Sucessfully fetched carts for user : b75b7675-694a-4402-8873-41716d6538a2
+[[32minfo[39m] cart: 1/13/2023, 12:25:24 AM  Sucessfully fetched carts for user : b75b7675-694a-4402-8873-41716d6538a2
+[[32minfo[39m] cart: 1/13/2023, 12:26:01 AM  Sucessfully fetched carts for user : b75b7675-694a-4402-8873-41716d6538a2
+[[32minfo[39m] cart: 1/13/2023, 12:26:22 AM  Sucessfully fetched carts for user : b75b7675-694a-4402-8873-41716d6538a2
+[[32minfo[39m] cart: 1/13/2023, 12:26:44 AM  Sucessfully fetched carts for user : b75b7675-694a-4402-8873-41716d6538a2
+[[32minfo[39m] cart: 1/13/2023, 12:26:55 AM  Product quantity updated sucessfully for user: b75b7675-694a-4402-8873-41716d6538a2
+[[32minfo[39m] cart: 1/13/2023, 12:26:55 AM  Sucessfully fetched carts for user : b75b7675-694a-4402-8873-41716d6538a2
+[[31merror[39m] cart: 1/13/2023, 12:27:44 AM  Error: No user Found for ID: 
+    at Object.get_user_cart (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/cartService.js:41:26)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async get_user_cart (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/cartApi.js:34:17)
+[[32minfo[39m] cart: 1/13/2023, 12:28:52 AM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/13/2023, 12:34:35 AM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/13/2023, 12:37:05 AM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/13/2023, 12:37:16 AM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/13/2023, 12:38:44 AM  Sucessfully fetched all carts 

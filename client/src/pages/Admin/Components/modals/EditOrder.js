@@ -19,7 +19,6 @@ import {
   update_order_status,
   update_order_address,
   fetch_limited_order,
-  // update_order_shipment,
 } from 'redux/actions/orderActions';
 import EditProductQuantity from './EditProductQuantity';
 import UpdatePayment from './UpdatePayment';
@@ -372,7 +371,6 @@ export default function EditOrder({ order }) {
                     fullWidth
                     id='ordStatus'
                     name='ordStatus'
-                    value={ORDER_STATUS}
                     label='Update Order Status'
                     onChange={(e) => {
                       setOrdStatus(e.target.value);

@@ -1,7 +1,7 @@
 const validate_shipment_Ac_order_status = (orderStatus) => {
   var message = {
     pending: "Order is still in pending state, cannot update shipment",
-    accepted: "Order has been accepted, cannot update shipment",
+    accepted: "Order is only accepted not shipped, cannot update shipment",
     "in-progress": "Order is still on in-progress, cannot update shipment",
     completed: "Order has been Completed,  cannot update shipment",
     cancelled: "Order has been cancelled, cannot update shipment",
