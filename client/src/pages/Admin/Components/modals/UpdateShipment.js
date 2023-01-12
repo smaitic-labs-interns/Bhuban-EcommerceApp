@@ -19,20 +19,22 @@ const style = {
 };
 
 export default function UpdateShipment({ shipment, orderId }) {
-  const updateOrderPayment = useSelector((state) => state.updateOrderPayment);
-  //   const login = useSelector((state) => state.login);
+  const updateOrderShipment = useSelector((state) => state.updateOrderShipment);
   const dispatch = useDispatch();
-
   const [open, setOpen3] = useState(false);
   const handleOpen = () => setOpen3(true);
-  const [updShmt, setUpdShmt] = useState({ type: '', status: '' });
+  const [updsht, setUpdSht] = useState({ type: '', status: '' });
 
-  const handleUpdatePayment = () => {
-    if (updShmt && updShmt.type !== '' && updShmt.status !== '') {
+  const handleUpdateShipment = () => {
+    if (updsht && (updsht.status !== '' || updsht.type !== '')) {
+      if (updsht?.type.length === 0) {
+        updsht.type = shipment.type;
+      }
+
       dispatch(
         update_order_shipment({
           orderId: orderId,
-          shipment: { type: updShmt.type, status: updShmt.status },
+          shipment: { type: updsht.type, status: updsht.status },
           action: 'update',
         }),
       );
@@ -40,7 +42,7 @@ export default function UpdateShipment({ shipment, orderId }) {
       setOpen3(false); //close module
       Swal.fire({
         title: 'Error!',
-        text: 'Please select Shipment Type as well Shipment Status',
+        text: 'Please select shipment Status',
         icon: 'error',
         confirmButtonText: 'Ok',
       });
@@ -49,36 +51,52 @@ export default function UpdateShipment({ shipment, orderId }) {
 
   useEffect(() => {
     setOpen3(false);
-    if (updateOrderPayment.status === 'success') {
+    if (updateOrderShipment.status === 'success') {
       Swal.fire({
         title: 'Success!',
-        text: `${updateOrderPayment.message}`,
+        text: `${updateOrderShipment.message}`,
         icon: 'success',
         confirmButtonText: 'Ok',
       });
       dispatch(fetch_limited_order({ page: 1, limit: 5, action: 'fetch' }));
-    } else if (updateOrderPayment.status === 'failed') {
+    } else if (updateOrderShipment.status === 'failed') {
       Swal.fire({
         title: 'Error!',
-        text: `${updateOrderPayment.message}`,
+        text: `${updateOrderShipment.message}`,
         icon: 'error',
         confirmButtonText: 'Ok',
       });
     }
 
-    if (updateOrderPayment.status !== null) {
+    if (updateOrderShipment.status !== null) {
       dispatch(
-        updatet_order_payment({
+        update_order_shipment({
           orderId: '',
-          paymentType: '',
-          paymentStatus: '',
+          shipment: {},
           action: 'clean',
         }),
       );
     }
-  }, [updateOrderPayment]);
+  }, [updateOrderShipment]);
 
-  const PAYMENT_TYPES = ['E-sewa', 'Khalti', 'CONNECT-IPS', 'CASH'];
+  const SHIPMENT_STATUS = [
+    'pending',
+    'pre-transit',
+    'in-transit',
+    'waiting-for-delivery',
+    'out-of-delivery',
+    'delivered',
+    'returned',
+    'replaced',
+    'failed-attempt',
+  ];
+  const SHIPMENT_TYPES = [
+    'International',
+    'Outside Valley',
+    'Inside Valley',
+    'Outside-RingRoad',
+    'Inside- RIngRoad',
+  ];
 
   return (
     <>
@@ -94,25 +112,25 @@ export default function UpdateShipment({ shipment, orderId }) {
         <Box sx={style}>
           <Box component={'form'}>
             <Box>
-              <InputLabel id='payment-type-label'>Select Payment Method</InputLabel>
+              <InputLabel id='shipment-type-label'>Select Payment Method</InputLabel>
               <Select
                 fullWidth
-                labelId='payment-type-label'
-                id='paymentType'
-                name='paymentType'
-                label='Payment Method'
+                labelId='shipment-type-label'
+                id='shipmentType'
+                name='shipmentType'
+                label='Shipment Method'
                 onChange={(e) => {
-                  setUpdShmt((updShmt) => ({
-                    ...updShmt,
+                  setUpdSht((updsht) => ({
+                    ...updsht,
                     type: e.target.value,
                   }));
                 }}
               >
-                {PAYMENT_TYPES.length !== 0 ? (
-                  PAYMENT_TYPES.map((pmnt) => {
+                {SHIPMENT_TYPES.length !== 0 ? (
+                  SHIPMENT_TYPES.map((shmt) => {
                     return (
-                      <MenuItem key={pmnt} value={pmnt}>
-                        {pmnt}
+                      <MenuItem key={shmt} value={shmt}>
+                        {shmt}
                       </MenuItem>
                     );
                   })
@@ -122,22 +140,31 @@ export default function UpdateShipment({ shipment, orderId }) {
               </Select>
             </Box>
             <Box>
-              <InputLabel id='payment-status-label'>Select Payment Status</InputLabel>
+              <InputLabel id='shipment-status-label'>Select Shipment Status</InputLabel>
               <Select
                 fullWidth
-                labelId='payment-status-label'
-                id='paymentStatus'
-                name='paymentStatus'
-                label='Payment Method'
+                labelId='shipment-status-label'
+                id='shipmentStatus'
+                name='shipmentStatus'
+                label='Shipment Method'
                 onChange={(e) => {
-                  setUpdPmt((updPmt) => ({
-                    ...updPmt,
+                  setUpdSht((updsht) => ({
+                    ...updsht,
                     status: e.target.value,
                   }));
                 }}
               >
-                <MenuItem value={'paid'}>{'Paid'}</MenuItem>
-                <MenuItem value={'unPaid'}>{'Un-paid'}</MenuItem>
+                {SHIPMENT_STATUS.length !== 0 ? (
+                  SHIPMENT_STATUS.map((shmt) => {
+                    return (
+                      <MenuItem key={shmt} value={shmt}>
+                        {shmt}
+                      </MenuItem>
+                    );
+                  })
+                ) : (
+                  <MenuItem value={'Not Available'}>{'Not Available'}</MenuItem>
+                )}
               </Select>
             </Box>
           </Box>
@@ -155,7 +182,7 @@ export default function UpdateShipment({ shipment, orderId }) {
               {' Cancel'}
             </Button>
 
-            <Button variant='contained' color='primary' onClick={handleUpdatePayment}>
+            <Button variant='contained' color='primary' onClick={handleUpdateShipment}>
               <Update />
               {' Update'}
             </Button>

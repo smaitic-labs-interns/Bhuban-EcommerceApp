@@ -175,9 +175,9 @@ const remove_user_by_id = async (userId) => {
       Object.keys(user).length > 0 &&
       (await db.user.remove_user_from_id(userId))
     ) {
-      return `User removed sucessfully presented on ID: ${userId}`;
+      return `User removed sucessfully`;
     }
-    throw new Error(`User doesnot exists on ID: ${userId}`);
+    throw new Error(`User doesnot exists`);
   } catch (err) {
     throw err;
   }

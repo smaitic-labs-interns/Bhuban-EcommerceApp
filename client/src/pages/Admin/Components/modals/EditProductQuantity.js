@@ -1,32 +1,28 @@
-import React, { useEffect, useState } from "react";
-import { Button, Box, Modal, TextField, Typography } from "@mui/material";
-import { Edit, RemoveOutlined, Add, Update, Cancel } from "@mui/icons-material";
-import Swal from "sweetalert2";
+import React, { useEffect, useState } from 'react';
+import { Button, Box, Modal, TextField, Typography } from '@mui/material';
+import { Edit, RemoveOutlined, Add, Update, Cancel } from '@mui/icons-material';
+import Swal from 'sweetalert2';
 
-import { useDispatch, useSelector } from "react-redux";
-import {
-  update_order_quantity,
-  fetch_all_order,
-  fetch_limited_order,
-} from "../../../../redux/actions/orderActions";
+import { useDispatch, useSelector } from 'react-redux';
+import { update_order_quantity, fetch_limited_order } from '../../../../redux/actions/orderActions';
 
 const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
   width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
   boxShadow: 24,
   p: 4,
 };
 
-export default function EditProductQuantity({ product, orderId }) {
+export default function EditProductQuantity({ product, orderId, orderStatus }) {
   const updateOrderQuantity = useSelector((state) => state.updateOrderQuantity);
-  const login = useSelector((state) => state.login);
+  // const login = useSelector((state) => state.login);
   const dispatch = useDispatch();
-  const userId = login.isLogined ? login.userId : null;
+  // const userId = login.isLogined ? login.userId : null;
 
   const [subOpen, setSubOpen] = useState(false);
   const handleOpen = () => setSubOpen(true);
@@ -44,10 +40,10 @@ export default function EditProductQuantity({ product, orderId }) {
     } else {
       // handleClose();
       Swal.fire({
-        title: "Error!",
+        title: 'Error!',
         text: `Quantity cannot be less than 1`,
-        icon: "error",
-        confirmButtonText: "Ok",
+        icon: 'error',
+        confirmButtonText: 'Ok',
       });
     }
   };
@@ -59,8 +55,8 @@ export default function EditProductQuantity({ product, orderId }) {
           orderId: orderId,
           id: product.productId,
           quantity: prevQuantity - quty,
-          action: "remove",
-        })
+          action: 'remove',
+        }),
       );
     } else if (quty > prevQuantity) {
       dispatch(
@@ -68,104 +64,101 @@ export default function EditProductQuantity({ product, orderId }) {
           orderId: orderId,
           id: product.productId,
           quantity: quty - prevQuantity,
-          action: "add",
-        })
+          action: 'add',
+        }),
       );
     } else {
       setSubOpen(false); //close module
       Swal.fire({
-        title: "Info!",
-        text: "No Change Occurs",
-        icon: "info",
-        confirmButtonText: "Ok",
+        title: 'Info!',
+        text: 'No Change Occurs',
+        icon: 'info',
+        confirmButtonText: 'Ok',
       });
     }
   };
 
   useEffect(() => {
     setSubOpen(false);
-    if (updateOrderQuantity.status === "success") {
+    if (updateOrderQuantity.status === 'success') {
       Swal.fire({
-        title: "Success!",
+        title: 'Success!',
         text: `${updateOrderQuantity.message}`,
-        icon: "success",
-        confirmButtonText: "Ok",
+        icon: 'success',
+        confirmButtonText: 'Ok',
       });
-      dispatch(fetch_limited_order({ page: 1, limit: 5, action: "fetch" }));
-    } else if (updateOrderQuantity.status === "failed") {
+      dispatch(fetch_limited_order({ page: 1, limit: 5, action: 'fetch' }));
+    } else if (updateOrderQuantity.status === 'failed') {
       Swal.fire({
-        title: "Error!",
+        title: 'Error!',
         text: `${updateOrderQuantity.message}`,
-        icon: "error",
-        confirmButtonText: "Ok",
+        icon: 'error',
+        confirmButtonText: 'Ok',
       });
     }
 
     if (updateOrderQuantity.status !== null) {
       dispatch(
         update_order_quantity({
-          orderId: "",
-          id: "",
-          quantity: "",
-          action: "clean",
-        })
+          orderId: '',
+          id: '',
+          quantity: '',
+          action: 'clean',
+        }),
       );
     }
   }, [updateOrderQuantity]);
 
+  const disableEditProduct = () => {
+    const orderCondition = ['shipped', 'completed', 'cancelled', 'failed'];
+
+    if (orderCondition.includes(orderStatus)) {
+      return true;
+    }
+    return false;
+  };
   return (
     <div>
-      <Button variant="outlined" color="info" onClick={handleOpen}>
+      <Button disabled={disableEditProduct()} variant='outlined' color='info' onClick={handleOpen}>
         <Edit />
-        {"Edit"}
+        {'Edit'}
       </Button>
       <Modal
         open={subOpen}
-        // onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+        aria-labelledby='modal-modal-title'
+        aria-describedby='modal-modal-description'
       >
         <Box sx={style}>
-          <Box sx={{ gap: "1rem", padding: "1rem 0", textAlign: "center" }}>
-            <Typography fontWeight={600}>
-              Select Appropriate Amount Of Quantity For Id:
-            </Typography>
-            <Typography fontStyle={"italic"}>{product.id}</Typography>
+          <Box sx={{ gap: '1rem', padding: '1rem 0', textAlign: 'center' }}>
+            <Typography fontWeight={600}>Select Appropriate Amount Of Quantity For Id:</Typography>
+            <Typography fontStyle={'italic'}>{product.id}</Typography>
           </Box>
-          <Box style={{ display: "flex", justifyContent: "space-between" }}>
-            <Button variant="outlined" color="error" onClick={handleDecrease}>
+          <Box style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Button variant='outlined' color='error' onClick={handleDecrease}>
               <RemoveOutlined />
             </Button>
-            <TextField id="quantity" label="My Quantity" value={quty} />
-            <Button variant="outlined" color="success" onClick={handleIncrease}>
+            <TextField id='quantity' label='My Quantity' value={quty} />
+            <Button variant='outlined' color='success' onClick={handleIncrease}>
               <Add />
             </Button>
           </Box>
           <Box
             sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              margin: "2rem 0",
-              padding: "0 1rem",
+              display: 'flex',
+              justifyContent: 'space-between',
+              margin: '2rem 0',
+              padding: '0 1rem',
             }}
           >
-            <Button
-              variant="contained"
-              color="error"
-              onClick={() => setSubOpen(false)}
-            >
+            <Button variant='contained' color='error' onClick={() => setSubOpen(false)}>
               <Cancel />
               &nbsp;
-              {" Cancel"}
+              {' Cancel'}
             </Button>
 
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleUpdateOrder}
-            >
+            <Button variant='contained' color='primary' onClick={handleUpdateOrder}>
               <Update />
-              &nbsp;{" Update"}
+              &nbsp;{' Update'}
             </Button>
           </Box>
         </Box>

@@ -4,6 +4,8 @@ const Schema = require("../models/orderModel");
 const AddressSchema = require("../models/addressModule");
 const mail = require("../utils/nodeMailer");
 
+const Order = require("../error-messages/order.error");
+
 /**
  * * Read all orders
  * @returns Array of Orders Object || error message
@@ -302,100 +304,29 @@ const update_order_status = async (orderId, status) => {
       "accepted",
       "in-progress",
       "shipped",
-      "delivered",
-      "completed",
-      "cancelled",
       "failed",
+      "delivered",
+      "cancelled",
+      "completed",
     ];
 
     if (!ORDER_STATUS.includes(status)) {
       throw new Error("Invalid Order Status");
     } else if (status === "cancelled") {
-      switch (order.orderStatus) {
-        case "shipped":
-          throw new Error(
-            "Order has been shipped,  Cannot be cancelled from here, visit nearest center"
-          );
-
-        case "delivered":
-          throw new Error(
-            "Order has been Delivered,  Cannot be cancelled from here, visit nearest center"
-          );
-        case "completed":
-          throw new Error(
-            "Order has been Completed,  Cannot be cancelled from here, visit nearest center"
-          );
-
-        default:
-          break;
+      Order.validate_order_status_for_cancelled(order.orderStatus);
+      if (order.shipment.status === "delivered") {
+        throw new Error(`Shipment has been completed, cannot cancel the order`);
       }
     } else if (status === "delivered") {
-      switch (order.shipment.status) {
-        case "pending":
-          throw new Error(
-            "Shipment is in pending state,  Cannot marked as delivered"
-          );
-        case "pre-transit":
-          throw new Error(
-            "Shipment is in pre-transit state,  Cannot marked as delivered"
-          );
-        case "in-transit":
-          throw new Error(
-            "Shipment is in in-transit state,  Cannot marked as delivered"
-          );
-        case "waiting-for-delivery":
-          throw new Error(
-            "Shipment is in waiting-for-delivery state,  Cannot marked as delivered"
-          );
-        case "out-of-delivery":
-          throw new Error(
-            "Shipment is in out-of-delivery state,  Cannot marked as delivered"
-          );
-
-        case "failed-attempt":
-          throw new Error(
-            "Shipment is in failed-attempt state,  Cannot marked as delivered"
-          );
-        default:
-          break;
-      }
+      Order.validate_order_status_for_delivered(order.shipment.status);
     } else if (status === "completed") {
-      switch (order.shipment.status) {
-        case "pending":
-          throw new Error(
-            "Shipment is in pending state,  Cannot marked as completed"
-          );
-        case "pre-transit":
-          throw new Error(
-            "Shipment is in pre-transit state,  Cannot marked as completed"
-          );
-        case "in-transit":
-          throw new Error(
-            "Shipment is in in-transit state,  Cannot marked as completed"
-          );
-        case "waiting-for-delivery":
-          throw new Error(
-            "Shipment is in waiting-for-delivery state,  Cannot marked as completed"
-          );
-        case "out-of-delivery":
-          throw new Error(
-            "Shipment is in out-of-delivery state,  Cannot marked as completed"
-          );
-        case "returned":
-          throw new Error(
-            "Shipment is in returned state,  Cannot marked as completed"
-          );
-        case "replaced":
-          throw new Error(
-            "Shipment is in replaced state,  Cannot marked as completed"
-          );
-        case "failed-attempt":
-          throw new Error(
-            "Shipment is in failed-attempt state,  Cannot marked as completed"
-          );
-        default:
-          break;
-      }
+      Order.validate_order_status_for_completed(order.shipment.status);
+    } else if (
+      ORDER_STATUS.indexOf(status) < ORDER_STATUS.indexOf(order.orderStatus)
+    ) {
+      throw new Error(
+        `Order is in ${order.orderStatus} state, Cannot downgrade now`
+      );
     }
 
     order.orderStatus = status;
@@ -423,29 +354,28 @@ const update_shipment = async (orderId, shipment) => {
       "in-transit",
       "waiting-for-delivery",
       "out-of-delivery",
-      "delivered",
-      "returned",
-      "replaced",
       "failed-attempt",
+      "delivered",
+      "replaced",
+      "returned",
     ];
 
     if (!SHIPMENT_STATUS.includes(shipment.status)) {
       throw new Error("Invalid Shipment Status");
-    } else if (order.orderStatus === "cancelled") {
-      throw new Error("Order has been cancelled, cannot update shipment");
-    } else if (order.orderStatus === "completed") {
-      throw new Error("Order has been Completed,  cannot update shipment");
     } else if (
-      order.orderStatus !== "delivered" &&
-      shipment.status === "delivered"
+      SHIPMENT_STATUS.indexOf(shipment.status) <
+      SHIPMENT_STATUS.indexOf(order.shipment.status)
     ) {
-      throw new Error("Order has not been delivered,  cannot update shipment");
+      throw new Error(
+        `Shipment is in ${order.shipment.status} state, Cannot downgrade now`
+      );
     }
+    if (Order.validate_shipment_Ac_order_status(order.orderStatus)) {
+      order.shipment = shipment;
 
-    order.shipment = shipment;
-
-    if (Store.order.update_order(orderId, order)) {
-      return `Shipment Updated Sucessfully. New Shipment :<br /> type: (${shipment.type}, status: ${shipment.status}`;
+      if (Store.order.update_order(orderId, order)) {
+        return `Shipment Updated Sucessfully. New Shipment :\n type: ${shipment.type}, status: ${shipment.status}`;
+      }
     }
     throw new Error("Error Occurs Updating Shipment");
   } catch (err) {

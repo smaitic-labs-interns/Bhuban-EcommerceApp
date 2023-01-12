@@ -4,25 +4,34 @@ const userData = {
     middleName: "Prasad",
     lastName: "Yadav",
     address: "Dhapakhel-23, Lalitpur nepal",
-    email: "bhubn@mmail.com",
+    email: "bhuban@mymail.com",
     password: "bhubany",
   },
-  signin: {
-    email: "bhubn@mmail.com",
-    password: "bhubanay",
+  signinRight: {
+    email: "bhuban@mymail.com",
+    password: "bhubany",
+  },
+  signinWrong: {
+    email: "bhuba@mymail.com",
+    password: "bhubanyy",
   },
   signinResponse: {
     firstname: "bhuban",
     middlename: "Prasad",
     lastname: "Yadav",
     address: "Dhapakhel-23, Lalitpur nepal",
-    email: "bhubn@mmail.com",
+    email: "bhuban@mymail.com",
     password: "",
   },
-  limited: {
-    page: 10,
+  limitedRight: {
+    page: 1,
     limit: 5,
   },
+  limitedWrong: {
+    page: 100,
+    limit: 5,
+  },
+  userIdWrong: "12345",
 };
 
 module.exports = { userData };

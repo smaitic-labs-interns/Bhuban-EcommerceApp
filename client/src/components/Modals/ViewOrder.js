@@ -79,6 +79,10 @@ export default function ViewOrder({ order, initially }) {
             <ContentContainer>
               <DetailsWrapper>
                 <ContentText>
+                  Placed On:
+                  <br /> <span>{order.placedOn}</span>
+                </ContentText>
+                <ContentText>
                   Shipment Type.:
                   <br /> <span>{order.shipment.type}</span>
                 </ContentText>
@@ -114,7 +118,7 @@ export default function ViewOrder({ order, initially }) {
               <TableHead>
                 <TableRow>
                   <TableCell>S.N.</TableCell>
-                  <TableCell>Product #</TableCell>
+                  <TableCell>Product </TableCell>
                   <TableCell>Quantity</TableCell>
                 </TableRow>
               </TableHead>
@@ -124,8 +128,8 @@ export default function ViewOrder({ order, initially }) {
                   return (
                     <TableRow key={product.productId}>
                       <TableCell>{index}</TableCell>
-                      <TableCell>{product.productId}</TableCell>
-                      <TableCell>{product.quantity}</TableCell>
+                      <TableCell>{product?.pDetails?.name}</TableCell>
+                      <TableCell>{product?.quantity}</TableCell>
                     </TableRow>
                   );
                 })}

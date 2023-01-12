@@ -58,7 +58,7 @@ import {
   FETCH_LIMITED_USER_ORDER_FAILED,
 } from '../constants/orderConstants';
 import axiosInstance from 'Modules/api';
-import { order } from 'api/endpoint';
+import { order, product } from 'api/endpoint';
 
 export const place_order =
   ({ userId, country, province, city, ward, tole, houseNo, shipmentType, paymentType, action }) =>
@@ -224,14 +224,30 @@ export const fetch_limited_user_order =
         endpoints: order.userLimited,
         query: { id: userId, page, limit },
       });
+      let orders = response?.data;
+      if (response.status === 200) {
+        for (let ord of orders.data) {
+          let orderProducts = ord.products;
+          for (let pr of orderProducts) {
+            let productRes = await axiosInstance({
+              endpoints: product.one,
+              path: { productId: pr.productId },
+            });
+
+            if (productRes.status === 200) {
+              pr.pDetails = productRes.data;
+            }
+          }
+        }
+      }
       dispatch({
         type: FETCH_LIMITED_USER_ORDER_SUCCESS,
-        payload: response.data,
+        payload: orders,
       });
     } catch (err) {
       dispatch({
         type: FETCH_LIMITED_USER_ORDER_FAILED,
-        payload: err.response.data,
+        payload: err.response,
       });
     }
   };
@@ -250,6 +266,20 @@ export const fetch_one_order =
         query: { id: orderId },
       });
 
+      let singleOrder = response?.data;
+      if (response.status === 200) {
+        let orderProducts = singleOrder.products;
+        for (let pr of orderProducts) {
+          let productRes = await axiosInstance({
+            endpoints: product.one,
+            path: { productId: pr.productId },
+          });
+
+          if (productRes.status === 200) {
+            pr.pDetails = productRes.data;
+          }
+        }
+      }
       dispatch({
         type: FETCH_ONE_ORDER_SUCCESS,
         payload: response.data,
@@ -388,7 +418,7 @@ export const update_order_shipment =
       const response = await axiosInstance({
         endpoints: order.updateShipment,
         query: { id: orderId },
-        data: { shipment: shipment },
+        data: { type: shipment.type, status: shipment.status },
       });
 
       dispatch({

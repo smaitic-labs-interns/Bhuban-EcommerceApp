@@ -199,7 +199,6 @@ const find_user_from_id = async (userId) => {
 const remove_user_from_id = async (userId) => {
   try {
     let user = await con.query("DELETE FROM users WHERE id= $1", [userId]);
-    console.log(user);
     if (user.rowCount > 0) return true;
     return false;
   } catch (err) {

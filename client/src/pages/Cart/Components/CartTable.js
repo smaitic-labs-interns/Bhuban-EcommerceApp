@@ -65,7 +65,7 @@ export default function CartTable({ cart }) {
           </TableRow>
           <TableRow sx={{ background: '#fafafa' }}>
             <TableCell sx={{ borderColor: '#eff0f5' }}>S.N.</TableCell>
-            <TableCell sx={{ borderColor: '#eff0f5' }}>Product #</TableCell>
+            <TableCell sx={{ borderColor: '#eff0f5' }}>Product </TableCell>
             <TableCell sx={{ borderColor: '#eff0f5' }} align='right'>
               <Typography fontWeight={600}>Quantity</Typography>
             </TableCell>
@@ -87,7 +87,7 @@ export default function CartTable({ cart }) {
               <TableRow key={product.productId}>
                 <DataCell component='th'>{index + 1}</DataCell>
                 <DataCell component='th' scope='row'>
-                  {product.productId}
+                  {product.pDetails.name}
                 </DataCell>
                 <DataCell align='right'>{product?.quantity}</DataCell>
                 <DataCell align='right'>{product?.pDetails?.price}</DataCell>

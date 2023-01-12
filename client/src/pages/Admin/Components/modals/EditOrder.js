@@ -25,6 +25,7 @@ import EditProductQuantity from './EditProductQuantity';
 import UpdatePayment from './UpdatePayment';
 import { address as addressEndpoint } from 'Api/endpoint';
 import axiosInstance from 'modules/api';
+import UpdateShipment from './UpdateShipment';
 
 export default function EditOrder({ order }) {
   const updateOrderStatus = useSelector((state) => state.updateOrderStatus);
@@ -53,18 +54,6 @@ export default function EditOrder({ order }) {
     'completed',
     'cancelled',
     'failed',
-  ];
-
-  const SHIPMENT_STATUS = [
-    'pending',
-    'pre-transit',
-    'in-transit',
-    'waiting-for-delivery',
-    'out-of-delivery',
-    'delivered',
-    'returned',
-    'replaced',
-    'failed-attempt',
   ];
 
   useEffect(() => {
@@ -315,6 +304,28 @@ export default function EditOrder({ order }) {
     }
   }, [updateOrderAddress]);
 
+  const disableUpdateAddress = () => {
+    const orderCondition = ['in-progress', 'shipped', 'completed', 'cancelled', 'failed'];
+
+    const shipCondition = [
+      'pre-transit',
+      'in-transit',
+      'waiting-for-delivery',
+      'out-of-delivery',
+      'returned',
+      'replaced',
+      'failed-attempt',
+    ];
+
+    if (
+      orderCondition.includes(order.orderStatus) ||
+      shipCondition.includes(order.shipment['status'])
+    ) {
+      return true;
+    }
+    return false;
+  };
+
   return (
     <div>
       <Button
@@ -526,7 +537,12 @@ export default function EditOrder({ order }) {
                     </OrderFormInputWrapper>
 
                     <OrderFormInputWrapper>
-                      <Button variant='contained' color='success' type='submit'>
+                      <Button
+                        disabled={disableUpdateAddress()}
+                        variant='contained'
+                        color='success'
+                        type='submit'
+                      >
                         <Save />
                         {'Update'}
                       </Button>
@@ -552,7 +568,11 @@ export default function EditOrder({ order }) {
                         <CustomTableCellValue>{product.productId}</CustomTableCellValue>
                         <CustomTableCellValue>{product.quantity}</CustomTableCellValue>
                         <CustomTableCellValue>
-                          <EditProductQuantity product={product} orderId={order.id} />
+                          <EditProductQuantity
+                            product={product}
+                            orderId={order.id}
+                            orderStatus={order.orderStatus}
+                          />
                         </CustomTableCellValue>
                       </CustomTableRow>
                     );
@@ -580,16 +600,7 @@ export default function EditOrder({ order }) {
                   <CustomTableCellValue>{shipment.type}</CustomTableCellValue>
                   <CustomTableCellValue>{shipment.status}</CustomTableCellValue>
                   <CustomTableCell>
-                    <Button
-                      variant='outlined'
-                      color='primary'
-                      onClick={() => {
-                        handleUpdateShipment();
-                      }}
-                    >
-                      <Edit />
-                      Edit
-                    </Button>
+                    <UpdateShipment shipment={shipment} orderId={order.id} />
                   </CustomTableCell>
                 </CustomTableRow>
               </CustomTableRow>
