@@ -26,6 +26,7 @@ import UpdatePayment from './UpdatePayment';
 import { address as addressEndpoint } from 'Api/endpoint';
 import axiosInstance from 'modules/api';
 import UpdateShipment from './UpdateShipment';
+import { updateAddressRule } from 'validation';
 
 export default function EditOrder({ order }) {
   const updateOrderStatus = useSelector((state) => state.updateOrderStatus);
@@ -262,7 +263,7 @@ export default function EditOrder({ order }) {
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
     initialValues: initialValues,
-    // validationSchema: loginSchema, // for data validation
+    validationSchema: updateAddressRule,
     onSubmit: (values) => {
       values.country = address.country.selected.name;
       values.province = address.state.selected.name;
@@ -302,7 +303,7 @@ export default function EditOrder({ order }) {
         }),
       );
     }
-  }, [updateOrderAddress]);
+  }, [updateOrderAddress, dispatch]);
 
   const disableUpdateAddress = () => {
     const orderCondition = ['in-progress', 'shipped', 'completed', 'cancelled', 'failed'];
@@ -409,7 +410,7 @@ export default function EditOrder({ order }) {
               <CustomTableRow>
                 <CustomTableCell>Shipping Address: </CustomTableCell>
                 <TableCell>
-                  <FormContainer component={'form'} onSubmit={handleSubmit}>
+                  <FormContainer component={'form'} noValidate onSubmit={handleSubmit}>
                     <OrderFormSelectInputWrapper>
                       <label htmlFor='country'>Select Country</label>
                       <br />
@@ -500,7 +501,8 @@ export default function EditOrder({ order }) {
                         value={values.tole}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        //   error={errors.email && Boolean(errors.email)}
+                        error={touched.tole && Boolean(errors.tole)}
+                        helperText={touched.tole && errors.tole}
                       />
                     </OrderFormInputWrapper>
 
@@ -516,7 +518,8 @@ export default function EditOrder({ order }) {
                         value={values.ward}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        //   error={errors.email && Boolean(errors.email)}
+                        error={touched.ward && Boolean(errors.ward)}
+                        helperText={touched.ward && errors.ward}
                       />
                     </OrderFormInputWrapper>
 
@@ -532,7 +535,8 @@ export default function EditOrder({ order }) {
                         value={values.houseNo}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        //   error={errors.email && Boolean(errors.email)}
+                        error={touched.houseNo && Boolean(errors.houseNo)}
+                        helperText={touched.houseNo && errors.houseNo}
                       />
                     </OrderFormInputWrapper>
 

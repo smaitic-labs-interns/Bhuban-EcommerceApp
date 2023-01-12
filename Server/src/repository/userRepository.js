@@ -65,7 +65,7 @@ const read_limited_user = async ({ page, limit }) => {
 const add_user = async (user) => {
   try {
     const result = await con.query(
-      "INSERT INTO users (id, firstname, middlename, lastname, address, email, password, createdAt) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)",
+      "INSERT INTO users (id, firstname, middlename, lastname, address, email, password, role, createdAt) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)",
       [
         user.id,
         user.firstName,
@@ -74,6 +74,7 @@ const add_user = async (user) => {
         user.address,
         user.email,
         user.password,
+        user?.role,
         new Date().toISOString(),
       ]
     );
@@ -105,6 +106,27 @@ const update_user = async (userId, details, updatedBy) => {
         updatedBy,
         userId,
       ]
+    );
+    if (result.rowCount > 0) return true;
+    throw new Error("Error occurs Updating user. Try again Later");
+  } catch (err) {
+    throw err;
+  }
+};
+
+/**
+ * *Update user role
+ * @param {*} userId
+ * @param {*} role
+ * @param {*} updatedBy
+ * @returns true || error message
+ */
+
+const update_user_role = async (userId, role, updatedBy) => {
+  try {
+    const result = await con.query(
+      "UPDATE users  SET role =$1, updatedAt=$2, updatedBy=$3  WHERE id=$4 ",
+      [role, new Date().toISOString(), updatedBy, userId]
     );
     if (result.rowCount > 0) return true;
     throw new Error("Error occurs Updating user. Try again Later");
@@ -216,4 +238,5 @@ module.exports = {
   find_user_from_credintals,
   find_user_from_id,
   remove_user_from_id,
+  update_user_role,
 };

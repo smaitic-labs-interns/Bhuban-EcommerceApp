@@ -124,6 +124,23 @@ const update_user = async (
   }
 };
 
+const update_user_role = async (userId, role, updatedBy) => {
+  try {
+    const USER_ROLE = ["superadmin", "admin", "editor", "user"];
+    if (!USER_ROLE.includes(role)) {
+      throw new Error("Invalid User role");
+    }
+    if (!(await db.user.find_user_from_id(userId))) {
+      throw new Error(`User doesnot exists on ID: ${userId}`);
+    }
+    if (db.user.update_user_role(userId, role, updatedBy)) {
+      return `User Role Updated Sucessfully for ID:${userId}`;
+    }
+  } catch (err) {
+    throw err;
+  }
+};
+
 /**
  * * Find user using ID
  * @param {*} userId
@@ -191,4 +208,5 @@ module.exports = {
   get_user_by_id,
   user_signin,
   remove_user_by_id,
+  update_user_role,
 };

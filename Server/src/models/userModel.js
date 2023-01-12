@@ -14,7 +14,8 @@ const User = ({firstName, middleName, lastName, address, email, password}) =>{
         lastName: value.lastName,
         address: value.address,
         email: value.email,
-        password: bcrypt.hashSync(value.password, bcrypt.genSaltSync(10))
+        password: bcrypt.hashSync(value.password, bcrypt.genSaltSync(10)),
+        role: 'user',
     }
 }
 

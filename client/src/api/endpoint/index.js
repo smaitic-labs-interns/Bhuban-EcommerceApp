@@ -6,10 +6,12 @@ import { apiEndpoint } from 'modules/api';
 const userEndpoint = apiEndpoint('user');
 userEndpoint.get('all');
 userEndpoint.get('one');
-userEndpoint.post('limited');
+userEndpoint.get('limited');
 userEndpoint.post('login');
 userEndpoint.post('register');
 userEndpoint.put('update');
+userEndpoint.put('updateRole');
+userEndpoint.delete('remove');
 
 export const user = userEndpoint.getEndpoints();
 

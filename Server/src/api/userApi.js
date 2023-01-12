@@ -104,6 +104,23 @@ const remove_user_by_id = async (req, resp) => {
   }
 };
 
+const update_user_role = async (req, resp) => {
+  try {
+    const userId = req.query.id;
+    const role = req.query.role;
+    const updatedBy = req.query.role;
+    const res = await Service.user.update_user_role(userId, role, updatedBy);
+    logger.log(
+      "info",
+      `User Role Updated Sucessfully presented on ID: ${userId}`
+    );
+    resp.status(200).send(res);
+  } catch (err) {
+    logger.error("error", err);
+    resp.status(400).send(err.message);
+  }
+};
+
 module.exports = {
   get_all_user,
   get_one_user,
@@ -112,4 +129,5 @@ module.exports = {
   update_user,
   user_login,
   remove_user_by_id,
+  update_user_role,
 };

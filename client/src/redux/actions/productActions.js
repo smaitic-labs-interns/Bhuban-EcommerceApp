@@ -96,7 +96,7 @@ export const add_product =
     } catch (err) {
       dispatch({
         type: ADD_PRODUCT_FAILED,
-        payload: err.response,
+        payload: err.response.data,
       });
     }
   };

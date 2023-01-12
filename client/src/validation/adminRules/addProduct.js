@@ -1,9 +1,9 @@
 import * as Yup from 'yup';
 
 export const addProductRules = Yup.object({
-  category: Yup.string().required('Product Category is required'),
-  model: Yup.string().required('Product Model is required'),
-  brand: Yup.string().required('Product Brand is required'),
+  category: Yup.string().max(50).required('Product Category is required'),
+  model: Yup.string().max(20).required('Product Model is required'),
+  brand: Yup.string().max(20).required('Product Brand is required'),
   name: Yup.string().required('Product Name is required'),
   price: Yup.number()
     .typeError('Price must be a number')

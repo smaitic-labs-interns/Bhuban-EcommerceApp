@@ -858,3 +858,49 @@
 [[32minfo[39m] cart: 1/12/2023, 9:39:12 PM  Sucessfully fetched all carts 
 [[32minfo[39m] cart: 1/12/2023, 9:40:21 PM  Sucessfully fetched all carts 
 [[32minfo[39m] cart: 1/12/2023, 9:45:13 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/12/2023, 9:50:16 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/12/2023, 10:29:21 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/12/2023, 10:31:58 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/12/2023, 10:32:46 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/12/2023, 10:33:45 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/12/2023, 10:34:15 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/12/2023, 10:37:27 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/12/2023, 10:38:15 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/12/2023, 10:41:43 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/12/2023, 10:43:14 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/12/2023, 10:44:34 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/12/2023, 10:45:59 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/12/2023, 10:46:44 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/12/2023, 10:48:27 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/12/2023, 10:49:06 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/12/2023, 10:49:38 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/12/2023, 10:53:52 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/12/2023, 10:54:38 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/12/2023, 10:55:26 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/12/2023, 10:55:44 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/12/2023, 10:56:33 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/12/2023, 10:57:30 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/12/2023, 10:58:12 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/12/2023, 10:58:45 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/12/2023, 10:59:27 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/12/2023, 11:05:38 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/12/2023, 11:05:56 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/12/2023, 11:07:26 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/12/2023, 11:09:15 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/12/2023, 11:11:49 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/12/2023, 11:39:14 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/12/2023, 11:40:31 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/12/2023, 11:41:21 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/12/2023, 11:44:39 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/12/2023, 11:45:18 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/12/2023, 11:53:28 PM  Sucessfully fetched all carts 
+[[32minfo[39m] cart: 1/13/2023, 12:03:23 AM  Sucessfully fetched all carts 
+[[31merror[39m] cart: 1/13/2023, 12:20:43 AM  Error: Error occurs Try adding Product in cart.
+    at Object.get_user_cart (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/cartService.js:44:11)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async get_user_cart (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/cartApi.js:34:17)
+[[32minfo[39m] cart: 1/13/2023, 12:20:45 AM  Product added to cart sucessfully on ID: b75b7675-694a-4402-8873-41716d6538a2
+[[32minfo[39m] cart: 1/13/2023, 12:20:45 AM  Sucessfully fetched carts for user : b75b7675-694a-4402-8873-41716d6538a2
+[[32minfo[39m] cart: 1/13/2023, 12:20:50 AM  Sucessfully fetched carts for user : b75b7675-694a-4402-8873-41716d6538a2
+[[32minfo[39m] cart: 1/13/2023, 12:20:58 AM  Sucessfully fetched carts for user : b75b7675-694a-4402-8873-41716d6538a2

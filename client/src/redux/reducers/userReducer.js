@@ -9,11 +9,37 @@ import {
   UPDATE_USER_REQUEST,
   UPDATE_USER_SUCCESS,
   UPDATE_USER_FAILED,
+  FETCH_LIMITED_USER_REQUEST,
+  FETCH_LIMITED_USER_SUCCESS,
+  FETCH_LIMITED_USER_FAILED,
+  FETCH_ONE_USER_REQUEST,
+  FETCH_ONE_USER_SUCCESS,
+  FETCH_ONE_USER_FAILED,
+  REMOVE_USER_REQUEST,
+  REMOVE_USER_SUCCESS,
+  REMOVE_USER_FAILED,
+  UPDATE_USER_ROLE_REQUEST,
+  UPDATE_USER_ROLE_SUCCESS,
+  UPDATE_USER_ROLE_FAILED,
 } from '../constants/userConstants';
 
 const initialStateRegister = {
   status: null,
   message: '',
+};
+
+const initialStateFetchUser = {
+  status: null,
+  message: '',
+  data: [],
+};
+
+const limitedUserinitialState = {
+  status: null,
+  message: '',
+  all: [],
+  next: {},
+  previous: {},
 };
 
 const initialStateLogin = {
@@ -54,6 +80,79 @@ export const register_reducer = (state = initialStateRegister, { type, payload }
   }
 };
 
+export const fetch_one_user_reducer = (state = initialStateFetchUser, { type, payload }) => {
+  switch (type) {
+    case FETCH_ONE_USER_REQUEST:
+      return initialStateFetchUser;
+
+    case FETCH_ONE_USER_SUCCESS:
+      return {
+        ...state,
+        status: 'success',
+        message: 'User fetched successfully',
+        data: [payload.data],
+      };
+    case FETCH_ONE_USER_FAILED:
+      return {
+        ...state,
+        status: 'failed',
+        message: payload.data,
+      };
+
+    default:
+      return state;
+  }
+};
+
+export const fetch_limited_user_reducer = (state = limitedUserinitialState, { type, payload }) => {
+  switch (type) {
+    case FETCH_LIMITED_USER_REQUEST:
+      return limitedUserinitialState;
+
+    case FETCH_LIMITED_USER_SUCCESS:
+      return {
+        ...state,
+        status: 'success',
+        message: 'Users fetched successfully',
+        all: payload.data,
+        next: payload.next || {},
+        previous: payload.previous || {},
+      };
+    case FETCH_LIMITED_USER_FAILED:
+      return {
+        ...state,
+        status: 'failed',
+        message: payload.data,
+      };
+
+    default:
+      return state;
+  }
+};
+
+export const remove_user_reducer = (state = initialStateRegister, { type, payload }) => {
+  switch (type) {
+    case REMOVE_USER_REQUEST:
+      return initialStateRegister;
+
+    case REMOVE_USER_SUCCESS:
+      return {
+        ...state,
+        status: 'success',
+        message: payload.data,
+      };
+    case REMOVE_USER_FAILED:
+      return {
+        ...state,
+        status: 'failed',
+        message: payload.data,
+      };
+
+    default:
+      return state;
+  }
+};
+
 export const update_user_reducer = (state = initialStateRegister, { type, payload }) => {
   switch (type) {
     case UPDATE_USER_REQUEST:
@@ -66,6 +165,29 @@ export const update_user_reducer = (state = initialStateRegister, { type, payloa
         message: payload.data,
       };
     case UPDATE_USER_FAILED:
+      return {
+        ...state,
+        status: 'failed',
+        message: payload.data,
+      };
+
+    default:
+      return state;
+  }
+};
+
+export const update_user_role_reducer = (state = initialStateRegister, { type, payload }) => {
+  switch (type) {
+    case UPDATE_USER_ROLE_REQUEST:
+      return initialStateRegister;
+
+    case UPDATE_USER_ROLE_SUCCESS:
+      return {
+        ...state,
+        status: 'success',
+        message: payload.data,
+      };
+    case UPDATE_USER_ROLE_FAILED:
       return {
         ...state,
         status: 'failed',

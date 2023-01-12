@@ -11,6 +11,7 @@ router.get("/user/one", api.user.get_one_user);
 router.get("/user/limited", api.user.get_limited_user);
 router.post("/user/register", api.user.user_register);
 router.put("/user/update", api.user.update_user);
+router.put("/user/updateRole", api.user.update_user_role);
 router.post("/user/login", api.user.user_login);
 router.delete("/user/remove", api.user.remove_user_by_id);
 

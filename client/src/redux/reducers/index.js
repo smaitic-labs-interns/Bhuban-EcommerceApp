@@ -1,4 +1,12 @@
-import { register_reducer, update_user_reducer, loginReducer } from './userReducer';
+import {
+  register_reducer,
+  update_user_reducer,
+  loginReducer,
+  fetch_one_user_reducer,
+  fetch_limited_user_reducer,
+  remove_user_reducer,
+  update_user_role_reducer,
+} from './userReducer';
 import {
   productReducer,
   selectedProductReducer,
@@ -48,7 +56,11 @@ const persistConfig = {
   blacklist: [
     'register',
     'updateUser',
+    'updateUserRole',
     'login',
+    'limitedUser',
+    'singleUser',
+    'removeUser',
     'searchProduct',
     'deleteProduct',
     'updateProduct',
@@ -97,6 +109,38 @@ const persistedReducer = persistCombineReducers(persistConfig, {
       blacklist: ['message', 'status'],
     },
     update_user_reducer,
+  ),
+  updateUserRole: persistReducer(
+    {
+      key: 'updateUserRole',
+      storage: storage,
+      blacklist: ['message', 'status'],
+    },
+    update_user_role_reducer,
+  ),
+  limitedUser: persistReducer(
+    {
+      key: 'limitedUser',
+      storage: storage,
+      blacklist: ['message', 'status'],
+    },
+    fetch_limited_user_reducer,
+  ),
+  singleUser: persistReducer(
+    {
+      key: 'singleUser',
+      storage: storage,
+      blacklist: ['message', 'status'],
+    },
+    fetch_one_user_reducer,
+  ),
+  removeUser: persistReducer(
+    {
+      key: 'removeUser',
+      storage: storage,
+      blacklist: ['message', 'status'],
+    },
+    remove_user_reducer,
   ),
   login: persistReducer(
     {
