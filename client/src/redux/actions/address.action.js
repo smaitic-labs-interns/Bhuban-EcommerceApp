@@ -8,7 +8,7 @@ import {
   GET_STATE_DISTRICTS_REQUEST,
   GET_STATE_DISTRICTS_SUCCESS,
   GET_STATE_DISTRICTS_FAILED,
-} from '../constants/extra';
+} from '../constants/address.constants';
 
 import { axios_instance } from '../../api/config/baseApi';
 import { address } from '../../api/config/api-endpoints';
@@ -17,7 +17,7 @@ export const read_all_countries = () => async (dispatch) => {
   try {
     dispatch({ type: GET_COUNTRIES_REQUEST });
     const response = await axios_instance({
-      endpoints: extra.countries,
+      endpoints: address.countries,
     });
     dispatch({
       type: GET_COUNTRIES_SUCCESS,
@@ -35,7 +35,7 @@ export const read_all_states = () => async (dispatch) => {
   try {
     dispatch();
     const response = await axios_instance({
-      endpoints: extra.states,
+      endpoints: address.states,
     });
 
     return response.data;
@@ -47,7 +47,7 @@ export const read_all_states = () => async (dispatch) => {
 export const read_all_districts = () => async (dispatch) => {
   try {
     const response = await axios_instance({
-      endpoints: extra.districts,
+      endpoints: address.districts,
     });
 
     return response.data;
@@ -62,7 +62,7 @@ export const read_states_by_country_id =
     try {
       dispatch({ type: GET_COUNTRY_STATES_REQUEST });
       const response = await axios_instance({
-        endpoints: extra.countryStates,
+        endpoints: address.countryStates,
         query: { id: countryId },
       });
 
@@ -86,7 +86,7 @@ export const read_districts_by_state_id =
     try {
       dispatch({ type: GET_STATE_DISTRICTS_REQUEST });
       const response = await axios_instance({
-        endpoints: extra.stateDistricts,
+        endpoints: address.stateDistricts,
         query: {
           id: stateId,
         },

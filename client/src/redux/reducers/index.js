@@ -7,6 +7,7 @@ import {
   remove_user_reducer,
   update_user_role_reducer,
 } from './userReducer';
+
 import {
   productReducer,
   selectedProductReducer,
@@ -16,6 +17,20 @@ import {
   update_product_reducer,
   fetch_limited_product_reducer,
 } from './productReducer';
+
+import {
+  add_review_reducer,
+  get_all_reviews_reducer,
+  get_limited_reviews_reducer,
+  get_reviews_by_id_reducer,
+  get_reviews_by_orderId_reducer,
+  get_limited_reviews_by_orderId_reducer,
+  get_reviews_by_productId_reducer,
+  get_limited_reviews_by_productId_reducer,
+  get_average_product_rating_reducer,
+  remove_reviews_by_id_reducer,
+} from './review.reducer';
+
 import {
   cartReducer,
   add_to_cart_reducer,
@@ -23,6 +38,7 @@ import {
   cart_products_details_reducer,
   remove_from_cart_reducer,
 } from './cartReducer';
+
 import { send_mail_reducer } from './mail.reducer';
 import storage from 'redux-persist/lib/storage';
 import { persistCombineReducers } from 'redux-persist';
@@ -64,6 +80,16 @@ const persistConfig = {
     'searchProduct',
     'deleteProduct',
     'updateProduct',
+    'addReview',
+    'allReview',
+    'limitedReview',
+    'oneReview',
+    'allReviewByOrderId',
+    'limitedReviewByOrderId',
+    'allReviewByProductId',
+    'limitedReviewByProductId',
+    'productRatingFromReview',
+    'removeReview',
     'cartProductsDetails',
     'addToCart',
     'removeFromCart',
@@ -191,6 +217,96 @@ const persistedReducer = persistCombineReducers(persistConfig, {
     },
     update_product_reducer,
   ),
+  addReview: persistReducer(
+    {
+      key: 'addReview',
+      storage: storage,
+      blacklist: ['message', 'status'],
+    },
+    add_review_reducer,
+  ),
+
+  allReview: persistReducer(
+    {
+      key: 'allReview',
+      storage: storage,
+      blacklist: ['message', 'status'],
+    },
+    get_all_reviews_reducer,
+  ),
+
+  limitedReview: persistReducer(
+    {
+      key: 'limitedReview',
+      storage: storage,
+      blacklist: ['message', 'status'],
+    },
+    get_limited_reviews_reducer,
+  ),
+
+  oneReview: persistReducer(
+    {
+      key: 'oneReview',
+      storage: storage,
+      blacklist: ['message', 'status'],
+    },
+    get_reviews_by_id_reducer,
+  ),
+
+  allReviewByOrderId: persistReducer(
+    {
+      key: 'allReviewByOrderId',
+      storage: storage,
+      blacklist: ['message', 'status'],
+    },
+    get_reviews_by_orderId_reducer,
+  ),
+
+  limitedReviewByOrderId: persistReducer(
+    {
+      key: 'limitedReviewByOrderId',
+      storage: storage,
+      blacklist: ['message', 'status'],
+    },
+    get_limited_reviews_by_orderId_reducer,
+  ),
+
+  allReviewByProductId: persistReducer(
+    {
+      key: 'allReviewByProductId',
+      storage: storage,
+      blacklist: ['message', 'status'],
+    },
+    get_reviews_by_productId_reducer,
+  ),
+
+  limitedReviewByProductId: persistReducer(
+    {
+      key: 'limitedReviewByProductId',
+      storage: storage,
+      blacklist: ['message', 'status'],
+    },
+    get_limited_reviews_by_productId_reducer,
+  ),
+
+  productRatingFromReview: persistReducer(
+    {
+      key: 'productRatingFromReview',
+      storage: storage,
+      blacklist: ['message', 'status'],
+    },
+    get_average_product_rating_reducer,
+  ),
+
+  removeReview: persistReducer(
+    {
+      key: 'removeReview',
+      storage: storage,
+      blacklist: ['message', 'status'],
+    },
+    remove_reviews_by_id_reducer,
+  ),
+
   updateCart: persistReducer(
     {
       key: 'updateCart',

@@ -33,6 +33,24 @@ productEndpoint.get('search/:keyword');
 export const product = productEndpoint.getEndpoints();
 
 /*
+ * Api endpoints for review
+ */
+
+const reviewEndpoint = apiEndpoint('review');
+reviewEndpoint.get('add');
+reviewEndpoint.get('all');
+reviewEndpoint.get('limited');
+reviewEndpoint.get('one');
+reviewEndpoint.get('allByOrderId');
+reviewEndpoint.get('limitedByOrderId');
+reviewEndpoint.get('allByProductId');
+reviewEndpoint.get('limitedByProductId');
+reviewEndpoint.get('rating');
+reviewEndpoint.delete('remove');
+
+export const review = reviewEndpoint.getEndpoints();
+
+/*
  * Api endpoints for cart
  */
 
