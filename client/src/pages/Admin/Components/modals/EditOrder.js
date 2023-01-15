@@ -37,24 +37,17 @@ import { address as addressEndpoint } from 'Api/endpoint';
 import axiosInstance from 'modules/api';
 import UpdateShipment from './UpdateShipment';
 import { updateAddressRule } from 'validation';
-import { sendOrderUpdatesEmail } from 'mail/emailService';
-import { user } from 'api/endpoint';
+import EditOrderStatus from '../Order/EditOrderStatus';
 
 export default function EditOrder({ order }) {
-  const updateOrderStatus = useSelector((state) => state.updateOrderStatus);
   const updateOrderAddress = useSelector((state) => state.updateOrderAddress);
   const [open, setOpen] = useState(false);
-  const [ordStatus, setOrdStatus] = useState(null);
-  const [sendMail, setsendMail] = useState(true);
-
-  // const prevOrdStatus = order.orderStatus;
   const dispatch = useDispatch();
 
   const {
     id,
-    userId,
-    orderStatus,
     products,
+    userId,
     // shippingAddress,
     payment,
     shipment,
@@ -71,64 +64,6 @@ export default function EditOrder({ order }) {
     'cancelled',
     'failed',
   ];
-
-  useEffect(() => {
-    if (updateOrderStatus.status === 'success') {
-      if (sendMail) {
-        setsendMail(false);
-
-        console.log('from send mail');
-        axiosInstance({ endpoints: user.one, query: { id: userId } }).then((data) => {
-          console.log(data);
-          console.log(order);
-          console.log(order.userId);
-          if (data.status === 200) {
-            const { firstname, middlename, lastname, email } = data?.data;
-            let fullName = `${firstname ? firstname : ''} ${middlename ? middlename : ''} ${
-              lastname ? lastname : ''
-            }`;
-            sendOrderUpdatesEmail(email, fullName, ordStatus).then((res) => {
-              console.log(res?.data);
-            });
-          }
-        });
-      }
-      Swal.fire({
-        title: 'Success!',
-        text: `${updateOrderStatus.message}`,
-        icon: 'success',
-      });
-      dispatch(fetch_limited_order({ page: 1, limit: 5, action: 'fetch' }));
-    } else if (updateOrderStatus.status === 'failed') {
-      Swal.fire({
-        title: 'Failed!',
-        text: `${updateOrderStatus.message}`,
-        icon: 'error',
-        confirmButtonText: 'Ok',
-      });
-    }
-    if (updateOrderStatus.status !== null) {
-      dispatch(
-        update_order_status({
-          orderId: '',
-          status: '',
-          action: 'clean',
-        }),
-      );
-    }
-  }, [updateOrderStatus]);
-
-  const handleUpdateStatus = () => {
-    if (ordStatus && ordStatus !== '') {
-      dispatch(
-        update_order_status({
-          orderId: order.id,
-          status: ordStatus,
-          action: 'update',
-        }),
-      );
-    }
-  };
 
   let index = 0;
 
@@ -390,60 +325,17 @@ export default function EditOrder({ order }) {
             </Button>
           </CloseButtonWrapper>
           <OrderContentWrapper>
+            <EditOrderStatus order={order} />
+
             <Table>
               <TableBody>
                 <CustomTableRow>
                   <CustomTableCell>Order Id: </CustomTableCell>
                   <TableCell>{id}</TableCell>
                 </CustomTableRow>
-
                 <CustomTableRow>
-                  <CustomTableCell>
-                    Order Status:
-                    <CustomTableCellValue>({orderStatus})</CustomTableCellValue>
-                  </CustomTableCell>
-                  <CustomTableCell>
-                    <Select
-                      fullWidth
-                      id='ordStatus'
-                      name='ordStatus'
-                      label='Update Order Status'
-                      onChange={(e) => {
-                        setOrdStatus(e.target.value);
-                      }}
-                    >
-                      {ORDER_STATUS.length !== 0 ? (
-                        ORDER_STATUS.map((status) => {
-                          return (
-                            <MenuItem key={status} value={status}>
-                              {status}
-                            </MenuItem>
-                          );
-                        })
-                      ) : (
-                        <MenuItem value={'Not Available'}>{'Not Available'}</MenuItem>
-                      )}
-                    </Select>
-                    <FormControlLabel
-                      onChange={() => setsendMail(!sendMail)}
-                      control={<Switch defaultChecked />}
-                      label='Send updates to User'
-                    />
-                  </CustomTableCell>
-                  <TableCell>
-                    <Button
-                      variant='outlined'
-                      color='success'
-                      onClick={() => {
-                        handleUpdateStatus();
-                      }}
-                      disabled={
-                        orderStatus === 'delivered' || orderStatus === 'cancelled' ? true : false
-                      }
-                    >
-                      <Save /> {' Update'}
-                    </Button>
-                  </TableCell>
+                  <CustomTableCell>User Id: </CustomTableCell>
+                  <TableCell>{userId}</TableCell>
                 </CustomTableRow>
 
                 <CustomTableRow>

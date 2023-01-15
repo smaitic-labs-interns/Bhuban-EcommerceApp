@@ -42,15 +42,10 @@ export const sendOrderDetailsEmail = async (to, name, table) => {
 };
 
 export const sendOrderUpdatesEmail = async (to, name, order_status) => {
-  return await sendEmail(
-    EmailTemplate.ORDER_UPDATES_EMAIL,
-    to,
-    name,
-    {
-      fname: name.split(' ')[0],
-    },
+  return await sendEmail(EmailTemplate.ORDER_UPDATES_EMAIL, to, name, {
+    fname: name.split(' ')[0],
     order_status,
-  );
+  });
 };
 
 export const sendShipmentUpdatesEmail = async (to, name, shipment_type, shipment_status) => {
