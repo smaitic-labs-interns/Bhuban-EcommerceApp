@@ -97,6 +97,7 @@ export default function CartTable({ cart }) {
                     data={{
                       id: product.productId,
                       quantity: product.quantity,
+                      name: product.pDetails.name,
                     }}
                   />
                 </DataCell>

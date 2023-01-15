@@ -26,6 +26,7 @@ export default function CustomModal({
   titleDesc,
   body,
   footer,
+  ...res
 }) {
   const [open, setOpen] = useState(() => (initially ? true : false));
   return (

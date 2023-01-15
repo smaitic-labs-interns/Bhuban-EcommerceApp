@@ -1,10 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Box, Modal, InputLabel, Select, MenuItem } from '@mui/material';
+import {
+  Button,
+  Box,
+  Modal,
+  InputLabel,
+  Select,
+  MenuItem,
+  FormControlLabel,
+  Switch,
+} from '@mui/material';
 import { Edit, Update, Cancel } from '@mui/icons-material';
 import Swal from 'sweetalert2';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { update_order_shipment, fetch_limited_order } from 'redux/actions/orderActions';
+import { sendShipmentUpdatesEmail } from 'mail/emailService';
+import axiosInstance from 'modules/api';
+import { user } from 'api/endpoint';
 
 const style = {
   position: 'absolute',
@@ -18,10 +30,11 @@ const style = {
   p: 4,
 };
 
-export default function UpdateShipment({ shipment, orderId }) {
+export default function UpdateShipment({ shipment, orderId, userId }) {
   const updateOrderShipment = useSelector((state) => state.updateOrderShipment);
   const dispatch = useDispatch();
   const [open, setOpen3] = useState(false);
+  const [sendMail, setsendMail] = useState(true);
   const handleOpen = () => setOpen3(true);
   const [updsht, setUpdSht] = useState({ type: '', status: '' });
 
@@ -52,6 +65,20 @@ export default function UpdateShipment({ shipment, orderId }) {
   useEffect(() => {
     setOpen3(false);
     if (updateOrderShipment.status === 'success') {
+      if (sendMail) {
+        axiosInstance({ endpoints: user.one, query: { id: userId } }).then((data) => {
+          if (data.status === 200) {
+            const { firstname, middlename, lastname, email } = data?.data;
+            let fullName = `${firstname ? firstname : ''} ${middlename ? middlename : ''} ${
+              lastname ? lastname : ''
+            }`;
+            sendShipmentUpdatesEmail(email, fullName, updsht.type, updsht.status).then((res) => {
+              console.log(res?.data);
+              setsendMail(false);
+            });
+          }
+        });
+      }
       Swal.fire({
         title: 'Success!',
         text: `${updateOrderShipment.message}`,
@@ -77,7 +104,7 @@ export default function UpdateShipment({ shipment, orderId }) {
         }),
       );
     }
-  }, [updateOrderShipment]);
+  }, [updateOrderShipment, dispatch]);
 
   const SHIPMENT_STATUS = [
     'pending',
@@ -166,6 +193,13 @@ export default function UpdateShipment({ shipment, orderId }) {
                   <MenuItem value={'Not Available'}>{'Not Available'}</MenuItem>
                 )}
               </Select>
+            </Box>
+            <Box>
+              <FormControlLabel
+                onChange={() => setsendMail(!sendMail)}
+                control={<Switch defaultChecked />}
+                label='Send updates to User'
+              />
             </Box>
           </Box>
 

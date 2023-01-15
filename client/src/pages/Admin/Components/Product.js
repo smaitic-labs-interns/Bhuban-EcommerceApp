@@ -29,7 +29,12 @@ import {
 } from 'Pages/Admin/styles/productStyle';
 
 import { Delete, Add, Search, Close } from '@mui/icons-material';
-import { delete_product, fetch_limited_product, search_product } from 'Actions/productActions';
+import {
+  delete_product,
+  fetch_limited_product,
+  search_product,
+  fetch_product,
+} from 'redux/actions/productActions';
 
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
@@ -42,10 +47,12 @@ export default function Product() {
   const limitedProduct = useSelector((state) => state.limitedProduct);
   const deleteProduct = useSelector((state) => state.deleteProduct);
   const searchProduct = useSelector((state) => state.searchProduct);
+  const singleProduct = useSelector((state) => state.product);
   const dispatch = useDispatch();
 
   const [noOfProduct, setNoOfProduct] = useState(5);
   const [searchKey, setSearchKey] = useState('');
+  const [searchFilter, setSearchFilter] = useState('keyword');
   const [addProductForm, setaddProductForm] = useState(false);
   const [product, setProduct] = useState({
     all: [],
@@ -89,7 +96,11 @@ export default function Product() {
 
   const handleSearch = () => {
     if (searchKey && searchKey !== '') {
-      dispatch(search_product({ keyword: searchKey, action: 'search' }));
+      if (searchFilter === 'id') {
+        dispatch(fetch_product(searchKey));
+      } else {
+        dispatch(search_product({ keyword: searchKey, action: 'search' }));
+      }
     }
   };
 
@@ -166,6 +177,17 @@ export default function Product() {
     }
   }, [searchProduct, dispatch]);
 
+  useMemo(() => {
+    if (Object.keys(singleProduct).length !== 0) {
+      setProduct((product) => ({
+        ...product,
+        all: [singleProduct],
+        next: {},
+        previous: {},
+      }));
+    }
+  }, [singleProduct]);
+
   return (
     <>
       <ProductWrapper>
@@ -218,9 +240,23 @@ export default function Product() {
               Products per page
             </DisplayProductsWrapper>
             <SearchBarWrapper>
+              Filter:
+              <Select
+                sx={{ height: '1.5rem', margin: '0.5rem' }}
+                id='searchFilter'
+                name='searchFilter'
+                value={searchFilter}
+                label='Search Filter'
+                onChange={(e) => {
+                  setSearchFilter(e.target.value);
+                }}
+              >
+                <MenuItem value={'keyword'}>{'Keyword'}</MenuItem>
+                <MenuItem value={'id'}>{'id'}</MenuItem>
+              </Select>
               <TextField
                 fullWidth
-                label='Enter keyword to search'
+                label={searchFilter === 'keyword' ? 'Enter keyword to search' : 'Enter Product Id'}
                 name='searchKeyword'
                 id='searchkeyword'
                 sx={{ background: '#fff' }}

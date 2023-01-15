@@ -1,5 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Modal, Table, TableCell, Select, MenuItem, TextField } from '@mui/material';
+import {
+  Button,
+  Modal,
+  Table,
+  TableCell,
+  Select,
+  MenuItem,
+  TextField,
+  FormControlLabel,
+  Switch,
+  TableBody,
+} from '@mui/material';
 import { Close, Edit, Save } from '@mui/icons-material';
 import {
   EditOrderWrapper,
@@ -26,17 +37,22 @@ import { address as addressEndpoint } from 'Api/endpoint';
 import axiosInstance from 'modules/api';
 import UpdateShipment from './UpdateShipment';
 import { updateAddressRule } from 'validation';
+import { sendOrderUpdatesEmail } from 'mail/emailService';
+import { user } from 'api/endpoint';
 
 export default function EditOrder({ order }) {
   const updateOrderStatus = useSelector((state) => state.updateOrderStatus);
   const updateOrderAddress = useSelector((state) => state.updateOrderAddress);
   const [open, setOpen] = useState(false);
   const [ordStatus, setOrdStatus] = useState(null);
+  const [sendMail, setsendMail] = useState(true);
+
   // const prevOrdStatus = order.orderStatus;
   const dispatch = useDispatch();
 
   const {
     id,
+    userId,
     orderStatus,
     products,
     // shippingAddress,
@@ -58,6 +74,25 @@ export default function EditOrder({ order }) {
 
   useEffect(() => {
     if (updateOrderStatus.status === 'success') {
+      if (sendMail) {
+        setsendMail(false);
+
+        console.log('from send mail');
+        axiosInstance({ endpoints: user.one, query: { id: userId } }).then((data) => {
+          console.log(data);
+          console.log(order);
+          console.log(order.userId);
+          if (data.status === 200) {
+            const { firstname, middlename, lastname, email } = data?.data;
+            let fullName = `${firstname ? firstname : ''} ${middlename ? middlename : ''} ${
+              lastname ? lastname : ''
+            }`;
+            sendOrderUpdatesEmail(email, fullName, ordStatus).then((res) => {
+              console.log(res?.data);
+            });
+          }
+        });
+      }
       Swal.fire({
         title: 'Success!',
         text: `${updateOrderStatus.message}`,
@@ -356,256 +391,267 @@ export default function EditOrder({ order }) {
           </CloseButtonWrapper>
           <OrderContentWrapper>
             <Table>
-              <CustomTableRow>
-                <CustomTableCell>Order Id: </CustomTableCell>
-                <TableCell>{id}</TableCell>
-              </CustomTableRow>
-
-              <CustomTableRow>
-                <CustomTableCell>
-                  Order Status:
-                  <CustomTableCellValue>({orderStatus})</CustomTableCellValue>
-                </CustomTableCell>
-                <CustomTableCell>
-                  <Select
-                    fullWidth
-                    id='ordStatus'
-                    name='ordStatus'
-                    label='Update Order Status'
-                    onChange={(e) => {
-                      setOrdStatus(e.target.value);
-                    }}
-                  >
-                    {ORDER_STATUS.length !== 0 ? (
-                      ORDER_STATUS.map((status) => {
-                        return (
-                          <MenuItem key={status} value={status}>
-                            {status}
-                          </MenuItem>
-                        );
-                      })
-                    ) : (
-                      <MenuItem value={'Not Available'}>{'Not Available'}</MenuItem>
-                    )}
-                  </Select>
-                </CustomTableCell>
-                <TableCell>
-                  <Button
-                    variant='outlined'
-                    color='success'
-                    onClick={() => {
-                      handleUpdateStatus();
-                    }}
-                    disabled={
-                      orderStatus === 'delivered' || orderStatus === 'cancelled' ? true : false
-                    }
-                  >
-                    <Save /> {' Update'}
-                  </Button>
-                </TableCell>
-              </CustomTableRow>
-
-              <CustomTableRow>
-                <CustomTableCell>Shipping Address: </CustomTableCell>
-                <TableCell>
-                  <FormContainer component={'form'} noValidate onSubmit={handleSubmit}>
-                    <OrderFormSelectInputWrapper>
-                      <label htmlFor='country'>Select Country</label>
-                      <br />
-                      <select
-                        id='country'
-                        onChange={(e) => handleChangeAddress('country', e.target.value)}
-                      >
-                        <option value={''}>{'Select Country'}</option>
-                        {address.country.all.length !== 0 ? (
-                          address.country.all.map((country) => (
-                            <option key={country.id} value={country.name}>
-                              {country.name}
-                            </option>
-                          ))
-                        ) : (
-                          <option value={''}> {'Shipping Not Availabel'}</option>
-                        )}
-                      </select>
-                    </OrderFormSelectInputWrapper>
-
-                    <OrderFormSelectInputWrapper>
-                      <label htmlFor='states'>Select Provience/state</label> <br />
-                      <select
-                        id='states'
-                        onChange={(e) => handleChangeAddress('state', e.target.value)}
-                      >
-                        <option value={''}>{'Select Province/States'}</option>;
-                        {address.state.all.length !== 0 ? (
-                          address.state.all.map((state) => {
-                            return (
-                              <option key={state.id} value={state.name}>
-                                {state.name}
-                              </option>
-                            );
-                          })
-                        ) : (
-                          <option value={''}>{'Shipping Not Available'}</option>
-                        )}
-                      </select>
-                    </OrderFormSelectInputWrapper>
-
-                    <OrderFormSelectInputWrapper>
-                      <label htmlFor='districts'>Select Provience/state</label> <br />
-                      <select
-                        id='districts'
-                        onChange={(e) => handleChangeAddress('district', e.target.value)}
-                      >
-                        <option value={''}>{'Select District'}</option>;
-                        {address.district.all.length !== 0 ? (
-                          address.district.all.map((district) => {
-                            return (
-                              <option key={district.id} value={district.name}>
-                                {district.name}
-                              </option>
-                            );
-                          })
-                        ) : (
-                          <option value={''}>{'Shipping Not Available'}</option>
-                        )}
-                      </select>
-                    </OrderFormSelectInputWrapper>
-
-                    <OrderFormSelectInputWrapper>
-                      <label id='cities'>Select City/Local-level</label> <br />
-                      <select
-                        id='cities'
-                        name='city'
-                        value={values.city}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                      >
-                        <option value={''}>{'Select Local Level'}</option>;
-                        <option value='Dhapakhel'>{'Dhapakhel'}</option>
-                        <option value={'Godawari'}>{'Godawari'}</option>
-                        <option value={'Satdobato'}>{'Satdobato'}</option>
-                      </select>
-                    </OrderFormSelectInputWrapper>
-
-                    <OrderFormInputWrapper>
-                      <TextField
-                        margin='normal'
-                        required
-                        fullWidth
-                        id='tole'
-                        label='tole'
-                        name='tole'
-                        autoComplete='tole'
-                        value={values.tole}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        error={touched.tole && Boolean(errors.tole)}
-                        helperText={touched.tole && errors.tole}
-                      />
-                    </OrderFormInputWrapper>
-
-                    <OrderFormInputWrapper>
-                      <TextField
-                        margin='normal'
-                        required
-                        fullWidth
-                        id='ward'
-                        label='ward'
-                        name='ward'
-                        autoComplete='ward'
-                        value={values.ward}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        error={touched.ward && Boolean(errors.ward)}
-                        helperText={touched.ward && errors.ward}
-                      />
-                    </OrderFormInputWrapper>
-
-                    <OrderFormInputWrapper>
-                      <TextField
-                        margin='normal'
-                        required
-                        fullWidth
-                        id='houseNo'
-                        label='houseNo'
-                        name='houseNo'
-                        autoComplete='houseNo'
-                        value={values.houseNo}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        error={touched.houseNo && Boolean(errors.houseNo)}
-                        helperText={touched.houseNo && errors.houseNo}
-                      />
-                    </OrderFormInputWrapper>
-
-                    <OrderFormInputWrapper>
-                      <Button
-                        disabled={disableUpdateAddress()}
-                        variant='contained'
-                        color='success'
-                        type='submit'
-                      >
-                        <Save />
-                        {'Update'}
-                      </Button>
-                    </OrderFormInputWrapper>
-                  </FormContainer>
-                </TableCell>
-              </CustomTableRow>
-
-              <CustomTableRow>
-                <CustomTableCell>Products: </CustomTableCell>
-                <TableCell>
-                  <CustomTableRow>
-                    <CustomTableCell>S.N. </CustomTableCell>
-                    <CustomTableCell>Product Id #</CustomTableCell>
-                    <CustomTableCell> Quantity</CustomTableCell>
-                    <CustomTableCell> Action</CustomTableCell>
-                  </CustomTableRow>
-                  {products.map((product) => {
-                    index++;
-                    return (
-                      <CustomTableRow key={index}>
-                        <CustomTableCell>{index}</CustomTableCell>
-                        <CustomTableCellValue>{product.productId}</CustomTableCellValue>
-                        <CustomTableCellValue>{product.quantity}</CustomTableCellValue>
-                        <CustomTableCellValue>
-                          <EditProductQuantity
-                            product={product}
-                            orderId={order.id}
-                            orderStatus={order.orderStatus}
-                          />
-                        </CustomTableCellValue>
-                      </CustomTableRow>
-                    );
-                  })}
-                </TableCell>
-              </CustomTableRow>
-
-              <CustomTableRow>
+              <TableBody>
                 <CustomTableRow>
-                  <CustomTableCell></CustomTableCell>
-                  <CustomTableCell>Type</CustomTableCell>
-                  <CustomTableCell>Status</CustomTableCell>
-                  <CustomTableCell>Action</CustomTableCell>
+                  <CustomTableCell>Order Id: </CustomTableCell>
+                  <TableCell>{id}</TableCell>
                 </CustomTableRow>
+
                 <CustomTableRow>
-                  <CustomTableCell>Payment</CustomTableCell>
-                  <CustomTableCellValue>{payment.type}</CustomTableCellValue>
-                  <CustomTableCellValue> {payment.status}</CustomTableCellValue>
-                  <CustomTableRow>
-                    <UpdatePayment payment={payment} orderId={order.id} />
-                  </CustomTableRow>
-                </CustomTableRow>
-                <CustomTableRow>
-                  <CustomTableCell>Shipment</CustomTableCell>
-                  <CustomTableCellValue>{shipment.type}</CustomTableCellValue>
-                  <CustomTableCellValue>{shipment.status}</CustomTableCellValue>
                   <CustomTableCell>
-                    <UpdateShipment shipment={shipment} orderId={order.id} />
+                    Order Status:
+                    <CustomTableCellValue>({orderStatus})</CustomTableCellValue>
                   </CustomTableCell>
+                  <CustomTableCell>
+                    <Select
+                      fullWidth
+                      id='ordStatus'
+                      name='ordStatus'
+                      label='Update Order Status'
+                      onChange={(e) => {
+                        setOrdStatus(e.target.value);
+                      }}
+                    >
+                      {ORDER_STATUS.length !== 0 ? (
+                        ORDER_STATUS.map((status) => {
+                          return (
+                            <MenuItem key={status} value={status}>
+                              {status}
+                            </MenuItem>
+                          );
+                        })
+                      ) : (
+                        <MenuItem value={'Not Available'}>{'Not Available'}</MenuItem>
+                      )}
+                    </Select>
+                    <FormControlLabel
+                      onChange={() => setsendMail(!sendMail)}
+                      control={<Switch defaultChecked />}
+                      label='Send updates to User'
+                    />
+                  </CustomTableCell>
+                  <TableCell>
+                    <Button
+                      variant='outlined'
+                      color='success'
+                      onClick={() => {
+                        handleUpdateStatus();
+                      }}
+                      disabled={
+                        orderStatus === 'delivered' || orderStatus === 'cancelled' ? true : false
+                      }
+                    >
+                      <Save /> {' Update'}
+                    </Button>
+                  </TableCell>
                 </CustomTableRow>
-              </CustomTableRow>
+
+                <CustomTableRow>
+                  <CustomTableCell>Shipping Address: </CustomTableCell>
+                  <TableCell>
+                    <FormContainer component={'form'} noValidate onSubmit={handleSubmit}>
+                      <OrderFormSelectInputWrapper>
+                        <label htmlFor='country'>Select Country</label>
+                        <br />
+                        <select
+                          id='country'
+                          onChange={(e) => handleChangeAddress('country', e.target.value)}
+                        >
+                          <option value={''}>{'Select Country'}</option>
+                          {address.country.all.length !== 0 ? (
+                            address.country.all.map((country) => (
+                              <option key={country.id} value={country.name}>
+                                {country.name}
+                              </option>
+                            ))
+                          ) : (
+                            <option value={''}> {'Shipping Not Availabel'}</option>
+                          )}
+                        </select>
+                      </OrderFormSelectInputWrapper>
+
+                      <OrderFormSelectInputWrapper>
+                        <label htmlFor='states'>Select Provience/state</label> <br />
+                        <select
+                          id='states'
+                          onChange={(e) => handleChangeAddress('state', e.target.value)}
+                        >
+                          <option value={''}>{'Select Province/States'}</option>;
+                          {address.state.all.length !== 0 ? (
+                            address.state.all.map((state) => {
+                              return (
+                                <option key={state.id} value={state.name}>
+                                  {state.name}
+                                </option>
+                              );
+                            })
+                          ) : (
+                            <option value={''}>{'Shipping Not Available'}</option>
+                          )}
+                        </select>
+                      </OrderFormSelectInputWrapper>
+
+                      <OrderFormSelectInputWrapper>
+                        <label htmlFor='districts'>Select Provience/state</label> <br />
+                        <select
+                          id='districts'
+                          onChange={(e) => handleChangeAddress('district', e.target.value)}
+                        >
+                          <option value={''}>{'Select District'}</option>;
+                          {address.district.all.length !== 0 ? (
+                            address.district.all.map((district) => {
+                              return (
+                                <option key={district.id} value={district.name}>
+                                  {district.name}
+                                </option>
+                              );
+                            })
+                          ) : (
+                            <option value={''}>{'Shipping Not Available'}</option>
+                          )}
+                        </select>
+                      </OrderFormSelectInputWrapper>
+
+                      <OrderFormSelectInputWrapper>
+                        <label id='cities'>Select City/Local-level</label> <br />
+                        <select
+                          id='cities'
+                          name='city'
+                          value={values.city}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                        >
+                          <option value={''}>{'Select Local Level'}</option>;
+                          <option value='Dhapakhel'>{'Dhapakhel'}</option>
+                          <option value={'Godawari'}>{'Godawari'}</option>
+                          <option value={'Satdobato'}>{'Satdobato'}</option>
+                        </select>
+                      </OrderFormSelectInputWrapper>
+
+                      <OrderFormInputWrapper>
+                        <TextField
+                          margin='normal'
+                          required
+                          fullWidth
+                          id='tole'
+                          label='tole'
+                          name='tole'
+                          autoComplete='tole'
+                          value={values.tole}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          error={touched.tole && Boolean(errors.tole)}
+                          helperText={touched.tole && errors.tole}
+                        />
+                      </OrderFormInputWrapper>
+
+                      <OrderFormInputWrapper>
+                        <TextField
+                          margin='normal'
+                          required
+                          fullWidth
+                          id='ward'
+                          label='ward'
+                          name='ward'
+                          autoComplete='ward'
+                          value={values.ward}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          error={touched.ward && Boolean(errors.ward)}
+                          helperText={touched.ward && errors.ward}
+                        />
+                      </OrderFormInputWrapper>
+
+                      <OrderFormInputWrapper>
+                        <TextField
+                          margin='normal'
+                          required
+                          fullWidth
+                          id='houseNo'
+                          label='houseNo'
+                          name='houseNo'
+                          autoComplete='houseNo'
+                          value={values.houseNo}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          error={touched.houseNo && Boolean(errors.houseNo)}
+                          helperText={touched.houseNo && errors.houseNo}
+                        />
+                      </OrderFormInputWrapper>
+
+                      <OrderFormInputWrapper>
+                        <Button
+                          disabled={disableUpdateAddress()}
+                          variant='contained'
+                          color='success'
+                          type='submit'
+                        >
+                          <Save />
+                          {'Update'}
+                        </Button>
+                      </OrderFormInputWrapper>
+                    </FormContainer>
+                  </TableCell>
+                </CustomTableRow>
+
+                <CustomTableRow>
+                  <CustomTableCell>Products: </CustomTableCell>
+                  <TableCell>
+                    <CustomTableRow>
+                      <CustomTableCell>S.N. </CustomTableCell>
+                      <CustomTableCell>Product Id #</CustomTableCell>
+                      <CustomTableCell> Quantity</CustomTableCell>
+                      <CustomTableCell> Action</CustomTableCell>
+                    </CustomTableRow>
+                    {products.map((product) => {
+                      index++;
+                      return (
+                        <CustomTableRow key={index}>
+                          <CustomTableCell>{index}</CustomTableCell>
+                          <CustomTableCellValue>{product.productId}</CustomTableCellValue>
+                          <CustomTableCellValue>{product.quantity}</CustomTableCellValue>
+                          <CustomTableCellValue>
+                            <EditProductQuantity
+                              product={product}
+                              orderId={order.id}
+                              orderStatus={order.orderStatus}
+                            />
+                          </CustomTableCellValue>
+                        </CustomTableRow>
+                      );
+                    })}
+                  </TableCell>
+                </CustomTableRow>
+
+                <CustomTableRow>
+                  <CustomTableRow>
+                    <CustomTableCell></CustomTableCell>
+                    <CustomTableCell>Type</CustomTableCell>
+                    <CustomTableCell>Status</CustomTableCell>
+                    <CustomTableCell>Action</CustomTableCell>
+                  </CustomTableRow>
+                  <CustomTableRow>
+                    <CustomTableCell>Payment</CustomTableCell>
+                    <CustomTableCellValue>{payment.type}</CustomTableCellValue>
+                    <CustomTableCellValue> {payment.status}</CustomTableCellValue>
+                    <CustomTableRow>
+                      <UpdatePayment payment={payment} orderId={order.id} userId={order.userId} />
+                    </CustomTableRow>
+                  </CustomTableRow>
+                  <CustomTableRow>
+                    <CustomTableCell>Shipment</CustomTableCell>
+                    <CustomTableCellValue>{shipment.type}</CustomTableCellValue>
+                    <CustomTableCellValue>{shipment.status}</CustomTableCellValue>
+                    <CustomTableCell>
+                      <UpdateShipment
+                        shipment={shipment}
+                        orderId={order.id}
+                        userId={order.userId}
+                      />
+                    </CustomTableCell>
+                  </CustomTableRow>
+                </CustomTableRow>
+              </TableBody>
             </Table>
           </OrderContentWrapper>
           <CloseButtonWrapper>

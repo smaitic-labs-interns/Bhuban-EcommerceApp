@@ -39,9 +39,9 @@ export default function SearchPage() {
         products: [],
       }));
     }
-    if (products.status !== null) {
-      dispatch(search_product({ keyword: '', action: 'clean' }));
-    }
+    // if (products.status !== null) {
+    //   dispatch(search_product({ keyword: '', action: 'clean' }));
+    // }
   }, [products, dispatch]);
 
   return (

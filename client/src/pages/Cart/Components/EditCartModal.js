@@ -127,8 +127,10 @@ export default function EditCartModal({ data }) {
       >
         <Box sx={style}>
           <Box sx={{ gap: '1rem', padding: '1rem 0', textAlign: 'center' }}>
-            <Typography fontWeight={600}>Select Appropriate Amount Of Quantity For Id:</Typography>
-            <Typography fontStyle={'italic'}>{data.id}</Typography>
+            <Typography fontWeight={600}>
+              Select Appropriate Amount Of Quantity For Product:
+            </Typography>
+            <Typography fontStyle={'italic'}>{data.name}</Typography>
           </Box>
           <Box style={{ display: 'flex', justifyContent: 'space-between' }}>
             <Button variant='outlined' color='error' onClick={handleDecrease}>
