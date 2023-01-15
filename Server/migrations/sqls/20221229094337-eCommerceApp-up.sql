@@ -463,6 +463,43 @@ ALTER TABLE IF EXISTS public.districts
 COMMIT;
 
 
+-- Table: public.reviews
+
+-- DROP TABLE IF EXISTS public.reviews;
+BEGIN;
+DO
+$$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_class WHERE relname = 'reviews_id_seq') THEN
+        CREATE SEQUENCE reviews_id_seq;
+    END IF;
+END
+$$;
+
+CREATE TABLE IF NOT EXISTS public.reviews
+(
+    id integer NOT NULL DEFAULT nextval('reviews_id_seq'::regclass),
+    productid character varying(36) COLLATE pg_catalog."default" NOT NULL,
+    createdby character varying(36) COLLATE pg_catalog."default" NOT NULL,
+    createdat timestamp without time zone DEFAULT now(),
+    review text COLLATE pg_catalog."default",
+    rating integer NOT NULL,
+    CONSTRAINT reviews_pkey PRIMARY KEY (id),
+    CONSTRAINT fk_reviews_productid FOREIGN KEY (productid)
+        REFERENCES public.products (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT fk_reviews_userid FOREIGN KEY (createdby)
+        REFERENCES public.users (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.reviews
+    OWNER to postgres;
+COMMIT;
 
 -- Insert Into Countries
 

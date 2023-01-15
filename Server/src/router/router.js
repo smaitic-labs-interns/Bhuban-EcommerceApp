@@ -26,6 +26,17 @@ router.get("/product/search/:keyword", api.product.search_products);
 router.get("/product/revenueReport", api.product.revenue_report);
 router.get("/product/arAgingReport", api.product.ar_aging_report);
 
+// for product review
+router.post("/review/add", api.reviews.add_review);
+router.get("/review/all", api.reviews.get_all_reviews);
+router.get("/review/limited", api.reviews.get_limited_reviews);
+router.get("/review/allByproductId", api.reviews.get_reviews_by_productId);
+router.get(
+  "/review/limitedByproductId",
+  api.reviews.get_limited_reviews_by_productId
+);
+router.delete("/review/remove", api.reviews.remove_reviews_by_id);
+
 // for cart
 router.get("/cart/all/", api.cart.get_all_cart);
 router.get("/cart/limited/", api.cart.get_limited_cart);

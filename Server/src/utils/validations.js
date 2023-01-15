@@ -187,3 +187,31 @@ module.exports = {
   address_validation,
   Updatable_address_validation,
 };
+
+const send_email_validation = ({ to, from, subject }) => {
+  const send_email_schema = Joi.object({
+    to: Joi.string()
+      .email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } })
+      .required(),
+    from: Joi.string()
+      .email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } })
+      .required(),
+    subject: Joi.string().required(),
+  });
+  return send_email_schema.validate({
+    to,
+    from,
+    subject,
+  });
+};
+
+module.exports = {
+  user_validation,
+  update_user_validation,
+  sign_in_validation,
+  product_validation,
+  updating_product_validation,
+  address_validation,
+  Updatable_address_validation,
+  send_email_validation,
+};

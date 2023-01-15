@@ -51,3 +51,7 @@ DELETE FROM public.states
 -- Delete public.districts table
 DELETE FROM public.districts
 	WHERE <condition>;
+
+-- Delete public.reviews table
+DELETE FROM public.reviews
+	WHERE <condition>;
