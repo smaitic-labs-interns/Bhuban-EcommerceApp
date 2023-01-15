@@ -29,6 +29,7 @@ const add_review = async (orderId, productId, createdBy, review, rating) => {
 const get_all_reviews = async () => {
   try {
     const reviews = await db.reviews.read_all_reviews();
+    console.log(reviews);
     if (reviews) return reviews;
   } catch (err) {
     throw err;

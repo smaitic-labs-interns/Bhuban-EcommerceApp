@@ -92,7 +92,7 @@ const get_limited_reviews_by_orderId = async (req, resp) => {
     });
     logger.log(
       "info",
-      `Sucessfully fetched ${limit} reviews for page ${page} for product : ${productId}`
+      `Sucessfully fetched ${limit} reviews for page ${page} for order : ${orderId}`
     );
     resp.status(200).send(res);
   } catch (err) {

@@ -132,3 +132,12 @@
     at processTicksAndRejections (node:internal/process/task_queues:96:5)
     at async add_review (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/reviews.api.js:10:17)
 [[32minfo[39m] reviews: 1/15/2023, 8:04:59 PM  Review added successfully
+[[32minfo[39m] reviews: 1/15/2023, 8:06:54 PM  Sucessfully fetched all reviews
+[[32minfo[39m] reviews: 1/15/2023, 8:08:03 PM  Sucessfully fetched all reviews
+[[32minfo[39m] reviews: 1/15/2023, 8:08:54 PM  Sucessfully fetched all reviews
+[[32minfo[39m] reviews: 1/15/2023, 8:09:17 PM  Sucessfully fetched all reviews
+[[32minfo[39m] reviews: 1/15/2023, 8:09:53 PM  Sucessfully fetched all reviews
+[[31merror[39m] reviews: 1/15/2023, 8:11:49 PM  ReferenceError: productId is not defined
+    at get_limited_reviews_by_orderId (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/reviews.api.js:95:78)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[[32minfo[39m] reviews: 1/15/2023, 8:12:39 PM  Sucessfully fetched 1 reviews for page 1 for order : b9000d48-5dc1-47cb-88a8-f82ab82d5ec5

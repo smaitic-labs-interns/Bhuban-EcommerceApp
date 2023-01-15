@@ -26,9 +26,11 @@ const add_review = async ({
 const read_all_reviews = async () => {
   try {
     let reviews = await con.query("SELECT * FROM reviews");
-    for (let review in reviews.rows) {
+
+    for (let review of reviews.rows) {
       review.rating /= 10;
     }
+
     if (reviews.rowCount !== 0) return reviews.rows;
     throw new Error(`No Review Found`);
   } catch (err) {
@@ -83,7 +85,7 @@ const read_review_by_id = async (reviewId) => {
       reviewId,
     ]);
 
-    for (let review in reviews.rows) {
+    for (let review of reviews.rows) {
       review.rating /= 10;
     }
     if (reviews.rowCount !== 0) return reviews.rows;
