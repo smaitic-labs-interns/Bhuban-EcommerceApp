@@ -32,22 +32,28 @@ COMMIT;
 -- Table: public.users
 -- DROP TABLE IF EXISTS public.users;
 BEGIN;
-CREATE TABLE IF NOT EXISTS public.users
+CREATE TABLE IF NOT EXISTS public.reviews
 (
-    id character varying(36) COLLATE pg_catalog."default" NOT NULL,
-    firstname character varying(20) COLLATE pg_catalog."default" NOT NULL,
-    middlename character varying(20) COLLATE pg_catalog."default",
-    lastname character varying(20) COLLATE pg_catalog."default" NOT NULL,
-    address character varying(50) COLLATE pg_catalog."default" NOT NULL,
-    email character varying(50) COLLATE pg_catalog."default" NOT NULL,
-    imageurl text COLLATE pg_catalog."default",
-    imagealttext text COLLATE pg_catalog."default",
-    password text COLLATE pg_catalog."default" NOT NULL,
+    id integer NOT NULL DEFAULT nextval('reviews_id_seq'::regclass),
+    orderid character varying(36) COLLATE pg_catalog."default" NOT NULL,
+    productid character varying(36) COLLATE pg_catalog."default" NOT NULL,
+    createdby character varying(36) COLLATE pg_catalog."default" NOT NULL,
     createdat timestamp without time zone DEFAULT now(),
-    updatedat timestamp without time zone DEFAULT now(),
-    updatedby character varying(36) COLLATE pg_catalog."default",
-    role user_role,
-    CONSTRAINT users_pkey PRIMARY KEY (id)
+    review text COLLATE pg_catalog."default",
+    rating integer NOT NULL,
+    CONSTRAINT reviews_pkey PRIMARY KEY (id),
+    CONSTRAINT fk_reviews_orderid FOREIGN KEY (orderid)
+        REFERENCES public.orders (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT fk_reviews_productid FOREIGN KEY (productid)
+        REFERENCES public.products (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT fk_reviews_userid FOREIGN KEY (createdby)
+        REFERENCES public.users (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
 )
 
 TABLESPACE pg_default;
@@ -55,6 +61,8 @@ TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public.users
     OWNER to postgres;
 COMMIT;
+
+
 
 -- Table: public.products
 

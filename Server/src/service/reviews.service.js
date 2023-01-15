@@ -1,13 +1,19 @@
 const db = require("../repository/dbRepository");
 
-const add_review = async (productId, createdBy, review, rating) => {
+const add_review = async (orderId, productId, createdBy, review, rating) => {
   try {
     const newReview = {
+      orderId,
       productId,
       createdBy,
       review,
       rating,
     };
+    const res = await db.reviews.read_reviews_by_orderId(orderId);
+
+    if (res.length !== 0) {
+      throw new Error(`Rating and  review already exists for this order`);
+    }
     if (await db.reviews.add_review(newReview)) {
       return "Thank you for your review and rating";
     }
@@ -29,21 +35,6 @@ const get_all_reviews = async () => {
   }
 };
 
-const get_limited_reviews_by_productId = async ({ page, limit, productId }) => {
-  try {
-    newPage = parseInt(page) === 0 ? 1 : parseInt(page);
-    newLimit = parseInt(limit) === 0 ? 1 : parseInt(limit);
-    const reviews = await db.reviews.read_limited_reviews_by_productId({
-      page: newPage,
-      limit: newLimit,
-      productId,
-    });
-    if (reviews) return reviews;
-  } catch (err) {
-    throw err;
-  }
-};
-
 const get_limited_reviews = async ({ page, limit }) => {
   try {
     newPage = parseInt(page) === 0 ? 1 : parseInt(page);
@@ -51,6 +42,45 @@ const get_limited_reviews = async ({ page, limit }) => {
     const reviews = await db.reviews.read_limited_reviews({
       page: newPage,
       limit: newLimit,
+    });
+    if (reviews) return reviews;
+  } catch (err) {
+    throw err;
+  }
+};
+
+const get_reviews_by_id = async (reviewId) => {
+  try {
+    const reviews = await db.reviews.read_review_by_id(reviewId);
+    if (Object.keys(reviews).length > 0) {
+      return reviews;
+    }
+    throw new Error(`No reviews and ratings found for this reviewId`);
+  } catch (err) {
+    throw err;
+  }
+};
+
+const get_reviews_by_orderId = async (orderId) => {
+  try {
+    const reviews = await db.reviews.read_reviews_by_orderId(orderId);
+    if (Object.keys(reviews).length > 0) {
+      return reviews;
+    }
+    throw new Error(`No reviews and ratings found for this order`);
+  } catch (err) {
+    throw err;
+  }
+};
+
+const get_limited_reviews_by_orderId = async ({ page, limit, orderId }) => {
+  try {
+    newPage = parseInt(page) === 0 ? 1 : parseInt(page);
+    newLimit = parseInt(limit) === 0 ? 1 : parseInt(limit);
+    const reviews = await db.reviews.read_limited_reviews_by_orderId({
+      page: newPage,
+      limit: newLimit,
+      orderId,
     });
     if (reviews) return reviews;
   } catch (err) {
@@ -76,6 +106,21 @@ const get_reviews_by_productId = async (productId) => {
   }
 };
 
+const get_limited_reviews_by_productId = async ({ page, limit, productId }) => {
+  try {
+    newPage = parseInt(page) === 0 ? 1 : parseInt(page);
+    newLimit = parseInt(limit) === 0 ? 1 : parseInt(limit);
+    const reviews = await db.reviews.read_limited_reviews_by_productId({
+      page: newPage,
+      limit: newLimit,
+      productId,
+    });
+    if (reviews) return reviews;
+  } catch (err) {
+    throw err;
+  }
+};
+
 const remove_reviews_by_id = async (reviewId) => {
   try {
     const reviews = await db.reviews.find_reviews_by_id(reviewId);
@@ -95,6 +140,9 @@ module.exports = {
   add_review,
   get_all_reviews,
   get_limited_reviews,
+  get_reviews_by_id,
+  get_reviews_by_orderId,
+  get_limited_reviews_by_orderId,
   get_reviews_by_productId,
   get_limited_reviews_by_productId,
   remove_reviews_by_id,

@@ -88,3 +88,47 @@
     at async get_reviews_by_productId (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/reviews.api.js:79:17)
 [[32minfo[39m] reviews: 1/15/2023, 6:58:33 PM  Sucessfully fetched all reviews for product: e2ab0b2c-8df2-418e-a779-1a064aeb4ac8
 [[32minfo[39m] reviews: 1/15/2023, 7:00:45 PM  Sucessfully fetched 1 reviews for page 1 for product : e2ab0b2c-8df2-418e-a779-1a064aeb4ac8
+[[31merror[39m] reviews: 1/15/2023, 7:59:23 PM  error: null value in column "orderid" of relation "reviews" violates not-null constraint
+    at Parser.parseErrorMessage (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/node_modules/pg-protocol/dist/parser.js:287:98)
+    at Parser.handlePacket (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/node_modules/pg-protocol/dist/parser.js:126:29)
+    at Parser.parse (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/node_modules/pg-protocol/dist/parser.js:39:38)
+    at Socket.<anonymous> (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/node_modules/pg-protocol/dist/index.js:11:42)
+    at Socket.emit (node:events:513:28)
+    at addChunk (node:internal/streams/readable:315:12)
+    at readableAddChunk (node:internal/streams/readable:289:9)
+    at Socket.Readable.push (node:internal/streams/readable:228:10)
+    at TCP.onStreamRead (node:internal/stream_base_commons:190:23)
+[[31merror[39m] reviews: 1/15/2023, 7:59:36 PM  error: insert or update on table "reviews" violates foreign key constraint "fk_reviews_orderid"
+    at Parser.parseErrorMessage (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/node_modules/pg-protocol/dist/parser.js:287:98)
+    at Parser.handlePacket (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/node_modules/pg-protocol/dist/parser.js:126:29)
+    at Parser.parse (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/node_modules/pg-protocol/dist/parser.js:39:38)
+    at Socket.<anonymous> (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/node_modules/pg-protocol/dist/index.js:11:42)
+    at Socket.emit (node:events:513:28)
+    at addChunk (node:internal/streams/readable:315:12)
+    at readableAddChunk (node:internal/streams/readable:289:9)
+    at Socket.Readable.push (node:internal/streams/readable:228:10)
+    at TCP.onStreamRead (node:internal/stream_base_commons:190:23)
+[[32minfo[39m] reviews: 1/15/2023, 8:00:43 PM  Review added successfully
+[[32minfo[39m] reviews: 1/15/2023, 8:00:45 PM  Review added successfully
+[[32minfo[39m] reviews: 1/15/2023, 8:00:53 PM  Sucessfully fetched all reviews
+[[31merror[39m] reviews: 1/15/2023, 8:03:25 PM  Error: Rating and  review already exists for this order
+    at Object.add_review (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/reviews.service.js:14:13)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async add_review (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/reviews.api.js:10:17)
+[[31merror[39m] reviews: 1/15/2023, 8:03:44 PM  Error: Rating and  review already exists for this order
+    at Object.add_review (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/reviews.service.js:14:13)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async add_review (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/reviews.api.js:10:17)
+[[31merror[39m] reviews: 1/15/2023, 8:03:46 PM  Error: Rating and  review already exists for this order
+    at Object.add_review (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/reviews.service.js:14:13)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async add_review (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/reviews.api.js:10:17)
+[[31merror[39m] reviews: 1/15/2023, 8:03:47 PM  Error: Rating and  review already exists for this order
+    at Object.add_review (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/reviews.service.js:14:13)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async add_review (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/reviews.api.js:10:17)
+[[31merror[39m] reviews: 1/15/2023, 8:04:12 PM  Error: Rating and  review already exists for this order
+    at Object.add_review (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/reviews.service.js:16:13)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async add_review (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/reviews.api.js:10:17)
+[[32minfo[39m] reviews: 1/15/2023, 8:04:59 PM  Review added successfully

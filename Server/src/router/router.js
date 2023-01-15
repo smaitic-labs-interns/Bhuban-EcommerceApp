@@ -30,9 +30,15 @@ router.get("/product/arAgingReport", api.product.ar_aging_report);
 router.post("/review/add", api.reviews.add_review);
 router.get("/review/all", api.reviews.get_all_reviews);
 router.get("/review/limited", api.reviews.get_limited_reviews);
-router.get("/review/allByproductId", api.reviews.get_reviews_by_productId);
+router.get("/review/one", api.reviews.get_reviews_by_id);
+router.get("/review/allByOrderId", api.reviews.get_reviews_by_orderId);
 router.get(
-  "/review/limitedByproductId",
+  "/review/limitedByOrderId",
+  api.reviews.get_limited_reviews_by_orderId
+);
+router.get("/review/allByProductId", api.reviews.get_reviews_by_productId);
+router.get(
+  "/review/limitedByProductId",
   api.reviews.get_limited_reviews_by_productId
 );
 router.delete("/review/remove", api.reviews.remove_reviews_by_id);

@@ -3793,3 +3793,16 @@
 [[32minfo[39m] product: 1/15/2023, 6:49:54 PM  Sucessfully fetched product on ID: 0fbbbe4a-5764-46e1-80a4-84e91c58713c
 [[32minfo[39m] product: 1/15/2023, 6:49:54 PM  Sucessfully fetched product on ID: 485ebfcd-3518-4fd5-a028-c94e3ad2c0a2
 [[32minfo[39m] product: 1/15/2023, 6:49:54 PM  Sucessfully fetched product on ID: 485ebfcd-3518-4fd5-a028-c94e3ad2c0a2
+[[31merror[39m] product: 1/15/2023, 7:08:00 PM  Error: Error occurs deleteing Images
+    at Object.delete_product (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/repository/productRepository.js:135:13)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Object.remove_product (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/productService.js:92:9)
+    at async remove_product (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/productApi.js:72:17)
+[[31merror[39m] product: 1/15/2023, 8:00:05 PM  Error: Error occurs deleteing Images
+    at Object.delete_product (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/repository/productRepository.js:135:13)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Object.remove_product (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/productService.js:92:9)
+    at async remove_product (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/productApi.js:72:17)
+[[32minfo[39m] product: 1/15/2023, 8:00:25 PM  Sucessfully fetched all products
+[[32minfo[39m] product: 1/15/2023, 8:00:25 PM  Sucessfully fetched 5 products for page 1
+[[32minfo[39m] product: 1/15/2023, 8:00:25 PM  Sucessfully fetched 5 products for page 1
