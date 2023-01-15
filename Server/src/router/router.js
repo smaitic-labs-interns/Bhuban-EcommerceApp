@@ -41,6 +41,10 @@ router.get(
   "/review/limitedByProductId",
   api.reviews.get_limited_reviews_by_productId
 );
+router.get(
+  "/review/orderProductId",
+  api.reviews.read_reviews_by_order_product_id
+);
 router.get("/review/rating", api.reviews.get_average_product_rating);
 router.delete("/review/remove", api.reviews.remove_reviews_by_id);
 

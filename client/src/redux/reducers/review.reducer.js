@@ -23,6 +23,9 @@ import {
   GET_LIMITED_REVIEW_BY_PRODUCT_REQUEST,
   GET_LIMITED_REVIEW_BY_PRODUCT_SUCCESS,
   GET_LIMITED_REVIEW_BY_PRODUCT_FAILED,
+  GET_REVIEW_BY_ORDER_PRODUCT_REQUEST,
+  GET_REVIEW_BY_ORDER_PRODUCT_SUCCESS,
+  GET_REVIEW_BY_ORDER_PRODUCT_FAILED,
   GET_AVG_RATING_REQUEST,
   GET_AVG_RATING_SUCCESS,
   GET_AVG_RATING_FAILED,
@@ -233,6 +236,33 @@ export const get_limited_reviews_by_productId_reducer = (
         previous: payload.previous || {},
       };
     case GET_LIMITED_REVIEW_BY_PRODUCT_FAILED:
+      return {
+        ...state,
+        status: 'failed',
+        message: payload.data,
+      };
+
+    default:
+      return state;
+  }
+};
+
+export const read_reviews_by_order_product_id_reducer = (
+  state = initialStateReview,
+  { type, payload },
+) => {
+  switch (type) {
+    case GET_REVIEW_BY_ORDER_PRODUCT_REQUEST:
+      return initialStateReview;
+
+    case GET_REVIEW_BY_ORDER_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        status: 'success',
+        message: 'Review fetched successfully',
+        all: payload.data,
+      };
+    case GET_REVIEW_BY_ORDER_PRODUCT_FAILED:
       return {
         ...state,
         status: 'failed',

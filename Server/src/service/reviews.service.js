@@ -10,8 +10,10 @@ const add_review = async (orderId, productId, createdBy, review, rating) => {
       review,
       rating,
     };
-    const res = await db.reviews.read_reviews_by_orderId(orderId);
-
+    const res = await db.reviews.read_reviews_by_order_product_id(
+      orderId,
+      productId
+    );
     if (res.length !== 0) {
       throw new Error(`Rating and  review already exists for this order`);
     }
@@ -143,6 +145,18 @@ const get_average_product_rating = async (productId) => {
   }
 };
 
+const read_reviews_by_order_product_id = async (orderId, productId) => {
+  try {
+    const reviews = await db.reviews.read_reviews_by_order_product_id(
+      orderId,
+      productId
+    );
+    if (reviews) return reviews;
+  } catch (err) {
+    throw err;
+  }
+};
+
 const remove_reviews_by_id = async (reviewId) => {
   try {
     const reviews = await db.reviews.read_review_by_id(reviewId);
@@ -168,5 +182,6 @@ module.exports = {
   get_reviews_by_productId,
   get_limited_reviews_by_productId,
   get_average_product_rating,
+  read_reviews_by_order_product_id,
   remove_reviews_by_id,
 };

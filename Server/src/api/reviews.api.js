@@ -14,7 +14,10 @@ const add_review = async (req, resp) => {
       data.review,
       data.rating
     );
-    logger.log("info", "Review added successfully");
+    logger.log(
+      "info",
+      `Review added successfully by :${data.createdBy} for Product ${data.productId} from Order: ${data.orderId}`
+    );
     resp.status(200).send(res);
   } catch (err) {
     logger.error("error", err);
@@ -149,6 +152,25 @@ const get_average_product_rating = async (req, resp) => {
   }
 };
 
+const read_reviews_by_order_product_id = async (req, resp) => {
+  try {
+    const orderId = req.query.orderId;
+    const productId = req.query.productId;
+    const res = await Service.reviews.read_reviews_by_order_product_id(
+      orderId,
+      productId
+    );
+    logger.log(
+      "info",
+      `review fetched Sucessfully for order ${orderId} of product ${productId}`
+    );
+    resp.status(200).send(res);
+  } catch (err) {
+    logger.error("error", err);
+    resp.status(400).send(err.message);
+  }
+};
+
 const remove_reviews_by_id = async (req, resp) => {
   try {
     const reviewId = req.query.reviewId;
@@ -174,5 +196,6 @@ module.exports = {
   get_reviews_by_productId,
   get_limited_reviews_by_productId,
   get_average_product_rating,
+  read_reviews_by_order_product_id,
   remove_reviews_by_id,
 };

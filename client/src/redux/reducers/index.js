@@ -29,6 +29,7 @@ import {
   get_limited_reviews_by_productId_reducer,
   get_average_product_rating_reducer,
   remove_reviews_by_id_reducer,
+  read_reviews_by_order_product_id_reducer,
 } from './review.reducer';
 
 import {
@@ -88,6 +89,7 @@ const persistConfig = {
     'limitedReviewByOrderId',
     'allReviewByProductId',
     'limitedReviewByProductId',
+    'orderProductId',
     'productRatingFromReview',
     'removeReview',
     'cartProductsDetails',
@@ -287,6 +289,14 @@ const persistedReducer = persistCombineReducers(persistConfig, {
       blacklist: ['message', 'status'],
     },
     get_limited_reviews_by_productId_reducer,
+  ),
+  orderProducReviewtId: persistReducer(
+    {
+      key: 'orderProducReviewtId',
+      storage: storage,
+      blacklist: ['message', 'status'],
+    },
+    read_reviews_by_order_product_id_reducer,
   ),
 
   productRatingFromReview: persistReducer(

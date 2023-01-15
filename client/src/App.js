@@ -18,6 +18,7 @@ import Order from 'Pages/Order';
 import Bill from 'Pages/Bill';
 import Track from 'Pages/Track';
 import Search from 'Pages/Search';
+import ReviewAndRating from 'pages/ReviewAndRating';
 
 function App() {
   return (
@@ -70,6 +71,7 @@ function App() {
             />
             <Route path='track' element={<Track />} />
             <Route path='search' element={<Search />} />
+            <Route path='review/:orderId' element={<ReviewAndRating />} />
 
             <Route
               path='placeOrder'

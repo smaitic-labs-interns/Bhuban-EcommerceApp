@@ -37,7 +37,7 @@ export const product = productEndpoint.getEndpoints();
  */
 
 const reviewEndpoint = apiEndpoint('review');
-reviewEndpoint.get('add');
+reviewEndpoint.post('add');
 reviewEndpoint.get('all');
 reviewEndpoint.get('limited');
 reviewEndpoint.get('one');
@@ -45,6 +45,7 @@ reviewEndpoint.get('allByOrderId');
 reviewEndpoint.get('limitedByOrderId');
 reviewEndpoint.get('allByProductId');
 reviewEndpoint.get('limitedByProductId');
+reviewEndpoint.get('orderProductId');
 reviewEndpoint.get('rating');
 reviewEndpoint.delete('remove');
 

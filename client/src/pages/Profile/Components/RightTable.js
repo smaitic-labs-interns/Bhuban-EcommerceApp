@@ -18,7 +18,14 @@ import {
   return_replace_order,
 } from 'redux/actions/orderActions';
 import ViewOrder from 'components/Modals/ViewOrder';
-import { AssignmentReturn, Cancel, FindReplace, SkipPrevious, SkipNext } from '@mui/icons-material';
+import {
+  AssignmentReturn,
+  Cancel,
+  FindReplace,
+  SkipPrevious,
+  SkipNext,
+  Reviews,
+} from '@mui/icons-material';
 import Swal from 'sweetalert2';
 import {
   CustomTableCell,
@@ -240,7 +247,7 @@ export default function RightTable() {
           <TableRow sx={{ background: '#fafafa' }}>
             <CustomTableCell>Order #</CustomTableCell>
             <CustomTableCell>Placed On</CustomTableCell>
-            <CustomTableCell colSpan={4}>Actions</CustomTableCell>
+            <CustomTableCell colSpan={5}>Actions</CustomTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -284,6 +291,16 @@ export default function RightTable() {
                     >
                       <FindReplace sx={{ paddingRight: '0.5rem' }} />
                       Replace
+                    </Button>
+                  </TableCell>
+                  <TableCell>
+                    <Button
+                      // disabled={order.orderStatus !== 'completed'}
+                      variant='outlined'
+                      color='warning'
+                      href={`review/${order.id}`}
+                    >
+                      <Reviews />
                     </Button>
                   </TableCell>
                 </TableRow>

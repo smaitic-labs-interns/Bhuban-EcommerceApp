@@ -23,6 +23,9 @@ import {
   GET_LIMITED_REVIEW_BY_PRODUCT_REQUEST,
   GET_LIMITED_REVIEW_BY_PRODUCT_SUCCESS,
   GET_LIMITED_REVIEW_BY_PRODUCT_FAILED,
+  GET_REVIEW_BY_ORDER_PRODUCT_REQUEST,
+  GET_REVIEW_BY_ORDER_PRODUCT_SUCCESS,
+  GET_REVIEW_BY_ORDER_PRODUCT_FAILED,
   GET_AVG_RATING_REQUEST,
   GET_AVG_RATING_SUCCESS,
   GET_AVG_RATING_FAILED,
@@ -233,6 +236,31 @@ export const get_limited_reviews_by_productId =
     } catch (err) {
       dispatch({
         type: GET_LIMITED_REVIEW_BY_PRODUCT_FAILED,
+        payload: err.response,
+      });
+    }
+  };
+
+export const read_reviews_by_order_product_id =
+  ({ orderId, productId, action }) =>
+  async (dispatch) => {
+    try {
+      if (action === 'clean') {
+        return dispatch({ type: GET_REVIEW_BY_ORDER_PRODUCT_REQUEST });
+      }
+      dispatch({ type: GET_REVIEW_BY_ORDER_PRODUCT_REQUEST });
+
+      const response = await axiosInstance({
+        endpoints: reviewEp.orderProductId,
+        query: { orderId, productId },
+      });
+      dispatch({
+        type: GET_REVIEW_BY_ORDER_PRODUCT_SUCCESS,
+        payload: response,
+      });
+    } catch (err) {
+      dispatch({
+        type: GET_REVIEW_BY_ORDER_PRODUCT_FAILED,
         payload: err.response,
       });
     }

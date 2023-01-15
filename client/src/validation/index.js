@@ -4,6 +4,7 @@ import { updateUserRules } from './userRules/updateUser.rules';
 import { addProductRules } from './adminRules/addProduct';
 import { shippingRules } from './userRules/shipping.rules';
 import { updateAddressRule } from './adminRules/updateAddress';
+import { reviewRules } from './userRules/reviewRules';
 
 export {
   registerRules,
@@ -12,4 +13,5 @@ export {
   shippingRules,
   updateUserRules,
   updateAddressRule,
+  reviewRules,
 };

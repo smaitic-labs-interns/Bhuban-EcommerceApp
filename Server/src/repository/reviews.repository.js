@@ -221,6 +221,24 @@ const read_limited_reviews_by_productId = async ({
   }
 };
 
+const read_reviews_by_order_product_id = async (orderId, productId) => {
+  try {
+    let reviews = await con.query(
+      "SELECT * FROM reviews WHERE orderId = $1 AND productId = $2 ORDER BY createdAt DESC",
+      [orderId, productId]
+    );
+
+    for (let review of reviews.rows) {
+      review.rating /= 10;
+    }
+
+    if (reviews.rowCount !== 0) return reviews.rows;
+    return false;
+  } catch (err) {
+    throw err;
+  }
+};
+
 /**
  * *Remove reviews by Id
  * @param {*} reviewId
@@ -247,5 +265,6 @@ module.exports = {
   read_limited_reviews_by_orderId,
   read_reviews_by_productId,
   read_limited_reviews_by_productId,
+  read_reviews_by_order_product_id,
   remove_reviews_by_id,
 };
