@@ -137,6 +137,18 @@ const get_limited_reviews_by_productId = async (req, resp) => {
   }
 };
 
+const get_average_product_rating = async (req, resp) => {
+  try {
+    const productId = req.query.productId;
+    const res = await Service.reviews.get_average_product_rating(productId);
+    logger.log("info", `Fetch average ratinng for product: ${productId}`);
+    resp.status(200).send(res);
+  } catch (err) {
+    logger.error("error", err);
+    resp.status(400).send(err.message);
+  }
+};
+
 const remove_reviews_by_id = async (req, resp) => {
   try {
     const reviewId = req.query.reviewId;
@@ -161,5 +173,6 @@ module.exports = {
   get_limited_reviews_by_orderId,
   get_reviews_by_productId,
   get_limited_reviews_by_productId,
+  get_average_product_rating,
   remove_reviews_by_id,
 };

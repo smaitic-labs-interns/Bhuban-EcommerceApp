@@ -73,7 +73,7 @@ const read_limited_reviews = async ({ page, limit }) => {
 
     result.data = reviews.rows;
     if (reviews.rowCount !== 0) return result;
-    throw new Error(`No Reviews Found`);
+    return false;
   } catch (err) {
     throw err;
   }
@@ -89,7 +89,7 @@ const read_review_by_id = async (reviewId) => {
       review.rating /= 10;
     }
     if (reviews.rowCount !== 0) return reviews.rows;
-    throw new Error(`No Review Found`);
+    return false;
   } catch (err) {
     throw err;
   }
@@ -107,7 +107,7 @@ const read_reviews_by_orderId = async (orderId) => {
     }
 
     if (reviews.rowCount !== 0) return reviews.rows;
-    throw new Error(`No Reviews Found`);
+    return false;
   } catch (err) {
     throw err;
   }
@@ -226,7 +226,7 @@ const read_limited_reviews_by_productId = async ({
  * @param {*} reviewId
  * @returns true || error message
  */
-const remove_user_from_id = async (reviewId) => {
+const remove_reviews_by_id = async (reviewId) => {
   try {
     let review = await con.query("DELETE FROM reviews WHERE id= $1", [
       reviewId,
@@ -247,5 +247,5 @@ module.exports = {
   read_limited_reviews_by_orderId,
   read_reviews_by_productId,
   read_limited_reviews_by_productId,
-  remove_user_from_id,
+  remove_reviews_by_id,
 };

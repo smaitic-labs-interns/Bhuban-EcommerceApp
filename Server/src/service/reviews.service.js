@@ -2,6 +2,7 @@ const db = require("../repository/dbRepository");
 
 const add_review = async (orderId, productId, createdBy, review, rating) => {
   try {
+    rating = parseFloat(rating);
     const newReview = {
       orderId,
       productId,
@@ -53,7 +54,7 @@ const get_limited_reviews = async ({ page, limit }) => {
 const get_reviews_by_id = async (reviewId) => {
   try {
     const reviews = await db.reviews.read_review_by_id(reviewId);
-    if (Object.keys(reviews).length > 0) {
+    if (reviews.length > 0) {
       return reviews;
     }
     throw new Error(`No reviews and ratings found for this reviewId`);
@@ -65,7 +66,7 @@ const get_reviews_by_id = async (reviewId) => {
 const get_reviews_by_orderId = async (orderId) => {
   try {
     const reviews = await db.reviews.read_reviews_by_orderId(orderId);
-    if (Object.keys(reviews).length > 0) {
+    if (reviews.length > 0) {
       return reviews;
     }
     throw new Error(`No reviews and ratings found for this order`);
@@ -98,7 +99,7 @@ const get_limited_reviews_by_orderId = async ({ page, limit, orderId }) => {
 const get_reviews_by_productId = async (productId) => {
   try {
     const reviews = await db.reviews.read_reviews_by_productId(productId);
-    if (Object.keys(reviews).length > 0) {
+    if (reviews.length > 0) {
       return reviews;
     }
     throw new Error(`No reviews and ratings found for this product`);
@@ -122,9 +123,29 @@ const get_limited_reviews_by_productId = async ({ page, limit, productId }) => {
   }
 };
 
+const get_average_product_rating = async (productId) => {
+  try {
+    const reviews = await db.reviews.read_reviews_by_productId(productId);
+    if (reviews.length > 0) {
+      let rating = 0;
+      for (let review of reviews) {
+        rating += review.rating;
+      }
+      rating /= reviews.length;
+      return {
+        rating,
+        productId,
+      };
+    }
+    throw new Error(`No reviews and ratings found for this order`);
+  } catch (err) {
+    throw err;
+  }
+};
+
 const remove_reviews_by_id = async (reviewId) => {
   try {
-    const reviews = await db.reviews.find_reviews_by_id(reviewId);
+    const reviews = await db.reviews.read_review_by_id(reviewId);
     if (
       Object.keys(reviews).length > 0 &&
       (await db.reviews.remove_reviews_by_id(reviewId))
@@ -146,5 +167,6 @@ module.exports = {
   get_limited_reviews_by_orderId,
   get_reviews_by_productId,
   get_limited_reviews_by_productId,
+  get_average_product_rating,
   remove_reviews_by_id,
 };

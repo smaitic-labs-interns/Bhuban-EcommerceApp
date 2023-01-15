@@ -141,3 +141,56 @@
     at get_limited_reviews_by_orderId (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/reviews.api.js:95:78)
     at processTicksAndRejections (node:internal/process/task_queues:96:5)
 [[32minfo[39m] reviews: 1/15/2023, 8:12:39 PM  Sucessfully fetched 1 reviews for page 1 for order : b9000d48-5dc1-47cb-88a8-f82ab82d5ec5
+[[32minfo[39m] reviews: 1/15/2023, 8:27:43 PM  Sucessfully fetched all reviews for product: e2ab0b2c-8df2-418e-a779-1a064aeb4ac8
+[[32minfo[39m] reviews: 1/15/2023, 8:35:55 PM  Fetch average ratinng for product: e2ab0b2c-8df2-418e-a779-1a064aeb4ac8
+[[32minfo[39m] reviews: 1/15/2023, 8:37:00 PM  Fetch average ratinng for product: e2ab0b2c-8df2-418e-a779-1a064aeb4ac8
+[[32minfo[39m] reviews: 1/15/2023, 8:37:01 PM  Fetch average ratinng for product: e2ab0b2c-8df2-418e-a779-1a064aeb4ac8
+[[32minfo[39m] reviews: 1/15/2023, 8:37:24 PM  Fetch average ratinng for product: e2ab0b2c-8df2-418e-a779-1a064aeb4ac8
+[[32minfo[39m] reviews: 1/15/2023, 8:37:40 PM  Fetch average ratinng for product: e2ab0b2c-8df2-418e-a779-1a064aeb4ac8
+[[31merror[39m] reviews: 1/15/2023, 8:39:36 PM  Error: No Reviews Found
+    at Object.read_reviews_by_orderId (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/repository/reviews.repository.js:110:11)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Object.add_review (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/reviews.service.js:13:17)
+    at async add_review (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/reviews.api.js:10:17)
+[[31merror[39m] reviews: 1/15/2023, 8:39:47 PM  Error: No Reviews Found
+    at Object.read_reviews_by_orderId (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/repository/reviews.repository.js:110:11)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Object.add_review (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/reviews.service.js:13:17)
+    at async add_review (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/reviews.api.js:10:17)
+[[31merror[39m] reviews: 1/15/2023, 8:41:01 PM  Error: No Reviews Found
+    at Object.read_reviews_by_orderId (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/repository/reviews.repository.js:110:11)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Object.add_review (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/reviews.service.js:13:17)
+    at async add_review (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/reviews.api.js:10:17)
+[[31merror[39m] reviews: 1/15/2023, 8:41:03 PM  Error: No Reviews Found
+    at Object.read_reviews_by_orderId (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/repository/reviews.repository.js:110:11)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Object.add_review (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/reviews.service.js:13:17)
+    at async add_review (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/reviews.api.js:10:17)
+[[31merror[39m] reviews: 1/15/2023, 8:41:04 PM  Error: No Reviews Found
+    at Object.read_reviews_by_orderId (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/repository/reviews.repository.js:110:11)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Object.add_review (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/reviews.service.js:13:17)
+    at async add_review (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/reviews.api.js:10:17)
+[[31merror[39m] reviews: 1/15/2023, 8:42:13 PM  Error: Rating and  review already exists for this order
+    at Object.add_review (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/reviews.service.js:16:13)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async add_review (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/reviews.api.js:10:17)
+[[31merror[39m] reviews: 1/15/2023, 8:42:19 PM  Error: Rating and  review already exists for this order
+    at Object.add_review (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/service/reviews.service.js:16:13)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async add_review (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/reviews.api.js:10:17)
+[[32minfo[39m] reviews: 1/15/2023, 8:42:34 PM  Review added successfully
+[[32minfo[39m] reviews: 1/15/2023, 8:42:35 PM  Review added successfully
+[[32minfo[39m] reviews: 1/15/2023, 8:42:37 PM  Review added successfully
+[[32minfo[39m] reviews: 1/15/2023, 8:42:37 PM  Review added successfully
+[[32minfo[39m] reviews: 1/15/2023, 8:43:01 PM  Fetch average ratinng for product: 32062f0c-e217-4ccc-9e73-addb649d1900
+[[32minfo[39m] reviews: 1/15/2023, 8:45:39 PM  Fetch average ratinng for product: 32062f0c-e217-4ccc-9e73-addb649d1900
+[[32minfo[39m] reviews: 1/15/2023, 8:45:40 PM  Fetch average ratinng for product: 32062f0c-e217-4ccc-9e73-addb649d1900
+[[32minfo[39m] reviews: 1/15/2023, 8:46:24 PM  Fetch average ratinng for product: 32062f0c-e217-4ccc-9e73-addb649d1900
+[[32minfo[39m] reviews: 1/15/2023, 8:46:25 PM  Fetch average ratinng for product: 32062f0c-e217-4ccc-9e73-addb649d1900
+[[32minfo[39m] reviews: 1/15/2023, 8:46:53 PM  Fetch average ratinng for product: 32062f0c-e217-4ccc-9e73-addb649d1900
+[[32minfo[39m] reviews: 1/15/2023, 8:47:13 PM  Fetch average ratinng for product: 32062f0c-e217-4ccc-9e73-addb649d1900
+[[32minfo[39m] reviews: 1/15/2023, 8:47:28 PM  Fetch average ratinng for product: 32062f0c-e217-4ccc-9e73-addb649d1900
+[[32minfo[39m] reviews: 1/15/2023, 8:47:29 PM  Fetch average ratinng for product: 32062f0c-e217-4ccc-9e73-addb649d1900
+[[32minfo[39m] reviews: 1/15/2023, 8:48:40 PM  Fetch average ratinng for product: 32062f0c-e217-4ccc-9e73-addb649d1900
