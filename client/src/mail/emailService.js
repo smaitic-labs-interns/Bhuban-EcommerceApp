@@ -55,3 +55,10 @@ export const sendShipmentUpdatesEmail = async (to, name, shipment_type, shipment
     shipment_status,
   });
 };
+
+export const sendOrderCopletedEmail = async (to, name, rating_link) => {
+  return await sendEmail(EmailTemplate.ORDER_COMPLETED_EMAIL, to, name, {
+    fname: name.split(' ')[0],
+    rating_link,
+  });
+};

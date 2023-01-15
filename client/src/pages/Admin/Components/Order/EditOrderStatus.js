@@ -11,7 +11,7 @@ import { Select, MenuItem, FormControlLabel, Switch, Button } from '@mui/materia
 import { useDispatch, useSelector } from 'react-redux';
 import { Save } from '@mui/icons-material';
 import Swal from 'sweetalert2';
-import { sendOrderUpdatesEmail } from 'mail/emailService';
+import { sendOrderUpdatesEmail, sendOrderCopletedEmail } from 'mail/emailService';
 import { user } from 'api/endpoint';
 import axiosInstance from 'modules/api';
 
@@ -54,10 +54,21 @@ export default function EditOrderStatus({ order }) {
               lastname ? lastname : ''
             }`;
 
-            sendOrderUpdatesEmail(email, fullName, ordStatus).then((res) => {
-              console.log(res?.data);
-              setsendMail(false);
-            });
+            if (ordStatus === 'completed') {
+              sendOrderCopletedEmail(
+                email,
+                fullName,
+                `http://localhost:3000/review/${order.id}`,
+              ).then((res) => {
+                console.log(res?.data);
+                setsendMail(false);
+              });
+            } else {
+              sendOrderUpdatesEmail(email, fullName, ordStatus).then((res) => {
+                console.log(res?.data);
+                setsendMail(false);
+              });
+            }
           }
         });
       }

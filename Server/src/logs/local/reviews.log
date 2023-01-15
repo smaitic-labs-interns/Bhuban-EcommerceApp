@@ -488,3 +488,9 @@
     at runMicrotasks (<anonymous>)
     at processTicksAndRejections (node:internal/process/task_queues:96:5)
     at async add_review (/media/bhuban/72E2928AE29251E9/prithak_creation/Projects/learning/E-commerce-App/eCommerceApp/Server/src/api/reviews.api.js:10:17)
+[[32minfo[39m] reviews: 1/16/2023, 1:14:58 AM  review fetched Sucessfully for order ed5f6cfb-9c7c-486d-b646-c0908e9f46eb of product 48c90265-ad5c-4741-8e6d-7c8f9e92dc39
+[[32minfo[39m] reviews: 1/16/2023, 1:14:58 AM  review fetched Sucessfully for order ed5f6cfb-9c7c-486d-b646-c0908e9f46eb of product 9f668aa0-608d-423b-b232-7d0099153ba4
+[[32minfo[39m] reviews: 1/16/2023, 1:14:58 AM  review fetched Sucessfully for order ed5f6cfb-9c7c-486d-b646-c0908e9f46eb of product 32062f0c-e217-4ccc-9e73-addb649d1900
+[[32minfo[39m] reviews: 1/16/2023, 1:15:19 AM  review fetched Sucessfully for order ed5f6cfb-9c7c-486d-b646-c0908e9f46eb of product 48c90265-ad5c-4741-8e6d-7c8f9e92dc39
+[[32minfo[39m] reviews: 1/16/2023, 1:15:19 AM  review fetched Sucessfully for order ed5f6cfb-9c7c-486d-b646-c0908e9f46eb of product 9f668aa0-608d-423b-b232-7d0099153ba4
+[[32minfo[39m] reviews: 1/16/2023, 1:15:19 AM  review fetched Sucessfully for order ed5f6cfb-9c7c-486d-b646-c0908e9f46eb of product 32062f0c-e217-4ccc-9e73-addb649d1900
