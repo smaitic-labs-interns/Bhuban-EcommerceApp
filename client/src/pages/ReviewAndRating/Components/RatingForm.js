@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Button, FormHelperText, Rating, TextField, Typography } from '@mui/material';
 import { useFormik } from 'formik';
 import { reviewRules } from 'validation';
@@ -13,12 +13,11 @@ import {
   RatingFormContainer,
   RatingLabelWrapper,
 } from '../styles/ratingFormStyle';
-import { add_review, read_reviews_by_order_product_id } from 'redux/actions/review.action';
+import { add_review } from 'redux/actions/review.action';
+import { Publish } from '@mui/icons-material';
 
-export default function RatingForm({ orderId, productId, userId, productName }) {
+export default function RatingForm({ orderId, productId, userId, productName, oldReview = {} }) {
   const addReview = useSelector((state) => state.addReview);
-  const orderProducReviewtId = useSelector((state) => state.orderProducReviewtId);
-  const [oldReview, setOldReview] = useState([]);
 
   const dispatch = useDispatch();
   const getLabelText = (value) => {
@@ -38,15 +37,14 @@ export default function RatingForm({ orderId, productId, userId, productName }) 
   };
 
   const initialValues = {
-    review: '',
-    rating: '',
+    review: oldReview?.review,
+    rating: oldReview?.rating,
   };
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
     initialValues: initialValues,
     validationSchema: reviewRules,
     onSubmit: (values) => {
-      console.log(values);
       dispatch(
         add_review({
           orderId: orderId,
@@ -91,32 +89,6 @@ export default function RatingForm({ orderId, productId, userId, productName }) 
     }
   }, [addReview]);
 
-  useEffect(() => {
-    dispatch(
-      read_reviews_by_order_product_id({
-        orderId: orderId,
-        productId: productId,
-        action: 'fetch',
-      }),
-    );
-  }, []);
-
-  useEffect(() => {
-    if (addReview.status === 'success') {
-      setOldReview(addReview.all);
-    }
-
-    if (addReview.status !== null) {
-      dispatch(
-        read_reviews_by_order_product_id({
-          orderId: '',
-          productId: '',
-          action: 'clean',
-        }),
-      );
-    }
-  }, [orderProducReviewtId]);
-
   return (
     <RatingFormWrapper>
       <RatingBox sx={{ width: '50%' }}>
@@ -128,6 +100,7 @@ export default function RatingForm({ orderId, productId, userId, productName }) 
           <RatingTitle>Review</RatingTitle>
           <RatingContent>
             <TextField
+              disabled={oldReview?.isAlreadyReviewed}
               autoComplete='review'
               name='review'
               fullWidth
@@ -147,11 +120,11 @@ export default function RatingForm({ orderId, productId, userId, productName }) 
           <RatingTitle>Rating</RatingTitle>
           <RatingContent>
             <Rating
+              readOnly={oldReview?.isAlreadyReviewed}
               id='rating'
               name='rating'
               value={Number(values.rating)}
               onChange={handleChange}
-              onBlur={handleBlur}
               precision={0.5}
             />
           </RatingContent>
@@ -163,8 +136,14 @@ export default function RatingForm({ orderId, productId, userId, productName }) 
           )}
         </RatingBox>
         <RatingBox>
-          <Button variant='outlined' color='success' type='submit'>
-            Submit
+          <Button
+            disabled={oldReview?.isAlreadyReviewed}
+            variant='outlined'
+            color='success'
+            type='submit'
+          >
+            <Publish />
+            {' Submit '}
           </Button>
         </RatingBox>
       </RatingFormContainer>

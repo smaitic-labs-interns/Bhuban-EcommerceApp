@@ -14,7 +14,7 @@ const add_review = async (orderId, productId, createdBy, review, rating) => {
       orderId,
       productId
     );
-    if (res.length !== 0) {
+    if (res !== false) {
       throw new Error(`Rating and  review already exists for this order`);
     }
     if (await db.reviews.add_review(newReview)) {
