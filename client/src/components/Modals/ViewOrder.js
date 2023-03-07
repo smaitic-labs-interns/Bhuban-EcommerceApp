@@ -18,6 +18,7 @@ const style = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 900,
+  height: 900,
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
@@ -28,7 +29,6 @@ const style = {
 export default function ViewOrder({ order, initially }) {
   const [open, setOpen] = useState(() => (initially ? true : false));
   const handleOpen = () => setOpen(true);
-  console.log(order);
 
   const { country, province, district, city, ward, tole, houseNo } = order.shippingAddress;
   var index = 0;
@@ -62,6 +62,9 @@ export default function ViewOrder({ order, initially }) {
                   District: <br /> <span>{district}</span>
                 </ContentText>
                 <ContentText>
+                  City: <br /> <span>{city}</span>
+                </ContentText>
+                <ContentText>
                   Ward: <br /> <span>{ward}</span>
                 </ContentText>
                 <ContentText>
@@ -75,6 +78,10 @@ export default function ViewOrder({ order, initially }) {
             <ContentTitle>Order Details</ContentTitle>
             <ContentContainer>
               <DetailsWrapper>
+                <ContentText>
+                  Placed On:
+                  <br /> <span>{order.placedOn}</span>
+                </ContentText>
                 <ContentText>
                   Shipment Type.:
                   <br /> <span>{order.shipment.type}</span>
@@ -111,7 +118,7 @@ export default function ViewOrder({ order, initially }) {
               <TableHead>
                 <TableRow>
                   <TableCell>S.N.</TableCell>
-                  <TableCell>Product #</TableCell>
+                  <TableCell>Product </TableCell>
                   <TableCell>Quantity</TableCell>
                 </TableRow>
               </TableHead>
@@ -121,8 +128,8 @@ export default function ViewOrder({ order, initially }) {
                   return (
                     <TableRow key={product.productId}>
                       <TableCell>{index}</TableCell>
-                      <TableCell>{product.productId}</TableCell>
-                      <TableCell>{product.quantity}</TableCell>
+                      <TableCell>{product?.pDetails?.name}</TableCell>
+                      <TableCell>{product?.quantity}</TableCell>
                     </TableRow>
                   );
                 })}

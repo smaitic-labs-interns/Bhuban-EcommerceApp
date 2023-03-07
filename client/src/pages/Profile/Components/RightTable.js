@@ -8,28 +8,43 @@ import {
   TableRow,
   TableCell,
   Button,
+  Typography,
 } from '@mui/material';
 
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  fetch_user_orders,
+  fetch_limited_user_order,
   cancel_order,
   return_replace_order,
-} from '../../../redux/actions/orderActions';
-import ViewOrder from '../../../components/Modals/ViewOrder';
-import { CustomTableCell, TablePageWrapper } from '../styles/RightTableStyle';
-import { AssignmentReturn, Cancel, FindReplace } from '@mui/icons-material';
+} from 'redux/actions/orderActions';
+import ViewOrder from 'components/Modals/ViewOrder';
+import {
+  AssignmentReturn,
+  Cancel,
+  FindReplace,
+  SkipPrevious,
+  SkipNext,
+  Reviews,
+} from '@mui/icons-material';
 import Swal from 'sweetalert2';
+import {
+  CustomTableCell,
+  PagerWrapper,
+  PagerContainer,
+  PreviousBtnWrapper,
+  DescriptionWrapper,
+  NextBtnWrapper,
+} from '../styles/RightTableStyle';
 
 export default function RightTable() {
   const login = useSelector((state) => state.login);
   const cancelOrder = useSelector((state) => state.cancelOrder);
-  const userOrders = useSelector((state) => state.userOrders);
+  const limitedUserOrder = useSelector((state) => state.limitedUserOrder);
   const returnReplace = useSelector((state) => state.returnReplace);
   const userId = login.isLogined ? login.userId : null;
 
   const dispatch = useDispatch();
-  const [orders, setOrders] = useState([]);
+  const [orders, setOrders] = useState({ all: [], next: {}, previous: {} });
 
   const handleCancelOrder = (id) => {
     if (id && id !== ' ') {
@@ -74,13 +89,20 @@ export default function RightTable() {
 
   useEffect(() => {
     if (userId && userId !== ' ') {
-      dispatch(fetch_user_orders({ userId: userId, action: 'fetch' }));
+      dispatch(fetch_limited_user_order({ userId: userId, page: 1, limit: 10, action: 'fetch' }));
     }
-  }, []);
+  }, [dispatch, userId]);
 
   useEffect(() => {
-    if (userOrders.status === 'success') setOrders(userOrders.data);
-  }, [userOrders]);
+    if (limitedUserOrder.status === 'success') {
+      setOrders((orders) => ({
+        ...orders,
+        all: limitedUserOrder.all,
+        next: limitedUserOrder.next,
+        previous: limitedUserOrder.previous,
+      }));
+    }
+  }, [limitedUserOrder]);
 
   useEffect(() => {
     if (cancelOrder.status === 'success') {
@@ -90,7 +112,14 @@ export default function RightTable() {
         icon: 'success',
         confirmButtonText: 'Ok',
       });
-      dispatch(fetch_user_orders({ userId: userId, action: 'fetch' }));
+      dispatch(
+        fetch_limited_user_order({
+          userId: userId,
+          page: currentPage(),
+          limit: 10,
+          action: 'fetch',
+        }),
+      );
     } else if (cancelOrder.status === 'failed') {
       Swal.fire({
         title: 'Error!',
@@ -107,7 +136,7 @@ export default function RightTable() {
         }),
       );
     }
-  }, [cancelOrder]);
+  }, [cancelOrder, dispatch, userId]);
 
   useEffect(() => {
     if (returnReplace.status === 'success') {
@@ -117,7 +146,14 @@ export default function RightTable() {
         icon: 'success',
         confirmButtonText: 'Ok',
       });
-      dispatch(fetch_user_orders({ userId: userId, action: 'fetch' }));
+      dispatch(
+        fetch_limited_user_order({
+          userId: userId,
+          page: currentPage(),
+          limit: 10,
+          action: 'fetch',
+        }),
+      );
     } else if (returnReplace.status === 'failed') {
       Swal.fire({
         title: 'Error!',
@@ -134,7 +170,72 @@ export default function RightTable() {
         }),
       );
     }
-  }, [returnReplace]);
+  }, [returnReplace, dispatch, userId]);
+
+  const currentPage = (previous = {}, next = {}) => {
+    const prevlength = Object.keys(previous).length;
+    const nextlength = Object.keys(next).length;
+    if (nextlength !== 0) {
+      return next.page - 1;
+    } else if (prevlength !== 0) {
+      return previous.page + 1;
+    } else {
+      return 1;
+    }
+  };
+
+  const handleFetchOrder = ({ page, limit }) => {
+    if (page && page !== '' && limit && limit !== '') {
+      orders.all = [];
+      dispatch(
+        fetch_limited_user_order({ userId: userId, page: page, limit: limit, action: 'fetch' }),
+      );
+    }
+  };
+
+  const validateCancelStatus = (orderId) => {
+    const cancelledCondition = ['shipped', 'delivered', 'completed', 'cancelled', 'failed'];
+
+    for (const order of orders.all) {
+      if (order.id === orderId && cancelledCondition.includes(order.orderStatus)) {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  const validateRetRepStatus = (orderId) => {
+    const RetRepFailedOrderCondition = [
+      'pending',
+      'accepted',
+      'in-progress',
+      'shipped',
+      'completed',
+      'cancelled',
+      'failed',
+    ];
+
+    const RetRepFailedShipCondition = [
+      'pre-transit',
+      'in-transit',
+      'waiting-for-delivery',
+      'out-of-delivery',
+      'returned',
+      'replaced',
+      'failed-attempt',
+    ];
+
+    for (const order of orders.all) {
+      if (
+        order.id === orderId &&
+        (RetRepFailedOrderCondition.includes(order.orderStatus) ||
+          RetRepFailedShipCondition.includes(order.shipment['status']))
+      ) {
+        return true;
+      }
+    }
+    return false;
+  };
 
   return (
     <TableContainer component={Paper}>
@@ -146,12 +247,12 @@ export default function RightTable() {
           <TableRow sx={{ background: '#fafafa' }}>
             <CustomTableCell>Order #</CustomTableCell>
             <CustomTableCell>Placed On</CustomTableCell>
-            <CustomTableCell colSpan={4}>Actions</CustomTableCell>
+            <CustomTableCell colSpan={5}>Actions</CustomTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {orders.length !== 0 ? (
-            orders.map((order) => {
+          {orders.all.length !== 0 ? (
+            orders.all.map((order) => {
               return (
                 <TableRow key={order.id}>
                   <TableCell>{order.id}</TableCell>
@@ -161,6 +262,7 @@ export default function RightTable() {
                   </TableCell>
                   <TableCell>
                     <Button
+                      disabled={validateCancelStatus(order.id)}
                       variant='outlined'
                       color='error'
                       onClick={() => handleCancelOrder(order.id)}
@@ -171,9 +273,10 @@ export default function RightTable() {
                   </TableCell>
                   <TableCell>
                     <Button
+                      disabled={validateRetRepStatus(order.id)}
                       variant='outlined'
                       color='secondary'
-                      onClick={() => handleReturnReplace(order.id, 'return')}
+                      onClick={() => handleReturnReplace(order.id, 'returned')}
                     >
                       <AssignmentReturn sx={{ paddingRight: '0.5rem' }} />
                       Retrn
@@ -181,12 +284,23 @@ export default function RightTable() {
                   </TableCell>
                   <TableCell>
                     <Button
+                      disabled={validateRetRepStatus(order.id)}
                       variant='outlined'
                       color='primary'
-                      onClick={() => handleReturnReplace(order.id, 'replace')}
+                      onClick={() => handleReturnReplace(order.id, 'replaced')}
                     >
                       <FindReplace sx={{ paddingRight: '0.5rem' }} />
                       Replace
+                    </Button>
+                  </TableCell>
+                  <TableCell>
+                    <Button
+                      // disabled={order.orderStatus !== 'completed'}
+                      variant='outlined'
+                      color='warning'
+                      href={`review/${order.id}`}
+                    >
+                      <Reviews />
                     </Button>
                   </TableCell>
                 </TableRow>
@@ -199,7 +313,38 @@ export default function RightTable() {
           )}
         </TableBody>
       </Table>
-      <TablePageWrapper>This Section is for Pagination</TablePageWrapper>
+      {(orders.next || orders.previous) && (
+        <PagerWrapper>
+          <PagerContainer>
+            <PreviousBtnWrapper
+              disabled={Object.keys(orders.previous).length === 0}
+              onClick={() => {
+                handleFetchOrder(orders.previous);
+              }}
+            >
+              <SkipPrevious />
+              <Typography>{'Previous'}</Typography>
+            </PreviousBtnWrapper>
+            <DescriptionWrapper>
+              <Typography>{`Current Page: ${currentPage(
+                orders.previous,
+                orders.next,
+              )}`}</Typography>
+            </DescriptionWrapper>
+            <NextBtnWrapper
+              disabled={Object.keys(orders.next).length === 0}
+              onClick={() => {
+                handleFetchOrder(orders.next);
+              }}
+              variant='outlined'
+              color='primary'
+            >
+              <Typography>{'Next'}</Typography>
+              <SkipNext />
+            </NextBtnWrapper>
+          </PagerContainer>
+        </PagerWrapper>
+      )}
     </TableContainer>
   );
 }

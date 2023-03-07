@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { Button, Box, Modal, TextField, Typography } from "@mui/material";
-import { Edit, RemoveOutlined, Add, Update, Cancel } from "@mui/icons-material";
-import Swal from "sweetalert2";
-import { fetch_user_Cart, update_user_cart } from "Actions/cartActions";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState } from 'react';
+import { Button, Box, Modal, TextField, Typography } from '@mui/material';
+import { Edit, RemoveOutlined, Add, Update, Cancel } from '@mui/icons-material';
+import Swal from 'sweetalert2';
+import { fetch_user_Cart, update_user_cart } from 'Actions/cartActions';
+import { useDispatch, useSelector } from 'react-redux';
 
 const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
   width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
   boxShadow: 24,
   p: 4,
 };
@@ -40,10 +40,10 @@ export default function EditCartModal({ data }) {
     } else {
       // handleClose();
       Swal.fire({
-        title: "Error!",
+        title: 'Error!',
         text: `Quantity cannot be less than 1`,
-        icon: "error",
-        confirmButtonText: "Ok",
+        icon: 'error',
+        confirmButtonText: 'Ok',
       });
     }
   };
@@ -55,8 +55,8 @@ export default function EditCartModal({ data }) {
           userId: userId,
           id: data.id,
           quantity: prevQuantity - quty,
-          action: "remove",
-        })
+          action: 'remove',
+        }),
       );
     } else if (quty > prevQuantity) {
       dispatch(
@@ -64,109 +64,100 @@ export default function EditCartModal({ data }) {
           userId: userId,
           id: data.id,
           quantity: quty - prevQuantity,
-          action: "add",
-        })
+          action: 'add',
+        }),
       );
     } else {
       setOpen(false); //close module
       Swal.fire({
-        title: "Info!",
-        text: "No Change Occurs",
-        icon: "info",
-        confirmButtonText: "Ok",
+        title: 'Info!',
+        text: 'No Change Occurs',
+        icon: 'info',
+        confirmButtonText: 'Ok',
       });
     }
   };
 
   useEffect(() => {
     setOpen(false);
-    if (updateCart.status === "success") {
+    if (updateCart.status === 'success') {
       Swal.fire({
-        title: "Success!",
+        title: 'Success!',
         text: `${updateCart.message}`,
-        icon: "success",
-        confirmButtonText: "Ok",
+        icon: 'success',
+        confirmButtonText: 'Ok',
       });
       dispatch(fetch_user_Cart({ userId: userId }));
       dispatch(
         update_user_cart({
-          userId: "",
-          id: "",
-          quantity: "",
-          action: "clean",
-        })
+          userId: '',
+          id: '',
+          quantity: '',
+          action: 'clean',
+        }),
       );
-    } else if (updateCart.status === "failed") {
+    } else if (updateCart.status === 'failed') {
       Swal.fire({
-        title: "Error!",
+        title: 'Error!',
         text: `${updateCart.message}`,
-        icon: "error",
-        confirmButtonText: "Ok",
+        icon: 'error',
+        confirmButtonText: 'Ok',
       });
       dispatch(
         update_user_cart({
-          userId: "",
-          id: "",
-          quantity: "",
-          action: "clean",
-        })
+          userId: '',
+          id: '',
+          quantity: '',
+          action: 'clean',
+        }),
       );
     }
   }, [updateCart]);
 
   return (
     <div>
-      <Button variant="outlined" color="info" onClick={handleOpen}>
+      <Button variant='outlined' color='info' onClick={handleOpen}>
         <Edit />
-        &nbsp; Edit
       </Button>
       <Modal
         open={open}
         // onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+        aria-labelledby='modal-modal-title'
+        aria-describedby='modal-modal-description'
       >
         <Box sx={style}>
-          <Box sx={{ gap: "1rem", padding: "1rem 0", textAlign: "center" }}>
+          <Box sx={{ gap: '1rem', padding: '1rem 0', textAlign: 'center' }}>
             <Typography fontWeight={600}>
-              Select Appropriate Amount Of Quantity For Id:
+              Select Appropriate Amount Of Quantity For Product:
             </Typography>
-            <Typography fontStyle={"italic"}>{data.id}</Typography>
+            <Typography fontStyle={'italic'}>{data.name}</Typography>
           </Box>
-          <Box style={{ display: "flex", justifyContent: "space-between" }}>
-            <Button variant="outlined" color="error" onClick={handleDecrease}>
+          <Box style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Button variant='outlined' color='error' onClick={handleDecrease}>
               <RemoveOutlined />
             </Button>
-            <TextField id="quantity" label="My Quantity" value={quty} />
-            <Button variant="outlined" color="success" onClick={handleIncrease}>
+            <TextField id='quantity' label='My Quantity' value={quty} />
+            <Button variant='outlined' color='success' onClick={handleIncrease}>
               <Add />
             </Button>
           </Box>
           <Box
             sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              margin: "2rem 0",
-              padding: "0 1rem",
+              display: 'flex',
+              justifyContent: 'space-between',
+              margin: '2rem 0',
+              padding: '0 1rem',
             }}
           >
-            <Button
-              variant="contained"
-              color="error"
-              onClick={() => setOpen(false)}
-            >
+            <Button variant='contained' color='error' onClick={() => setOpen(false)}>
               <Cancel />
               &nbsp;
-              {" Cancel"}
+              {' Cancel'}
             </Button>
 
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleUpdateCart}
-            >
+            <Button variant='contained' color='primary' onClick={handleUpdateCart}>
               <Update />
-              &nbsp;{" Update"}
+              &nbsp;{' Update'}
             </Button>
           </Box>
         </Box>

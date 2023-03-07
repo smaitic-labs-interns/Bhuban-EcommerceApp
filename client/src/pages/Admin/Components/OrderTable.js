@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 import {
   OrderTableWrapper,
@@ -9,9 +9,9 @@ import {
   CustomTableRow,
   CustomTableCell,
   CustomStatusTableCell,
-} from "Pages/Admin/styles/orderTableStyle";
-import EditOrder from "Pages/Admin/Components/modals/EditOrder";
-import ViewOrder from "Pages/Admin/Components/modals/ViewOrder";
+} from 'Pages/Admin/styles/orderTableStyle';
+import EditOrder from 'Pages/Admin/Components/modals/EditOrder';
+import ViewOrder from 'Pages/Admin/Components/modals/ViewOrder';
 
 export default function OrderTable({ orders }) {
   let index = 0;
@@ -40,7 +40,7 @@ export default function OrderTable({ orders }) {
               return (
                 <CustomTableRow key={order.id}>
                   <CustomTableCell>
-                    <input type={"checkbox"} />
+                    <input type={'checkbox'} />
                   </CustomTableCell>
                   <CustomTableCell>{index}</CustomTableCell>
                   <CustomTableCell>{order.id}</CustomTableCell>
@@ -48,11 +48,11 @@ export default function OrderTable({ orders }) {
                   <CustomTableCell>{order.totalBill}</CustomTableCell>
                   <CustomStatusTableCell
                     sx={
-                      order.orderStatus === "success"
-                        ? { color: "#99CC33" }
-                        : order.orderStatus === "cancelled"
-                        ? { color: "#FF9966" }
-                        : { color: "#077E8C" }
+                      order.orderStatus === 'success'
+                        ? { color: '#99CC33' }
+                        : order.orderStatus === 'cancelled'
+                        ? { color: '#FF9966' }
+                        : { color: '#077E8C' }
                     }
                   >
                     {order.orderStatus}
@@ -60,11 +60,11 @@ export default function OrderTable({ orders }) {
                   <CustomTableCell>{order.shipment.type}</CustomTableCell>
                   <CustomStatusTableCell
                     sx={
-                      order.shipment.status === "success"
-                        ? { color: "#99CC33" }
-                        : order.shipment.status === "cancelled"
-                        ? { color: "#FF9966" }
-                        : { color: "#077E8C" }
+                      order.shipment.status === 'success'
+                        ? { color: '#99CC33' }
+                        : order.shipment.status === 'cancelled'
+                        ? { color: '#FF9966' }
+                        : { color: '#077E8C' }
                     }
                   >
                     {order.shipment.status}

@@ -5,10 +5,11 @@ import {
   ImageWrapper,
   CircleWrapper,
   CircleContainer,
-} from 'Components/Carousel/styles/carouselStyle';
+} from './carouselStyle';
 
 import { Circle } from '@mui/icons-material';
 import { Box } from '@mui/system';
+import PropTypes from 'prop-types';
 
 export default function Carousel({ imgList, interval }) {
   const [target, setTarget] = useState(1);
@@ -21,7 +22,7 @@ export default function Carousel({ imgList, interval }) {
       setTarget((target) => (target <= imgList.length - 1 ? target + 1 : 1));
     }, interval);
     return () => clearInterval(var2);
-  }, []);
+  }, [imgList, interval]);
 
   return (
     <BannerWrapper>
@@ -38,7 +39,7 @@ export default function Carousel({ imgList, interval }) {
                   width={'100%'}
                   height={'400px'}
                   src={`${process.env.REACT_APP_BACKEND_ENDPOINT}${image.url}`}
-                  alt='Banner Image'
+                  alt='Banners'
                 />
               </ImageWrapper>
             );
@@ -64,3 +65,8 @@ export default function Carousel({ imgList, interval }) {
     </BannerWrapper>
   );
 }
+
+Carousel.propTypes = {
+  imgList: PropTypes.array.isRequired,
+  interval: PropTypes.number,
+};

@@ -207,3 +207,19 @@ CREATE TABLE districts (
   PRIMARY KEY(id),
   CONSTRAINT Fk_districts_stateId FOREIGN KEY (stateId) REFERENCES states(id)
 );
+
+-- FOr ratinng and reviews
+
+CREATE TABLE reviews (
+  id SERIAL,
+  orderId VARCHAR(36) NOT NULL,
+  productId VARCHAR(36) NOT NULL,
+  createdBy VARCHAR(36) NOT NULL,
+  createdAt TIMESTAMP DEFAULT NOW(),
+  review TEXT,
+  rating INT NOT NULL,
+  PRIMARY KEY(id),
+  CONSTRAINT Fk_reviews_orderId FOREIGN KEY (orderId) REFERENCES orders(id),
+  CONSTRAINT Fk_reviews_productId FOREIGN KEY (productId) REFERENCES products(id),
+  CONSTRAINT Fk_reviews_userId FOREIGN KEY (createdBy) REFERENCES users(id)
+);

@@ -8,30 +8,27 @@ import {
   GET_STATE_DISTRICTS_REQUEST,
   GET_STATE_DISTRICTS_SUCCESS,
   GET_STATE_DISTRICTS_FAILED,
-} from "../constants/extra";
+} from '../constants/address.constants';
 
 const countriesInitialState = {
   status: null,
-  message: "",
+  message: '',
   countries: [],
 };
 
 const countryStatesInitialState = {
   status: null,
-  message: "",
+  message: '',
   states: [],
 };
 
 const stateDistrictsInitialState = {
   status: null,
-  message: "",
+  message: '',
   districts: [],
 };
 
-export const all_countries = (
-  state = countriesInitialState,
-  { type, payload }
-) => {
+export const all_countries = (state = countriesInitialState, { type, payload }) => {
   switch (type) {
     case GET_COUNTRIES_REQUEST:
       return { ...state, status: null };
@@ -39,13 +36,13 @@ export const all_countries = (
       return {
         ...state,
         countries: payload,
-        status: "success",
-        message: "Fetched Sucessfully",
+        status: 'success',
+        message: 'Fetched Sucessfully',
       };
     case GET_COUNTRIES_FAILED:
       return {
         ...state,
-        status: "failed",
+        status: 'failed',
         message: payload,
       };
     default:
@@ -53,10 +50,7 @@ export const all_countries = (
   }
 };
 
-export const country_all_states = (
-  state = countryStatesInitialState,
-  { type, payload }
-) => {
+export const country_all_states = (state = countryStatesInitialState, { type, payload }) => {
   switch (type) {
     case GET_COUNTRY_STATES_REQUEST:
       return { ...state, status: null };
@@ -64,13 +58,13 @@ export const country_all_states = (
       return {
         ...state,
         states: payload,
-        status: "success",
-        message: "Fetched Sucessfully",
+        status: 'success',
+        message: 'Fetched Sucessfully',
       };
     case GET_COUNTRY_STATES_FAILED:
       return {
         ...state,
-        status: "failed",
+        status: 'failed',
         message: payload,
       };
     default:
@@ -78,10 +72,7 @@ export const country_all_states = (
   }
 };
 
-export const state_all_districts = (
-  state = stateDistrictsInitialState,
-  { type, payload }
-) => {
+export const state_all_districts = (state = stateDistrictsInitialState, { type, payload }) => {
   switch (type) {
     case GET_STATE_DISTRICTS_REQUEST:
       return { ...state, status: null };
@@ -89,13 +80,13 @@ export const state_all_districts = (
       return {
         ...state,
         districts: payload,
-        status: "success",
-        message: "Fetched Sucessfully",
+        status: 'success',
+        message: 'Fetched Sucessfully',
       };
     case GET_STATE_DISTRICTS_FAILED:
       return {
         ...state,
-        status: "failed",
+        status: 'failed',
         message: payload,
       };
     default:

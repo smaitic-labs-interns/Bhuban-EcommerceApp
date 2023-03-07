@@ -8,6 +8,15 @@
     "port": { "ENV": "PGPORT" }
   },
 
+  "test": {
+    "driver": "pg",
+    "user": { "ENV": "PGUSER" },
+    "password": { "ENV": "PGPASSWORD" },
+    "host": { "ENV": "PGHOST_LOCAL" },
+    "database": { "ENV": "PG_TEST_DATABASE" },
+    "port": { "ENV": "PGPORT" }
+  },
+
   "prod": {
     "driver": "pg",
     "user": { "ENV": "PGUSER" },

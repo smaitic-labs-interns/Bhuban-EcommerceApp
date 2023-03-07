@@ -1,20 +1,21 @@
-import React from "react";
-import { Dashboard } from "@mui/icons-material";
-import { Typography } from "@mui/material";
+import React from 'react';
+import { Dashboard } from '@mui/icons-material';
+import { Typography } from '@mui/material';
 import {
   CardWrapper,
   CardContainer,
   LeftContent,
   RightIcon,
   MoreInfo,
-} from "../../styles/cards/cardStyle";
+} from 'pages/Admin/styles/cards/cardStyle';
+import PropTypes from 'prop-types';
 
 export default function Card({ data = {} }) {
   const bgStyle = {
     background: `${data.bgColor} !important`,
   };
   return (
-    <CardWrapper sx={data.bgColor ? bgStyle : ""}>
+    <CardWrapper sx={data.bgColor ? bgStyle : ''}>
       <CardContainer>
         <LeftContent>
           <Typography>{data.count}</Typography>
@@ -28,3 +29,7 @@ export default function Card({ data = {} }) {
     </CardWrapper>
   );
 }
+
+Card.propTypes = {
+  data: PropTypes.object.isRequired,
+};

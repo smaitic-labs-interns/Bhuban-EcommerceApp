@@ -156,7 +156,7 @@ const update_shipment = async (req, resp) => {
   try {
     const orderId = req.query.id;
     const shipment = req.body;
-    const res = await Service.order.update_payment(orderId, shipment);
+    const res = await Service.order.update_shipment(orderId, shipment);
     logger.log("info", `Sucessfully updated shipment for order : ${orderId}`);
     resp.status(200).send(res);
   } catch (err) {

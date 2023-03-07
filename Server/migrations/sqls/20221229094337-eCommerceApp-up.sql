@@ -14,34 +14,46 @@
 -- COMMIT;
 
 
--- Table: public.users
+-- Create User Type Enum
 
+BEGIN;
+
+DO
+$$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'user_role') THEN
+        CREATE TYPE user_role AS ENUM ('superadmin', 'admin', 'editor', 'user');
+    END IF;
+END
+$$;
+
+COMMIT;
+
+-- Table: public.users
 -- DROP TABLE IF EXISTS public.users;
 BEGIN;
-CREATE TYPE public.user_role AS ENUM (
-    'superadmin',
-    'admin',
-    'edito',
-    'user'
-);
-
-BEGIN;
-CREATE TABLE IF NOT EXISTS public.users
+CREATE TABLE IF NOT EXISTS public.reviews
 (
-    id character varying(36) COLLATE pg_catalog."default" NOT NULL,
-    firstname character varying(20) COLLATE pg_catalog."default" NOT NULL,
-    middlename character varying(20) COLLATE pg_catalog."default",
-    lastname character varying(20) COLLATE pg_catalog."default" NOT NULL,
-    address character varying(50) COLLATE pg_catalog."default" NOT NULL,
-    email character varying(50) COLLATE pg_catalog."default" NOT NULL,
-    imageurl text COLLATE pg_catalog."default",
-    imagealttext text COLLATE pg_catalog."default",
-    password text COLLATE pg_catalog."default" NOT NULL,
+    id integer NOT NULL DEFAULT nextval('reviews_id_seq'::regclass),
+    orderid character varying(36) COLLATE pg_catalog."default" NOT NULL,
+    productid character varying(36) COLLATE pg_catalog."default" NOT NULL,
+    createdby character varying(36) COLLATE pg_catalog."default" NOT NULL,
     createdat timestamp without time zone DEFAULT now(),
-    updatedat timestamp without time zone DEFAULT now(),
-    updatedby character varying(36) COLLATE pg_catalog."default",
-    role user_role,
-    CONSTRAINT users_pkey PRIMARY KEY (id)
+    review text COLLATE pg_catalog."default",
+    rating integer NOT NULL,
+    CONSTRAINT reviews_pkey PRIMARY KEY (id),
+    CONSTRAINT fk_reviews_orderid FOREIGN KEY (orderid)
+        REFERENCES public.orders (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT fk_reviews_productid FOREIGN KEY (productid)
+        REFERENCES public.products (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT fk_reviews_userid FOREIGN KEY (createdby)
+        REFERENCES public.users (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
 )
 
 TABLESPACE pg_default;
@@ -49,6 +61,8 @@ TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public.users
     OWNER to postgres;
 COMMIT;
+
+
 
 -- Table: public.products
 
@@ -81,7 +95,15 @@ COMMIT;
 
 -- DROP TABLE IF EXISTS public.product_images;
 BEGIN;
-CREATE SEQUENCE product_images_id_seq;
+DO
+$$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_class WHERE relname = 'product_images_id_seq') THEN
+        CREATE SEQUENCE product_images_id_seq;
+    END IF;
+END
+$$;
+
 
 CREATE TABLE IF NOT EXISTS public.product_images
 (
@@ -132,7 +154,15 @@ COMMIT;
 
 -- DROP TABLE IF EXISTS public.cart_products;
 BEGIN;
-CREATE SEQUENCE cart_products_id_seq;
+
+DO
+$$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_class WHERE relname = 'cart_products_id_seq') THEN
+        CREATE SEQUENCE cart_products_id_seq;
+    END IF;
+END
+$$;
 
 CREATE TABLE IF NOT EXISTS public.cart_products
 (
@@ -188,7 +218,15 @@ COMMIT;
 
 -- DROP TABLE IF EXISTS public.order_products;
 BEGIN;
-CREATE SEQUENCE order_products_id_seq;
+DO
+$$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_class WHERE relname = 'order_products_id_seq') THEN
+        CREATE SEQUENCE order_products_id_seq;
+    END IF;
+END
+$$;
+
 
 CREATE TABLE IF NOT EXISTS public.order_products
 (
@@ -217,7 +255,15 @@ COMMIT;
 
 -- DROP TABLE IF EXISTS public.payment;
 BEGIN;
-CREATE SEQUENCE payment_id_seq;
+DO
+$$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_class WHERE relname = 'payment_id_seq') THEN
+        CREATE SEQUENCE payment_id_seq;
+    END IF;
+END
+$$;
+
 
 CREATE TABLE IF NOT EXISTS public.payment
 (
@@ -249,7 +295,15 @@ COMMIT;
 
 -- DROP TABLE IF EXISTS public.shipment;
 BEGIN;
-CREATE SEQUENCE shipment_id_seq;
+DO
+$$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_class WHERE relname = 'shipment_id_seq') THEN
+        CREATE SEQUENCE shipment_id_seq;
+    END IF;
+END
+$$;
+
 
 CREATE TABLE IF NOT EXISTS public.shipment
 (
@@ -280,7 +334,15 @@ COMMIT;
 
 -- DROP TABLE IF EXISTS public.shipment_address;
 BEGIN;
-CREATE SEQUENCE shipment_address_id_seq;
+DO
+$$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_class WHERE relname = 'shipment_address_id_seq') THEN
+        CREATE SEQUENCE shipment_address_id_seq;
+    END IF;
+END
+$$;
+
 
 CREATE TABLE IF NOT EXISTS public.shipment_address
 (
@@ -315,7 +377,14 @@ COMMIT;
 
 -- DROP TABLE IF EXISTS public.countries;
 BEGIN;
-CREATE SEQUENCE countries_id_seq;
+DO
+$$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_class WHERE relname = 'countries_id_seq') THEN
+        CREATE SEQUENCE countries_id_seq;
+    END IF;
+END
+$$;
 
 CREATE TABLE IF NOT EXISTS public.countries
 (
@@ -338,8 +407,18 @@ COMMIT;
 
 -- DROP TABLE IF EXISTS public.states;
 BEGIN;
-CREATE SEQUENCE states_id_seq;
-CREATE SEQUENCE states_countryid_seq;
+DO
+$$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_class WHERE relname = 'states_id_seq') THEN
+        CREATE SEQUENCE states_id_seq;
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM pg_class WHERE relname = 'states_countryid_seq') THEN
+        CREATE SEQUENCE states_countryid_seq;
+    END IF;
+END
+$$;
+
 
 CREATE TABLE IF NOT EXISTS public.states
 (
@@ -364,8 +443,17 @@ COMMIT;
 -- DROP TABLE IF EXISTS public.districts;
 
 BEGIN;
-CREATE SEQUENCE districts_id_seq;
-CREATE SEQUENCE districts_stateid_seq;
+DO
+$$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_class WHERE relname = 'districts_id_seq') THEN
+        CREATE SEQUENCE districts_id_seq;
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM pg_class WHERE relname = 'districts_stateid_seq') THEN
+        CREATE SEQUENCE districts_stateid_seq;
+    END IF;
+END
+$$;
 
 CREATE TABLE IF NOT EXISTS public.districts (
   id integer NOT NULL DEFAULT nextval('districts_id_seq'::regclass),
@@ -383,6 +471,43 @@ ALTER TABLE IF EXISTS public.districts
 COMMIT;
 
 
+-- Table: public.reviews
+
+-- DROP TABLE IF EXISTS public.reviews;
+BEGIN;
+DO
+$$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_class WHERE relname = 'reviews_id_seq') THEN
+        CREATE SEQUENCE reviews_id_seq;
+    END IF;
+END
+$$;
+
+CREATE TABLE IF NOT EXISTS public.reviews
+(
+    id integer NOT NULL DEFAULT nextval('reviews_id_seq'::regclass),
+    productid character varying(36) COLLATE pg_catalog."default" NOT NULL,
+    createdby character varying(36) COLLATE pg_catalog."default" NOT NULL,
+    createdat timestamp without time zone DEFAULT now(),
+    review text COLLATE pg_catalog."default",
+    rating integer NOT NULL,
+    CONSTRAINT reviews_pkey PRIMARY KEY (id),
+    CONSTRAINT fk_reviews_productid FOREIGN KEY (productid)
+        REFERENCES public.products (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT fk_reviews_userid FOREIGN KEY (createdby)
+        REFERENCES public.users (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.reviews
+    OWNER to postgres;
+COMMIT;
 
 -- Insert Into Countries
 

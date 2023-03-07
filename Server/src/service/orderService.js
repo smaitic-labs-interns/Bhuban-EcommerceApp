@@ -4,6 +4,12 @@ const Schema = require("../models/orderModel");
 const AddressSchema = require("../models/addressModule");
 const mail = require("../utils/nodeMailer");
 
+const Order = require("../error-messages/order.error");
+
+/**
+ * * Read all orders
+ * @returns Array of Orders Object || error message
+ */
 const read_all_orders = async () => {
   try {
     const order = await Store.order.read_all_orders();
@@ -14,6 +20,11 @@ const read_all_orders = async () => {
   }
 };
 
+/**
+ * * Read orders from page(number) to (number)
+ * @param {page, limit} param0
+ * @returns Array of orders Object || error message
+ */
 const read_limited_orders = async ({ page, limit }) => {
   try {
     newPage = parseInt(page) === 0 ? 1 : parseInt(page);
@@ -29,6 +40,11 @@ const read_limited_orders = async ({ page, limit }) => {
   }
 };
 
+/**
+ * *Read user orders.
+ * @param {*} userId
+ * @returns Array of orders object || error message
+ */
 const read_user_orders = async (userId) => {
   try {
     const order = await Store.order.read_user_orders(userId);
@@ -38,6 +54,12 @@ const read_user_orders = async (userId) => {
     throw err;
   }
 };
+
+/**
+ * * Read limited user orders
+ * @param {userId, page, limit} param0
+ * @returns order Object || error message
+ */
 
 const read_user_order_limited = async ({ userId, page, limit }) => {
   try {
@@ -54,6 +76,12 @@ const read_user_order_limited = async ({ userId, page, limit }) => {
     throw err;
   }
 };
+
+/**
+ * *Read Order using orderId
+ * @param {*} orderId
+ * @returns order || error message
+ */
 
 const read_order_by_id = async (orderId) => {
   try {
@@ -86,6 +114,14 @@ const place_order = async (
   try {
     const cart = await Store.cart.find_active_cart(userId);
     if (!cart) throw new Error(`No active cart Found for User Id: ${userId}`);
+    cart.products.map(async (product) => {
+      const res = await Store.product.find_product(product.productId);
+      if (product.quantity > res.quantity) {
+        throw new Error(
+          `Not sufficient quantity on the store for product ID : ${product.productId}`
+        );
+      }
+    });
     const address = AddressSchema.Address(shippingAddress);
     const order = Schema.Order(cart, address, paymentType, shipmentType);
 
@@ -101,7 +137,6 @@ const place_order = async (
           "decrease"
         );
       }
-      // Store.cart.delete_cart(cart.id);
       if (updCartSts) return `Your order has been placed`;
     }
     throw new Error("Error Occurs placing Order, Try again later!");
@@ -110,16 +145,13 @@ const place_order = async (
   }
 };
 
-const shippingAddress = {
-  country: "Nepal",
-  province: "3",
-  city: "abc",
-  ward: 23,
-  tole: "xyz",
-  houseNo: 12,
-};
-
-// place_order("027dc63e-a824-418d-9f52-a956b8a2b8be", shippingAddress, "CASH", "International");
+/**
+ * *Update Order Quantity
+ * @param {*} orderId
+ * @param {productId, quantity} product
+ * @param {add||remove} action
+ * @returns success/error message
+ */
 
 const update_quantity_order = async (orderId, product, action) => {
   try {
@@ -142,7 +174,6 @@ const update_quantity_order = async (orderId, product, action) => {
                 "decrease"
               );
               if (updRes && (await Store.order.update_order(orderId, order))) {
-                console.log("Quantity in order has been added sucessfully");
                 return "Quantity in order has been added sucessfully";
               }
               throw new Error(`Error Occurs while Placing Order`);
@@ -185,7 +216,6 @@ const update_quantity_order = async (orderId, product, action) => {
     throw err;
   }
 };
-// update_quantity_order("a596e5e0-4007-4092-b6a1-e3f035dd7732", {productId: "fed0f0e2-3a16-488a-bb23-a0fa7b2840f9", "quantity": 5}, "add")
 
 /* Update Address
 @params
@@ -220,17 +250,8 @@ const update_address = async (orderId, newAddress) => {
   }
 };
 
-const newAddress = {
-  country: "Nepal",
-  province: "Bagmati",
-  city: "Lalitpur",
-  ward: "23",
-  tole: "BanglaMukhi",
-  houseNo: 42,
-};
-// update_address("a596e5e0-4007-4092-b6a1-e3f035dd7732", newAddress);
-
-/* Update Payment 
+/**
+ * *Update Payment 
 @params
     1) orderId: Unique Id,
     2) new_payment: Object containing payment details, paymentObject
@@ -268,78 +289,93 @@ const update_payment = async (orderId, newPayment) => {
   }
 };
 
-// update_payment("a596e5e0-4007-4092-b6a1-e3f035dd7732",{"type": "CONNECT-IPS", "status": "paid"})
+/**
+ * *Update Order Status
+ * @param {*} orderId
+ * @param {*} status
+ * @returns success || error message
+ */
 
 const update_order_status = async (orderId, status) => {
   try {
     const order = await Store.order.read_order_from_id(orderId);
-    order.orderStatus = status;
+    const ORDER_STATUS = [
+      "pending",
+      "accepted",
+      "in-progress",
+      "shipped",
+      "failed",
+      "delivered",
+      "cancelled",
+      "completed",
+    ];
 
+    if (!ORDER_STATUS.includes(status)) {
+      throw new Error("Invalid Order Status");
+    } else if (status === "cancelled") {
+      Order.validate_order_status_for_cancelled(order.orderStatus);
+      if (order.shipment.status === "delivered") {
+        throw new Error(`Shipment has been completed, cannot cancel the order`);
+      }
+    } else if (status === "delivered") {
+      Order.validate_order_status_for_delivered(order.shipment.status);
+    } else if (status === "completed") {
+      Order.validate_order_status_for_completed(order.shipment.status);
+    } else if (
+      ORDER_STATUS.indexOf(status) < ORDER_STATUS.indexOf(order.orderStatus)
+    ) {
+      throw new Error(
+        `Order is in ${order.orderStatus} state, Cannot downgrade now`
+      );
+    }
+
+    order.orderStatus = status;
     if (Store.order.update_order(orderId, order)) {
       return `Order Status Updated Sucessfully. New Status: (${status})`;
     }
     throw new Error("Error Occurs Updating Status");
-
-    // switch (status) {
-    //   case "pending":
-    //     order.shipment.status = "Waiting For Approval";
-    //     break;
-    //   case "Awaiting Payment":
-    //     order.shipment.status = "";
-    //     break;
-    //   case "Awaiting Fulfillment":
-    //     order.shipment.status = "";
-    //     break;
-
-    //   case "Awaiting Shipment":
-    //     order.shipment.status = "";
-    //     break;
-    //   case "Awaiting Pickup":
-    //     order.shipment.status = "";
-    //     break;
-    //   case "Partially Shipped":
-    //     order.shipment.status = "";
-    //     break;
-    //   case "Completed":
-    //     order.shipment.status = "";
-    //     break;
-    //   case "Shipped":
-    //     order.shipment.status = "";
-    //     break;
-    //   case "Cancelled":
-    //     order.shipment.status = "";
-    //     break;
-
-    //   case "Declined":
-    //     order.shipment.status = "";
-    //     break;
-    //   case "Refunded":
-    //     order.shipment.status = "";
-    //     break;
-    //   case "Disputed":
-    //     order.shipment.status = "";
-    //     break;
-    //   case "Manual Verification Required":
-    //     order.shipment.status = "";
-    //     break;
-    //   case "Partially Refunded":
-    //     order.shipment.status = "";
-    //     break;
-    //   default:
-    //     break;
-    // }
   } catch (err) {
     throw err;
   }
 };
 
+/**
+ * *Update Shipment Status
+ * @param {*} orderId
+ * @param {*} shipment
+ * @returns success || error message
+ */
 const update_shipment = async (orderId, shipment) => {
   try {
     const order = await Store.order.read_order_from_id(orderId);
-    order.shipment = shipment;
+    const SHIPMENT_STATUS = [
+      "pending",
+      "pre-transit",
+      "in-transit",
+      "waiting-for-delivery",
+      "out-of-delivery",
+      "failed-attempt",
+      "delivered",
+      "replaced",
+      "returned",
+    ];
 
-    if (Store.order.update_order(orderId, order)) {
-      return `Shipment Updated Sucessfully. New Shipment :<br /> type: (${shipment.type}, status: ${shipment.status}`;
+    if (!SHIPMENT_STATUS.includes(shipment.status)) {
+      throw new Error("Invalid Shipment Status");
+    } else if (
+      SHIPMENT_STATUS.indexOf(shipment.status) <
+      SHIPMENT_STATUS.indexOf(order.shipment.status)
+    ) {
+      throw new Error(
+        `Shipment is in ${order.shipment.status} state, Cannot downgrade now`
+      );
+    }
+    if (Order.validate_shipment_Ac_order_status(order.orderStatus)) {
+      order.shipment = shipment;
+
+      if (Store.order.update_order(orderId, order)) {
+        return `Shipment Updated Sucessfully. New Shipment :\n type: ${shipment.type}, status: ${shipment.status}`;
+      }
     }
     throw new Error("Error Occurs Updating Shipment");
   } catch (err) {
@@ -368,7 +404,6 @@ const track_order = async (orderId) => {
   }
 };
 
-// track_order("62fcf8ec2cdce4973b50c685");
 /* Cancel Order  
 @param
     1) orderId: "Unique ID"
@@ -399,7 +434,6 @@ const cancel_order = async (orderId) => {
     order.orderStatus = "cancelled";
 
     if (Store.order.update_order(orderId, order)) {
-      console.log("Order has been placed for cancellation");
       return "Order has been placed for cancellation";
     }
   } catch (err) {
@@ -407,9 +441,8 @@ const cancel_order = async (orderId) => {
   }
 };
 
-// cancel_order("a596e5e0-4007-4092-b6a1-e3f035dd7732");
-
-/* return replace Order  
+/**
+ * *return replace Order  
 @param
     1) orderId : "Unique ID"
     2) action  : either replace or return
@@ -432,7 +465,7 @@ const return_replace_order = async (orderId, action) => {
       throw new Error(`Already Placed for return. Id: ${orderId}`);
     }
 
-    if (action === "return") {
+    if (action === "returned") {
       for (product of order.products) {
         Store.product.update_quantity(
           product.productId,
@@ -441,10 +474,7 @@ const return_replace_order = async (orderId, action) => {
         );
       }
     }
-
-    order.orderStatus = action;
-    if (Store.order.update_order(orderId, order)) {
-      console.log(`Your order has been placed for ${action} Sucessfully`);
+    if (await update_shipment(orderId, { ...order.shipment, status: action })) {
       return `Your order has been placed for ${action} Sucessfully`;
     }
   } catch (err) {
@@ -452,7 +482,6 @@ const return_replace_order = async (orderId, action) => {
   }
 };
 
-// return_replace_order("62fcf8ec2cdce4973b50c685", "return");
 /* Track refund updates 
 @params
     1) orderId: "Unique ID"
@@ -476,8 +505,6 @@ const refund_updates = async (orderId) => {
     throw err;
   }
 };
-
-// refund_updates("cb0341f6-b038-4b7d-b609-f806cb3eef3c")
 
 /* Management: Send shipment updates
 @params
@@ -504,8 +531,6 @@ const send_shipment_updates = async (orderId) => {
   }
 };
 
-// send_shipment_updates("e8b02635-ef3a-4f46-ad97-d58073bd005f");
-
 /* Management: Send return updates
 @params
     1) orderId: "Unique order id"
@@ -530,8 +555,6 @@ const send_return_updates = async (orderId) => {
   }
 };
 
-// send_return_updates("a699efaa-0e54-490d-b197-10e32a76efc2");
-
 /* Management: Send Payment updates
 @params
     1) orderId: "Unique order Id"
@@ -552,8 +575,6 @@ const send_payment_updates = async (orderId) => {
     throw err;
   }
 };
-
-// send_payment_updates("a699efaa-0e54-490d-b197-10e32a76efc2");
 
 module.exports = {
   read_all_orders,

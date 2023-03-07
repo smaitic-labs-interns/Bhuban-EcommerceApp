@@ -2,18 +2,19 @@ import React, { useMemo } from 'react';
 import { Button, TextField, FormControlLabel, Checkbox, Link } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
-import { user_login } from '../../redux/actions/userActions';
 import Swal from 'sweetalert2';
-import { loginRules } from '../../validation';
+import { loginRules } from 'validation';
+import { user_login } from 'redux/actions/userActions';
 import {
   LoginWrapper,
   LoginContainer,
   HeaderWrapper,
   TitleWrapper,
   FormWrapper,
+  FormInput,
   ForgotPwdWrapper,
   CreateAccWrapper,
-} from './loginStyle';
+} from 'pages/Login/loginStyle';
 
 export default function Login() {
   const login = useSelector((state) => state.login);
@@ -57,7 +58,7 @@ export default function Login() {
         }),
       );
     }
-  }, [login]);
+  }, [login, dispatch]);
 
   return (
     <>
@@ -67,32 +68,35 @@ export default function Login() {
             <TitleWrapper>{'Sign in'}</TitleWrapper>
           </HeaderWrapper>
           <FormWrapper component='form' onSubmit={handleSubmit}>
-            <TextField
-              fullWidth
-              id='email'
-              label='Email Address'
-              name='email'
-              autoComplete='email'
-              value={values.email}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={touched.email && Boolean(errors.email)}
-              helperText={touched.email && errors.email}
-            />
-            <TextField
-              fullWidth
-              name='password'
-              label='Password'
-              type='password'
-              id='password'
-              autoComplete='current-password'
-              value={values.password}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={touched.password && Boolean(errors.password)}
-              helperText={touched.password && errors.password}
-            />
-
+            <FormInput>
+              <TextField
+                fullWidth
+                id='email'
+                label='Email Address'
+                name='email'
+                autoComplete='email'
+                value={values.email}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={touched.email && Boolean(errors.email)}
+                helperText={touched.email && errors.email}
+              />
+            </FormInput>
+            <FormInput>
+              <TextField
+                fullWidth
+                name='password'
+                label='Password'
+                type='password'
+                id='password'
+                autoComplete='current-password'
+                value={values.password}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={touched.password && Boolean(errors.password)}
+                helperText={touched.password && errors.password}
+              />
+            </FormInput>
             <ForgotPwdWrapper>
               <FormControlLabel
                 control={<Checkbox value='remember' color='primary' />}

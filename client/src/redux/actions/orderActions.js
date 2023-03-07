@@ -23,6 +23,12 @@ import {
   UPDATE_ORDER_ADDRESS_REQUEST,
   UPDATE_ORDER_ADDRESS_SUCCESS,
   UPDATE_ORDER_ADDRESS_FAILED,
+  UPDATE_ORDER_STATUS_REQUEST,
+  UPDATE_ORDER_STATUS_SUCCESS,
+  UPDATE_ORDER_STATUS_FAILED,
+  UPDATE_ORDER_SHIPMENT_REQUEST,
+  UPDATE_ORDER_SHIPMENT_SUCCESS,
+  UPDATE_ORDER_SHIPMENT_FAILED,
   CANCEL_ORDER_REQUEST,
   CANCEL_ORDER_SUCCESS,
   CANCEL_ORDER_FAILED,
@@ -41,9 +47,6 @@ import {
   PAYMENT_UPDATES_REQUEST,
   PAYMENT_UPDATES_SUCCESS,
   PAYMENT_UPDATES_FAILED,
-  UPDATE_ORDER_STATUS_REQUEST,
-  UPDATE_ORDER_STATUS_SUCCESS,
-  UPDATE_ORDER_STATUS_FAILED,
   PLACED_ORDER_DETAILS_REQUEST,
   PLACED_ORDER_DETAILS_SUCCESS,
   PLACED_ORDER_DETAILS_FAILED,
@@ -55,7 +58,7 @@ import {
   FETCH_LIMITED_USER_ORDER_FAILED,
 } from '../constants/orderConstants';
 import axiosInstance from 'Modules/api';
-import { order } from 'api/endpoint';
+import { order, product } from 'api/endpoint';
 
 export const place_order =
   ({ userId, country, province, city, ward, tole, houseNo, shipmentType, paymentType, action }) =>
@@ -83,8 +86,6 @@ export const place_order =
         data: payload,
       });
 
-      console.log(response);
-
       dispatch({
         type: PLACE_ORDER_SUCCESS,
         payload: response.data,
@@ -105,23 +106,24 @@ export const track_order =
         return dispatch({ type: TRACK_ORDER_REQUEST });
       }
       dispatch({ type: TRACK_ORDER_REQUEST });
+      var response = {};
       switch (track.toLowerCase()) {
         case 'order':
-          var response = await axiosInstance({
+          response = await axiosInstance({
             endpoints: order.track,
             query: { id: orderId },
           });
           break;
 
         case 'refund':
-          var response = await axiosInstance({
+          response = await axiosInstance({
             endpoints: order.refund,
             query: { id: orderId },
           });
           break;
 
         default:
-          var response = await axiosInstance({
+          response = await axiosInstance({
             endpoints: order.track,
             query: { id: orderId },
           });
@@ -188,6 +190,68 @@ export const fetch_user_orders =
     }
   };
 
+export const fetch_limited_order =
+  ({ page, limit, action }) =>
+  async (dispatch) => {
+    try {
+      if (action === 'clean') {
+        return dispatch({ type: FETCH_LIMITED_ORDER_REQUEST });
+      }
+      dispatch({ type: FETCH_LIMITED_ORDER_REQUEST });
+      const response = await axiosInstance({
+        endpoints: order.limited,
+        query: { page, limit },
+      });
+      dispatch({
+        type: FETCH_LIMITED_ORDER_SUCCESS,
+        payload: response.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: FETCH_LIMITED_ORDER_FAILED,
+        payload: err.response,
+      });
+    }
+  };
+
+export const fetch_limited_user_order =
+  ({ userId, page, limit, action }) =>
+  async (dispatch) => {
+    try {
+      if (action === 'clean') return dispatch({ type: FETCH_LIMITED_USER_ORDER_REQUEST });
+      dispatch({ type: FETCH_LIMITED_USER_ORDER_REQUEST });
+      const response = await axiosInstance({
+        endpoints: order.userLimited,
+        query: { id: userId, page, limit },
+      });
+      let orders = response?.data;
+      if (response.status === 200) {
+        for (let ord of orders.data) {
+          let orderProducts = ord.products;
+          for (let pr of orderProducts) {
+            let productRes = await axiosInstance({
+              endpoints: product.one,
+              path: { productId: pr.productId },
+            });
+
+            if (productRes.status === 200) {
+              pr.pDetails = productRes.data;
+            }
+          }
+        }
+      }
+      dispatch({
+        type: FETCH_LIMITED_USER_ORDER_SUCCESS,
+        payload: orders,
+      });
+    } catch (err) {
+      dispatch({
+        type: FETCH_LIMITED_USER_ORDER_FAILED,
+        payload: err.response,
+      });
+    }
+  };
+
 export const fetch_one_order =
   ({ orderId, action }) =>
   async (dispatch) => {
@@ -202,6 +266,20 @@ export const fetch_one_order =
         query: { id: orderId },
       });
 
+      let singleOrder = response?.data;
+      if (response.status === 200) {
+        let orderProducts = singleOrder.products;
+        for (let pr of orderProducts) {
+          let productRes = await axiosInstance({
+            endpoints: product.one,
+            path: { productId: pr.productId },
+          });
+
+          if (productRes.status === 200) {
+            pr.pDetails = productRes.data;
+          }
+        }
+      }
       dispatch({
         type: FETCH_ONE_ORDER_SUCCESS,
         payload: response.data,
@@ -301,6 +379,60 @@ export const updatet_order_payment =
     }
   };
 
+export const update_order_status =
+  ({ orderId, status, action }) =>
+  async (dispatch) => {
+    try {
+      if (action === 'clean') {
+        return dispatch({ type: UPDATE_ORDER_STATUS_REQUEST });
+      }
+
+      dispatch({ type: UPDATE_ORDER_STATUS_REQUEST });
+      const response = await axiosInstance({
+        endpoints: order.updateStatus,
+        query: { id: orderId },
+        data: { status: status },
+      });
+
+      dispatch({
+        type: UPDATE_ORDER_STATUS_SUCCESS,
+        payload: response.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: UPDATE_ORDER_STATUS_FAILED,
+        payload: err.response,
+      });
+    }
+  };
+
+export const update_order_shipment =
+  ({ orderId, shipment, action }) =>
+  async (dispatch) => {
+    try {
+      if (action === 'clean') {
+        return dispatch({ type: UPDATE_ORDER_SHIPMENT_REQUEST });
+      }
+
+      dispatch({ type: UPDATE_ORDER_SHIPMENT_REQUEST });
+      const response = await axiosInstance({
+        endpoints: order.updateShipment,
+        query: { id: orderId },
+        data: { type: shipment.type, status: shipment.status },
+      });
+
+      dispatch({
+        type: UPDATE_ORDER_SHIPMENT_SUCCESS,
+        payload: response.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: UPDATE_ORDER_SHIPMENT_FAILED,
+        payload: err.response,
+      });
+    }
+  };
+
 export const cancel_order =
   ({ orderId, action }) =>
   async (dispatch) => {
@@ -331,7 +463,6 @@ export const return_replace_order =
   ({ orderId, action }) =>
   async (dispatch) => {
     try {
-      console.log(orderId, action);
       if (action === 'clean') {
         return dispatch({ type: RETURN_REPLACE_ORDER_REQUEST });
       }
@@ -359,7 +490,6 @@ export const refund_updates =
   ({ orderId, action }) =>
   async (dispatch) => {
     try {
-      console.log(orderId, action);
       if (action === 'clean') {
         return dispatch({ type: REFUND_UPDATES_REQUEST });
       }
@@ -386,7 +516,6 @@ export const shipment_updates =
   ({ orderId, action }) =>
   async (dispatch) => {
     try {
-      console.log(orderId, action);
       if (action === 'clean') {
         return dispatch({ type: SHIPMENT_UPDATES_REQUEST });
       }
@@ -413,7 +542,6 @@ export const return_updates =
   ({ orderId, action }) =>
   async (dispatch) => {
     try {
-      console.log(orderId, action);
       if (action === 'clean') {
         return dispatch({ type: RETURN_UPDATES_REQUEST });
       }
@@ -440,7 +568,6 @@ export const payment_updates =
   ({ orderId, action }) =>
   async (dispatch) => {
     try {
-      console.log(orderId, action);
       if (action === 'clean') {
         return dispatch({ type: PAYMENT_UPDATES_REQUEST });
       }
@@ -458,33 +585,6 @@ export const payment_updates =
     } catch (err) {
       dispatch({
         type: PAYMENT_UPDATES_FAILED,
-        payload: err.response,
-      });
-    }
-  };
-
-export const update_order_status =
-  ({ orderId, status, action }) =>
-  async (dispatch) => {
-    try {
-      if (action === 'clean') {
-        return dispatch({ type: UPDATE_ORDER_STATUS_REQUEST });
-      }
-
-      dispatch({ type: UPDATE_ORDER_STATUS_REQUEST });
-      const response = await axiosInstance({
-        endpoints: order.updateStatus,
-        query: { id: orderId },
-        data: { status: status },
-      });
-
-      dispatch({
-        type: UPDATE_ORDER_STATUS_SUCCESS,
-        payload: response.data,
-      });
-    } catch (err) {
-      dispatch({
-        type: UPDATE_ORDER_STATUS_FAILED,
         payload: err.response,
       });
     }
@@ -535,50 +635,6 @@ export const placed_order_details =
       dispatch({
         type: PLACED_ORDER_DETAILS_FAILED,
         payload: { message: 'Error Occurs Try again Later' },
-      });
-    }
-  };
-
-export const fetch_limited_order =
-  ({ page, limit, action }) =>
-  async (dispatch) => {
-    try {
-      if (action === 'clean') return dispatch({ type: FETCH_LIMITED_ORDER_REQUEST });
-      dispatch({ type: FETCH_LIMITED_ORDER_REQUEST });
-      const response = await axiosInstance({
-        endpoints: order.limited,
-        query: { page, limit },
-      });
-      dispatch({
-        type: FETCH_LIMITED_ORDER_SUCCESS,
-        payload: response.data,
-      });
-    } catch (err) {
-      dispatch({
-        type: FETCH_LIMITED_ORDER_FAILED,
-        payload: err.response,
-      });
-    }
-  };
-
-export const fetch_limited_user_order =
-  ({ page, limit, action }) =>
-  async (dispatch) => {
-    try {
-      if (action === 'clean') return dispatch({ type: FETCH_LIMITED_USER_ORDER_REQUEST });
-      dispatch({ type: FETCH_LIMITED_USER_ORDER_REQUEST });
-      const response = await axiosInstance({
-        endpoints: order.userLimited,
-        query: { page, limit },
-      });
-      dispatch({
-        type: FETCH_LIMITED_USER_ORDER_SUCCESS,
-        payload: response.data,
-      });
-    } catch (err) {
-      dispatch({
-        type: FETCH_LIMITED_USER_ORDER_FAILED,
-        payload: err.response,
       });
     }
   };

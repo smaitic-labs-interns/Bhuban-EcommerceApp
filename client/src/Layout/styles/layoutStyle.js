@@ -1,9 +1,9 @@
-import { Box, Button, styled } from "@mui/material";
-import { theme } from "Utils";
+import { Box, styled } from '@mui/material';
+// import { theme } from "Utils";
 
 export const LayoutWrapper = styled(Box)(() => ({
-  width: "100%",
-  height: "100vh",
+  width: '100%',
+  height: '100vh',
 }));
 
 export const NavbarContainer = styled(Box)(() => ({
@@ -12,22 +12,22 @@ export const NavbarContainer = styled(Box)(() => ({
 }));
 
 export const BodyContainer = styled(Box)(() => ({
-  border: "solid #1976D2 15px",
-  borderTop: "none",
-  borderBottom: "none",
-  position: "relative",
-  height: "77.6vh",
-  overflow: "scroll",
+  border: 'solid #1976D2 15px',
+  borderTop: 'none',
+  borderBottom: 'none',
+  position: 'relative',
+  height: '77.6vh',
+  overflow: 'scroll',
   // whiteSpace: "nowrap",
-  scrollbarWidth: "none", //Firefox
-  "&::-webkit-scrollbar": {
-    display: "none", //Chrome, Safari and Opera
-    MsOverflowStyle: "none", // IE, Edge
+  scrollbarWidth: 'none', //Firefox
+  '&::-webkit-scrollbar': {
+    display: 'none', //Chrome, Safari and Opera
+    MsOverflowStyle: 'none', // IE, Edge
   },
 }));
 
 export const FooterContainer = styled(Box)(() => ({
   //   height: "5vh",
-  border: "solid #1976D2 15px",
+  border: 'solid #1976D2 15px',
   //   zIndex: 1,
 }));

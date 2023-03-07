@@ -1,130 +1,103 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import {
   EditProductWrapper,
   CloseButtonWrapper,
   AddProductContainer,
   AddProductFormWrapper,
   AddProductFormContainer,
-  PreviewImageWrapper,
   AddProductImageWrapper,
   AddProductWrapper,
   AddProductFormInputWrapper,
   EditProductButtonWrapper,
-} from "../../styles/modals/editProductStyle";
+} from '../../styles/modals/editProductStyle';
 
-import { useFormik } from "formik";
+import { useFormik } from 'formik';
 
-import { TextField, Box, Modal, Button, TextareaAutosize } from "@mui/material";
-import addProduct from "../../../../public/images/addProduct.png";
-import {
-  add_product,
-  fetchProducts,
-  update_product,
-  fetch_limited_product,
-} from "../../../../redux/actions/productActions";
-import { useSelector, useDispatch } from "react-redux";
-import Swal from "sweetalert2";
-import { Close, Edit, Save } from "@mui/icons-material";
+import { TextField, Modal, Button } from '@mui/material';
+import addProductImage from 'public/images/addProduct.png';
+import { update_product, fetch_limited_product } from 'redux/actions/productActions';
+import { useSelector, useDispatch } from 'react-redux';
+import Swal from 'sweetalert2';
+import { Close, Edit, Save } from '@mui/icons-material';
+import { addProductRules } from 'validation';
 
 export default function EditProduct({ product }) {
-  const addProduct = useSelector((state) => state.addProduct);
   const updateProduct = useSelector((state) => state.updateProduct);
   const login = useSelector((state) => state.login);
   const userId = login.isLogined ? login.userId : null;
   const dispatch = useDispatch();
-  const [image, setImage] = useState([]);
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
 
   const initialValues = {
-    category: product.category ? product.category : "",
-    model: product.model ? product.model : "",
-    brand: product.brand ? product.brand : "",
-    name: product.name ? product.name : "",
-    description: product.description ? product.description : "",
-    price: product.price ? product.price : "",
-    quantity: product.quantity ? product.quantity : "",
+    category: product.category ? product.category : '',
+    model: product.model ? product.model : '',
+    brand: product.brand ? product.brand : '',
+    name: product.name ? product.name : '',
+    description: product.description ? product.description : '',
+    price: product.price ? product.price : '',
+    quantity: product.quantity ? product.quantity : '',
   };
 
-  const {
-    values,
-    errors,
-    setFieldValue,
-    touched,
-    handleBlur,
-    handleChange,
-    handleSubmit,
-  } = useFormik({
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
     initialValues: initialValues,
-    // validationSchema: loginSchema, // for data validation
+    validationSchema: addProductRules,
     onSubmit: (values) => {
       dispatch(
         update_product({
           productId: product.id,
           userId: userId,
           data: values,
-          action: "update",
-        })
+          action: 'update',
+        }),
       );
     },
   });
 
-  // useEffect(() => {
-  //   if (login.isLogined && login.loading === false) {
-  //     navigateToProfile();
-  //   } else if (login.isLogined === false && login.loading === false) {
-  //     toast.error("Invalid login Details");
-  //   }
-  // }, [login]);
-  let index = 0;
-
   useEffect(() => {
-    if (updateProduct.status === "success") {
+    if (updateProduct.status === 'success') {
       setOpen(false);
       Swal.fire({
-        title: "Success!",
+        title: 'Success!',
         text: `${updateProduct.message}`,
-        icon: "success",
+        icon: 'success',
       });
       dispatch(
         fetch_limited_product({
           page: 1,
           limit: 5,
-          action: "fetch",
-        })
+          action: 'fetch',
+        }),
       );
-    } else if (updateProduct.status === "failed") {
+    } else if (updateProduct.status === 'failed') {
       Swal.fire({
-        title: "Error!",
+        title: 'Error!',
         text: `${updateProduct.message}`,
-        icon: "error",
+        icon: 'error',
       });
     }
 
     if (updateProduct.status !== null) {
-      dispatch(
-        update_product({ productId: "", userId: "", data: {}, action: "clean" })
-      );
+      dispatch(update_product({ productId: '', userId: '', data: {}, action: 'clean' }));
     }
-  }, [updateProduct]);
+  }, [updateProduct, dispatch]);
 
   return (
     <div>
-      <Button variant="outlined" color="info" onClick={handleOpen}>
+      <Button variant='outlined' color='info' onClick={handleOpen}>
         <Edit />
       </Button>
       <Modal
         open={open}
-        // onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+        aria-labelledby='modal-modal-title'
+        aria-describedby='modal-modal-description'
       >
         <EditProductWrapper>
           <CloseButtonWrapper>
             <Button
-              variant="outlined"
-              color="error"
+              variant='outlined'
+              color='error'
               onClick={() => {
                 setOpen(false);
               }}
@@ -135,13 +108,10 @@ export default function EditProduct({ product }) {
           <AddProductWrapper>
             <AddProductContainer>
               <AddProductImageWrapper>
-                <img src={addProduct} />
+                <img src={addProductImage} alt='update product' />
               </AddProductImageWrapper>
               <AddProductFormWrapper>
-                <AddProductFormContainer
-                  component="form"
-                  onSubmit={handleSubmit}
-                >
+                <AddProductFormContainer component='form' onSubmit={handleSubmit}>
                   {/* <Box>
                     <input
                       onChange={(e) => {
@@ -167,113 +137,120 @@ export default function EditProduct({ product }) {
                   </Box> */}
                   <AddProductFormInputWrapper>
                     <TextField
-                      margin="normal"
                       required
                       fullWidth
-                      id="brand"
-                      label="Product Brand"
-                      name="brand"
-                      autoComplete="brand"
+                      id='brand'
+                      label='Product Brand'
+                      name='brand'
+                      autoComplete='brand'
                       value={values.brand}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      //   error={errors.email && Boolean(errors.email)}
+                      error={touched.brand && Boolean(errors.brand)}
+                      helperText={touched.brand && errors.brand}
                     />
                   </AddProductFormInputWrapper>
                   <AddProductFormInputWrapper>
                     <TextField
-                      margin="normal"
                       required
                       fullWidth
-                      id="name"
-                      label="Product Name"
-                      name="name"
-                      autoComplete="name"
+                      id='name'
+                      label='Product Name'
+                      name='name'
+                      autoComplete='name'
                       value={values.name}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      //   error={errors.email && Boolean(errors.email)}
+                      error={touched.name && Boolean(errors.name)}
+                      helperText={touched.name && errors.name}
                     />
                   </AddProductFormInputWrapper>
                   <AddProductFormInputWrapper>
                     <TextField
-                      margin="normal"
                       required
                       fullWidth
-                      name="category"
-                      label="category"
-                      type="text"
-                      id="category"
-                      autoComplete="category"
+                      name='category'
+                      label='category'
+                      type='text'
+                      id='category'
+                      autoComplete='category'
                       value={values.category}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      //   error={errors.password && Boolean(errors.password)}
+                      error={touched.category && Boolean(errors.category)}
+                      helperText={touched.category && errors.category}
                     />
                   </AddProductFormInputWrapper>
                   <AddProductFormInputWrapper>
                     <TextField
-                      margin="normal"
+                      margin='normal'
                       required
                       fullWidth
-                      name="model"
-                      label="model"
-                      type="text"
-                      id="model"
-                      autoComplete="model"
+                      name='model'
+                      label='model'
+                      type='text'
+                      id='model'
+                      autoComplete='model'
                       value={values.model}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      //   error={errors.password && Boolean(errors.password)}
+                      error={touched.model && Boolean(errors.model)}
+                      helperText={touched.model && errors.model}
                     />
                   </AddProductFormInputWrapper>
                   <AddProductFormInputWrapper>
                     <TextField
-                      margin="normal"
+                      margin='normal'
                       required
                       fullWidth
-                      name="price"
-                      label="price in paisa"
-                      type="number"
-                      id="price"
-                      autoComplete="price"
+                      name='price'
+                      label='price (Mrp)'
+                      type='number'
+                      id='price'
+                      autoComplete='price'
                       value={values.price}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      //   error={errors.password && Boolean(errors.password)}
+                      error={touched.price && Boolean(errors.price)}
+                      helperText={touched.price && errors.price}
                     />
                   </AddProductFormInputWrapper>
                   <AddProductFormInputWrapper>
                     <TextField
-                      margin="normal"
+                      margin='normal'
                       required
                       fullWidth
-                      name="quantity"
-                      label="quantity"
-                      type="text"
-                      id="quantity"
-                      autoComplete="quantity"
+                      name='quantity'
+                      label='quantity'
+                      type='text'
+                      id='quantity'
+                      autoComplete='quantity'
                       value={values.quantity}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      //   error={errors.password && Boolean(errors.password)}
+                      error={touched.quantity && Boolean(errors.quantity)}
+                      helperText={touched.quantity && errors.quantity}
                     />
                   </AddProductFormInputWrapper>
-                  <TextareaAutosize
-                    aria-label="minimum height"
-                    minRows={10}
-                    placeholder="Product Description"
-                    style={{ width: "100%" }}
-                    id={"description"}
-                    name={"description"}
+                  <TextField
+                    label='Product description'
+                    fullWidth
+                    required
+                    id='description'
+                    name='description'
+                    autoComplete='description'
+                    multiline
+                    minRows={7}
                     value={values.description}
                     onChange={handleChange}
                     onBlur={handleBlur}
+                    error={touched.description && Boolean(errors.description)}
+                    helperText={touched.description && errors.description}
                   />
                   <EditProductButtonWrapper>
                     <Button
-                      variant="contained"
-                      color="error"
+                      variant='contained'
+                      color='error'
                       onClick={() => {
                         setOpen(false);
                       }}
@@ -281,7 +258,7 @@ export default function EditProduct({ product }) {
                       <Close />
                       Cancel
                     </Button>
-                    <Button type="submit" variant="contained" color="success">
+                    <Button type='submit' variant='contained' color='success'>
                       <Save />
                       Update
                     </Button>

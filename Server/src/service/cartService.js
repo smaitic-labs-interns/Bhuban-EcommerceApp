@@ -43,7 +43,6 @@ const get_user_cart = async (userId) => {
     if (cart_res) return cart_res;
     throw new Error(`Error occurs Try adding Product in cart.`);
   } catch (err) {
-    console.log(`${err.name} => ${err.message}`);
     throw err;
   }
 };
@@ -64,7 +63,6 @@ const add_product_to_cart = async (userId, product) => {
           oldProduct.quantity += product.quantity;
           cart_res.totalBill += product.quantity * product_res.price;
           if (Store.cart.update_cart(cart_res)) {
-            console.log("Product added Sucessfully");
             return "Product added Sucessfully";
           }
           throw new Error(`Error occurs try again later`);
@@ -74,7 +72,6 @@ const add_product_to_cart = async (userId, product) => {
       cart_res.products.push({ ...product });
       cart_res.totalBill += product.quantity * product_res.price;
       if (await Store.cart.update_cart(cart_res)) {
-        console.log("Product added Sucessfully");
         return "Product added Sucessfully";
       }
       throw new Error(`Error occurs try again later`);
@@ -84,17 +81,47 @@ const add_product_to_cart = async (userId, product) => {
     cart.products.push({ ...product });
     cart.totalBill += product.quantity * product_res.price;
     if (await Store.cart.add_cart(cart)) {
-      console.log(`Added to cart Sucessfully`);
       return `Added to cart Sucessfully`;
     }
     throw new Error(`Error occurs try again later`);
   } catch (err) {
-    console.log(`${err.name} => ${err.message}`);
     throw err;
   }
 };
 
-// add_product_to_cart("027dc63e-a824-418d-9f52-a956b8a2b8be", {productId: "76b55b9b-9143-4505-9c8f-216b953d4380", quantity : 5} );
+const remove_product_from_cart = async (userId, productId) => {
+  try {
+    const user_res = await Store.user.find_user_from_id(userId);
+    if (!user_res) throw new Error(`No user Found for ID: ${userId}`);
+    const cart_res = await Store.cart.find_active_cart(userId);
+    if (cart_res) {
+      for (var oldProduct of cart_res.products) {
+        if (oldProduct.productId === productId) {
+          const product_res = await Store.product.find_product(productId);
+          cart_res.totalBill -= oldProduct.quantity * product_res.price;
+          cart_res.products = [];
+
+          if (
+            (await Store.cart.remove_product_from_cart(
+              cart_res.id,
+              productId
+            )) &&
+            (await Store.cart.update_cart(cart_res))
+          ) {
+            return `Product removed Sucessfully presented on ID: ${productId}`;
+          }
+          throw new Error(
+            `Error occurs on removing product: ${productId}. Try again later!`
+          );
+        }
+      }
+      throw new Error(`No product exists on Cart for ID: ${productId}`);
+    }
+    throw new Error(`No active cart found for Id: ${userId}`);
+  } catch (err) {
+    throw err;
+  }
+};
 
 /* Update quantity in cart
 @params
@@ -126,7 +153,6 @@ const update_quantity_in_cart = async (userId, product, action) => {
               oldProduct.quantity += product.quantity;
               cart_res.totalBill += product.quantity * product_res.price;
               if (await Store.cart.update_cart(cart_res)) {
-                console.log("Product added to cart Sucessfully");
                 return "Product added to cart Sucessfully";
               }
             }
@@ -148,7 +174,6 @@ const update_quantity_in_cart = async (userId, product, action) => {
             oldProduct.quantity -= product.quantity;
             cart_res.totalBill -= product.quantity * product_res.price;
             if (await Store.cart.update_cart(cart_res)) {
-              console.log("Product removed from cart Sucessfully");
               return "Product removed from cart Sucessfully";
             }
             throw new Error(`Error occurs removing from cart. Try again later`);
@@ -162,17 +187,15 @@ const update_quantity_in_cart = async (userId, product, action) => {
         throw new Error(`Invalid action to be performed: ${action}`);
     }
   } catch (err) {
-    console.log(`${err.name} => ${err.message}`);
     throw err;
   }
 };
-
-// update_quantity_in_cart("027dc63e-a824-418d-9f52-a956b8a2b8be", {productId: "76b55b9b-9143-4505-9c8f-216b953d4380", quantity : 5}, "remove");
 
 module.exports = {
   get_all_cart,
   get_limited_cart,
   get_user_cart,
   add_product_to_cart,
+  remove_product_from_cart,
   update_quantity_in_cart,
 };

@@ -59,7 +59,7 @@ const useGetAddress = ({ oldResponse = {}, selected = '', value = '' }) => {
   });
 
   const [datas, setData] = useState({ data: {}, error: null, loading: false });
-  let ep = '';
+  // let ep = '';
   let query = {};
   //   var oldResponselength = Object.keys(oldResponse).length;
   //   if (oldResponselength && selected && value) {
@@ -134,7 +134,7 @@ const useGetAddress = ({ oldResponse = {}, selected = '', value = '' }) => {
           loading: true,
         }));
       });
-  }, []);
+  }, [address, query]);
   return datas;
 };
 

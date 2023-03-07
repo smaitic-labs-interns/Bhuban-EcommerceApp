@@ -1,12 +1,12 @@
-import React, { useEffect, useMemo } from 'react';
-
+import React, { useMemo } from 'react';
 import { Link, Checkbox, FormControlLabel, TextField, Button } from '@mui/material';
 import { useFormik } from 'formik';
-import { registerRules } from '../../validation';
-import { user_register } from '../../redux/actions/userActions';
+import { registerRules } from 'validation';
+import { user_register } from 'redux/actions/userActions';
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
+import { sendRegisterationVerificationEmail } from 'mail/emailService';
 import {
   RegisterWrapper,
   RegisterContainer,
@@ -16,17 +16,13 @@ import {
   FormInputWrapper,
   FormInput,
   LoginWrapper,
-} from './registerStyle';
-import { sendRegisterationVerificationEmail } from 'mail/emailService';
+} from 'pages/Register/registerStyle';
 
 export default function Register() {
   const register = useSelector((state) => state.register);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const navigateToLogin = () => {
-    navigate('/login');
-  };
   const initialValues = {
     firstName: '',
     middleName: '',
@@ -38,16 +34,15 @@ export default function Register() {
     tnc: true,
   };
 
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit, ErrorMessage } =
-    useFormik({
-      initialValues: initialValues,
-      validationSchema: registerRules,
-      onSubmit: (values) => {
-        dispatch(user_register({ data: values, action: 'register' }));
-      },
-    });
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
+    initialValues: initialValues,
+    validationSchema: registerRules,
+    onSubmit: (values) => {
+      dispatch(user_register({ data: values, action: 'register' }));
+    },
+  });
 
-  useEffect(() => {
+  useMemo(() => {
     if (register.status === 'success') {
       sendRegisterationVerificationEmail(
         values.email,
@@ -61,7 +56,7 @@ export default function Register() {
         icon: 'success',
         confirmButtonText: 'Ok',
       });
-      navigateToLogin();
+      navigate('/login');
     } else if (register.status === 'failed') {
       Swal.fire({
         title: 'Failed!',
@@ -74,7 +69,7 @@ export default function Register() {
     if (register.status !== null) {
       dispatch(user_register({ data: values, action: 'clean' }));
     }
-  }, [register]);
+  }, [register, dispatch, navigate, values]);
 
   return (
     <>

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   ProfilLeftWrapper,
   ProfilUserWrapper,
@@ -10,33 +10,32 @@ import {
   ReviewWrapper,
   WishlistWrapper,
   SellOnDarazWrapper,
-} from "../styles/LeftWrapperStyle";
-import { Box, Link, Typography } from "@mui/material";
-import { Check } from "@mui/icons-material";
+} from '../styles/LeftWrapperStyle';
+import { Link, Typography } from '@mui/material';
+import { Check } from '@mui/icons-material';
 
 export default function LeftWrapper({ name }) {
   return (
     <>
       <ProfilLeftWrapper>
         <ProfilUserWrapper>
-          <Typography sx={{ fontSize: "12px", lineHeight: "22px" }}>
-            Hello, {name}
-          </Typography>
+          <Typography sx={{ fontSize: '12px', lineHeight: '22px' }}>Hello, {name}</Typography>
           <ProfilTypeWrapper>
             <Typography
               sx={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                fontSize: "12px",
-                lineHeight: "22px",
-              }}>
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+                fontSize: '12px',
+                lineHeight: '22px',
+              }}
+            >
               <Check
                 sx={{
-                  color: "white",
-                  padding: "0 !important",
-                  marginRight: "4px",
-                  fontSize: "12px",
+                  color: 'white',
+                  padding: '0 !important',
+                  marginRight: '4px',
+                  fontSize: '12px',
                 }}
               />
               Verified Account
@@ -44,51 +43,43 @@ export default function LeftWrapper({ name }) {
           </ProfilTypeWrapper>
         </ProfilUserWrapper>
         <ManageAccountWrapper>
-          <Typography sx={{ fontSize: "16px", lineHeight: "24px" }}>
-            Manage My Account
-          </Typography>
+          <Typography sx={{ fontSize: '16px', lineHeight: '24px' }}>Manage My Account</Typography>
         </ManageAccountWrapper>
         <ManageAccountContentWrapper>
-          <Link underline="none">
+          <Link underline='none'>
             <Typography>My Profile</Typography>
           </Link>
-          <Link underline="none">
+          <Link underline='none'>
             <Typography>Address Book</Typography>
           </Link>
-          <Link underline="none">
+          <Link underline='none'>
             <Typography>My Payment Options</Typography>
           </Link>
-          <Link underline="none">
+          <Link underline='none'>
             <Typography>Vouchers</Typography>
           </Link>
         </ManageAccountContentWrapper>
         <OrderWrapper>
-          <Typography sx={{ fontSize: "16px", lineHeight: "24px" }}>
-            My Orders
-          </Typography>
+          <Typography sx={{ fontSize: '16px', lineHeight: '24px' }}>My Orders</Typography>
         </OrderWrapper>
         <OrderContentWrapper>
-          <Link underline="none">
+          <Link underline='none'>
             <Typography>My Returns</Typography>
           </Link>
-          <Link underline="none">
+          <Link underline='none'>
             <Typography>My Cancellations</Typography>
           </Link>
         </OrderContentWrapper>
         <ReviewWrapper>
-          <Typography sx={{ fontSize: "16px", lineHeight: "24px" }}>
-            My Reviews
-          </Typography>
+          <Typography sx={{ fontSize: '16px', lineHeight: '24px' }}>My Reviews</Typography>
         </ReviewWrapper>
         <WishlistWrapper>
-          <Typography sx={{ fontSize: "16px", lineHeight: "24px" }}>
+          <Typography sx={{ fontSize: '16px', lineHeight: '24px' }}>
             My Wishlist & Followed Stores
           </Typography>
         </WishlistWrapper>
         <SellOnDarazWrapper>
-          <Typography sx={{ fontSize: "16px", lineHeight: "24px" }}>
-            Sell On Daraz
-          </Typography>
+          <Typography sx={{ fontSize: '16px', lineHeight: '24px' }}>Sell On Daraz</Typography>
         </SellOnDarazWrapper>
       </ProfilLeftWrapper>
     </>

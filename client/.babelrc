@@ -8,6 +8,7 @@
         "root": ["./src"],
         "alias": {
           "Components": "./src/components",
+          "Public": "./src/public",
           "Pages": "./src/pages",
           "Routes": "./src/routes",
           "Hooks": "./src/hooks",

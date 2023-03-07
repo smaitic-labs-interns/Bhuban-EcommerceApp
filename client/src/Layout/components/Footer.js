@@ -1,11 +1,11 @@
-import React from "react";
-import { Link } from "@mui/material";
+import React from 'react';
+import { Link } from '@mui/material';
 import {
   FooterWrapper,
   FooterContainer,
   FooterContent,
   CopyRightTitle,
-} from "Layout/styles/footerStyle";
+} from 'Layout/styles/footerStyle';
 
 export default function Footer() {
   return (
@@ -15,9 +15,9 @@ export default function Footer() {
           <FooterContent>
             <CopyRightTitle>All Right Reserved &copy;</CopyRightTitle>
             <CopyRightTitle>
-              {" Developed By "}
-              <Link underline="none" color={"white"}>
-                {" Bhuban "}
+              {' Developed By '}
+              <Link underline='none' color={'white'}>
+                {' Bhuban '}
               </Link>
             </CopyRightTitle>
           </FooterContent>

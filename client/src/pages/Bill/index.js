@@ -24,75 +24,62 @@ import {
   VerifyerWrapper,
 } from 'Pages/Bill/Styles/billStyle';
 
-import company_logo from '../../public/images/company-logo.png';
-import sign_sample from '../../public/images/sign-sample.png';
+import company_logo from 'public/images/company-logo.png';
+import sign_sample from 'public/images/sign-sample.png';
 import QRCode from 'qrcode';
 import ReactToPrint from 'react-to-print';
-import { Print } from '@mui/icons-material';
-import { useDispatch, useSelector } from 'react-redux';
+import { AllInclusive, Print } from '@mui/icons-material';
+import { useSelector } from 'react-redux';
 
 export default function Bill() {
-  const sendMail = useSelector((state) => state.sendMail);
-  const cart = useSelector((state) => state.userCart);
   const login = useSelector((state) => state.login);
   const placedOrderDetails = useSelector((state) => state.placedOrderDetails);
-  const dispatch = useDispatch();
-  let userFullName = login
-    ? `${login.firstName} ${login.middleNmae} ${login.lastName}`
-    : 'Undefined';
-
-  let { country, province, city, ward, tole, houseNo, shipmentType, paymentType, message } =
-    placedOrderDetails;
-
+  const { firstName, middleNmae, lastName } = login;
   const componentRef = useRef();
   const [qrcode, setQrcode] = useState('');
-  const text = userFullName;
+  const SHIPMENT_TYPES = [
+    { name: 'International', charge: 500 },
+    { name: 'Outside Valley', charge: 300 },
+    { name: 'Inside Valley', charge: 200 },
+    { name: 'Outside-RingRoad', charge: 150 },
+    { name: 'Inside- RIngRoad', charge: 100 },
+  ];
 
-  useEffect(() => {
-    QRCode.toDataURL(text).then((data) => {
-      setQrcode(data);
-    });
-  }, [qrcode]);
-
-  const printStyle = {
-    width: '100% !important',
-    padding: '0 !important',
-  };
-
-  const [clicked, setClicked] = useState(false);
-
-  useEffect(() => {
-    console.log(clicked);
-  }, [clicked]);
-
-  useEffect(() => {
-    console.log(placedOrderDetails);
-  }, [placedOrderDetails]);
-
-  // useEffect(async () => {
-  //   const payload = {
-  //     from: "Ecommerce App <Bill Generation",
-  //     to: "bhuban.temp@gmail.com",
-  //     subject: "Regarding Order Invoice",
-  //     text: "",
-  //     html: componentRef,
-  //   };
-  //   const res = await axios_instance({
-  //     endpoints: mail.send,
-  //     data: payload,
-  //   });
-  //   console.log(res);
-  // }, []);
-
-  let shippingAddress = placedOrderDetails
-    ? `Countrry: ${country}
-    province: ${province}
-    city: ${city}
-    ward: ${ward}
-    tole: ${tole}
-    houseNo: ${houseNo}`
+  let userFullName = login
+    ? `${firstName ? firstName : ''} ${middleNmae ? middleNmae : ''} ${lastName ? lastName : ''}`
     : 'Undefined';
 
+  let { date, shippingAddress, cart, shipment } = placedOrderDetails;
+
+  const { country, province, city, ward, tole, houseNo } = shippingAddress;
+
+  let shipAddress = shippingAddress
+    ? `Countrry: ${country ? country : ''}
+    province: ${province ? province : ''}
+    city: ${city ? city : ''}
+    ward: ${ward ? ward : ''}
+    tole: ${tole ? tole : ''}
+    houseNo: ${houseNo ? houseNo : ''}`
+    : 'Undefined';
+
+  let totalQuantity = 0;
+  let totalBill = 0;
+  cart.products.map((product) => {
+    totalQuantity += product.quantity;
+    totalBill += product.quantity * product.pDetails.price;
+  });
+
+  const QrText = `Order Details of ${userFullName} \n 
+   Shipping Address: ${shipAddress} \n
+   Total Product: ${cart?.noOfProducts} \n
+   Total Quantity: ${totalQuantity}
+   Total Bill: ${cart?.totalBill}`;
+
+  useEffect(() => {
+    QRCode.toDataURL(QrText).then((data) => {
+      setQrcode(data);
+    });
+  }, [qrcode, QrText]);
   return (
     <BillWrapper>
       <PrintBillWrapper>
@@ -114,11 +101,14 @@ export default function Bill() {
         ref={componentRef}
       >
         <HeaderWrapper>
-          <SiteTitleWrapper>MyShop</SiteTitleWrapper>
+          <SiteTitleWrapper>
+            <AllInclusive />
+            INFINITY SHOP
+          </SiteTitleWrapper>
           <ShopDetailWrapper>
             <Typography>Registration Number: MyShop-23242546</Typography>
             <DateWrapper>
-              Date: <span>{' ' + new Date().toString()}</span>
+              Date: <span>{date}</span>
             </DateWrapper>
           </ShopDetailWrapper>
         </HeaderWrapper>
@@ -151,7 +141,7 @@ export default function Bill() {
             </ContentWrapper>
             <ContentWrapper>
               Shipping Address:
-              <span>{shippingAddress}</span>
+              <span>{shipAddress}</span>
             </ContentWrapper>
             <ContentWrapper>
               Extra Notes: :<span></span>
@@ -181,41 +171,45 @@ export default function Bill() {
                   </TableRow>
                 </TableHeaderWrapper>
                 <TableBody>
-                  <TableRow>
-                    <TableCell>1</TableCell>
-                    <TableCell>P-343dd3</TableCell>
-                    <TableCell>Radio</TableCell>
-                    <TableCell colSpan={3}>Dell-brand sm-232 model radio</TableCell>
-                    <TableCell>Rs. 600</TableCell>
-                    <TableCell>5 </TableCell>
-                    <TableCell>Rs. 3000</TableCell>
-                  </TableRow>
+                  {cart.products.map((product, index) => {
+                    return (
+                      <TableRow key={product.productId}>
+                        <TableCell>{index + 1}</TableCell>
+                        <TableCell>{product.productId}</TableCell>
+                        <TableCell>{product?.pDetails?.name}</TableCell>
+                        <TableCell
+                          colSpan={3}
+                        >{`${product?.pDetails?.category} - ${product?.pDetails?.model} - ${product?.pDetails?.brand}`}</TableCell>
+                        <TableCell>Rs. {product?.pDetails?.price}</TableCell>
+                        <TableCell>{product.quantity} </TableCell>
+                        <TableCell>Rs. {product?.pDetails?.price * product.quantity}</TableCell>
+                      </TableRow>
+                    );
+                  })}
+
                   <TableRow sx={{ borderTop: 'dashed' }}>
                     <TableCell colSpan={6}></TableCell>
                     <TableCellCustom>Total: </TableCellCustom>
-                    <TableCell>6</TableCell>
-                    <TableCell>Rs. 3000</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell colSpan={6}></TableCell>
-                    <TableCellCustom>VAT(13%)</TableCellCustom>
-                    <TableCell></TableCell>
-                    <TableCell>Rs. 544</TableCell>
+                    <TableCell>{totalQuantity}</TableCell>
+                    <TableCell>Rs. {totalBill}</TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell colSpan={6}></TableCell>
                     <TableCellCustom>
                       Shipment Charge <br />
-                      <span style={{ fontWeight: 500 }}>(Outside Ring Road)</span>
+                      <span style={{ fontWeight: 500 }}>({shipment.type})</span>
                     </TableCellCustom>
                     <TableCell></TableCell>
-                    <TableCell>Rs. 544</TableCell>
+                    <TableCell>
+                      Rs.
+                      {SHIPMENT_TYPES.map((sp) => (sp.name === shipment.type ? sp.charge : ''))}
+                    </TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell colSpan={6}></TableCell>
                     <TableCellCustom>Grand Total</TableCellCustom>
                     <TableCell></TableCell>
-                    <TableCellCustom>Rs. 54450</TableCellCustom>
+                    <TableCellCustom>{cart.totalBill}</TableCellCustom>
                   </TableRow>
                 </TableBody>
               </Table>
@@ -237,16 +231,16 @@ export default function Bill() {
         <VerificationWrapper>
           <QrCodeWrapper>
             <Typography>Scan Below To get Further Details</Typography>
-            <img src={qrcode} />
+            <img src={qrcode} alt='qr code' />
           </QrCodeWrapper>
           <VerifyerWrapper>
-            <img src={sign_sample} height={'150px'} width={'auto'} />
+            <img src={sign_sample} height={'150px'} width={'auto'} alt='signature' />
             <VerificationContentContainer>
               <Typography>XYZ NAME</Typography>
               <Typography>ABC ENTERPRISES</Typography>
               <Typography>Sales Manager</Typography>
             </VerificationContentContainer>
-            <img src={company_logo} height={'200px'} width={'auto'} />
+            <img src={company_logo} height={'200px'} width={'auto'} alt='company logo' />
           </VerifyerWrapper>
         </VerificationWrapper>
       </BillContainer>

@@ -21,6 +21,16 @@ switch (process.env.NODE_ENV) {
     };
     break;
 
+  case "test":
+    var config = {
+      host: process.env.PGHOST_LOCAL,
+      user: process.env.PGUSER,
+      database: process.env.PG_TEST_DATABASE,
+      password: process.env.PGPASSWORD,
+      port: process.env.PGPORT,
+    };
+    break;
+
   default:
     var config = {
       host: process.env.PGHOST_LOCAL,

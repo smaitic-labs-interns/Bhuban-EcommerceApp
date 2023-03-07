@@ -37,7 +37,7 @@ const get_limited_users = async ({ page, limit }) => {
   try {
     newPage = parseInt(page) === 0 ? 1 : parseInt(page);
     newLimit = parseInt(limit) === 0 ? 1 : parseInt(limit);
-    const users = await db.user.get_limited_users({
+    const users = await db.user.read_limited_user({
       page: newPage,
       limit: newLimit,
     });
@@ -88,6 +88,77 @@ const user_register = async (
   }
 };
 
+/**
+ * *Update User Details
+ * @param {*} userId
+ * @param {*} firstName
+ * @param {*} middleName
+ * @param {*} lastName
+ * @param {*} address
+ * @param {*} updatedBy
+ * @returns success || error message
+ */
+const update_user = async (
+  userId,
+  firstName,
+  middleName,
+  lastName,
+  address,
+  updatedBy
+) => {
+  try {
+    const user = Schema.UpdateUser({
+      firstName,
+      middleName,
+      lastName,
+      address,
+    });
+    if (!(await db.user.find_user_from_id(userId))) {
+      throw new Error(`User doesnot exists on ID: ${userId}`);
+    }
+    if (db.user.update_user(userId, user, updatedBy)) {
+      return `User Updated Sucessfully for ID:${userId}`;
+    }
+  } catch (err) {
+    throw err;
+  }
+};
+
+const update_user_role = async (userId, role, updatedBy) => {
+  try {
+    const USER_ROLE = ["superadmin", "admin", "editor", "user"];
+    if (!USER_ROLE.includes(role)) {
+      throw new Error("Invalid User role");
+    }
+    if (!(await db.user.find_user_from_id(userId))) {
+      throw new Error(`User doesnot exists on ID: ${userId}`);
+    }
+    if (db.user.update_user_role(userId, role, updatedBy)) {
+      return `User Role Updated Sucessfully for ID:${userId}`;
+    }
+  } catch (err) {
+    throw err;
+  }
+};
+
+/**
+ * * Find user using ID
+ * @param {*} userId
+ * @returns user object ||error message
+ */
+
+const get_user_by_id = async (userId) => {
+  try {
+    const user = await db.user.find_user_from_id(userId);
+    if (Object.keys(user).length > 0) {
+      return user;
+    }
+    throw new Error(`User doesnot exists on ID: ${userId}`);
+  } catch (err) {
+    throw err;
+  }
+};
+
 /* 
   *User SignIn
 @params
@@ -114,9 +185,28 @@ const user_signin = async (email, password) => {
   }
 };
 
+const remove_user_by_id = async (userId) => {
+  try {
+    const user = await db.user.find_user_from_id(userId);
+    if (
+      Object.keys(user).length > 0 &&
+      (await db.user.remove_user_from_id(userId))
+    ) {
+      return `User removed sucessfully`;
+    }
+    throw new Error(`User doesnot exists`);
+  } catch (err) {
+    throw err;
+  }
+};
+
 module.exports = {
   get_all_users,
   get_limited_users,
   user_register,
+  update_user,
+  get_user_by_id,
   user_signin,
+  remove_user_by_id,
+  update_user_role,
 };

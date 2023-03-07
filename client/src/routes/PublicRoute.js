@@ -1,5 +1,5 @@
-import React from "react";
-import { Route, useNavigate } from "react-router-dom";
+import React from 'react';
+import { Route } from 'react-router-dom';
 
 export default function PublicRoute({ children, isAuthenticated, ...rest }) {
   return (

@@ -1,7 +1,5 @@
 import {
-  FETCH_PRODUCTS,
   SET_PRODUCTS,
-  SELECTED_PRODCT,
   REMOVE_SELECTED_PRODUCT,
   FETCH_PRODUCT_REQUEST,
   FETCH_PRODUCT_SUCCESS,
@@ -21,23 +19,23 @@ import {
   FETCH_LIMITED_PRODUCT_REQUEST,
   FETCH_LIMITED_PRODUCT_SUCCESS,
   FETCH_LIMITED_PRODUCT_FAILED,
-} from "../constants/productConstants";
+} from '../constants/productConstants';
 
 const initialState = {
   products: [],
 };
 
 const addProductInitialState = {
-  brand: "",
-  category: "",
-  model: "",
-  name: "",
-  price: "",
-  quantity: "",
-  description: "",
+  brand: '',
+  category: '',
+  model: '',
+  name: '',
+  price: '',
+  quantity: '',
+  description: '',
   images: [],
   status: null,
-  message: "",
+  message: '',
 };
 export const productReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -63,17 +61,14 @@ export const selectedProductReducer = (state = {}, { type, payload }) => {
   }
 };
 
-export const addProductReducer = (
-  state = addProductInitialState,
-  { type, payload }
-) => {
+export const addProductReducer = (state = addProductInitialState, { type, payload }) => {
   switch (type) {
     case ADD_PRODUCT_REQUEST:
       return { ...state, status: null };
     case ADD_PRODUCT_SUCCESS:
-      return { ...state, message: payload, status: "success" };
+      return { ...state, message: payload, status: 'success' };
     case ADD_PRODUCT_FAILED:
-      return { ...state, message: payload, status: "failed" };
+      return { ...state, message: payload, status: 'failed' };
     default:
       return state;
   }
@@ -81,13 +76,10 @@ export const addProductReducer = (
 
 const productActionInitialState = {
   status: null,
-  message: "",
+  message: '',
 };
 
-export const delete_product_reducer = (
-  state = productActionInitialState,
-  { type, payload }
-) => {
+export const delete_product_reducer = (state = productActionInitialState, { type, payload }) => {
   switch (type) {
     case DELETE_PRODUCT_REQUEST:
       return {
@@ -97,13 +89,13 @@ export const delete_product_reducer = (
     case DELETE_PRODUCT_SUCCESS:
       return {
         ...state,
-        status: "success",
+        status: 'success',
         message: payload,
       };
     case DELETE_PRODUCT_FAILED:
       return {
         ...state,
-        status: "failed",
+        status: 'failed',
         message: payload,
       };
     default:
@@ -111,10 +103,7 @@ export const delete_product_reducer = (
   }
 };
 
-export const update_product_reducer = (
-  state = productActionInitialState,
-  { type, payload }
-) => {
+export const update_product_reducer = (state = productActionInitialState, { type, payload }) => {
   switch (type) {
     case UPDATE_PRODUCT_REQUEST:
       return {
@@ -124,13 +113,13 @@ export const update_product_reducer = (
     case UPDATE_PRODUCT_SUCCESS:
       return {
         ...state,
-        status: "success",
+        status: 'success',
         message: payload,
       };
     case UPDATE_PRODUCT_FAILED:
       return {
         ...state,
-        status: "failed",
+        status: 'failed',
         message: payload,
       };
     default:
@@ -141,12 +130,10 @@ export const update_product_reducer = (
 const searchProductInitialState = {
   status: null,
   products: [],
+  message: '',
 };
 
-export const search_product_reducer = (
-  state = searchProductInitialState,
-  { type, payload }
-) => {
+export const search_product_reducer = (state = searchProductInitialState, { type, payload }) => {
   switch (type) {
     case SEARCH_PRODUCT_REQUEST:
       return {
@@ -156,13 +143,15 @@ export const search_product_reducer = (
     case SEARCH_PRODUCT_SUCCESS:
       return {
         ...state,
-        status: "success",
+        status: 'success',
         products: payload,
+        message: `${payload.length} products found`,
       };
     case SEARCH_PRODUCT_FAILED:
       return {
         ...state,
-        status: "failed",
+        status: 'failed',
+        message: payload,
       };
     default:
       return state;
@@ -171,7 +160,7 @@ export const search_product_reducer = (
 
 const limitedProductinitialState = {
   status: null,
-  message: "",
+  message: '',
   all: [],
   next: {},
   previous: {},
@@ -179,18 +168,17 @@ const limitedProductinitialState = {
 
 export const fetch_limited_product_reducer = (
   state = limitedProductinitialState,
-  { type, payload }
+  { type, payload },
 ) => {
   switch (type) {
     case FETCH_LIMITED_PRODUCT_REQUEST:
       return limitedProductinitialState;
 
     case FETCH_LIMITED_PRODUCT_SUCCESS:
-      console.log(payload);
       return {
         ...state,
-        status: "success",
-        message: "products fetched successfully",
+        status: 'success',
+        message: 'products fetched successfully',
         all: payload.data,
         next: payload.next || {},
         previous: payload.previous || {},
@@ -198,7 +186,7 @@ export const fetch_limited_product_reducer = (
     case FETCH_LIMITED_PRODUCT_FAILED:
       return {
         ...state,
-        status: "failed",
+        status: 'failed',
         message: payload,
       };
     default:

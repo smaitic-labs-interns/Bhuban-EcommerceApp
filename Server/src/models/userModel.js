@@ -14,8 +14,16 @@ const User = ({firstName, middleName, lastName, address, email, password}) =>{
         lastName: value.lastName,
         address: value.address,
         email: value.email,
-        password: bcrypt.hashSync(value.password, bcrypt.genSaltSync(10))
+        password: bcrypt.hashSync(value.password, bcrypt.genSaltSync(10)),
+        role: 'user',
     }
 }
 
-module.exports = {User};
+const UpdateUser = ({firstName, middleName, lastName, address}) =>{
+    const {error, value} = validation.update_user_validation({firstName, middleName, lastName, address});
+    if(error) throw error;
+    
+    return value;
+}
+
+module.exports = {User,UpdateUser};

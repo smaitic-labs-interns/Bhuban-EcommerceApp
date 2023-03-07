@@ -29,6 +29,27 @@ const user_validation = ({
   });
 };
 
+const update_user_validation = ({
+  firstName,
+  middleName,
+  lastName,
+  address,
+}) => {
+  const user_rule = Joi.object({
+    firstName: Joi.string().min(3).max(30).required(),
+    middleName: Joi.string().allow("", null).min(3).max(30),
+    lastName: Joi.string().min(3).max(30).required(),
+    address: Joi.string().max(100).required(),
+  });
+
+  return user_rule.validate({
+    firstName,
+    middleName,
+    lastName,
+    address,
+  });
+};
+
 const sign_in_validation = ({ email, password }) => {
   const credintals_rule = Joi.object({
     email: Joi.string()
@@ -57,8 +78,8 @@ const product_validation = ({
     brand: Joi.string().required(),
     name: Joi.string(),
     description: Joi.string(),
-    price: Joi.number().required(),
-    quantity: Joi.number().required(),
+    price: Joi.number().precision(2).min(0.1).required(),
+    quantity: Joi.number().min(1).required(),
     addedBy: Joi.string().required(),
   });
   return product_rule.validate({
@@ -159,9 +180,38 @@ const Updatable_address_validation = ({
 
 module.exports = {
   user_validation,
+  update_user_validation,
   sign_in_validation,
   product_validation,
   updating_product_validation,
   address_validation,
   Updatable_address_validation,
+};
+
+const send_email_validation = ({ to, from, subject }) => {
+  const send_email_schema = Joi.object({
+    to: Joi.string()
+      .email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } })
+      .required(),
+    from: Joi.string()
+      .email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } })
+      .required(),
+    subject: Joi.string().required(),
+  });
+  return send_email_schema.validate({
+    to,
+    from,
+    subject,
+  });
+};
+
+module.exports = {
+  user_validation,
+  update_user_validation,
+  sign_in_validation,
+  product_validation,
+  updating_product_validation,
+  address_validation,
+  Updatable_address_validation,
+  send_email_validation,
 };
